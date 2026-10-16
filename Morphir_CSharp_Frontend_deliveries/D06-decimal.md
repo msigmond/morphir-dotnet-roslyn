@@ -1,0 +1,75 @@
+# D6 — Exact Decimal construction and safety
+
+- status: planned
+- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- prerequisites: [D4](D04-maybe.md), [D5](D05-numerics.md)
+- outcome: Exact 0.1m + C#-compatible proven-safe calculations
+- ownership: Decimal mappings/helpers; D3 safety proofs; Decimal codec
+- fixture-root: `fixtures/D6/`; test trait: `Delivery=D6`
+
+## Implementation
+
+- [ ] CurrentSupportedExample update: exact construction, guarded arithmetic/conversions, rounding/scale within proven-safe domains
+- [ ] Exact decimal construction; no binary-float intermediate; construction dependencies recorded
+- [ ] SDK fromString → Maybe Decimal; constant validity + M1 extraction proof; no fallback default
+- [ ] Arithmetic/comparison/casts/rounding/observable scale/range; SDK semantics verified or compatibility helpers
+- [ ] Failure proof: overflow, zero division, conversions, supported-member preconditions; nonzero divisor alone insufficient
+- [ ] Proof propagation through branches/local updates/calls; constants + validated bounds + dominating guards
+- [ ] Business return types retained; no Result/Maybe error wrapper, saturation, invented defaults or differing arithmetic adoption
+
+## Model increment
+
+- DecimalLiteral serialization; Decimal construction/helper references
+
+## Fixture contract
+
+- package: `Example`; namespace: `Example.D6`
+- source data paths: —
+- member modules: `Example.D6.Rules`
+- constraints: Policy D3 ≠ delivery D3; selected policy remains mandatory after D18.1
+
+## Acceptance
+
+- [ ] 3 units → exact 0.3; sample result domain 0..100; tenth 1 construction exact
+- [ ] Constants + guarded bounds → success; full-distribution parity with identical construction/arithmetic
+- [ ] C# rounding/conversion/scale boundaries → behavior evidence
+- [ ] Zero divisor, possible overflow, unproved safety → rejection, including within catch
+- [ ] Decimal literal codec: independent Elm fixture even when source literals lowered to calls
+
+## Rejections
+
+- [ ] Unproved Decimal failure safety; undocumented business bounds
+- [ ] Checked syntax; binary-floating construction; error-wrapper substitution
+
+## Code examples
+
+### C#
+
+```csharp
+namespace Example.D6;
+
+public static class Rules
+{
+    public static decimal Price(int units)
+    {
+        if (units < 0 || units > 1000)
+            return 0m;
+        return units * 0.1m;
+    }
+}
+```
+
+### Elm — Example/D6/Rules.elm
+
+```elm
+module Example.D6.Rules exposing (price)
+
+import Morphir.SDK.Decimal as Decimal exposing (Decimal)
+
+price : Int -> Decimal
+price units =
+    if units < 0 || units > 1000 then
+        Decimal.zero
+    else
+        Decimal.mul (Decimal.fromInt units) (Decimal.tenth 1)
+```
