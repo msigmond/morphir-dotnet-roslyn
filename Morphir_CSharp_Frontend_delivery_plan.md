@@ -1,6 +1,6 @@
 # Morphir C# frontend — master execution plan
 
-- status: planned; implementation target: this repository
+- status: D1 passed; D2–D21 planned; implementation target: this repository
 - updated: 2026-10-16
 - executor target: GPT-6.1 Sol / High
 - authority: this master → active delivery → implementation evidence
@@ -53,6 +53,7 @@
 | [D20](Morphir_CSharp_Frontend_deliveries/D20-msbuild.md) | MSBuild adapter | D19, D2 |
 | [D21](Morphir_CSharp_Frontend_deliveries/D21-acceptance.md) | Complete frontend acceptance | D20 |
 
+- current execution: D1 passed; next delivery D2; [D1 implementation/gate evidence](docs/deliveries/D1-state.md)
 - D18 grouping: D18.1 → D18.2 → D18.3 → D18.4; no separate D18 implementation delivery
 - test trait: `Delivery=<ID>`; example `Delivery=D18.1`
 - validation minimum: active-delivery tests + affected prerequisite regression suites; D21 full clean suite
@@ -104,7 +105,7 @@ docs/
 - syntax: declaration discovery/source locations; symbols: identity/types/calls; IOperation + CFG: semantics
 - output: typed model + diagnostics; unsupported selected source → failure; no silent partial distribution
 - prototype: [archived addition regression](docs/references/prototype-addition/PROVENANCE.md); no runtime dependency
-- bootstrap: planning/docs/licensing only; D1–D21 implementation pending
+- bootstrap foundation retained; D1 implementation passed ([evidence](docs/deliveries/D1-state.md)); D2–D21 pending
 - CLI first; MSBuild D20; further environments/deserialization outside current scope
 
 ## Repository artifacts — D1 onward
@@ -312,7 +313,7 @@ docs/
 - namespace audit: 11 source data types, 25 static containers, 48 methods, 4 enum constants; declaration/import owners checked
 - Elm: 42 blocks syntax; 41 business modules v3 generation (40 default + D14 fallback); D19 host syntax/owner separately
 - generated IR audit: source type/member/enum paths; D10 receivers; private helpers
-- frontend C#/Elm complete parity: implementation gate, unverified by planning examples
+- frontend C#/Elm complete parity: planning examples alone were unverified; D1 now has eight independent complete distribution references and passed parity/behavior evidence; later deliveries remain unverified
 - D11 Array clarification: child-local verified toolchain limitation + dependency distinction; compatibility sample retained
 
 ## Contract sources

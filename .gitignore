@@ -1,8 +1,12 @@
 **/bin/
 **/obj/
-node_modules/
-out/
+**/node_modules/
+**/elm-stuff/
 artifacts/
+**/morphir-hashes.json
+
+.packages/
+out/
 TestResults/
 .vs/
 .idea/

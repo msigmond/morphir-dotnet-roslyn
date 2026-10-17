@@ -1,41 +1,74 @@
 # Morphir .NET Roslyn
 
-C# data and pure business logic → Morphir Classic IR, format version 3.
+C# data and pure business logic → typed Morphir Classic IR, format version 3.
 
-- status: planning/bootstrap only; D1 implementation pending
-- target: .NET 10, C# 14, explicit 64-bit native integers
-- execution: CLI first; MSBuild later
-- reference: Morphir Elm 2.100.0; structural JSON equality
+D1 supplies an explicit-source-file CLI, a Roslyn frontend, a Roslyn-free typed model and explicit JSON codecs. D2 project loading and all later deliveries remain pending. See the [master plan](Morphir_CSharp_Frontend_delivery_plan.md), [D1 contract](Morphir_CSharp_Frontend_deliveries/D01-cli-record.md), and [D1 evidence](docs/deliveries/D1-state.md).
 
-## Plan
+## Prerequisites
 
-- [Master plan](Morphir_CSharp_Frontend_delivery_plan.md): decisions, layout, gates, delivery index
-- [D1](Morphir_CSharp_Frontend_deliveries/D01-cli-record.md): first executable feature
-- [AGENTS.md](AGENTS.md): repository workflow
-- [Historical documents](docs/history/): context only; master takes precedence
-- [Archived addition regression](docs/references/prototype-addition/PROVENANCE.md): migration input only
+- .NET SDK **10.0.100** (`global.json`, roll-forward disabled), C# **14**, .NET reference pack **10.0.0** (installed by that SDK).
+- Roslyn **5.0.0**, xUnit **2.9.3**, runner **3.0.2**, test SDK **17.14.1**; exact central pins and per-project package locks.
+- For reference generation only: Node.js/npm (verified with **20.18.1/9.2.0**), Git, Morphir Elm **2.100.0**, Elm **0.19.1**. Tool packages and transitive integrity hashes are locked in `eng/package-lock.json`; Morphir source revision is `71ca7ee385273b0af6f8db66582c26e9b410cbf2`.
+- Python 3 for repository contract checks. Package acquisition requires network access; normal validation uses committed reference JSON.
 
-## Current contents
+## Build and validate
 
-- Master + 24 delivery plans; paired C#/Elm examples
-- Bootstrap README and agent instructions
-- Mirrored upstream license and attribution
-- Historical plans and addition regression inputs
-
-- implementation: no solution/build scripts/test suite yet
-- build/test/CLI commands: D1, after verification
-- cumulative `CurrentSupportedExample` project: D1 onward
-
-## Initial review
+Run from this repository root:
 
 ```sh
-git status --short
-git diff --cached --stat
-git diff --cached
+dotnet restore Morphir.CSharp.slnx --packages .packages --locked-mode
+dotnet build Morphir.CSharp.slnx --no-restore -m:1
+dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1 --filter Delivery=D1
+python3 eng/check-repository.py
 ```
 
-Commit/push: after user review and authorization.
+The solution includes the cumulative sample. Tests compare complete distributions with independent Elm outputs, check compiled C#/IR behavior at boundaries, exercise diagnostics and the CLI, and verify reference hashes. Expected JSON is never rewritten by build/test/check commands. VSTest requires a local socket to communicate with its host; restrictive execution sandboxes may need permission for the test command.
 
-## License
+## CLI
 
-[Apache License 2.0](LICENSE); [NOTICE](NOTICE); [source and hashes](docs/references/LICENSING.md).
+```sh
+dotnet run --project src/Morphir.Frontend.CSharp.Cli --no-build -- \
+  --package Example --namespace Example.CurrentSupported \
+  --source samples/CurrentSupportedExample/CurrentSupportedExample.cs \
+  --output artifacts/current-supported.json
+```
+
+Repeat `--source` for more files and `--namespace` for additional selectors. Package, source inputs, selectors and output are explicit. Exit status: 0 success, 1 compiler/conversion rejection, 2 invocation/I/O failure. Diagnostics include a stable code and source location. Successful writes use deterministic UTF-8 and atomic replacement; a rejected conversion leaves an existing artifact intact and creates no new artifact.
+
+## Current support and boundaries
+
+D1 supports positional **readonly record structs** with `int`/`bool` data, static expression-bodied functions, record construction/reads, Int32 comparisons, Boolean `&&`/`||`, literal strings, and proven-safe Int32 addition. Addition requires a constant sum within Int32 range or a zero operand. General wraparound arithmetic is D5; unbounded `int + int` is rejected now. Nullable fields/general strings are D4, Decimal is D6, method calls are D7, blocks/locals are D3, and project inputs/generators are D2.
+
+Namespace selectors match complete, case-sensitive segments and include descendants. Overlaps are deduplicated. Unused/nonpublic declarations are included; their `Public`/`Private` wrappers and source owner paths are retained. A required source type outside the selected namespaces produces a diagnostic until its namespace is explicitly selected. Unsupported selected types/members/operations fail the whole conversion. Generated record plumbing is represented by the data mapping rather than exported as synthetic methods.
+
+Checked expressions/blocks/operators and checked semantic arithmetic/conversions, async/await, pointer/ref-like uses, identity, effects, mutations and other forms outside the D1 contract are rejected. No presence/default/error wrapper is invented. The CLI fixes the native target to x64; the compilation API rejects incompatible 32-bit settings. Full exclusion and later-delivery policies remain in the master plan.
+
+The [CurrentSupportedExample](samples/CurrentSupportedExample/CurrentSupportedExample.cs) exercises delivered forms. Its [language coverage map](docs/catalogs/language.md), [semantic mapping](docs/mappings/D1.md), [framework inventory](docs/catalogs/framework.md), and [model/codec inventory](docs/catalogs/model-codec.md) describe the precise support boundary.
+
+## Independent references
+
+References are committed under `fixtures/D1/expected`; compiler mode, source and output hashes are in [provenance.json](fixtures/D1/expected/provenance.json). Ordinary Elm fixtures use the default compiler. Private cross-module data, cumulative combined cases and model-only dependencies use a complete Elm algebra/codec host against the unmodified pinned source; no compiled JSON is patched and no private declaration is promoted.
+
+Reference generation is a separate, explicit maintenance operation, followed by review of the changed Elm sources, JSON and provenance:
+
+```sh
+npm ci --prefix eng --ignore-scripts --no-audit --no-fund
+node eng/generate-references.mjs --write
+```
+
+Do not run reference generation during validation or to make a failing parity test pass. Tests and `eng/check-repository.py` check the frozen hashes.
+
+## Layout
+
+- `src/Morphir.IR.Classic`: generic attribute algebra, typed distribution containers and public specifications.
+- `src/Morphir.IR.Json`: explicit v3 codecs, structural comparator and atomic output.
+- `src/Morphir.Frontend.CSharp`: Compilation + settings → typed distribution + diagnostics; explicit-file reference acquisition.
+- `src/Morphir.Frontend.CSharp.Cli`: command-line adapter.
+- `tests`: model, JSON, frontend and integration suites, all tagged `Delivery=D1`.
+- `samples`, `fixtures`, `eng`, `docs`: cumulative source, independent references, tooling, mappings/catalogs/evidence.
+
+MSBuild, shared project-system adapters and complete Classic algebra coverage are later deliveries. [Historical documents](docs/history/) and the [archived prototype](docs/references/prototype-addition/PROVENANCE.md) are context, not current commands or support claims.
+
+## License and review
+
+[Apache License 2.0](LICENSE); [NOTICE](NOTICE); [licensing reconciliation and complete upstream attribution](docs/references/LICENSING.md). Root LICENSE/NOTICE bytes are preserved. Commit/push requires user review and authorization. [AGENTS.md](AGENTS.md) defines repository workflow.

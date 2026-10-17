@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../TestSupport.cs" Link="TestSupport.cs" />
+    <ProjectReference Include="../../src/Morphir.IR.Classic/Morphir.IR.Classic.csproj" />
+    <ProjectReference Include="../../src/Morphir.IR.Json/Morphir.IR.Json.csproj" />
+    <ProjectReference Include="../../src/Morphir.Frontend.CSharp/Morphir.Frontend.CSharp.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <Using Include="Xunit" />
+  </ItemGroup>
+</Project>

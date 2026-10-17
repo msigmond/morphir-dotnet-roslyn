@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Morphir.Frontend.CSharp/Morphir.Frontend.CSharp.csproj" />
+    <ProjectReference Include="../Morphir.IR.Json/Morphir.IR.Json.csproj" />
+  </ItemGroup>
+</Project>

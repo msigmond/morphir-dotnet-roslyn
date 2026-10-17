@@ -1,0 +1,8 @@
+{
+  "morphirElmVersion": "2.100.0",
+  "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+  "sourceRepository": "https://github.com/finos/morphir-elm.git",
+  "elmCompilerVersion": "0.19.1",
+  "ordinaryCompilerMode": "default",
+  "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+}
