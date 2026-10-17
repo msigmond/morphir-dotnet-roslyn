@@ -40,6 +40,13 @@ public sealed record FieldValue<TA, VA>(VA Attributes, Value<TA, VA> Subject, Na
 public sealed record RecordValue<TA, VA>(VA Attributes, IReadOnlyList<Entry<Name, Value<TA, VA>>> Fields) : Value<TA, VA>(Attributes);
 public sealed record IfValue<TA, VA>(VA Attributes, Value<TA, VA> Condition, Value<TA, VA> Then, Value<TA, VA> Else) : Value<TA, VA>(Attributes);
 public sealed record LetValue<TA, VA>(VA Attributes, Name Name, ValueDefinition<TA, VA> Definition, Value<TA, VA> Body) : Value<TA, VA>(Attributes);
+public sealed record ConstructorValue<TA, VA>(VA Attributes, FQName Name) : Value<TA, VA>(Attributes);
+public abstract record Pattern<VA>(VA Attributes);
+public sealed record WildcardPattern<VA>(VA Attributes) : Pattern<VA>(Attributes);
+public sealed record AsPattern<VA>(VA Attributes, Pattern<VA> Pattern, Name Name) : Pattern<VA>(Attributes);
+public sealed record ConstructorPattern<VA>(VA Attributes, FQName Name, IReadOnlyList<Pattern<VA>> Arguments) : Pattern<VA>(Attributes);
+public sealed record MatchCase<TA, VA>(Pattern<VA> Pattern, Value<TA, VA> Body);
+public sealed record MatchValue<TA, VA>(VA Attributes, Value<TA, VA> Subject, IReadOnlyList<MatchCase<TA, VA>> Cases) : Value<TA, VA>(Attributes);
 public sealed record Input<TA, VA>(Name Name, VA Attributes, IrType<TA> Type);
 public sealed record ValueDefinition<TA, VA>(IReadOnlyList<Input<TA, VA>> Inputs, IrType<TA> Output, Value<TA, VA> Body);
 public sealed record ValueSpecification<TA>(IReadOnlyList<Entry<Name, IrType<TA>>> Inputs, IrType<TA> Output);
@@ -62,6 +69,7 @@ public static class Types
     public static IrType<Unit> Int => Reference("Basics", "Int");
     public static IrType<Unit> Bool => Reference("Basics", "Bool");
     public static IrType<Unit> String => Reference("String", "String");
+    public static IrType<Unit> Maybe(IrType<Unit> element) => new ReferenceType<Unit>(default, new(Sdk, Path.From("Maybe"), Name.From("Maybe")), [element]);
     public static IrType<Unit> Function(IrType<Unit> arg, IrType<Unit> result) => new FunctionType<Unit>(default, arg, result);
 }
 

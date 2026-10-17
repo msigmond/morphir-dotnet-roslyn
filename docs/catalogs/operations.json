@@ -216,8 +216,8 @@
     {
       "operation": "Coalesce",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
     },
     {
       "operation": "AnonymousFunction",
@@ -288,14 +288,14 @@
     {
       "operation": "ConditionalAccess",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
     },
     {
       "operation": "ConditionalAccessInstance",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
     },
     {
       "operation": "InterpolatedString",
@@ -378,8 +378,8 @@
     {
       "operation": "DefaultValue",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
     },
     {
       "operation": "TypeOf",
@@ -588,8 +588,8 @@
     {
       "operation": "IsNull",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
     },
     {
       "operation": "CaughtException",
@@ -612,8 +612,8 @@
     {
       "operation": "CoalesceAssignment",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
     },
     {
       "operation": "Range",

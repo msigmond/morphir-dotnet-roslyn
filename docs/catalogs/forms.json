@@ -104,37 +104,37 @@
     {
       "form": "nullable-values-references",
       "owner": "D4",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "null-literal-and-default",
       "owner": "D4",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "coalesce-and-conditional-access",
       "owner": "D4",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "lifted-nullable-operators",
       "owner": "D4",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "hasvalue-and-null-tests",
       "owner": "D4",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "dominating-present-value-proofs",
       "owner": "D4",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "assignment-alias-call-proof-invalidation",
       "owner": "D4",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "all-integer-widths-signedness-native64",

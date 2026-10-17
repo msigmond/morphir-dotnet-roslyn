@@ -1,4 +1,4 @@
-# Classic model and codec inventory — D1–D3
+# Classic model and codec inventory — D1–D4
 
 This is the D1 increment, not a complete-v3 claim. Classic and Json projects have no Roslyn dependency. D19 owns complete algebra/codec coverage; missing later nodes remain pending.
 
@@ -22,3 +22,5 @@ Explicit codecs are implemented directly against the pinned Morphir codec contra
 D2 adds private-inclusive FQName definition lookup, exercised by independent `calls`, `project`, `internal`, and cumulative `sample` distributions. Existing Reference/Apply and public/private specification codecs cover the increment; no new union node is necessary. Source-reference compilation inputs remain outside IR. Complete v3 algebra coverage is still D19.
 
 D3 adds generic typed `LetValue` encoded as the exact `LetDefinition` array with named value definition and body. D3 ordinary Elm Category and independent complete cumulative codec distributions verify the full nested definitions, output types, attributes and branch bindings. Immutable binding evaluation is checked separately against emitted C# behavior. No general recursive/local-function model is claimed.
+
+D4 adds typed Constructor values, ConstructorPattern/AsPattern/WildcardPattern and PatternMatch, plus Maybe type references. Ordinary Elm and complete cumulative codec references verify all cases, attributes and ordered branches; Maybe absence is a constructor, never JSON null or an invented default. D19 full algebra coverage remains pending.

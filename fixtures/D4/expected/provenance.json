@@ -1,0 +1,62 @@
+{
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "fixtures": [
+    {
+      "name": "maybe",
+      "output": "fixtures/D4/expected/maybe.json",
+      "kind": "ordinary Elm",
+      "mode": "default",
+      "source": "fixtures/D4/elm/maybe",
+      "sha256": "45d7f84c6f09b4b99298525bacb672611c15ba28465167606f364211c311c4b0"
+    },
+    {
+      "name": "sample",
+      "output": "fixtures/D4/expected/sample.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D4/codec-reference",
+      "sha256": "d9ecaa73e40598f7e0043cb0bacef53c9b0706b84cab95e9de4d5374bbfe08ea"
+    }
+  ],
+  "sources": [
+    {
+      "path": "fixtures/D4/elm/maybe/morphir.json",
+      "sha256": "d93628d7a2099611d9c59529c82f50a83df29ca29ad29b98070e159f0655cde8"
+    },
+    {
+      "path": "fixtures/D4/elm/maybe/src/Example/D4/Rules.elm",
+      "sha256": "ca0a37439535749ba34f7d19163ef7c981a4a40bddd2706bb06c1d3067be8323"
+    },
+    {
+      "path": "fixtures/D4/elm/maybe/src/Example/D4.elm",
+      "sha256": "dc38194659be3b67bdd555c66ebe662e16ea8da6cfb097e0bb8b4715ee857126"
+    },
+    {
+      "path": "fixtures/D4/codec-reference/D1Sample.elm",
+      "sha256": "fa1064b971ae0c7d7d90005cac74fc306cf3debf3f57bacdee8ef6bddfae350c"
+    },
+    {
+      "path": "fixtures/D4/codec-reference/D2Sample.elm",
+      "sha256": "a4d311da5883381f9ab14c901d7f6a18b3412ba1644951d9983375264ae60e2e"
+    },
+    {
+      "path": "fixtures/D4/codec-reference/D3Sample.elm",
+      "sha256": "a5782f2f688e29018f88f39140e3659fbb79ccf073b86f1a41e7d8efd9d00155"
+    },
+    {
+      "path": "fixtures/D4/codec-reference/Main.elm",
+      "sha256": "1582a195e24d9ee7f1b5701ef2ad618c18d8b5b08478f336181f7cc0d78e5793"
+    },
+    {
+      "path": "fixtures/D4/codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    }
+  ]
+}

@@ -134,6 +134,7 @@ public static partial class Frontend
             if (diagnostics.Count != 0) return Failure();
             foreach (var type in selected) Try(() => Discover(type));
             if (diagnostics.Count != 0) return Failure();
+            foreach (var method in selected.SelectMany(t => t.GetMembers().OfType<IMethodSymbol>()).Where(m => !m.IsImplicitlyDeclared && m.MethodKind == MethodKind.Ordinary)) sourceMethods[SymbolId(method)] = method;
             foreach (var type in selected) Try(() => Emit(type));
             RejectCycles();
             if (diagnostics.Count != 0) return Failure();
@@ -176,7 +177,7 @@ public static partial class Frontend
             var fields = recordSyntax.ParameterList!.Parameters.Select(p => (IParameterSymbol)model.GetDeclaredSymbol(p)!).ToArray();
             foreach (var p in fields)
             {
-                if (p.Type.SpecialType is not (SpecialType.System_Int32 or SpecialType.System_Boolean) || p.RefKind != RefKind.None || p.HasExplicitDefaultValue || p.GetAttributes().Length != 0 || p.DeclaringSyntaxReferences.Any(r => ((ParameterSyntax)r.GetSyntax()).AttributeLists.Count != 0))
+                if (!AdmittedDataSlot(p.Type) || p.RefKind != RefKind.None || p.HasExplicitDefaultValue || p.GetAttributes().Length != 0 || p.DeclaringSyntaxReferences.Any(r => ((ParameterSyntax)r.GetSyntax()).AttributeLists.Count != 0))
                     Fail<object>("MCS2103", "D1 positional data fields admit int/bool only, with no defaults, ref kinds, or attributes.", Location(p));
             }
             if (fields.GroupBy(p => Name.From(p.Name).Key).Any(g => g.Count() > 1)) Fail<object>("MCS1004", "Record field names collide after normalization.", Location(type));
@@ -187,7 +188,8 @@ public static partial class Frontend
             if (t.IsRefLikeType || t is IPointerTypeSymbol or IFunctionPointerTypeSymbol) return Fail<IrType<Unit>>("MCS2003", "Ref-like/pointer type use is excluded.", loc);
             if (t.SpecialType == SpecialType.System_Int32) return Types.Int;
             if (t.SpecialType == SpecialType.System_Boolean) return Types.Bool;
-            if (returnLiteralString && t.SpecialType == SpecialType.System_String) return Types.String;
+            if (NullableElement(t) is { } element) return Types.Maybe(Type(element, loc));
+            if (t.SpecialType == SpecialType.System_String) return returnLiteralString && t.NullableAnnotation != NullableAnnotation.Annotated ? Types.String : Types.Maybe(Types.String);
             if (t is INamedTypeSymbol n && records.ContainsKey(SymbolId(n))) return new ReferenceType<Unit>(default, Identity(n), []);
             if (t.Locations.Any(l => l.IsInSource) && !identities.ContainsKey(SymbolId(t)))
                 return Fail<IrType<Unit>>("MCS2201", $"Required source symbol {t} in namespace {t.ContainingNamespace} is not selected; add that namespace explicitly.", loc);
@@ -205,7 +207,13 @@ public static partial class Frontend
         }
         private void EmitMethod(IMethodSymbol m)
         {
+            var key = SymbolId(m);
+            if (methodOutputs.ContainsKey(key)) return;
+            if (!emittingMethods.Add(key)) Fail<object>("MCS2203", "Recursive calls require D14.", Location(m));
             var syntax = (MethodDeclarationSyntax)m.DeclaringSyntaxReferences.Single().GetSyntax();
+            var operationRoot = Semantic(syntax.SyntaxTree).GetOperation(syntax)!;
+            foreach (var call in Operations(operationRoot).OfType<IInvocationOperation>())
+                if (sourceMethods.TryGetValue(SymbolId(call.TargetMethod), out var dependency)) EmitMethod(dependency);
             if (!m.IsStatic || m.Arity != 0 || m.IsAsync || (syntax.ExpressionBody is null && syntax.Body is null) || syntax.AttributeLists.Count != 0 || m.GetAttributes().Length != 0 || m.ReturnsByRef || m.ReturnsByRefReadonly || m.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams || p.HasExplicitDefaultValue || p.GetAttributes().Length != 0))
                 Fail<object>("MCS2105", "Functions require static expression or block bodies and ordinary, non-generic by-value parameters.", Location(m));
             if (m.Parameters.GroupBy(p => Name.From(p.Name).Key).Any(g => g.Count() > 1)) Fail<object>("MCS1004", "Parameter names collide after normalization.", Location(m));
@@ -215,9 +223,13 @@ public static partial class Frontend
             currentMethod = SymbolId(m);
             calls.TryAdd(currentMethod, []);
             PrepareBindings(m);
+            currentReturnSlot = output;
             var body = methodBody.BlockBody is { } block
                 ? LowerMethodBlock(methodBody, block, syntax)
-                : Expression(((IReturnOperation)methodBody.ExpressionBody!.Operations.Single()).ReturnedValue!, Copy(bindings), (value, _) => value);
+                : Expression(((IReturnOperation)methodBody.ExpressionBody!.Operations.Single()).ReturnedValue!, Copy(bindings), (value, _) => ReturnValue(value));
+            output = body.Attributes;
+            methodOutputs[key] = output;
+            emittingMethods.Remove(key);
             var id = Identity(m); EnsureModule(id.Module, Visibility(m.ContainingType));
             modules[id.Module.Key].Values.Add(new(id.Local, new(Visibility(m), new(Documentation(m), new(inputs, output, body)))));
         }
@@ -225,6 +237,7 @@ public static partial class Frontend
         private TypedValue Lower(IOperation op)
         {
             if (operandValues.TryGetValue(op, out var evaluated)) return evaluated;
+            if (LowerPresence(op) is { } presence) return presence;
             var loc = op.Syntax.GetLocation();
             var t = op.Type is null ? Types.Bool : Type(op.Type, loc, true);
             switch (op)
@@ -240,6 +253,8 @@ public static partial class Frontend
                 case IUnaryOperation u when u.OperatorKind == UnaryOperatorKind.Minus && u.Type?.SpecialType == SpecialType.System_Int32 && u.ConstantValue is { HasValue: true, Value: int i }:
                     if (u.IsChecked) return Fail<TypedValue>("MCS2004", "Checked semantic arithmetic is excluded.", loc);
                     return Lit(t, new IntLiteral(i));
+                case IConversionOperation c when c.Operand is IDefaultValueOperation && SymbolEqualityComparer.Default.Equals(c.Type, c.Operand.Type):
+                    return Lower(c.Operand);
                 case IConversionOperation c when c.IsChecked:
                     return Fail<TypedValue>("MCS2004", "Checked semantic conversions are excluded.", loc);
                 case IConversionOperation c when c.Conversion.IsIdentity:
@@ -254,14 +269,14 @@ public static partial class Frontend
                 case ILocalReferenceOperation l:
                     return ReadBinding(l.Local, loc);
                 case IConditionalOperation c when c.Type is not null && c.WhenFalse is not null && !c.IsRef:
-                    return new IfValue<Unit, IrType<Unit>>(t, Lower(c.Condition), Lower(c.WhenTrue), Lower(c.WhenFalse));
+                    return Decision(c.Condition, Copy(bindings), state => Expression(c.WhenTrue, state, (v, _) => v), state => Expression(c.WhenFalse, state, (v, _) => v));
                 case IUnaryOperation u when u.OperatorKind == UnaryOperatorKind.Not && u.Type?.SpecialType == SpecialType.System_Boolean && u.OperatorMethod is null:
                     return new ApplyValue<Unit, IrType<Unit>>(Types.Bool, new ReferenceValue<Unit, IrType<Unit>>(Types.Function(Types.Bool, Types.Bool), new(Types.Sdk, IrPath.From("Basics"), Name.From("not"))), Lower(u.Operand));
                 case IPropertyReferenceOperation p when p.Instance is not null && p.Property.ContainingType is { } owner && records.TryGetValue(SymbolId(owner), out var fields) && fields.Any(f => f.Name == p.Property.Name) && p.Arguments.Length == 0:
-                    return new FieldValue<Unit, IrType<Unit>>(t, Lower(p.Instance), Name.From(p.Property.Name));
+                    return new FieldValue<Unit, IrType<Unit>>(Type(p.Property.Type, loc), Lower(p.Instance), Name.From(p.Property.Name));
                 case IObjectCreationOperation c when c.Type is INamedTypeSymbol n && records.TryGetValue(SymbolId(n), out var fs) && c.Initializer is null && c.Constructor is { } ctor && ctor.Parameters.Length == fs.Length && c.Arguments.Length == fs.Length && c.Arguments.All(a => a.ArgumentKind == ArgumentKind.Explicit):
                     // Pure D1 arguments permit sorting record entries; evaluation cannot change observations.
-                    var values = c.Arguments.Select(a => new Entry<Name, TypedValue>(Name.From(fs[a.Parameter!.Ordinal].Name), Lower(a.Value))).OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray();
+                    var values = c.Arguments.Select(a => new Entry<Name, TypedValue>(Name.From(fs[a.Parameter!.Ordinal].Name), Adapt(Lower(a.Value), Type(fs[a.Parameter!.Ordinal].Type, loc)))).OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray();
                     return new RecordValue<Unit, IrType<Unit>>(t, values);
                 case IInvocationOperation invocation:
                     return Invoke(invocation);
@@ -302,6 +317,7 @@ public static partial class Frontend
         }
         private FQName ValidateInvocation(IInvocationOperation invocation)
         {
+            if (NullableDefaultCall(invocation)) return MaybeName("withDefault");
             var target = invocation.TargetMethod;
             var loc = invocation.Syntax.GetLocation();
             if (!identities.TryGetValue(SymbolId(target), out var fq))
@@ -322,12 +338,12 @@ public static partial class Frontend
         {
             var target = invocation.TargetMethod; var loc = invocation.Syntax.GetLocation();
             var fq = ValidateInvocation(invocation);
-            IrType<Unit> functionType = Type(target.ReturnType, loc, true);
+            IrType<Unit> functionType = methodOutputs[SymbolId(target)];
             foreach (var parameter in target.Parameters.Reverse()) functionType = Types.Function(Type(parameter.Type, loc), functionType);
             TypedValue result = new ReferenceValue<Unit, IrType<Unit>>(functionType, fq);
             foreach (var argument in invocation.Arguments)
             {
-                var argumentValue = Lower(argument.Value);
+                var argumentValue = Adapt(Lower(argument.Value), Type(argument.Parameter!.Type, loc));
                 functionType = ((FunctionType<Unit>)functionType).Result;
                 result = new ApplyValue<Unit, IrType<Unit>>(functionType, result, argumentValue);
             }

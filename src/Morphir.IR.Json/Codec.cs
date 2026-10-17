@@ -30,12 +30,21 @@ public static class Codec
         StringLiteral s => Arr("StringLiteral", s.Value),
         _ => throw new NotSupportedException(l.GetType().Name)
     };
+    private static object Pattern<VA>(Pattern<VA> pattern, Func<VA, object> attr) => pattern switch
+    {
+        WildcardPattern<VA> p => Arr("WildcardPattern", attr(p.Attributes)),
+        AsPattern<VA> p => Arr("AsPattern", attr(p.Attributes), Pattern(p.Pattern, attr), Name(p.Name)),
+        ConstructorPattern<VA> p => Arr("ConstructorPattern", attr(p.Attributes), Fq(p.Name), p.Arguments.Select(a => Pattern(a, attr)).ToArray()),
+        _ => throw new NotSupportedException(pattern.GetType().Name)
+    };
     public static object Value<TA, VA>(Value<TA, VA> v, Func<TA, object> ta, Func<VA, object> va)
     {
         object V(Value<TA, VA> x) => Value(x, ta, va);
         var a = va(v.Attributes);
         return v switch
         {
+            ConstructorValue<TA, VA> x => Arr("Constructor", a, Fq(x.Name)),
+            MatchValue<TA, VA> x => Arr("PatternMatch", a, V(x.Subject), x.Cases.Select(c => Arr(Pattern(c.Pattern, va), V(c.Body))).ToArray()),
             LiteralValue<TA, VA> l => Arr("Literal", a, Literal(l.Literal)),
             VariableValue<TA, VA> x => Arr("Variable", a, Name(x.Name)),
             ReferenceValue<TA, VA> x => Arr("Reference", a, Fq(x.Name)),

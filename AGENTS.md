@@ -1,18 +1,18 @@
 # Agent instructions
 
 - authority: user instructions → [master](Morphir_CSharp_Frontend_delivery_plan.md) → active delivery
-- state: D1–D3 passed; D4–D21 pending; [D3 evidence](docs/deliveries/D3-state.md); [D2 evidence](docs/deliveries/D2-state.md); [D1 evidence](docs/deliveries/D1-state.md)
+- state: D1–D4 passed; D5–D21 pending; [D4 evidence](docs/deliveries/D4-state.md); [D3 evidence](docs/deliveries/D3-state.md); [D2 evidence](docs/deliveries/D2-state.md); [D1 evidence](docs/deliveries/D1-state.md)
 - active context: master + selected child + prerequisite evidence + affected code/catalogs
 - workflow: one delivery; prerequisite gates; incremental working feature; full structural parity; required behavior/rejection checks
 - baseline: SDK 10.0.100; C#14; reference pack 10.0.0; Roslyn 5.0.0; explicit x64 CLI; no silent type/member loss or version/scope upgrades
 - layout: Morphir.CSharp.slnx; src/{Classic,Json,core,CLI} projects (full names in master); tests; fixtures/<ID>; samples/CurrentSupportedExample; eng; docs
 - restore: `dotnet restore Morphir.CSharp.slnx --packages .packages --locked-mode`
 - build: `dotnet build Morphir.CSharp.slnx --no-restore -m:1`
-- tests/parity/behavior: `dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1 --filter 'Delivery=D1|Delivery=D2|Delivery=D3'`; VSTest needs a local host socket
+- tests/parity/behavior: `dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1 --filter 'Delivery=D1|Delivery=D2|Delivery=D3|Delivery=D4'`; VSTest needs a local host socket
 - repository checks: `python3 eng/check-repository.py`; all 24 plans, Markdown links/fences, unchanged embedded paired code, reference hashes, protected license bytes, whitespace incl. `git diff --cached --check`
 - CLI/sample: verified invocation in [README](README.md); core accepts Compilation + settings; adapters own acquisition/serialization
 - semantics: source owner paths; Public/Private; explicit checked syntax/semantic rejection; source-located failure; no partial success artifact
-- D1/D2/D3 domain: positional readonly int/bool record structs, static expression bodies, known-present string literal, comparison/short circuit, safe addition; exact nonrecursive selected static positional calls; actual project/source-generator graphs; structured blocks/locals/constants, simple local/by-value rebindings, decisions/returns, Boolean operations; extended forms pending
+- D1–D4 domain: positional readonly int/bool record structs, static expression bodies, known-present string literal, comparison/short circuit, safe addition; exact nonrecursive selected static positional calls; actual project/source-generator graphs; structured blocks/locals/constants, simple local/by-value rebindings, decisions/returns, Boolean operations; nullable/reference Maybe slots, guarded extraction/defaults/coalescing/conditional access/lifted operators; extended forms pending
 - safety: Maybe M1; Decimal D3; local ownership; aliases/effects; no invented defaults/error wrappers; no unstated business bounds
 - fixtures: independent source/complete Elm codec references; Morphir Elm 2.100.0/source 71ca7ee385273b0af6f8db66582c26e9b410cbf2; exact mode/provenance; no golden refresh during validation
 - reference generation: separate explicit reviewed operation: `npm ci --prefix eng --ignore-scripts --no-audit --no-fund`, then `node eng/generate-references.mjs --write`; never use to fix parity by adopting frontend output

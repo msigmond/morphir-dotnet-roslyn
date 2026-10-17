@@ -45,7 +45,6 @@ public class FrontendTests
     [InlineData("public static int F(System.Span<int> p) => 1;", "MCS2003")]
     [InlineData("public static int F(int a,int b) => a + b;", "MCS2302")]
     [InlineData("public static int F(int a) => a / 2;", "MCS2106")]
-    [InlineData("public static string F(string a) => a;", "MCS2104")]
     [InlineData("public static int F() => System.Environment.TickCount;", "MCS2107")]
     [InlineData("public static bool F(object a,object b) => object.ReferenceEquals(a,b);", "MCS2104")]
     [InlineData("public static int F(int[] a) => a[0];", "MCS2104")]
@@ -61,7 +60,6 @@ public class FrontendTests
     [InlineData("UnsafeAddition", "MCS2302")]
     [InlineData("Checked", "MCS2001")]
     [InlineData("InputUpdate", "MCS2107")]
-    [InlineData("Nullable", "MCS2103")]
     [InlineData("Decimal", "MCS2104")]
     [InlineData("Effects", "MCS2107")]
     public void IsolatedRejectionFixtures(string file, string code)

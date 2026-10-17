@@ -1,6 +1,6 @@
 # D4 — Missing values and M1 presence proofs
 
-- status: planned
+- status: passed
 - required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
 - prerequisites: [D3](D03-blocks-locals.md)
 - outcome: Nullable fields, explicit defaults, proven-safe extraction
@@ -9,12 +9,14 @@
 
 ## Implementation
 
-- [ ] CurrentSupportedExample update: nullable data, null tests/coalescing/conditional access/lifted forms, guarded extraction
-- [ ] Nullable values + reference slots → Maybe; reference fields/array elements/default initialization included
-- [ ] Null literals/tests; conditional access; coalescing; lifted-operation C# semantics
-- [ ] Construction/domain/flow invariants for absent cases; annotations alone insufficient
-- [ ] Presence proof at every .Value/dereference; invalidation after relevant assignment, alias update, call
-- [ ] Null-forgiving !: no added proof; no invented defaults, Nothing substitution, error wrappers or hidden exception fallback
+- [x] CurrentSupportedExample update: nullable data, null tests/coalescing/conditional access/lifted forms, guarded extraction
+- [x] Nullable values + reference slots → Maybe; reference fields/array elements/default initialization included
+- [x] Null literals/tests; conditional access; coalescing; lifted-operation C# semantics
+- [x] Construction/domain/flow invariants for absent cases; annotations alone insufficient
+- [x] Presence proof at every .Value/dereference; invalidation after relevant assignment, alias update, call
+- [x] Null-forgiving !: no added proof; no invented defaults, Nothing substitution, error wrappers or hidden exception fallback
+
+D4 supplies the null-slot/proof foundation for later D9 reference data and D11 array elements/default slots. String M1/Length is delivered here; pure member families depending on later types remain explicitly tracked through D18.4, with no scope exclusions.
 
 ## Model increment
 
@@ -29,16 +31,16 @@
 
 ## Acceptance
 
-- [ ] Customer type → Example.D4.Customer; no repeated type-name segment
-- [ ] Missing age → false; missing region → explicit "unknown" source default
-- [ ] Guarded HasValue/.Value → success; null propagation + explicit fallback → paired Maybe parity
-- [ ] Invalidated guard after reassignment/call/alias write → rejection
-- [ ] Non-nullable annotated slot with possible default null → Maybe; invariant-proven present slot → permitted extraction
+- [x] Customer type → Example.D4.Customer; no repeated type-name segment
+- [x] Missing age → false; missing region → explicit "unknown" source default
+- [x] Guarded HasValue/.Value → success; null propagation + explicit fallback → paired Maybe parity
+- [x] Invalidated guard after reassignment/call/alias write → rejection
+- [x] Non-nullable annotated slot with possible default null → Maybe; invariant-proven present slot → permitted extraction
 
 ## Rejections
 
-- [ ] Unguarded .Value; possible null dereference; annotation/! without proof
-- [ ] Unsafe missing access even inside catch
+- [x] Unguarded .Value; possible null dereference; annotation/! without proof
+- [x] Unsafe missing access even inside catch
 
 ## Code examples
 

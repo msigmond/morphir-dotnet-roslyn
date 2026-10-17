@@ -1,6 +1,6 @@
-# Language coverage — D1–D3
+# Language coverage — D1–D4
 
-Status: D1–D3 passed; D4 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is `fixtures/D3/expected/sample.json`; the D1 standalone reference is unchanged. No future business-source forms are included.
+Status: D1–D4 passed; D5 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is `fixtures/D4/expected/sample.json`; the D1 standalone reference is unchanged. No future business-source forms are included.
 
 | Supported form | Cumulative example symbol/location | Additional parity / behavior evidence |
 | --- | --- | --- |
@@ -48,3 +48,17 @@ D1 does not admit locals/aliases/mutation, nullable data or Decimal arithmetic. 
 | Source-order call argument assignments | `ArgumentAssignment`, private `FirstArgument` | Complete private definition/call parity; original first argument retained |
 
 D3 preserves the D1 numeric contract: constants or an established zero operand only. It rebinds immutable IR variables for local/by-value parameter assignments and never mutates an input record or external state. String results are still known-present: only literals, closed source calls and initialized local/conditional combinations can produce them; general String input/data is D4. Full project-mode cumulative parity follows [the current reference pointer](../../samples/CurrentSupportedExample/reference.json); older references remain frozen.
+
+## D4 additions
+
+| Form / contract | Cumulative example in Presence.cs | Evidence |
+| --- | --- | --- |
+| Nullable value/reference fields and annotated reference slot | `OptionalCustomer`, `AnnotatedReference`, `EchoReference` | Full D4 sample and ordinary seed parity; null/empty/present inputs |
+| HasValue/.Value, null tests and dominance | `MissingAdult`, `GuardedAnnotation`, `GuardCopy` | Boundaries and invalidated/saved guard negatives; immutable value copies |
+| Null/default/empty record construction and present construction proof | `NullResult`, `DefaultOptional`, `DefaultRecord`, `ConstructOptional`, `ConstructedAge`, `NullableLocal` | Full typed constructors/record fields; default-null despite annotation; `!` alone rejected |
+| Coalescing/conditional access, UTF-16 Length | `RegionOrUnknown`, `RegionLength`, `ReferenceCall` | Null/empty/UK/surrogate pair; source fallback only |
+| Nullable comparisons, arithmetic, three-valued Boolean logic | `NullableEqual`, `NullableGreater`, `NullableAddZero`, `NullableAnd/Or/Xor/Not` | All Boolean? pairs; nullable Int32 extrema against emitted C# |
+| Coalescing assignment and source-state order | `InitializeMissing`, `CoalesceState` | Branch-specific rebinding, later read and fallback evaluation |
+| Exact Nullable.GetValueOrDefault member | `DefaultFromMember` | Explicit source member/default semantics; zero/explicit fallback variants in tests |
+
+The D4 null-slot representation is reusable by later array/reference data owners; D11 still owns array construction/indexing and D9 owns reference-class data. These future forms are not enabled prematurely. String member families requiring Char/arrays/delegates/object and the remaining pure-member closure remain catalog obligations through D18.4; D4 claims M1 representation and the exact Length getter only. No type/member scope is removed.

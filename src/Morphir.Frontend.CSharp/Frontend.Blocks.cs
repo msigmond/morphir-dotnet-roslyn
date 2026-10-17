@@ -21,6 +21,9 @@ public static partial class Frontend
             bindings = new(SymbolEqualityComparer.Default);
             bindingNames.Clear();
             bindingConstants.Clear();
+            presentValues.Clear();
+            bindingOrigins.Clear();
+            boundValues.Clear();
             operandValues.Clear();
             provedArithmetic.Clear();
             foreach (var id in identities.Values) bindingNames.Add(id.Local.Key);
@@ -93,7 +96,7 @@ public static partial class Frontend
         private void ValidateBlockOperations(IOperation operation)
         {
             // Validate selected source even where a constant branch/return makes it unreachable.
-            bool supported = operation is IBlockOperation or IVariableDeclarationGroupOperation or IVariableDeclarationOperation
+            bool supported = PresenceOperation(operation) || operation is IBlockOperation or IVariableDeclarationGroupOperation or IVariableDeclarationOperation
                 or IVariableDeclaratorOperation or IVariableInitializerOperation or IExpressionStatementOperation
                 or ISimpleAssignmentOperation or IReturnOperation or IConditionalOperation or IEmptyOperation
                 or ILiteralOperation or IParameterReferenceOperation or ILocalReferenceOperation or IPropertyReferenceOperation
@@ -102,11 +105,9 @@ public static partial class Frontend
             if (operation.Type is { SpecialType: not SpecialType.System_Void } type) Type(type, operation.Syntax.GetLocation(), true);
             if (operation is ISimpleAssignmentOperation assignment && (assignment.IsRef || assignment.Target is not (ILocalReferenceOperation or IParameterReferenceOperation)))
                 Fail<object>("MCS2404", "D3 assignment must rebind a local/by-value parameter; input/external member updates are not permitted.", operation.Syntax.GetLocation());
-            if (operation is IPropertyReferenceOperation property && !records.ContainsKey(SymbolId(property.Property.ContainingType)))
+            if (operation is IPropertyReferenceOperation property && !PresenceProperty(property) && !records.ContainsKey(SymbolId(property.Property.ContainingType)))
                 Fail<object>("MCS2107", "Unknown/effectful property read is outside the admitted record mapping.", operation.Syntax.GetLocation());
-            if (operation is ILiteralOperation { ConstantValue: { HasValue: true, Value: null } })
-                Fail<object>("MCS2301", "Missing values require the D4 presence mapping.", operation.Syntax.GetLocation());
-            if (operation is IBinaryOperation binary)
+            if (operation is IBinaryOperation binary && !PresenceBinary(binary))
             {
                 bool boolean = binary.LeftOperand.Type?.SpecialType == SpecialType.System_Boolean && binary.RightOperand.Type?.SpecialType == SpecialType.System_Boolean;
                 bool admitted = boolean
@@ -115,20 +116,20 @@ public static partial class Frontend
                 if (!admitted || binary.OperatorMethod is not null || binary.IsLifted) Fail<object>("MCS2106", "Unmapped binary operator in selected source.", operation.Syntax.GetLocation());
                 if (binary.IsChecked && binary.OperatorKind == BinaryOperatorKind.Add) Fail<object>("MCS2004", "Checked semantic arithmetic is excluded.", operation.Syntax.GetLocation());
             }
-            if (operation is IUnaryOperation unary)
+            if (operation is IUnaryOperation unary && !unary.IsLifted)
             {
                 if (unary.IsChecked) Fail<object>("MCS2004", "Checked semantic arithmetic is excluded.", operation.Syntax.GetLocation());
                 if (!(unary.OperatorMethod is null && (unary.OperatorKind == UnaryOperatorKind.Not && unary.Type?.SpecialType == SpecialType.System_Boolean || unary.OperatorKind == UnaryOperatorKind.Minus && unary.Type?.SpecialType == SpecialType.System_Int32 && unary.ConstantValue is { HasValue: true, Value: int })))
                     Fail<object>("MCS2107", "Unmapped unary operator in selected source.", operation.Syntax.GetLocation());
             }
-            if (operation is IConversionOperation conversion)
+            if (operation is IConversionOperation conversion && !PresenceConversion(conversion))
             {
                 if (conversion.IsChecked) Fail<object>("MCS2004", "Checked semantic conversions are excluded.", operation.Syntax.GetLocation());
                 if (!(conversion.Conversion.IsIdentity || conversion.Operand is IObjectCreationOperation creation && !conversion.Conversion.IsUserDefined && SymbolEqualityComparer.Default.Equals(conversion.Type, creation.Type)))
                     Fail<object>("MCS2107", "Unmapped conversion in selected source.", operation.Syntax.GetLocation());
             }
             if (operation is IConditionalOperation { IsRef: true }) Fail<object>("MCS2404", "Ref conditionals require later ownership analysis.", operation.Syntax.GetLocation());
-            if (operation is IObjectCreationOperation creationOperation && (creationOperation.Type is not INamedTypeSymbol named || !records.TryGetValue(SymbolId(named), out var fields) || creationOperation.Initializer is not null || creationOperation.Constructor?.Parameters.Length != fields.Length || creationOperation.Arguments.Length != fields.Length || creationOperation.Arguments.Any(a => a.ArgumentKind != ArgumentKind.Explicit)))
+            if (operation is IObjectCreationOperation creationOperation && !NullableCreation(creationOperation) && !DefaultRecordCreation(creationOperation) && (creationOperation.Type is not INamedTypeSymbol named || !records.TryGetValue(SymbolId(named), out var fields) || creationOperation.Initializer is not null || creationOperation.Constructor?.Parameters.Length != fields.Length || creationOperation.Arguments.Length != fields.Length || creationOperation.Arguments.Any(a => a.ArgumentKind != ArgumentKind.Explicit)))
                 Fail<object>("MCS2107", "Unmapped construction in selected source.", operation.Syntax.GetLocation());
             if (operation is IInvocationOperation invocation) ValidateInvocation(invocation);
             foreach (var child in operation.ChildOperations) ValidateBlockOperations(child);
@@ -159,24 +160,16 @@ public static partial class Frontend
                 case IExpressionStatementOperation expression:
                     return Expression(expression.Operation, environment, (value, state) =>
                     {
-                        if (expression.Operation is ISimpleAssignmentOperation) return Next(state);
+                        if (expression.Operation is ISimpleAssignmentOperation or ICoalesceAssignmentOperation) return Next(state);
                         var name = Fresh("discardedValue"); var next = Next(state);
                         return new LetValue<Unit, IrType<Unit>>(next.Attributes, name, new([], value.Attributes, value), next);
                     });
                 case IReturnOperation { ReturnedValue: not null } result:
-                    return Expression(result.ReturnedValue, environment, (value, _) => value);
+                    return Expression(result.ReturnedValue, environment, (value, _) => ReturnValue(value));
                 case IConditionalOperation conditional:
-                    return Expression(conditional.Condition, environment, (condition, state) =>
-                    {
-                        if (conditional.Condition.ConstantValue is { HasValue: true, Value: bool known })
-                        {
-                            var chosen = known ? conditional.WhenTrue : conditional.WhenFalse;
-                            return chosen is null ? Next(state) : Statements([chosen], 0, Copy(state), Next);
-                        }
-                        var then = Statements([conditional.WhenTrue], 0, Copy(state), Next);
-                        var otherwise = conditional.WhenFalse is null ? Next(Copy(state)) : Statements([conditional.WhenFalse], 0, Copy(state), Next);
-                        return new IfValue<Unit, IrType<Unit>>(then.Attributes, condition, then, otherwise);
-                    });
+                    return Decision(conditional.Condition, environment,
+                        state => Statements([conditional.WhenTrue], 0, Copy(state), Next),
+                        state => conditional.WhenFalse is null ? Next(Copy(state)) : Statements([conditional.WhenFalse], 0, Copy(state), Next));
                 case IEmptyOperation:
                     return Next(environment);
                 default:

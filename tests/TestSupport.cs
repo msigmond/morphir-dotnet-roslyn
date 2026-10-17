@@ -48,9 +48,26 @@ internal static class Support
         bytes.Position = 0;
         return new AssemblyLoadContext(Guid.NewGuid().ToString(), true).LoadFromStream(bytes);
     }
+    public sealed record MaybeData(bool Present, object? Value);
+    public static MaybeData Maybe(object? value) => new(value is not null, value);
+    private static object Match(MatchValue<Unit, IrType<Unit>> match, IReadOnlyDictionary<string, object> variables, Library<Unit, IrType<Unit>>? library)
+    {
+        var subject = (MaybeData)Evaluate(match.Subject, variables, library);
+        foreach (var branch in match.Cases)
+        {
+            var constructor = (ConstructorPattern<IrType<Unit>>)branch.Pattern;
+            if ((constructor.Name.Local.Key == "just") != subject.Present) continue;
+            var bound = new Dictionary<string, object>(variables);
+            if (subject.Present && constructor.Arguments.Single() is AsPattern<IrType<Unit>> variable) bound[variable.Name.Key] = subject.Value!;
+            return Evaluate(branch.Body, bound, library);
+        }
+        throw new InvalidOperationException("Non-exhaustive Maybe match");
+    }
     // Small independent interpreter used only for C#/IR behavioral cross-checks.
     public static object Evaluate(V v, IReadOnlyDictionary<string, object> vars, Library<Unit, IrType<Unit>>? library = null) => v switch
     {
+        ConstructorValue<Unit, IrType<Unit>> constructor => constructor.Name.Local.Key == "just" ? (Func<object, object>)(value => Maybe(value)) : Maybe(null),
+        MatchValue<Unit, IrType<Unit>> match => Match(match, vars, library),
         LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral i } => checked((int)i.Value),
         LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral b } => b.Value,
         LiteralValue<Unit, IrType<Unit>> { Literal: StringLiteral s } => s.Value,
@@ -66,7 +83,7 @@ internal static class Support
     private static object Resolve(FQName name, Library<Unit, IrType<Unit>>? library)
     {
         if (name.Package.Key == Types.Sdk.Key)
-            return name.Local.Key == "not" ? (Func<object, object>)(value => !(bool)value)
+            return name.Module.Key == Morphir.IR.Classic.Path.From("String").Key && name.Local.Key == "length" ? (Func<object, object>)(value => ((string)value).Length) : name.Local.Key == "not" ? (Func<object, object>)(value => !(bool)value)
                 : (Func<object, object>)(left => (Func<object, object>)(right => Binary(name.Local.Key, left, right)));
         var definition = Lookup.Value(library!, name) ?? throw new InvalidOperationException($"Missing definition {name}");
         object Bind(int index, Dictionary<string, object> values) => index == definition.Inputs.Count

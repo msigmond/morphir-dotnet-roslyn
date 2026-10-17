@@ -47,15 +47,22 @@
       "type": "System.String",
       "version": "10.0.0",
       "owner": "D4",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "state": "supported",
+      "representation": "Maybe SDK String.String in reference slots, including annotated inputs/default fields; proved-present results remain String.String.",
+      "pureMembers": "D4 exact System.String.Length getter after M1 proof (UTF-16 code units); full pure-member inventory/closure remains pending and includes later Char/array/delegate/object dependent overloads.",
       "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "positiveFixtures": [
+        "fixtures/D4/expected/maybe.json",
+        "fixtures/D4/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "PresenceTests.MissingProofAndUnsupportedEffectsFailWholeConversion"
+      ],
+      "boundaryFixtures": [
+        "PresenceTests.DefaultsGuardsConstructionCopiesAndConditionalAccess: null/empty/surrogate pair"
+      ],
       "memberState": "pending",
-      "memberOwner": "D4",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",

@@ -1,0 +1,8 @@
+{
+  "name": "Example",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "D4",
+    "D4.Rules"
+  ]
+}
