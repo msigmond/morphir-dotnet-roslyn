@@ -1,0 +1,32 @@
+{
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "kind": "production compatibility library compiled from original pure Elm sources",
+  "mode": "default",
+  "output": "src/Morphir.Frontend.CSharp/Compatibility/numeric.json",
+  "sha256": "a1b4c7f3cf6ffc98405ca2272ddbd9d9a6b632a3cbc17dcdaae189a144049d7d",
+  "generated": {
+    "path": "src/Morphir.Frontend.CSharp/Compatibility/NumericLibrary.Generated.cs",
+    "sha256": "af273fcc46139d115104ee3daef5e66379a1a95369a1797340cf3f17b0b5d3bb"
+  },
+  "sources": [
+    {
+      "path": "eng/numeric-compat/morphir.json",
+      "sha256": "032cefd9eea73df377fd0b86e21becb2f5d34d8559b2d1d5c53efedf0b2133e8"
+    },
+    {
+      "path": "eng/numeric-compat/src/Example/Compat/Floating.elm",
+      "sha256": "a3daa9516db2e2bdbf452bfb63ef7183bf42001eb9e3a63fd9655d3fb1fe9b8b"
+    },
+    {
+      "path": "eng/numeric-compat/src/Example/Compat/Integers.elm",
+      "sha256": "e9e1d11e12db914753eb6de8bf200b90b8282792aab02bb7ef75aa594559c08e"
+    }
+  ]
+}

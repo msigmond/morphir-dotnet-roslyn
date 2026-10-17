@@ -58,7 +58,6 @@ public class BlockTests
     [Theory]
     [InlineData("Unassigned", "MCS0001")]
     [InlineData("ExternalUpdate", "MCS2404")]
-    [InlineData("Overflow", "MCS2302")]
     [InlineData("Effects", "MCS2107")]
     public void UnprovedOrExternalStateIsRejected(string fixture, string code)
     {
@@ -89,7 +88,9 @@ public class BlockTests
         foreach (var flag in new[] { false, true }) Assert.Equal(flag ? 1 : 2, Support.Call(lib, "D3.Rules", "Decision", flag, 99));
         // The earlier operand is an arbitrary input snapshot, not the later zero assignment.
         var unsafeCode = code.Replace("return x + (x = 0);", "return x + ((x = 0) + 1);", StringComparison.Ordinal);
-        Assert.Contains(Support.Convert(unsafeCode, selectors: ["Example.D3"]).Diagnostics, d => d.Code == "MCS2302");
+        var wrapped = Support.Success(Support.Convert(unsafeCode, selectors: ["Example.D3"]));
+        var changedRules = Support.Emit(unsafeCode).GetType("Example.D3.Rules")!;
+        foreach (var input in new[] { int.MinValue, -1, 0, 1, int.MaxValue }) Assert.Equal(changedRules.GetMethod("Order")!.Invoke(null, [input]), Support.Call(wrapped, "D3.Rules", "Order", input));
     }
     [Fact]
     public void ScopeAndUnreachableUnsupportedSourceCannotBypassValidation()
@@ -99,9 +100,9 @@ public class BlockTests
         var effect = Support.Convert("namespace Example.D3; public static class Rules { public static int F(){ if(false) System.Console.WriteLine(1); return 0; }}", selectors: ["Example.D3"]);
         Assert.Contains(effect.Diagnostics, d => d.Code == "MCS2202");
         var numeric = Support.Convert("namespace Example.D3; public static class Rules { public static int F(int value){ if(false) return value+1; return 0; }}", selectors: ["Example.D3"]);
-        Assert.Contains(numeric.Diagnostics, d => d.Code == "MCS2302");
+        Support.Success(numeric); // D5 now supplies exact unchecked semantics.
         var unsupported = Support.Convert("namespace Example.D3; public static class Rules { public static int F(int value){ if(false) return value*2; return 0; }}", selectors: ["Example.D3"]);
-        Assert.Contains(unsupported.Diagnostics, d => d.Code == "MCS2106");
+        Support.Success(unsupported);
         var checkedCode = Support.Convert("namespace Example.D3; public static class Rules { public static int F(){ if(false) return checked(1+2); return 0; }}", selectors: ["Example.D3"]);
         Assert.Contains(checkedCode.Diagnostics, d => d.Code == "MCS2001");
     }

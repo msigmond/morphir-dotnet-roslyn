@@ -186,7 +186,9 @@ public static partial class Frontend
         private IrType<Unit> Type(ITypeSymbol t, Location? loc, bool returnLiteralString = false)
         {
             if (t.IsRefLikeType || t is IPointerTypeSymbol or IFunctionPointerTypeSymbol) return Fail<IrType<Unit>>("MCS2003", "Ref-like/pointer type use is excluded.", loc);
-            if (t.SpecialType == SpecialType.System_Int32) return Types.Int;
+            if (Floating(t) is not null) return Types.Float;
+            if (ComplexType(t)) return ComplexIrType(loc);
+            if (Integral(t) is { } integer) return IntegerType(integer, loc);
             if (t.SpecialType == SpecialType.System_Boolean) return Types.Bool;
             if (NullableElement(t) is { } element) return Types.Maybe(Type(element, loc));
             if (t.SpecialType == SpecialType.System_String) return returnLiteralString && t.NullableAnnotation != NullableAnnotation.Annotated ? Types.String : Types.Maybe(Types.String);
@@ -237,6 +239,8 @@ public static partial class Frontend
         private TypedValue Lower(IOperation op)
         {
             if (operandValues.TryGetValue(op, out var evaluated)) return evaluated;
+            if (LowerFloating(op) is { } floating) return floating;
+            if (LowerInteger(op) is { } numeric) return numeric;
             if (LowerPresence(op) is { } presence) return presence;
             var loc = op.Syntax.GetLocation();
             var t = op.Type is null ? Types.Bool : Type(op.Type, loc, true);
@@ -317,6 +321,7 @@ public static partial class Frontend
         }
         private FQName ValidateInvocation(IInvocationOperation invocation)
         {
+            if (FloatingPredicateCall(invocation)) return new(Types.Sdk, IrPath.From("Basics"), Name.From(invocation.TargetMethod.Name));
             if (NullableDefaultCall(invocation)) return MaybeName("withDefault");
             var target = invocation.TargetMethod;
             var loc = invocation.Syntax.GetLocation();

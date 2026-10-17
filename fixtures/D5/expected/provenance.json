@@ -1,0 +1,106 @@
+{
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "fixtures": [
+    {
+      "name": "wrap-source",
+      "output": "fixtures/D5/expected/wrap-source.json",
+      "kind": "ordinary Elm",
+      "mode": "default",
+      "source": "fixtures/D5/elm/wrap",
+      "sha256": "b4fca3fd9a6f45fe097f2f6511ea8dadfec2d0a2301f25b010e59c66d62be45e"
+    },
+    {
+      "name": "helpers",
+      "output": "fixtures/D5/expected/helpers.json",
+      "kind": "ordinary Elm",
+      "mode": "default",
+      "source": "fixtures/D5/elm/helpers",
+      "sha256": "a1b4c7f3cf6ffc98405ca2272ddbd9d9a6b632a3cbc17dcdaae189a144049d7d"
+    },
+    {
+      "name": "numeric",
+      "output": "fixtures/D5/expected/numeric.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D5/codec-reference",
+      "sha256": "f933d5876817488c0eb659e1b05098364e30f260768c7d3e953d810977c43890"
+    },
+    {
+      "name": "sample",
+      "output": "fixtures/D5/expected/sample.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D5/codec-reference",
+      "sha256": "d3c8c67f2df8ea999f467345e68bff340c88a1e7bde7f9f641a5a85a62a1d1be"
+    },
+    {
+      "name": "wrap",
+      "output": "fixtures/D5/expected/wrap.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D5/codec-reference",
+      "sha256": "b74d7bd3023da8020299e9832b6cb84af8c7c9166e669d997f9c4c22c4d4e501"
+    }
+  ],
+  "sources": [
+    {
+      "path": "fixtures/D5/elm/helpers/morphir.json",
+      "sha256": "a31c214262cca500c4e492f59b9abf2c743c3031d870dca7c01ee7dd86dfbb9b"
+    },
+    {
+      "path": "fixtures/D5/elm/helpers/src/Example/Compat/Floating.elm",
+      "sha256": "a3daa9516db2e2bdbf452bfb63ef7183bf42001eb9e3a63fd9655d3fb1fe9b8b"
+    },
+    {
+      "path": "fixtures/D5/elm/helpers/src/Example/Compat/Integers.elm",
+      "sha256": "e9e1d11e12db914753eb6de8bf200b90b8282792aab02bb7ef75aa594559c08e"
+    },
+    {
+      "path": "fixtures/D5/elm/wrap/morphir.json",
+      "sha256": "9b78efb52ca4cf5ac4feee8434da415d352de15a111d22c1da594b8dc89a902a"
+    },
+    {
+      "path": "fixtures/D5/elm/wrap/src/Example/Compat/Floating.elm",
+      "sha256": "a3daa9516db2e2bdbf452bfb63ef7183bf42001eb9e3a63fd9655d3fb1fe9b8b"
+    },
+    {
+      "path": "fixtures/D5/elm/wrap/src/Example/Compat/Integers.elm",
+      "sha256": "e9e1d11e12db914753eb6de8bf200b90b8282792aab02bb7ef75aa594559c08e"
+    },
+    {
+      "path": "fixtures/D5/elm/wrap/src/Example/D5/Rules.elm",
+      "sha256": "e7a62b70891b3f8c8dc2c08abe35463e8ed41f0c7b5df3c0b6cf9e82dec2ba69"
+    },
+    {
+      "path": "fixtures/D5/codec-reference/D1Sample.elm",
+      "sha256": "fa1064b971ae0c7d7d90005cac74fc306cf3debf3f57bacdee8ef6bddfae350c"
+    },
+    {
+      "path": "fixtures/D5/codec-reference/D2Sample.elm",
+      "sha256": "a4d311da5883381f9ab14c901d7f6a18b3412ba1644951d9983375264ae60e2e"
+    },
+    {
+      "path": "fixtures/D5/codec-reference/D3Sample.elm",
+      "sha256": "a5782f2f688e29018f88f39140e3659fbb79ccf073b86f1a41e7d8efd9d00155"
+    },
+    {
+      "path": "fixtures/D5/codec-reference/D4Sample.elm",
+      "sha256": "8de60c6539745f89fd27f9c93dcd4f56a58a77d90c12826c8b388074036655c4"
+    },
+    {
+      "path": "fixtures/D5/codec-reference/Main.elm",
+      "sha256": "304f13b7fbae24983fa7fd430e684de505ffd5dc4bdcbb79eaf119f447a8c3e0"
+    },
+    {
+      "path": "fixtures/D5/codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    }
+  ]
+}

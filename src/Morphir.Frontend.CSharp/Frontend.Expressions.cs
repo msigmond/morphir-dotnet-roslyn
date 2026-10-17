@@ -13,7 +13,7 @@ public static partial class Frontend
         private readonly Dictionary<string, object?> bindingConstants = new(StringComparer.Ordinal);
         private object? ValueConstant(TypedValue value) => value switch
         {
-            LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral i } => checked((int)i.Value),
+            LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral i } => i.Value is >= int.MinValue and <= int.MaxValue ? (object)(int)i.Value : new System.Numerics.BigInteger(i.Value),
             LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral b } => b.Value,
             LiteralValue<Unit, IrType<Unit>> { Literal: StringLiteral s } => s.Value,
             VariableValue<Unit, IrType<Unit>> variable => bindingConstants.GetValueOrDefault(variable.Name.Key),
@@ -79,6 +79,11 @@ public static partial class Frontend
             var constant = ValueConstant(value); bindingConstants[name.Key] = constant;
             bindingOrigins[name.Key] = ValueKey(value);
             boundValues[name.Key] = value;
+            if (Integral(NullableElement(type) ?? type) is { } integerDomain)
+            {
+                var variable = new VariableValue<Unit, IrType<Unit>>(attr, name);
+                if (ValueKey(variable) is { } key) numericFacts[key] = IntegerRange(value, integerDomain);
+            }
             var next = Copy(environment); next[symbol] = new(name, attr, constant);
             var result = continuation(next);
             return new LetValue<Unit, IrType<Unit>>(result.Attributes, name, new([], attr, value), result);

@@ -1,0 +1,8 @@
+{
+  "name": "Example",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "Compat.Integers",
+    "Compat.Floating"
+  ]
+}

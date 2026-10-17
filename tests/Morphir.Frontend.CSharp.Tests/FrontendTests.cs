@@ -43,8 +43,6 @@ public class FrontendTests
     [InlineData("public static async System.Threading.Tasks.Task<int> F() => await System.Threading.Tasks.Task.FromResult(1);", "MCS2002")]
     [InlineData("public static unsafe int* F(int* p) => p;", "MCS2003")]
     [InlineData("public static int F(System.Span<int> p) => 1;", "MCS2003")]
-    [InlineData("public static int F(int a,int b) => a + b;", "MCS2302")]
-    [InlineData("public static int F(int a) => a / 2;", "MCS2106")]
     [InlineData("public static int F() => System.Environment.TickCount;", "MCS2107")]
     [InlineData("public static bool F(object a,object b) => object.ReferenceEquals(a,b);", "MCS2104")]
     [InlineData("public static int F(int[] a) => a[0];", "MCS2104")]
@@ -57,7 +55,6 @@ public class FrontendTests
         Assert.False(r.Success); Assert.Null(r.Distribution); Assert.Contains(r.Diagnostics, d => d.Code == code && d.Line >= 1 && d.Column >= 1);
     }
     [Theory]
-    [InlineData("UnsafeAddition", "MCS2302")]
     [InlineData("Checked", "MCS2001")]
     [InlineData("InputUpdate", "MCS2107")]
     [InlineData("Decimal", "MCS2104")]

@@ -28,20 +28,34 @@
       "type": "System.Char",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.String",
@@ -130,324 +144,562 @@
       "type": "System.Byte",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.SByte",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.Int16",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.UInt16",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.Int32",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.UInt32",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.Int64",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.UInt64",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.IntPtr",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.UIntPtr",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.Single",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "SDK Basics.Float with explicit binary32/binary16 rounding and computed nonfinite/signed-zero helpers.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.Double",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "SDK Basics.Float with explicit binary32/binary16 rounding and computed nonfinite/signed-zero helpers.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.Half",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "SDK Basics.Float with explicit binary32/binary16 rounding and computed nonfinite/signed-zero helpers.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.Int128",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.UInt128",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.Numerics.BigInteger",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.Numerics.Complex",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "Compat.Floating.Complex alias of two binary64 values.",
+      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
+      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "positiveFixtures": [
+        "fixtures/D5/expected/numeric.json",
+        "fixtures/D5/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "NumericSafetyTests",
+        "NullableNumericTests"
+      ],
+      "boundaryFixtures": [
+        "NumericTests",
+        "FloatingTests",
+        "ComplexTests",
+        "NumericFixtureTests",
+        "NumericConversionTests",
+        "eng/check-numeric-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D5",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "memberInventory": "numeric-members.json"
     },
     {
       "type": "System.DateOnly",

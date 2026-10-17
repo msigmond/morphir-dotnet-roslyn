@@ -17,6 +17,7 @@ public static class Codec
     private static object Entries<K, V>(IReadOnlyList<Entry<K, V>> list, Func<K, object> key, Func<V, object> val) => list.Select(e => Arr(key(e.Key), val(e.Value))).ToArray();
     public static object Type<A>(IrType<A> t, Func<A, object> attr) => t switch
     {
+        VariableType<A> v => Arr("Variable", attr(v.Attributes), Name(v.Name)),
         ReferenceType<A> r => Arr("Reference", attr(r.Attributes), Fq(r.Name), r.Arguments.Select(a => Type(a, attr)).ToArray()),
         FunctionType<A> f => Arr("Function", attr(f.Attributes), Type(f.Argument, attr), Type(f.Result, attr)),
         RecordType<A> r => Arr("Record", attr(r.Attributes), r.Fields.Select(f => new { name = Name(f.Key), tpe = Type(f.Value, attr) }).ToArray()),
@@ -25,6 +26,7 @@ public static class Codec
     private static object Alias<A>(AliasDefinition<A> d, Func<A, object> attr, bool spec = false) => Arr(spec ? "TypeAliasSpecification" : "TypeAliasDefinition", d.Parameters.Select(Name).ToArray(), Type(d.Body, attr));
     private static object Literal(Literal l) => l switch
     {
+        FloatLiteral f when double.IsFinite(f.Value) => Arr("FloatLiteral", f.Value),
         BoolLiteral b => Arr("BoolLiteral", b.Value),
         IntLiteral i => Arr("WholeNumberLiteral", i.Value),
         StringLiteral s => Arr("StringLiteral", s.Value),
@@ -32,6 +34,8 @@ public static class Codec
     };
     private static object Pattern<VA>(Pattern<VA> pattern, Func<VA, object> attr) => pattern switch
     {
+        EmptyListPattern<VA> p => Arr("EmptyListPattern", attr(p.Attributes)),
+        HeadTailPattern<VA> p => Arr("HeadTailPattern", attr(p.Attributes), Pattern(p.Head, attr), Pattern(p.Tail, attr)),
         WildcardPattern<VA> p => Arr("WildcardPattern", attr(p.Attributes)),
         AsPattern<VA> p => Arr("AsPattern", attr(p.Attributes), Pattern(p.Pattern, attr), Name(p.Name)),
         ConstructorPattern<VA> p => Arr("ConstructorPattern", attr(p.Attributes), Fq(p.Name), p.Arguments.Select(a => Pattern(a, attr)).ToArray()),
@@ -43,6 +47,7 @@ public static class Codec
         var a = va(v.Attributes);
         return v switch
         {
+            ListValue<TA, VA> x => Arr("List", a, x.Elements.Select(V).ToArray()),
             ConstructorValue<TA, VA> x => Arr("Constructor", a, Fq(x.Name)),
             MatchValue<TA, VA> x => Arr("PatternMatch", a, V(x.Subject), x.Cases.Select(c => Arr(Pattern(c.Pattern, va), V(c.Body))).ToArray()),
             LiteralValue<TA, VA> l => Arr("Literal", a, Literal(l.Literal)),

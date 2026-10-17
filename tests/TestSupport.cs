@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.CodeAnalysis;
@@ -50,61 +51,148 @@ internal static class Support
     }
     public sealed record MaybeData(bool Present, object? Value);
     public static MaybeData Maybe(object? value) => new(value is not null, value);
+    public static object Integer(BigInteger value)
+    {
+        var magnitude = BigInteger.Abs(value); var digits = new List<object>();
+        while (magnitude != 0) { digits.Add((int)(magnitude & 65535)); magnitude >>= 16; }
+        return new Dictionary<string, object> { { "negative", value.Sign < 0 }, { "digits", digits.ToArray() } };
+    }
+    public static BigInteger IntegerResult(object value)
+    {
+        var record = (IReadOnlyDictionary<string, object>)value; var digits = (IReadOnlyList<object>)record["digits"]; BigInteger result = 0;
+        for (int i = digits.Count - 1; i >= 0; i--) result = (result << 16) + Whole(digits[i]);
+        return (bool)record["negative"] ? -result : result;
+    }
+    private static bool MatchPattern(Pattern<IrType<Unit>> pattern, object subject, Dictionary<string, object> variables)
+    {
+        switch (pattern)
+        {
+            case WildcardPattern<IrType<Unit>>: return true;
+            case AsPattern<IrType<Unit>> bound: if (!MatchPattern(bound.Pattern, subject, variables)) return false; variables[bound.Name.Key] = subject; return true;
+            case EmptyListPattern<IrType<Unit>>: return ((IReadOnlyList<object>)subject).Count == 0;
+            case HeadTailPattern<IrType<Unit>> list:
+                var values = (IReadOnlyList<object>)subject;
+                return values.Count > 0 && MatchPattern(list.Head, values[0], variables) && MatchPattern(list.Tail, values.Skip(1).ToArray(), variables);
+            case ConstructorPattern<IrType<Unit>> constructor:
+                var maybe = (MaybeData)subject;
+                return (constructor.Name.Local.Key == "just") == maybe.Present && (!maybe.Present || MatchPattern(constructor.Arguments.Single(), maybe.Value!, variables));
+            default: throw new NotSupportedException(pattern.ToString());
+        }
+    }
     private static object Match(MatchValue<Unit, IrType<Unit>> match, IReadOnlyDictionary<string, object> variables, Library<Unit, IrType<Unit>>? library)
     {
-        var subject = (MaybeData)Evaluate(match.Subject, variables, library);
-        foreach (var branch in match.Cases)
-        {
-            var constructor = (ConstructorPattern<IrType<Unit>>)branch.Pattern;
-            if ((constructor.Name.Local.Key == "just") != subject.Present) continue;
-            var bound = new Dictionary<string, object>(variables);
-            if (subject.Present && constructor.Arguments.Single() is AsPattern<IrType<Unit>> variable) bound[variable.Name.Key] = subject.Value!;
-            return Evaluate(branch.Body, bound, library);
-        }
-        throw new InvalidOperationException("Non-exhaustive Maybe match");
+        var subject = Evaluate(match.Subject, variables, library);
+        foreach (var branch in match.Cases) { var bound = new Dictionary<string, object>(variables); if (MatchPattern(branch.Pattern, subject, bound)) return Evaluate(branch.Body, bound, library); }
+        throw new InvalidOperationException("Non-exhaustive match");
     }
     // Small independent interpreter used only for C#/IR behavioral cross-checks.
-    public static object Evaluate(V v, IReadOnlyDictionary<string, object> vars, Library<Unit, IrType<Unit>>? library = null) => v switch
+    public static object Evaluate(V v, IReadOnlyDictionary<string, object> vars, Library<Unit, IrType<Unit>>? library = null)
     {
-        ConstructorValue<Unit, IrType<Unit>> constructor => constructor.Name.Local.Key == "just" ? (Func<object, object>)(value => Maybe(value)) : Maybe(null),
-        MatchValue<Unit, IrType<Unit>> match => Match(match, vars, library),
-        LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral i } => checked((int)i.Value),
-        LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral b } => b.Value,
-        LiteralValue<Unit, IrType<Unit>> { Literal: StringLiteral s } => s.Value,
-        VariableValue<Unit, IrType<Unit>> x => vars[x.Name.Key],
-        FieldValue<Unit, IrType<Unit>> x => ((IReadOnlyDictionary<string, object>)Evaluate(x.Subject, vars, library))[x.Field.Key],
-        RecordValue<Unit, IrType<Unit>> x => x.Fields.ToDictionary(e => e.Key.Key, e => Evaluate(e.Value, vars, library)),
-        LetValue<Unit, IrType<Unit>> x => Evaluate(x.Body, new Dictionary<string, object>(vars) { [x.Name.Key] = Evaluate(x.Definition.Body, vars, library) }, library),
-        IfValue<Unit, IrType<Unit>> x => Evaluate((bool)Evaluate(x.Condition, vars, library) ? x.Then : x.Else, vars, library),
-        ReferenceValue<Unit, IrType<Unit>> x => Resolve(x.Name, library),
-        ApplyValue<Unit, IrType<Unit>> x => ((Func<object, object>)Evaluate(x.Function, vars, library))(Evaluate(x.Argument, vars, library)),
-        _ => throw new NotSupportedException(v.ToString())
-    };
+        while (true)
+        {
+            if (v is IfValue<Unit, IrType<Unit>> decision) { v = (bool)Evaluate(decision.Condition, vars, library) ? decision.Then : decision.Else; continue; }
+            if (v is LetValue<Unit, IrType<Unit>> binding) { vars = new Dictionary<string, object>(vars) { [binding.Name.Key] = Evaluate(binding.Definition.Body, vars, library) }; v = binding.Body; continue; }
+            if (v is MatchValue<Unit, IrType<Unit>> match)
+            {
+                var subject = Evaluate(match.Subject, vars, library); bool found = false;
+                foreach (var branch in match.Cases) { var bound = new Dictionary<string, object>(vars); if (!MatchPattern(branch.Pattern, subject, bound)) continue; v = branch.Body; vars = bound; found = true; break; }
+                if (!found) throw new InvalidOperationException("Non-exhaustive match"); continue;
+            }
+            if (library is not null)
+            {
+                var arguments = new List<V>(); var root = v;
+                while (root is ApplyValue<Unit, IrType<Unit>> apply) { arguments.Insert(0, apply.Argument); root = apply.Function; }
+                if (root is ReferenceValue<Unit, IrType<Unit>> reference && reference.Name.Package.Key != Types.Sdk.Key && Lookup.Value(library, reference.Name) is { } definition && definition.Inputs.Count == arguments.Count)
+                {
+                    var evaluated = arguments.Select(a => Evaluate(a, vars, library)).ToArray();
+                    vars = definition.Inputs.Select((input, i) => (input.Name.Key, Value: evaluated[i])).ToDictionary(pair => pair.Key, pair => pair.Value); v = definition.Body; continue;
+                }
+            }
+            return v switch
+            {
+                ConstructorValue<Unit, IrType<Unit>> constructor => constructor.Name.Local.Key == "just" ? (Func<object, object>)(value => Maybe(value)) : Maybe(null),
+                MatchValue<Unit, IrType<Unit>> matched => Match(matched, vars, library),
+                LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral i } => Narrow(i.Value),
+                LiteralValue<Unit, IrType<Unit>> { Literal: FloatLiteral f } => f.Value,
+                ListValue<Unit, IrType<Unit>> list => list.Elements.Select(e => Evaluate(e, vars, library)).ToArray(),
+                LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral b } => b.Value,
+                LiteralValue<Unit, IrType<Unit>> { Literal: StringLiteral s } => s.Value,
+                VariableValue<Unit, IrType<Unit>> x => vars[x.Name.Key],
+                FieldValue<Unit, IrType<Unit>> x => ((IReadOnlyDictionary<string, object>)Evaluate(x.Subject, vars, library))[x.Field.Key],
+                RecordValue<Unit, IrType<Unit>> x => x.Fields.ToDictionary(e => e.Key.Key, e => Evaluate(e.Value, vars, library)),
+                LetValue<Unit, IrType<Unit>> x => Evaluate(x.Body, new Dictionary<string, object>(vars) { [x.Name.Key] = Evaluate(x.Definition.Body, vars, library) }, library),
+                IfValue<Unit, IrType<Unit>> x => Evaluate((bool)Evaluate(x.Condition, vars, library) ? x.Then : x.Else, vars, library),
+                ReferenceValue<Unit, IrType<Unit>> x => Resolve(x.Name, library),
+                ApplyValue<Unit, IrType<Unit>> x => ((Func<object, object>)Evaluate(x.Function, vars, library))(Evaluate(x.Argument, vars, library)),
+                _ => throw new NotSupportedException(v.ToString())
+            };
+        }
+    }
     private static object Resolve(FQName name, Library<Unit, IrType<Unit>>? library)
     {
         if (name.Package.Key == Types.Sdk.Key)
-            return name.Module.Key == Morphir.IR.Classic.Path.From("String").Key && name.Local.Key == "length" ? (Func<object, object>)(value => ((string)value).Length) : name.Local.Key == "not" ? (Func<object, object>)(value => !(bool)value)
-                : (Func<object, object>)(left => (Func<object, object>)(right => Binary(name.Local.Key, left, right)));
+        {
+            if (name.Module.Key == Morphir.IR.Classic.Path.From("String").Key && name.Local.Key == "length") return (Func<object, object>)(value => ((string)value).Length);
+            if (name.Module.Key == Morphir.IR.Classic.Path.From("List").Key && name.Local.Key == "cons") return (Func<object, object>)(head => (Func<object, object>)(tail => new[] { head }.Concat((IEnumerable<object>)tail).ToArray()));
+            Func<object, object>? unary = name.Local.Key switch
+            {
+                "not" => value => !(bool)value,
+                "negate" => value => value is double d ? -d : Narrow(-Whole(value)),
+                "abs" => value => value is double d ? Math.Abs(d) : Narrow(BigInteger.Abs(Whole(value))),
+                "to\0float" => value => (double)Whole(value),
+                "floor" => value => Narrow(new BigInteger(Math.Floor((double)value))),
+                "ceiling" => value => Narrow(new BigInteger(Math.Ceiling((double)value))),
+                "truncate" => value => Narrow(new BigInteger((double)value)),
+                "is\0na\0n" => value => double.IsNaN((double)value),
+                "is\0infinite" => value => double.IsInfinity((double)value),
+                _ => null
+            };
+            return unary is not null ? unary : (Func<object, object>)(left => (Func<object, object>)(right => Binary(name.Local.Key, left, right)));
+        }
         var definition = Lookup.Value(library!, name) ?? throw new InvalidOperationException($"Missing definition {name}");
         object Bind(int index, Dictionary<string, object> values) => index == definition.Inputs.Count
             ? Evaluate(definition.Body, values, library)
             : (Func<object, object>)(argument => Bind(index + 1, new(values) { [definition.Inputs[index].Name.Key] = argument }));
         return Bind(0, []);
     }
-    private static object Binary(string op, object a, object b) => op switch
+    private static BigInteger Whole(object value) => value switch { BigInteger i => i, int i => i, long i => i, uint i => i, ulong i => i, _ => throw new InvalidOperationException("Not an integer " + value) };
+    private static object Narrow(BigInteger value) => value >= int.MinValue && value <= int.MaxValue ? (object)(int)value : value;
+    private static double Real(object value) => value is double d ? d : (double)Whole(value);
+    private static bool Equal(object a, object b)
     {
-        "add" => checked((int)a + (int)b),
-        "greater\0than\0or\0equal" => (int)a >= (int)b,
-        "greater\0than" => (int)a > (int)b,
-        "less\0than\0or\0equal" => (int)a <= (int)b,
-        "less\0than" => (int)a < (int)b,
-        "equal" => Equals(a, b),
-        "not\0equal" => !Equals(a, b),
-        "and" => (bool)a & (bool)b,
-        "or" => (bool)a | (bool)b,
-        "xor" => (bool)a ^ (bool)b,
-        _ => throw new NotSupportedException(op)
-    };
+        if (a is IReadOnlyList<object> aa && b is IReadOnlyList<object> bb) return aa.Count == bb.Count && aa.Zip(bb).All(pair => Equal(pair.First, pair.Second));
+        if (a is IReadOnlyDictionary<string, object> ad && b is IReadOnlyDictionary<string, object> bd) return ad.Count == bd.Count && ad.All(pair => bd.TryGetValue(pair.Key, out var other) && Equal(pair.Value, other));
+        if (a is double || b is double) return Real(a) == Real(b);
+        if (a is int or BigInteger && b is int or BigInteger) return Whole(a) == Whole(b);
+        return Equals(a, b);
+    }
+    private static object Binary(string op, object a, object b)
+    {
+        bool real = a is double || b is double;
+        return op switch
+        {
+            "add" => real ? Real(a) + Real(b) : Narrow(Whole(a) + Whole(b)),
+            "subtract" => real ? Real(a) - Real(b) : Narrow(Whole(a) - Whole(b)),
+            "multiply" => real ? Real(a) * Real(b) : Narrow(Whole(a) * Whole(b)),
+            "integer\0divide" => Narrow(Whole(a) / Whole(b)),
+            "divide" => Real(a) / Real(b),
+            "power" => real ? Math.Pow(Real(a), Real(b)) : Narrow(BigInteger.Pow(Whole(a), (int)Whole(b))),
+            "mod\0by" => Narrow((Whole(b) % Whole(a) + BigInteger.Abs(Whole(a))) % Whole(a)),
+            "remainder\0by" => Narrow(Whole(b) % Whole(a)),
+            "greater\0than\0or\0equal" => real ? Real(a) >= Real(b) : Whole(a) >= Whole(b),
+            "greater\0than" => real ? Real(a) > Real(b) : Whole(a) > Whole(b),
+            "less\0than\0or\0equal" => real ? Real(a) <= Real(b) : Whole(a) <= Whole(b),
+            "less\0than" => real ? Real(a) < Real(b) : Whole(a) < Whole(b),
+            "equal" => Equal(a, b),
+            "not\0equal" => !Equal(a, b),
+            "max" => Real(a) >= Real(b) ? a : b,
+            "min" => Real(a) <= Real(b) ? a : b,
+            "and" => (bool)a && (bool)b,
+            "or" => (bool)a || (bool)b,
+            "xor" => (bool)a ^ (bool)b,
+            _ => throw new NotSupportedException(op)
+        };
+    }
     public static object Call(Library<Unit, IrType<Unit>> lib, string module, string method, params object[] args)
     {
         var m = lib.Definition.Modules.Single(e => e.Key.Key == Morphir.IR.Classic.Path.From(module).Key).Value.Value;

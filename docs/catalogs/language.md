@@ -1,6 +1,6 @@
-# Language coverage — D1–D4
+# Language coverage — D1–D5
 
-Status: D1–D4 passed; D5 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is `fixtures/D4/expected/sample.json`; the D1 standalone reference is unchanged. No future business-source forms are included.
+Status: D1–D5 passed; D6 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is identified by samples/CurrentSupportedExample/reference.json; the D1 standalone reference is unchanged. No future business-source forms are included.
 
 | Supported form | Cumulative example symbol/location | Additional parity / behavior evidence |
 | --- | --- | --- |
@@ -15,7 +15,7 @@ Status: D1–D4 passed; D5 onward pending. Existing table rows were introduced i
 | Record construction: explicit type, target-typed and named arguments | `Create`, `TargetTyped`, `Named` | `eligibility`; C#/IR fields and parameter order checked |
 | Int32 `>=`, `>`, `<`, `<=`, `==`, `!=` | `Eligible`, `ActiveOrAdult`, `Below`, `AtMost`, `Exactly`, `Different` | All comparison boundaries; all fields/typed attributes in full parity |
 | Boolean `&&`, `||`, left-to-right short circuit | `Eligible`, `ActiveOrAdult` | Interpreter deliberately omits unused RHS field to prove short circuit |
-| Safe Int32 addition (constant sum or zero operand) | `Addition`, `IdentityAddition`, `IdentityCast` | `eligibility`, safe archived specialization `addition`; MinValue/MaxValue identity behavior; unsafe addition rejected |
+| Safe Int32 addition (constant sum or zero operand) | `Addition`, `IdentityAddition`, `IdentityCast` | `eligibility`, safe archived specialization `addition`; MinValue/MaxValue identity behavior; general unchecked addition delivered in D5 |
 | Parentheses, identity cast, explicit unchecked context, escaped identifier | `IdentityAddition`, `IdentityCast(int @checked)` | Sample parity; checked syntax/semantic rejection and comments/string/@checked regressions |
 
 Selection is an adapter contract rather than a new business expression: complete segment/descendant/overlap/private/outside-source fixtures are in `FrontendTests`. Compilation uses all explicit files, including unselected files for symbol binding, but conversion never implicitly selects referenced namespaces.
@@ -47,7 +47,7 @@ D1 does not admit locals/aliases/mutation, nullable data or Decimal arithmetic. 
 | Short circuit/conditional assignment expressions | `ShortAssignment`, `ConditionalAssignment` | Every Boolean combination; branch-specific local state |
 | Source-order call argument assignments | `ArgumentAssignment`, private `FirstArgument` | Complete private definition/call parity; original first argument retained |
 
-D3 preserves the D1 numeric contract: constants or an established zero operand only. It rebinds immutable IR variables for local/by-value parameter assignments and never mutates an input record or external state. String results are still known-present: only literals, closed source calls and initialized local/conditional combinations can produce them; general String input/data is D4. Full project-mode cumulative parity follows [the current reference pointer](../../samples/CurrentSupportedExample/reference.json); older references remain frozen.
+Historically, D3 preserved the D1 numeric contract: constants or an established zero operand only. It rebinds immutable IR variables for local/by-value parameter assignments and never mutates an input record or external state. String results are still known-present: only literals, closed source calls and initialized local/conditional combinations can produce them; general String input/data is D4. Full project-mode cumulative parity follows [the current reference pointer](../../samples/CurrentSupportedExample/reference.json); older references remain frozen.
 
 ## D4 additions
 
@@ -62,3 +62,16 @@ D3 preserves the D1 numeric contract: constants or an established zero operand o
 | Exact Nullable.GetValueOrDefault member | `DefaultFromMember` | Explicit source member/default semantics; zero/explicit fallback variants in tests |
 
 The D4 null-slot representation is reusable by later array/reference data owners; D11 still owns array construction/indexing and D9 owns reference-class data. These future forms are not enabled prematurely. String member families requiring Char/arrays/delegates/object and the remaining pure-member closure remain catalog obligations through D18.4; D4 claims M1 representation and the exact Length getter only. No type/member scope is removed.
+
+## D5 additions
+
+| Form / contract | Cumulative example in Numeric.cs | Evidence |
+| --- | --- | --- |
+| Every primitive integer/Char width, signedness, native64, Int128/UInt128/BigInteger | NumericPromotion, NumericByte/SByte/Short/UShort/Char/UInt/Long/ULong/Native/UNative/Int128/UInt128/BigInteger | Full independent numeric/sample distributions; CLR boundary checks and exact Elm/JS BigInt checks |
+| Width wrapping, bitwise and shifts, including BigInteger logical shift | NumericNext, NumericBits, NumericBigLogical | Int32 extrema, negative/masked counts, full signed/unsigned widths and BigInteger storage boundaries |
+| Single/Double/Half and Complex arithmetic | NumericSingle/Double/Half/Complex | Float/Complex tests: precision, nonfinite values, signed zero, scalar overload order |
+| Numeric casts, nullable conversion, exact wide literals/constructors, sizeof | NumericIntegerToDouble, NumericDoubleToByte, NumericNullable, NumericLargeLong, NumericMaximum128, NumericConstruct128, NumericSize | Wide limb transport; rounding/truncation/saturation and nullable unary/conversion tests |
+| Dominating failure proofs and IEEE predicates | NumericDivide, NumericNarrow, NumericFinite, NumericComplexInteger | NumericSafetyTests and stale guard negatives; no partial artifact on rejection |
+| BigInteger binary64 truncation | NumericBigDouble | Pinned runtime comparison at >53-bit and signed 128-bit boundaries |
+
+D5 supersedes the historical safe-addition-only limitation with exact unchecked arithmetic. Earlier references retain their specialized structures, while formerly unproved general addition is now tested positively. Decimal and later call/data/state forms retain their assigned delivery gates. Full framework API closure remains explicit in numeric-members.json and is distinct from delivered language operators.

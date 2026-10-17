@@ -132,8 +132,8 @@
     {
       "operation": "Conversion",
       "owner": "D5",
-      "state": "pending",
-      "domain": "D1 identity conversion/constant-negative/safe-int arithmetic/comparisons supported; complete numeric domains and transport pending D5."
+      "state": "supported",
+      "domain": "D5 fixed numeric domains: resolved promotions/conversions, unary/binary arithmetic, comparison, bitwise/shift, exact wide/IEEE transport and failure proofs. Checked semantics reject. Later source-defined operators/generics remain owned by their deliveries."
     },
     {
       "operation": "Invocation",
@@ -186,26 +186,26 @@
     {
       "operation": "Unary",
       "owner": "D5",
-      "state": "pending",
-      "domain": "D1 safe Int32 arithmetic/comparisons and D3 Boolean not/equality/inequality/eager and/or/xor supported; full numeric domains/transport pending D5."
+      "state": "supported",
+      "domain": "D5 fixed numeric domains: resolved promotions/conversions, unary/binary arithmetic, comparison, bitwise/shift, exact wide/IEEE transport and failure proofs. Checked semantics reject. Later source-defined operators/generics remain owned by their deliveries."
     },
     {
       "operation": "UnaryOperator",
       "owner": "D5",
-      "state": "pending",
-      "domain": "D1 safe Int32 arithmetic/comparisons and D3 Boolean not/equality/inequality/eager and/or/xor supported; full numeric domains/transport pending D5."
+      "state": "supported",
+      "domain": "D5 fixed numeric domains: resolved promotions/conversions, unary/binary arithmetic, comparison, bitwise/shift, exact wide/IEEE transport and failure proofs. Checked semantics reject. Later source-defined operators/generics remain owned by their deliveries."
     },
     {
       "operation": "Binary",
       "owner": "D5",
-      "state": "pending",
-      "domain": "D1 safe Int32 arithmetic/comparisons and D3 Boolean not/equality/inequality/eager and/or/xor supported; full numeric domains/transport pending D5."
+      "state": "supported",
+      "domain": "D5 fixed numeric domains: resolved promotions/conversions, unary/binary arithmetic, comparison, bitwise/shift, exact wide/IEEE transport and failure proofs. Checked semantics reject. Later source-defined operators/generics remain owned by their deliveries."
     },
     {
       "operation": "BinaryOperator",
       "owner": "D5",
-      "state": "pending",
-      "domain": "D1 safe Int32 arithmetic/comparisons and D3 Boolean not/equality/inequality/eager and/or/xor supported; full numeric domains/transport pending D5."
+      "state": "supported",
+      "domain": "D5 fixed numeric domains: resolved promotions/conversions, unary/binary arithmetic, comparison, bitwise/shift, exact wide/IEEE transport and failure proofs. Checked semantics reject. Later source-defined operators/generics remain owned by their deliveries."
     },
     {
       "operation": "Conditional",
@@ -390,8 +390,8 @@
     {
       "operation": "SizeOf",
       "owner": "D5",
-      "state": "pending",
-      "domain": "Proved fixed-width sizeof constants can be pure; pointer/ref-like operands remain excluded. No blanket new sizeof exclusion."
+      "state": "supported",
+      "domain": "D5 sizeof fixed unmanaged numeric/Boolean domains under x64; wider user-layout/generic closure remains D18.4."
     },
     {
       "operation": "AddressOf",

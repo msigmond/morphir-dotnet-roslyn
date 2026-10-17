@@ -54,8 +54,8 @@ public class IntegrationTests
         var arguments = new[] { "--package", "Example", "--namespace", "Example.D1", "--output", output, "--source", source };
         Assert.Equal(0, RunCli(arguments).Exit); var bytes = File.ReadAllBytes(output);
         Assert.Null(StructuralComparison.Compare(Support.Read("fixtures/D1/expected/eligibility.json"), File.ReadAllText(output)));
-        File.WriteAllText(source, "namespace Example.D1; public static class Rules { public static int F(int a,int b)=>a+b; }");
-        var rejected = RunCli(arguments); Assert.Equal(1, rejected.Exit); Assert.Contains("MCS2302", rejected.Error); Assert.Equal(bytes, File.ReadAllBytes(output));
+        File.WriteAllText(source, "namespace Example.D1; public static class Rules { public static int F(int a,int b)=>a/b; }");
+        var rejected = RunCli(arguments); Assert.Equal(1, rejected.Exit); Assert.Contains("MCS2601", rejected.Error); Assert.Equal(bytes, File.ReadAllBytes(output));
         var fresh = System.IO.Path.Combine(folder, "fresh.json"); var freshArgs = (string[])arguments.Clone(); freshArgs[5] = fresh;
         Assert.Equal(1, RunCli(freshArgs).Exit); Assert.False(File.Exists(fresh));
         File.WriteAllText(source, "invalid C#"); Assert.Equal(1, RunCli(arguments).Exit); Assert.Equal(bytes, File.ReadAllBytes(output));
@@ -63,11 +63,12 @@ public class IntegrationTests
         Assert.Equal(2, RunCli(["--bad", "x"]).Exit);
     }
     [Fact]
-    public void HistoricalUnboundedAdditionIsExplicitlyRejectedUntilD5()
+    public void HistoricalAdditionNowUsesUncheckedInt32Wrapping()
     {
         var code = Support.Read("docs/references/prototype-addition/Add.cs");
         var r = Support.Convert(code, "Arithmetic", ["Arithmetic"]);
-        Assert.Contains(r.Diagnostics, d => d.Code == "MCS2302");
+        var lib = Support.Success(r);
+        Assert.Equal(int.MinValue, Support.Call(lib, "Add", "add", int.MaxValue, 1));
         // The model-backed safe specialization retains both operands and the archived owner.
         Support.Parity("fixtures/D1/expected/addition.json", code.Replace("a + b", "a + 0"), "Arithmetic", "Arithmetic");
     }

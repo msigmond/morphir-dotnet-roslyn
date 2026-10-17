@@ -25,12 +25,14 @@ public abstract record IrType<A>(A Attributes);
 public sealed record ReferenceType<A>(A Attributes, FQName Name, IReadOnlyList<IrType<A>> Arguments) : IrType<A>(Attributes);
 public sealed record FunctionType<A>(A Attributes, IrType<A> Argument, IrType<A> Result) : IrType<A>(Attributes);
 public sealed record RecordType<A>(A Attributes, IReadOnlyList<Entry<Name, IrType<A>>> Fields) : IrType<A>(Attributes);
+public sealed record VariableType<A>(A Attributes, Name Name) : IrType<A>(Attributes);
 public sealed record AliasDefinition<A>(IReadOnlyList<Name> Parameters, IrType<A> Body);
 
 public abstract record Literal;
 public sealed record BoolLiteral(bool Value) : Literal;
 public sealed record IntLiteral(long Value) : Literal;
 public sealed record StringLiteral(string Value) : Literal;
+public sealed record FloatLiteral(double Value) : Literal;
 public abstract record Value<TA, VA>(VA Attributes);
 public sealed record LiteralValue<TA, VA>(VA Attributes, Literal Literal) : Value<TA, VA>(Attributes);
 public sealed record VariableValue<TA, VA>(VA Attributes, Name Name) : Value<TA, VA>(Attributes);
@@ -47,6 +49,9 @@ public sealed record AsPattern<VA>(VA Attributes, Pattern<VA> Pattern, Name Name
 public sealed record ConstructorPattern<VA>(VA Attributes, FQName Name, IReadOnlyList<Pattern<VA>> Arguments) : Pattern<VA>(Attributes);
 public sealed record MatchCase<TA, VA>(Pattern<VA> Pattern, Value<TA, VA> Body);
 public sealed record MatchValue<TA, VA>(VA Attributes, Value<TA, VA> Subject, IReadOnlyList<MatchCase<TA, VA>> Cases) : Value<TA, VA>(Attributes);
+public sealed record EmptyListPattern<VA>(VA Attributes) : Pattern<VA>(Attributes);
+public sealed record HeadTailPattern<VA>(VA Attributes, Pattern<VA> Head, Pattern<VA> Tail) : Pattern<VA>(Attributes);
+public sealed record ListValue<TA, VA>(VA Attributes, IReadOnlyList<Value<TA, VA>> Elements) : Value<TA, VA>(Attributes);
 public sealed record Input<TA, VA>(Name Name, VA Attributes, IrType<TA> Type);
 public sealed record ValueDefinition<TA, VA>(IReadOnlyList<Input<TA, VA>> Inputs, IrType<TA> Output, Value<TA, VA> Body);
 public sealed record ValueSpecification<TA>(IReadOnlyList<Entry<Name, IrType<TA>>> Inputs, IrType<TA> Output);
@@ -67,6 +72,8 @@ public static class Types
     public static readonly Path Sdk = Path.From("Morphir.SDK");
     public static IrType<Unit> Reference(string module, string local) => new ReferenceType<Unit>(default, new(Sdk, Path.From(module), Name.From(local)), []);
     public static IrType<Unit> Int => Reference("Basics", "Int");
+    public static IrType<Unit> Float => Reference("Basics", "Float");
+    public static IrType<Unit> List(IrType<Unit> element) => new ReferenceType<Unit>(default, new(Sdk, Path.From("List"), Name.From("List")), [element]);
     public static IrType<Unit> Bool => Reference("Basics", "Bool");
     public static IrType<Unit> String => Reference("String", "String");
     public static IrType<Unit> Maybe(IrType<Unit> element) => new ReferenceType<Unit>(default, new(Sdk, Path.From("Maybe"), Name.From("Maybe")), [element]);

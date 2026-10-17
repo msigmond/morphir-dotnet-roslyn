@@ -1,3 +1,4 @@
+using System.Numerics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Operations;
 using Morphir.IR.Classic;
@@ -20,7 +21,7 @@ public static partial class Frontend
         private IrType<Unit> currentReturnSlot = Types.Bool;
         private static IEnumerable<IOperation> Operations(IOperation root) => root.ChildOperations.SelectMany(Operations).Prepend(root);
         private static ITypeSymbol? NullableElement(ITypeSymbol? type) => type is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T } nullable ? nullable.TypeArguments[0] : null;
-        private static bool AdmittedDataSlot(ITypeSymbol type) => type.SpecialType is SpecialType.System_Int32 or SpecialType.System_Boolean or SpecialType.System_String || NullableElement(type)?.SpecialType is SpecialType.System_Int32 or SpecialType.System_Boolean;
+        private static bool AdmittedDataSlot(ITypeSymbol type) => Integral(type) is not null || Floating(type) is not null || ComplexType(type) || type.SpecialType is SpecialType.System_Boolean or SpecialType.System_String || NullableElement(type) is { } element && (Integral(element) is not null || Floating(element) is not null || ComplexType(element) || element.SpecialType == SpecialType.System_Boolean);
         private static IrType<Unit>? MaybeElement(IrType<Unit> type) => type is ReferenceType<Unit> reference && reference.Name.Package.Key == Types.Sdk.Key && reference.Name.Module.Key == IrPath.From("Maybe").Key && reference.Name.Local.Key == Name.From("Maybe").Key && reference.Arguments.Count == 1 ? reference.Arguments[0] : null;
         private static FQName MaybeName(string name) => new(Types.Sdk, IrPath.From("Maybe"), Name.From(name));
         private TypedValue Nothing(IrType<Unit> type) => new ConstructorValue<Unit, IrType<Unit>>(type, MaybeName("Nothing"));
@@ -69,6 +70,7 @@ public static partial class Frontend
             if (value is ApplyValue<Unit, IrType<Unit>> { Function: ConstructorValue<Unit, IrType<Unit>> constructor, Argument: var argument } && constructor.Name.Local.Key == "just") return present(argument);
             if (value is ConstructorValue<Unit, IrType<Unit>> nothingValue && nothingValue.Name.Local.Key == "nothing") return absent();
             var nothing = absent(); var name = Fresh("presentValue"); var variable = new VariableValue<Unit, IrType<Unit>>(element, name);
+            bindingOrigins[name.Key] = ValueKey(value);
             var key = ValueKey(value); bool had = key is not null && presentValues.TryGetValue(key, out _); var previous = key is null ? null : presentValues.GetValueOrDefault(key);
             TypedValue just;
             if (key is not null) presentValues[key] = variable;
@@ -87,9 +89,11 @@ public static partial class Frontend
             if (pattern is INegatedPatternOperation not) { negated = true; pattern = not.Pattern; }
             return pattern is IConstantPatternOperation constant && Null(constant.Value);
         }
-        private static bool PresenceProbe(IOperation operation) => Operations(operation).Any(op => op is IPropertyReferenceOperation p && HasValue(p) || op is IIsPatternOperation p2 && NullPattern(p2.Pattern, out _) || op is IBinaryOperation b && b.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(b.LeftOperand) || Null(b.RightOperand)));
+        private static bool PresenceProbe(IOperation operation) => Operations(operation).Any(op => FloatProbe(op) || NumericProbe(op) || op is IPropertyReferenceOperation p && HasValue(p) || op is IIsPatternOperation p2 && NullPattern(p2.Pattern, out _) || op is IBinaryOperation b && b.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(b.LeftOperand) || Null(b.RightOperand)));
         private TypedValue Decision(IOperation condition, Dictionary<ISymbol, Binding> environment, Func<Dictionary<ISymbol, Binding>, TypedValue> yes, Func<Dictionary<ISymbol, Binding>, TypedValue> no)
         {
+            if (FloatingDecision(condition, environment, yes, no) is { } floatingDecision) return floatingDecision;
+            if (NumericDecision(condition, environment, yes, no) is { } numericDecision) return numericDecision;
             if (condition.ConstantValue is { HasValue: true, Value: bool known }) return known ? yes(environment) : no(environment);
             if (condition is IUnaryOperation { OperatorKind: UnaryOperatorKind.Not, IsLifted: false } not && PresenceProbe(not.Operand)) return Decision(not.Operand, environment, no, yes);
             if (condition is IBinaryOperation { OperatorKind: BinaryOperatorKind.ConditionalAnd } and && PresenceProbe(and)) return Decision(and.LeftOperand, environment, state => Decision(and.RightOperand, state, yes, no), no);
@@ -129,7 +133,9 @@ public static partial class Frontend
         private TypedValue Default(ITypeSymbol type, Location location)
         {
             if (NullableElement(type) is not null || type.IsReferenceType) return Nothing(Type(type, location));
-            if (type.SpecialType == SpecialType.System_Int32) return Lit(Types.Int, new IntLiteral(0));
+            if (Floating(type) is not null) return FloatLiteral(0, location);
+            if (ComplexType(type)) return ComplexValue(FloatLiteral(0, location), FloatLiteral(0, location), location);
+            if (Integral(type) is { } integer) return IntegerLiteral(BigInteger.Zero, integer, location);
             if (type.SpecialType == SpecialType.System_Boolean) return Lit(Types.Bool, new BoolLiteral(false));
             if (records.TryGetValue(SymbolId(type), out var fields)) return new RecordValue<Unit, IrType<Unit>>(Type(type, location), fields.Select(f => new Entry<Name, TypedValue>(Name.From(f.Name), Default(f.Type, location))).OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray());
             return Fail<TypedValue>("MCS2502", "Default construction has no delivered representation.", location);
@@ -161,9 +167,9 @@ public static partial class Frontend
         private TypedValue Lifted(IBinaryOperation operation)
         {
             var location = operation.Syntax.GetLocation();
-            bool allowed = operation.OperatorKind is BinaryOperatorKind.Add or BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals or BinaryOperatorKind.GreaterThan or BinaryOperatorKind.GreaterThanOrEqual or BinaryOperatorKind.LessThan or BinaryOperatorKind.LessThanOrEqual or BinaryOperatorKind.And or BinaryOperatorKind.Or or BinaryOperatorKind.ExclusiveOr;
+            bool allowed = operation.OperatorKind is BinaryOperatorKind.Add or BinaryOperatorKind.Subtract or BinaryOperatorKind.Multiply or BinaryOperatorKind.Divide or BinaryOperatorKind.Remainder or BinaryOperatorKind.LeftShift or BinaryOperatorKind.RightShift or BinaryOperatorKind.UnsignedRightShift or BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals or BinaryOperatorKind.GreaterThan or BinaryOperatorKind.GreaterThanOrEqual or BinaryOperatorKind.LessThan or BinaryOperatorKind.LessThanOrEqual or BinaryOperatorKind.And or BinaryOperatorKind.Or or BinaryOperatorKind.ExclusiveOr;
             if (!allowed) return Fail<TypedValue>("MCS2106", "Unmapped lifted operator.", location);
-            if (operation.OperatorMethod is not null) return Fail<TypedValue>("MCS2106", "Unmapped lifted user operator.", location);
+            if (operation.OperatorMethod is not null && !NumericType(NullableElement(operation.LeftOperand.Type) ?? operation.LeftOperand.Type)) return Fail<TypedValue>("MCS2106", "Unmapped lifted user operator.", location);
             var left = Lower(operation.LeftOperand); var right = Lower(operation.RightOperand);
             if (operation.OperatorKind == BinaryOperatorKind.Add && (left is ConstructorValue<Unit, IrType<Unit>> { Name.Local.Key: "nothing" } || right is ConstructorValue<Unit, IrType<Unit>> { Name.Local.Key: "nothing" })) provedArithmetic.Add(operation);
             bool equality = operation.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals;
@@ -173,6 +179,23 @@ public static partial class Frontend
             TypedValue Missing() => nullableResult ? Nothing(resultType) : Lit(Types.Bool, new BoolLiteral(false));
             TypedValue Compare(TypedValue a, TypedValue b)
             {
+                var leftType = NullableElement(operation.LeftOperand.Type) ?? operation.LeftOperand.Type;
+                var rightType = NullableElement(operation.RightOperand.Type) ?? operation.RightOperand.Type;
+                if (Integral(leftType) is { } leftDomain && Integral(rightType) is { } rightDomain)
+                {
+                    var result = IntegerBinary(operation, a, b, leftDomain, rightDomain) ?? Fail<TypedValue>("MCS2106", "Unmapped lifted integer operation.", location);
+                    return nullableResult ? Just(result) : result;
+                }
+                if (Floating(leftType) is not null && Floating(rightType) is not null)
+                {
+                    var result = FloatingBinary(operation, a, b) ?? Fail<TypedValue>("MCS2106", "Unmapped lifted floating operation.", location);
+                    return nullableResult ? Just(result) : result;
+                }
+                if (ComplexType(leftType) || ComplexType(rightType))
+                {
+                    var result = ComplexBinary(operation, a, b) ?? Fail<TypedValue>("MCS2106", "Unmapped lifted complex operation.", location);
+                    return nullableResult ? Just(result) : result;
+                }
                 if (operation.IsChecked && operation.OperatorKind == BinaryOperatorKind.Add) return Fail<TypedValue>("MCS2004", "Checked semantic arithmetic is excluded.", location);
                 string? name = operation.OperatorKind switch
                 {
@@ -241,6 +264,8 @@ public static partial class Frontend
                     return new ApplyValue<Unit, IrType<Unit>>(Types.Int, new ReferenceValue<Unit, IrType<Unit>>(Types.Function(Types.String, Types.Int), new(Types.Sdk, IrPath.From("String"), Name.From("length"))), DemandPresent(Lower(property.Instance), location));
             }
             if (operation is IBinaryOperation { IsLifted: true } lifted && !(lifted.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(lifted.LeftOperand) || Null(lifted.RightOperand)))) return Lifted(lifted);
+            if (operation is IUnaryOperation { IsLifted: true } numericUnary && NumericType(NullableElement(numericUnary.Operand.Type) ?? numericUnary.Operand.Type))
+                return MatchMaybe(Lower(numericUnary.Operand), () => Nothing(Type(numericUnary.Type!, location)), present => Just(NumericUnary(numericUnary, present)));
             if (operation is IUnaryOperation { IsLifted: true, OperatorKind: UnaryOperatorKind.Not } unary)
                 return MatchMaybe(Lower(unary.Operand), () => Nothing(Types.Maybe(Types.Bool)), value => Just(new ApplyValue<Unit, IrType<Unit>>(Types.Bool,
                     new ReferenceValue<Unit, IrType<Unit>>(Types.Function(Types.Bool, Types.Bool), new(Types.Sdk, IrPath.From("Basics"), Name.From("not"))), value)));

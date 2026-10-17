@@ -139,32 +139,38 @@
     {
       "form": "all-integer-widths-signedness-native64",
       "owner": "D5",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
     },
     {
       "form": "float-double-half",
       "owner": "D5",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
     },
     {
       "form": "int128-uint128-bigint-complex",
       "owner": "D5",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
     },
     {
       "form": "numeric-conversions-and-promotions",
       "owner": "D5",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
     },
     {
       "form": "unchecked-wrap-arithmetic",
       "owner": "D5",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
     },
     {
       "form": "division-remainder-and-cast-safety",
       "owner": "D5",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
     },
     {
       "form": "decimal-exact-constant-construction",
