@@ -20,6 +20,14 @@ internal static class Support
             return d?.FullName ?? throw new InvalidOperationException("Repository root not found.");
         }
     }
+    public static string CurrentSampleReference
+    {
+        get
+        {
+            using var document = System.Text.Json.JsonDocument.Parse(Read("samples/CurrentSupportedExample/reference.json"));
+            return document.RootElement.GetProperty("expected").GetString()!;
+        }
+    }
     public static string Read(string file) => File.ReadAllText(System.IO.Path.Combine(Root, file));
     public static CSharpCompilation Compile(string code, bool check = false, Platform platform = Platform.X64) => SourceCompilation.Create([("Case.cs", code)], check, platform);
     public static FrontendResult Convert(string code, string package = "Example", string[]? selectors = null, bool check = false, Platform platform = Platform.X64) => Morphir.Frontend.CSharp.Frontend.Convert(Compile(code, check, platform), new(package, selectors ?? ["Example.D1"]));
@@ -32,9 +40,10 @@ internal static class Support
     {
         var d = StructuralComparison.Compare(Read(expectedFile), Json(code, package, selectors)); Assert.True(d is null, d?.ToString());
     }
-    public static Assembly Emit(string code)
+    public static Assembly Emit(string code) => Emit(Compile(code));
+    public static Assembly Emit(CSharpCompilation compilation)
     {
-        using var bytes = new MemoryStream(); var emit = Compile(code).Emit(bytes);
+        using var bytes = new MemoryStream(); var emit = compilation.Emit(bytes);
         Assert.True(emit.Success, string.Join("\n", emit.Diagnostics));
         bytes.Position = 0;
         return new AssemblyLoadContext(Guid.NewGuid().ToString(), true).LoadFromStream(bytes);
@@ -48,6 +57,7 @@ internal static class Support
         VariableValue<Unit, IrType<Unit>> x => vars[x.Name.Key],
         FieldValue<Unit, IrType<Unit>> x => ((IReadOnlyDictionary<string, object>)Evaluate(x.Subject, vars, library))[x.Field.Key],
         RecordValue<Unit, IrType<Unit>> x => x.Fields.ToDictionary(e => e.Key.Key, e => Evaluate(e.Value, vars, library)),
+        LetValue<Unit, IrType<Unit>> x => Evaluate(x.Body, new Dictionary<string, object>(vars) { [x.Name.Key] = Evaluate(x.Definition.Body, vars, library) }, library),
         IfValue<Unit, IrType<Unit>> x => Evaluate((bool)Evaluate(x.Condition, vars, library) ? x.Then : x.Else, vars, library),
         ReferenceValue<Unit, IrType<Unit>> x => Resolve(x.Name, library),
         ApplyValue<Unit, IrType<Unit>> x => ((Func<object, object>)Evaluate(x.Function, vars, library))(Evaluate(x.Argument, vars, library)),
@@ -55,22 +65,27 @@ internal static class Support
     };
     private static object Resolve(FQName name, Library<Unit, IrType<Unit>>? library)
     {
-        if (name.Package.Key == Types.Sdk.Key) return (Func<object, object>)(left => (Func<object, object>)(right => Binary(name.Local.Key, (int)left, (int)right)));
+        if (name.Package.Key == Types.Sdk.Key)
+            return name.Local.Key == "not" ? (Func<object, object>)(value => !(bool)value)
+                : (Func<object, object>)(left => (Func<object, object>)(right => Binary(name.Local.Key, left, right)));
         var definition = Lookup.Value(library!, name) ?? throw new InvalidOperationException($"Missing definition {name}");
         object Bind(int index, Dictionary<string, object> values) => index == definition.Inputs.Count
             ? Evaluate(definition.Body, values, library)
             : (Func<object, object>)(argument => Bind(index + 1, new(values) { [definition.Inputs[index].Name.Key] = argument }));
         return Bind(0, []);
     }
-    private static object Binary(string op, int a, int b) => op switch
+    private static object Binary(string op, object a, object b) => op switch
     {
-        "add" => checked(a + b),
-        "greater\0than\0or\0equal" => a >= b,
-        "greater\0than" => a > b,
-        "less\0than\0or\0equal" => a <= b,
-        "less\0than" => a < b,
-        "equal" => a == b,
-        "not\0equal" => a != b,
+        "add" => checked((int)a + (int)b),
+        "greater\0than\0or\0equal" => (int)a >= (int)b,
+        "greater\0than" => (int)a > (int)b,
+        "less\0than\0or\0equal" => (int)a <= (int)b,
+        "less\0than" => (int)a < (int)b,
+        "equal" => Equals(a, b),
+        "not\0equal" => !Equals(a, b),
+        "and" => (bool)a & (bool)b,
+        "or" => (bool)a | (bool)b,
+        "xor" => (bool)a ^ (bool)b,
         _ => throw new NotSupportedException(op)
     };
     public static object Call(Library<Unit, IrType<Unit>> lib, string module, string method, params object[] args)

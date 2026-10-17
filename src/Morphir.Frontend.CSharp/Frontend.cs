@@ -20,13 +20,13 @@ public sealed record FrontendResult(Library<Unit, IrType<Unit>>? Distribution, I
     public bool Success => Distribution is not null && Diagnostics.Count == 0;
 }
 
-public static class Frontend
+public static partial class Frontend
 {
     public static FrontendResult Convert(CSharpCompilation compilation, FrontendSettings settings, IReadOnlyList<CSharpCompilation>? sourceProjects = null) =>
         new Translation(compilation, settings, sourceProjects ?? []).Run();
 
     private sealed class Rejected : Exception;
-    private sealed class Translation(CSharpCompilation compilation, FrontendSettings settings, IReadOnlyList<CSharpCompilation> sourceProjects)
+    private sealed partial class Translation(CSharpCompilation compilation, FrontendSettings settings, IReadOnlyList<CSharpCompilation> sourceProjects)
     {
         private readonly List<FrontendDiagnostic> diagnostics = [];
         private readonly Dictionary<ISymbol, FQName> symbols = new(SymbolEqualityComparer.Default);
@@ -206,24 +206,25 @@ public static class Frontend
         private void EmitMethod(IMethodSymbol m)
         {
             var syntax = (MethodDeclarationSyntax)m.DeclaringSyntaxReferences.Single().GetSyntax();
-            if (!m.IsStatic || m.Arity != 0 || m.IsAsync || syntax.ExpressionBody is null || syntax.AttributeLists.Count != 0 || m.GetAttributes().Length != 0 || m.ReturnsByRef || m.ReturnsByRefReadonly || m.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams || p.HasExplicitDefaultValue || p.GetAttributes().Length != 0))
-                Fail<object>("MCS2105", "D1 functions require static expression bodies and ordinary, non-generic by-value parameters.", Location(m));
+            if (!m.IsStatic || m.Arity != 0 || m.IsAsync || (syntax.ExpressionBody is null && syntax.Body is null) || syntax.AttributeLists.Count != 0 || m.GetAttributes().Length != 0 || m.ReturnsByRef || m.ReturnsByRefReadonly || m.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams || p.HasExplicitDefaultValue || p.GetAttributes().Length != 0))
+                Fail<object>("MCS2105", "Functions require static expression or block bodies and ordinary, non-generic by-value parameters.", Location(m));
             if (m.Parameters.GroupBy(p => Name.From(p.Name).Key).Any(g => g.Count() > 1)) Fail<object>("MCS1004", "Parameter names collide after normalization.", Location(m));
             var inputs = m.Parameters.Select(p => new Input<Unit, IrType<Unit>>(Name.From(p.Name), Type(p.Type, Location(p)), Type(p.Type, Location(p)))).ToArray();
             var output = Type(m.ReturnType, Location(m), true);
             var methodBody = (IMethodBodyOperation)Semantic(syntax.SyntaxTree).GetOperation(syntax)!;
-            var operation = ((IReturnOperation)methodBody.ExpressionBody!.Operations.Single()).ReturnedValue!;
             currentMethod = SymbolId(m);
             calls.TryAdd(currentMethod, []);
-            var body = Lower(operation);
-            if (m.ReturnType.SpecialType == SpecialType.System_String && body is not LiteralValue<Unit, IrType<Unit>> { Literal: StringLiteral })
-                Fail<object>("MCS2301", "D1 strings require a known-present literal; general nullable data waits for D4.", operation.Syntax.GetLocation());
+            PrepareBindings(m);
+            var body = methodBody.BlockBody is { } block
+                ? LowerMethodBlock(methodBody, block, syntax)
+                : Expression(((IReturnOperation)methodBody.ExpressionBody!.Operations.Single()).ReturnedValue!, Copy(bindings), (value, _) => value);
             var id = Identity(m); EnsureModule(id.Module, Visibility(m.ContainingType));
             modules[id.Module.Key].Values.Add(new(id.Local, new(Visibility(m), new(Documentation(m), new(inputs, output, body)))));
         }
         private TypedValue Lit(IrType<Unit> t, Literal l) => new LiteralValue<Unit, IrType<Unit>>(t, l);
         private TypedValue Lower(IOperation op)
         {
+            if (operandValues.TryGetValue(op, out var evaluated)) return evaluated;
             var loc = op.Syntax.GetLocation();
             var t = op.Type is null ? Types.Bool : Type(op.Type, loc, true);
             switch (op)
@@ -249,7 +250,13 @@ public static class Frontend
                     // distinct from CommonConversion.IsIdentity despite equal bound types.
                     return Lower(creation);
                 case IParameterReferenceOperation p:
-                    return new VariableValue<Unit, IrType<Unit>>(t, Name.From(p.Parameter.Name));
+                    return ReadBinding(p.Parameter, loc);
+                case ILocalReferenceOperation l:
+                    return ReadBinding(l.Local, loc);
+                case IConditionalOperation c when c.Type is not null && c.WhenFalse is not null && !c.IsRef:
+                    return new IfValue<Unit, IrType<Unit>>(t, Lower(c.Condition), Lower(c.WhenTrue), Lower(c.WhenFalse));
+                case IUnaryOperation u when u.OperatorKind == UnaryOperatorKind.Not && u.Type?.SpecialType == SpecialType.System_Boolean && u.OperatorMethod is null:
+                    return new ApplyValue<Unit, IrType<Unit>>(Types.Bool, new ReferenceValue<Unit, IrType<Unit>>(Types.Function(Types.Bool, Types.Bool), new(Types.Sdk, IrPath.From("Basics"), Name.From("not"))), Lower(u.Operand));
                 case IPropertyReferenceOperation p when p.Instance is not null && p.Property.ContainingType is { } owner && records.TryGetValue(SymbolId(owner), out var fields) && fields.Any(f => f.Name == p.Property.Name) && p.Arguments.Length == 0:
                     return new FieldValue<Unit, IrType<Unit>>(t, Lower(p.Instance), Name.From(p.Property.Name));
                 case IObjectCreationOperation c when c.Type is INamedTypeSymbol n && records.TryGetValue(SymbolId(n), out var fs) && c.Initializer is null && c.Constructor is { } ctor && ctor.Parameters.Length == fs.Length && c.Arguments.Length == fs.Length && c.Arguments.All(a => a.ArgumentKind == ArgumentKind.Explicit):
@@ -264,8 +271,15 @@ public static class Frontend
                     var left = Lower(b.LeftOperand); var right = Lower(b.RightOperand);
                     if (b.OperatorKind == BinaryOperatorKind.ConditionalAnd) return new IfValue<Unit, IrType<Unit>>(t, left, right, Lit(Types.Bool, new BoolLiteral(false)));
                     if (b.OperatorKind == BinaryOperatorKind.ConditionalOr) return new IfValue<Unit, IrType<Unit>>(t, left, Lit(Types.Bool, new BoolLiteral(true)), right);
+                    if (b.LeftOperand.Type?.SpecialType == SpecialType.System_Boolean && b.RightOperand.Type?.SpecialType == SpecialType.System_Boolean)
+                    {
+                        var booleanFunction = b.OperatorKind switch { BinaryOperatorKind.Equals => "equal", BinaryOperatorKind.NotEquals => "notEqual", BinaryOperatorKind.And => "and", BinaryOperatorKind.Or => "or", BinaryOperatorKind.ExclusiveOr => "xor", _ => null };
+                        if (booleanFunction is null) return Fail<TypedValue>("MCS2106", "Unmapped Boolean operator.", loc);
+                        return SdkBinary(booleanFunction, Types.Bool, Types.Bool, left, right);
+                    }
                     if (b.LeftOperand.Type?.SpecialType != SpecialType.System_Int32 || b.RightOperand.Type?.SpecialType != SpecialType.System_Int32)
                         return Fail<TypedValue>("MCS2106", "D1 mapped binary operators require Int32 operands.", loc);
+                    if (b.OperatorKind == BinaryOperatorKind.Add) provedArithmetic.Add(b);
                     if (b.OperatorKind == BinaryOperatorKind.Add && !SafeAddition(b)) return Fail<TypedValue>("MCS2302", "Int32 addition can overflow. D1 requires a constant-safe sum or a zero operand; wrap semantics arrive in D5.", loc);
                     var function = b.OperatorKind switch
                     {
@@ -283,25 +297,31 @@ public static class Frontend
                     var partialType = Types.Function(arg, t);
                     var reference = new ReferenceValue<Unit, IrType<Unit>>(Types.Function(arg, partialType), new(Types.Sdk, IrPath.From("Basics"), Name.From(function)));
                     return new ApplyValue<Unit, IrType<Unit>>(t, new ApplyValue<Unit, IrType<Unit>>(partialType, reference, left), right);
-                default: return Fail<TypedValue>("MCS2107", $"Operation {op.Kind} is outside D1; no partial distribution was produced.", loc);
+                default: return Fail<TypedValue>("MCS2107", $"Operation {op.Kind} is outside the delivered expression contract; no partial distribution was produced.", loc);
             }
         }
-        private TypedValue Invoke(IInvocationOperation invocation)
+        private FQName ValidateInvocation(IInvocationOperation invocation)
         {
             var target = invocation.TargetMethod;
             var loc = invocation.Syntax.GetLocation();
             if (!identities.TryGetValue(SymbolId(target), out var fq))
             {
                 bool source = compilations.Any(c => c.Assembly.Identity.Equals(target.ContainingAssembly.Identity));
-                return Fail<TypedValue>(source ? "MCS2201" : "MCS2202",
+                return Fail<FQName>(source ? "MCS2201" : "MCS2202",
                     source ? $"Required source symbol {target} in namespace {target.ContainingNamespace} is not selected; add that namespace explicitly."
                            : $"External call {target} has no exact catalog mapping or configured Morphir specification; DLL bodies are not translated.", loc);
             }
             if (!target.IsStatic || target.Arity != 0 || target.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams || p.HasExplicitDefaultValue)
                 || invocation.Arguments.Any(a => a.ArgumentKind != ArgumentKind.Explicit || a.Syntax is ArgumentSyntax { NameColon: not null })
                 || !invocation.Arguments.Select(a => a.Parameter!.Ordinal).SequenceEqual(Enumerable.Range(0, target.Parameters.Length)))
-                return Fail<TypedValue>("MCS2204", "D2 calls require exact static, non-generic positional by-value arguments; extended argument forms arrive in D7.", loc);
+                return Fail<FQName>("MCS2204", "D2 calls require exact static, non-generic positional by-value arguments; extended argument forms arrive in D7.", loc);
             calls[currentMethod].Add((SymbolId(target), loc));
+            return fq;
+        }
+        private TypedValue Invoke(IInvocationOperation invocation)
+        {
+            var target = invocation.TargetMethod; var loc = invocation.Syntax.GetLocation();
+            var fq = ValidateInvocation(invocation);
             IrType<Unit> functionType = Type(target.ReturnType, loc, true);
             foreach (var parameter in target.Parameters.Reverse()) functionType = Types.Function(Type(parameter.Type, loc), functionType);
             TypedValue result = new ReferenceValue<Unit, IrType<Unit>>(functionType, fq);
@@ -328,12 +348,12 @@ public static class Frontend
             }
             foreach (var method in calls.Keys.Order(StringComparer.Ordinal)) if (!state.ContainsKey(method)) Visit(method);
         }
-        private static bool SafeAddition(IBinaryOperation b)
+        private bool SafeAddition(IBinaryOperation b)
         {
-            var l = b.LeftOperand.ConstantValue; var r = b.RightOperand.ConstantValue;
-            if (l is { HasValue: true, Value: int x } && x == 0 || r is { HasValue: true, Value: int y } && y == 0) return true;
-            if (l is { HasValue: true, Value: int a } && r is { HasValue: true, Value: int c }) return (long)a + c is >= int.MinValue and <= int.MaxValue;
-            return false;
+            var l = Constant(b.LeftOperand); var r = Constant(b.RightOperand);
+            if (l is int x && x == 0 || r is int y && y == 0) return true;
+            return l is int a && r is int c && (long)a + c is >= int.MinValue and <= int.MaxValue;
         }
+
     }
 }

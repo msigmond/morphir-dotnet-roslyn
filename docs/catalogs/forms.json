@@ -74,32 +74,32 @@
     {
       "form": "block-scope",
       "owner": "D3",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "local-bindings",
       "owner": "D3",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "if-else",
       "owner": "D3",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "conditional-expression",
       "owner": "D3",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "early-return",
       "owner": "D3",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "boolean-control-flow",
       "owner": "D3",
-      "state": "pending"
+      "state": "supported"
     },
     {
       "form": "nullable-values-references",

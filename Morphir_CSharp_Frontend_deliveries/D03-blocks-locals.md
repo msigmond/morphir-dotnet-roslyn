@@ -1,6 +1,6 @@
 # D3 — Blocks, locals, decisions
 
-- status: planned
+- status: passed
 - required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
 - prerequisites: [D2](D02-project-inputs.md)
 - outcome: Business rule with intermediate state and multiple returns
@@ -9,10 +9,10 @@
 
 ## Implementation
 
-- [ ] CurrentSupportedExample update: blocks, locals/constants, reassignment, branches/conditional expressions, returns
-- [ ] Block bodies; locals/constants; allowed reassignment; returns; conditional expressions; if/else
-- [ ] Boolean/short-circuit lowering; numeric operations restricted to delivered contracts
-- [ ] IOperation + control-flow analysis; scopes, evaluation order, definite assignment
+- [x] CurrentSupportedExample update: blocks, locals/constants, reassignment, branches/conditional expressions, returns
+- [x] Block bodies; locals/constants; allowed reassignment; returns; conditional expressions; if/else
+- [x] Boolean/short-circuit lowering; numeric operations restricted to delivered contracts
+- [x] IOperation + control-flow analysis; scopes, evaluation order, definite assignment
 
 ## Model increment
 
@@ -27,12 +27,12 @@
 
 ## Acceptance
 
-- [ ] Category: inactive → 0; active age <18 → 1; active adult → 2
-- [ ] Branch coverage + locals/reassignment parity; operand/branch changes reflected in IR
+- [x] Category: inactive → 0; active age <18 → 1; active adult → 2
+- [x] Branch coverage + locals/reassignment parity; operand/branch changes reflected in IR
 
 ## Rejections
 
-- [ ] Unproved numeric semantics; unassigned read; input/external mutation; effects
+- [x] Unproved numeric semantics; unassigned read; input/external mutation; effects
 
 ## Code examples
 

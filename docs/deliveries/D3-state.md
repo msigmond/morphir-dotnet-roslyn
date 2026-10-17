@@ -1,0 +1,14 @@
+# D3 — execution evidence
+
+- Status: passed; prerequisite D2 passed at commit 00dbba6 and pushed to origin/main.
+- Scope: block bodies, locals/constants/simple reassignment, early/multiple returns, if/else/conditional expressions and Boolean operations, preserving numeric safety.
+- Implementation: typed LetDefinition model/explicit codec; IOperation/CFG + compiler/data-flow scope and definite-assignment checks; continuation lowering with immutable source-derived binding versions; nested assignment expression/argument/operand order and short circuit; complete cumulative sample.
+- References: independent ordinary Elm Category (explicit Int local definition annotations) and complete Elm codec cumulative sample. Exact pinned compiler/mode/source/output hashes in fixtures/D3/expected/provenance.json. All D1/D2 sources/expected/provenance remain unchanged. Explicit D3 generation finished before final validation; no frontend-generated expected JSON.
+- Coverage: language/forms/operation/framework/model catalogs and mapping D3 updated. 294 owner/state entries; 256 final-scope obligations remain pending.
+- Development checks: first Category comparison exposed generalized Elm local output types; explicit independent Elm Int annotations fixed the fixture. First full run passed all 20 integration checks but identified legacy with-expression rejection dispatch changing diagnostics; generic unsupported-expression traversal was corrected before final validation.
+- Final build: `dotnet build Morphir.CSharp.slnx --no-restore -m:1` passed, 0 warnings / 0 errors.
+- Final suite: `dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1 --filter 'Delivery=D1|Delivery=D2|Delivery=D3' --logger 'trx;LogFilePrefix=final-D3' --results-directory artifacts/test-results` passed **75 tests, 0 failed / 0 skipped** (20 integration, 34 frontend/catalog, 4 Classic, 17 Json). Ignored reports under artifacts/test-results/final-D3_*.trx.
+- `python3 eng/check-repository.py` and `python3 eng/check-catalogs.py` passed. `--require-complete` correctly fails with 256 pending final-scope obligations; expected before D21. All 24 plan code blocks, Markdown links/fences, root license/notice bytes, CLAUDE pointer and frozen source/reference hashes pass.
+- Complete cumulative project/generator/source-reference compilation, transpilation and independent full-distribution parity passed; emitted C# behavior covers all D3 forms and boundaries. No golden refresh during final validation.
+- Required remaining work: no D3 implementation/gate work remains. Passed checklists/master/catalogs/sample/README/AGENTS are synchronized; automatic commit/push follows staged checks. Next delivery D4.
+- User authorization: automatic commit/push after each passed D2–D10 delivery. Hourly continue-morphir-d2-d10 heartbeat resumes after usage reset if necessary. No use of reset credits or billing changes.

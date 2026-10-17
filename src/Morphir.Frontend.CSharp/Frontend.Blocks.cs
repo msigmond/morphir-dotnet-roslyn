@@ -1,0 +1,191 @@
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.FlowAnalysis;
+using Microsoft.CodeAnalysis.Operations;
+using Morphir.IR.Classic;
+using IrPath = Morphir.IR.Classic.Path;
+using TypedValue = Morphir.IR.Classic.Value<Morphir.IR.Classic.Unit, Morphir.IR.Classic.IrType<Morphir.IR.Classic.Unit>>;
+
+namespace Morphir.Frontend.CSharp;
+
+public static partial class Frontend
+{
+    private sealed partial class Translation
+    {
+        private sealed record Binding(Name Name, IrType<Unit> Type, object? Constant);
+        private Dictionary<ISymbol, Binding> bindings = new(SymbolEqualityComparer.Default);
+        private readonly HashSet<string> bindingNames = new(StringComparer.Ordinal);
+        private readonly HashSet<IOperation> provedArithmetic = [];
+        private void PrepareBindings(IMethodSymbol method)
+        {
+            bindings = new(SymbolEqualityComparer.Default);
+            bindingNames.Clear();
+            bindingConstants.Clear();
+            operandValues.Clear();
+            provedArithmetic.Clear();
+            foreach (var id in identities.Values) bindingNames.Add(id.Local.Key);
+            foreach (var parameter in method.Parameters)
+            {
+                var name = Name.From(parameter.Name); bindingNames.Add(name.Key);
+                bindingConstants[name.Key] = null;
+                bindings[parameter] = new(name, Type(parameter.Type, Location(parameter)), null);
+            }
+        }
+        private static Dictionary<ISymbol, Binding> Copy(Dictionary<ISymbol, Binding> source) => new(source, SymbolEqualityComparer.Default);
+        private Name Fresh(string source)
+        {
+            var name = Name.From(source); int version = 0;
+            while (!bindingNames.Add(name.Key)) name = Name.From(source + "_" + ++version);
+            return name;
+        }
+        private TypedValue ReadBinding(ISymbol symbol, Location location) => bindings.TryGetValue(symbol, out var binding)
+            ? new VariableValue<Unit, IrType<Unit>>(binding.Type, binding.Name)
+            : Fail<TypedValue>("MCS2401", $"Local {symbol.Name} is not definitely assigned in the current source scope.", location);
+        private object? Constant(IOperation operation)
+        {
+            if (operandValues.TryGetValue(operation, out var evaluated)) return ValueConstant(evaluated);
+            if (operation.ConstantValue.HasValue) return operation.ConstantValue.Value;
+            var symbol = operation switch { ILocalReferenceOperation l => (ISymbol)l.Local, IParameterReferenceOperation p => p.Parameter, _ => null };
+            if (symbol is not null && bindings.TryGetValue(symbol, out var value)) return value.Constant;
+            if (operation is IConversionOperation c && c.Conversion.IsIdentity) return Constant(c.Operand);
+            if (operation is IBinaryOperation { OperatorKind: BinaryOperatorKind.Add } b && Constant(b.LeftOperand) is int x && Constant(b.RightOperand) is int y && (long)x + y is >= int.MinValue and <= int.MaxValue) return x + y;
+            return null;
+        }
+        private TypedValue In(Dictionary<ISymbol, Binding> environment, IOperation expression)
+        {
+            var previous = bindings; bindings = environment;
+            try { return Lower(expression); }
+            finally { bindings = previous; }
+        }
+        private TypedValue SdkBinary(string name, IrType<Unit> argument, IrType<Unit> result, TypedValue left, TypedValue right)
+        {
+            var partial = Types.Function(argument, result);
+            return new ApplyValue<Unit, IrType<Unit>>(result, new ApplyValue<Unit, IrType<Unit>>(partial,
+                new ReferenceValue<Unit, IrType<Unit>>(Types.Function(argument, partial), new(Types.Sdk, IrPath.From("Basics"), Name.From(name))), left), right);
+        }
+        private TypedValue LowerMethodBlock(IMethodBodyOperation methodBody, IBlockOperation body, MethodDeclarationSyntax syntax)
+        {
+            var graph = ControlFlowGraph.Create(methodBody);
+            foreach (var predecessor in graph.Blocks[^1].Predecessors)
+            {
+                if (!predecessor.Source.IsReachable) continue;
+                if (predecessor.Source.BranchValue?.ConstantValue is { HasValue: true, Value: bool value } && predecessor.Source.ConditionKind != ControlFlowConditionKind.None)
+                {
+                    bool conditional = predecessor.Source.ConditionKind == ControlFlowConditionKind.WhenTrue ? value : !value;
+                    if (predecessor.IsConditionalSuccessor != conditional) continue;
+                }
+                if (predecessor.Semantics != ControlFlowBranchSemantics.Return)
+                    Fail<object>("MCS2402", "The control-flow graph has an unproved value-return path.", syntax.GetLocation());
+            }
+            var dataFlow = Semantic(syntax.SyntaxTree).AnalyzeDataFlow(syntax.Body!);
+            if (!dataFlow.Succeeded) Fail<object>("MCS2401", "Definite-assignment/scope analysis failed.", syntax.GetLocation());
+            ValidateBlockOperations(body);
+            var result = Statements(body.Operations, 0, Copy(bindings), _ => Fail<TypedValue>("MCS2402", "A value-return path falls through.", syntax.GetLocation()));
+            ValidateUnreachedArithmetic(body);
+            return result;
+        }
+        private void ValidateUnreachedArithmetic(IOperation operation)
+        {
+            if (operation is IBinaryOperation { OperatorKind: BinaryOperatorKind.Add } addition && !provedArithmetic.Contains(operation) && !SafeAddition(addition))
+                Fail<object>("MCS2302", "An unreachable addition still requires the delivered numeric proof contract.", operation.Syntax.GetLocation());
+            foreach (var child in operation.ChildOperations) ValidateUnreachedArithmetic(child);
+        }
+        private void ValidateBlockOperations(IOperation operation)
+        {
+            // Validate selected source even where a constant branch/return makes it unreachable.
+            bool supported = operation is IBlockOperation or IVariableDeclarationGroupOperation or IVariableDeclarationOperation
+                or IVariableDeclaratorOperation or IVariableInitializerOperation or IExpressionStatementOperation
+                or ISimpleAssignmentOperation or IReturnOperation or IConditionalOperation or IEmptyOperation
+                or ILiteralOperation or IParameterReferenceOperation or ILocalReferenceOperation or IPropertyReferenceOperation
+                or IObjectCreationOperation or IArgumentOperation or IConversionOperation or IBinaryOperation or IUnaryOperation or IInvocationOperation;
+            if (!supported) Fail<object>("MCS2403", $"Operation {operation.Kind} is outside the D3 structured block contract.", operation.Syntax.GetLocation());
+            if (operation.Type is { SpecialType: not SpecialType.System_Void } type) Type(type, operation.Syntax.GetLocation(), true);
+            if (operation is ISimpleAssignmentOperation assignment && (assignment.IsRef || assignment.Target is not (ILocalReferenceOperation or IParameterReferenceOperation)))
+                Fail<object>("MCS2404", "D3 assignment must rebind a local/by-value parameter; input/external member updates are not permitted.", operation.Syntax.GetLocation());
+            if (operation is IPropertyReferenceOperation property && !records.ContainsKey(SymbolId(property.Property.ContainingType)))
+                Fail<object>("MCS2107", "Unknown/effectful property read is outside the admitted record mapping.", operation.Syntax.GetLocation());
+            if (operation is ILiteralOperation { ConstantValue: { HasValue: true, Value: null } })
+                Fail<object>("MCS2301", "Missing values require the D4 presence mapping.", operation.Syntax.GetLocation());
+            if (operation is IBinaryOperation binary)
+            {
+                bool boolean = binary.LeftOperand.Type?.SpecialType == SpecialType.System_Boolean && binary.RightOperand.Type?.SpecialType == SpecialType.System_Boolean;
+                bool admitted = boolean
+                    ? binary.OperatorKind is BinaryOperatorKind.ConditionalAnd or BinaryOperatorKind.ConditionalOr or BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals or BinaryOperatorKind.And or BinaryOperatorKind.Or or BinaryOperatorKind.ExclusiveOr
+                    : binary.LeftOperand.Type?.SpecialType == SpecialType.System_Int32 && binary.RightOperand.Type?.SpecialType == SpecialType.System_Int32 && binary.OperatorKind is BinaryOperatorKind.Add or BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals or BinaryOperatorKind.GreaterThan or BinaryOperatorKind.GreaterThanOrEqual or BinaryOperatorKind.LessThan or BinaryOperatorKind.LessThanOrEqual;
+                if (!admitted || binary.OperatorMethod is not null || binary.IsLifted) Fail<object>("MCS2106", "Unmapped binary operator in selected source.", operation.Syntax.GetLocation());
+                if (binary.IsChecked && binary.OperatorKind == BinaryOperatorKind.Add) Fail<object>("MCS2004", "Checked semantic arithmetic is excluded.", operation.Syntax.GetLocation());
+            }
+            if (operation is IUnaryOperation unary)
+            {
+                if (unary.IsChecked) Fail<object>("MCS2004", "Checked semantic arithmetic is excluded.", operation.Syntax.GetLocation());
+                if (!(unary.OperatorMethod is null && (unary.OperatorKind == UnaryOperatorKind.Not && unary.Type?.SpecialType == SpecialType.System_Boolean || unary.OperatorKind == UnaryOperatorKind.Minus && unary.Type?.SpecialType == SpecialType.System_Int32 && unary.ConstantValue is { HasValue: true, Value: int })))
+                    Fail<object>("MCS2107", "Unmapped unary operator in selected source.", operation.Syntax.GetLocation());
+            }
+            if (operation is IConversionOperation conversion)
+            {
+                if (conversion.IsChecked) Fail<object>("MCS2004", "Checked semantic conversions are excluded.", operation.Syntax.GetLocation());
+                if (!(conversion.Conversion.IsIdentity || conversion.Operand is IObjectCreationOperation creation && !conversion.Conversion.IsUserDefined && SymbolEqualityComparer.Default.Equals(conversion.Type, creation.Type)))
+                    Fail<object>("MCS2107", "Unmapped conversion in selected source.", operation.Syntax.GetLocation());
+            }
+            if (operation is IConditionalOperation { IsRef: true }) Fail<object>("MCS2404", "Ref conditionals require later ownership analysis.", operation.Syntax.GetLocation());
+            if (operation is IObjectCreationOperation creationOperation && (creationOperation.Type is not INamedTypeSymbol named || !records.TryGetValue(SymbolId(named), out var fields) || creationOperation.Initializer is not null || creationOperation.Constructor?.Parameters.Length != fields.Length || creationOperation.Arguments.Length != fields.Length || creationOperation.Arguments.Any(a => a.ArgumentKind != ArgumentKind.Explicit)))
+                Fail<object>("MCS2107", "Unmapped construction in selected source.", operation.Syntax.GetLocation());
+            if (operation is IInvocationOperation invocation) ValidateInvocation(invocation);
+            foreach (var child in operation.ChildOperations) ValidateBlockOperations(child);
+        }
+        private TypedValue Statements(IReadOnlyList<IOperation> statements, int index, Dictionary<ISymbol, Binding> environment, Func<Dictionary<ISymbol, Binding>, TypedValue> continuation)
+        {
+            if (index == statements.Count) return continuation(environment);
+            TypedValue Next(Dictionary<ISymbol, Binding> state) => Statements(statements, index + 1, state, continuation);
+            var statement = statements[index];
+            switch (statement)
+            {
+                case IBlockOperation block:
+                    return Statements(block.Operations, 0, Copy(environment), state =>
+                    {
+                        var outer = Copy(state); foreach (var local in block.Locals) outer.Remove(local);
+                        return Next(outer);
+                    });
+                case IVariableDeclarationGroupOperation group:
+                    var declarations = group.Declarations.SelectMany(d => d.Declarators).ToArray();
+                    TypedValue Declare(int i, Dictionary<ISymbol, Binding> state)
+                    {
+                        if (i == declarations.Length) return Next(state);
+                        var declarator = declarations[i];
+                        return declarator.Initializer is null ? Declare(i + 1, state)
+                            : Bind(declarator.Symbol, declarator.Symbol.Type, declarator.Initializer.Value, state, next => Declare(i + 1, next));
+                    }
+                    return Declare(0, environment);
+                case IExpressionStatementOperation expression:
+                    return Expression(expression.Operation, environment, (value, state) =>
+                    {
+                        if (expression.Operation is ISimpleAssignmentOperation) return Next(state);
+                        var name = Fresh("discardedValue"); var next = Next(state);
+                        return new LetValue<Unit, IrType<Unit>>(next.Attributes, name, new([], value.Attributes, value), next);
+                    });
+                case IReturnOperation { ReturnedValue: not null } result:
+                    return Expression(result.ReturnedValue, environment, (value, _) => value);
+                case IConditionalOperation conditional:
+                    return Expression(conditional.Condition, environment, (condition, state) =>
+                    {
+                        if (conditional.Condition.ConstantValue is { HasValue: true, Value: bool known })
+                        {
+                            var chosen = known ? conditional.WhenTrue : conditional.WhenFalse;
+                            return chosen is null ? Next(state) : Statements([chosen], 0, Copy(state), Next);
+                        }
+                        var then = Statements([conditional.WhenTrue], 0, Copy(state), Next);
+                        var otherwise = conditional.WhenFalse is null ? Next(Copy(state)) : Statements([conditional.WhenFalse], 0, Copy(state), Next);
+                        return new IfValue<Unit, IrType<Unit>>(then.Attributes, condition, then, otherwise);
+                    });
+                case IEmptyOperation:
+                    return Next(environment);
+                default:
+                    return Fail<TypedValue>("MCS2403", $"Statement {statement.Kind} is outside the D3 block contract.", statement.Syntax.GetLocation());
+            }
+        }
+        private TypedValue Bind(ISymbol symbol, ITypeSymbol type, IOperation initializer, Dictionary<ISymbol, Binding> environment, Func<Dictionary<ISymbol, Binding>, TypedValue> continuation)
+        {
+            return Expression(initializer, environment, (value, state) => BindValue(symbol, type, value, state, continuation, initializer.Syntax.GetLocation()));
+        }
+    }
+}

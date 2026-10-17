@@ -42,6 +42,7 @@ public static class Codec
             ApplyValue<TA, VA> x => Arr("Apply", a, V(x.Function), V(x.Argument)),
             FieldValue<TA, VA> x => Arr("Field", a, V(x.Subject), Name(x.Field)),
             RecordValue<TA, VA> x => Arr("Record", a, Entries(x.Fields, Name, V)),
+            LetValue<TA, VA> x => Arr("LetDefinition", a, Name(x.Name), Definition(x.Definition, ta, va), V(x.Body)),
             IfValue<TA, VA> x => Arr("IfThenElse", a, V(x.Condition), V(x.Then), V(x.Else)),
             _ => throw new NotSupportedException(v.GetType().Name)
         };

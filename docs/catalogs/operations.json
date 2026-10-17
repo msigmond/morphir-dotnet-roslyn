@@ -18,14 +18,14 @@
     {
       "operation": "Block",
       "owner": "D3",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
     },
     {
       "operation": "VariableDeclarationGroup",
       "owner": "D3",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
     },
     {
       "operation": "Switch",
@@ -54,14 +54,14 @@
     {
       "operation": "Empty",
       "owner": "D3",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
     },
     {
       "operation": "Return",
       "owner": "D3",
-      "state": "pending",
-      "domain": "Expression-body return wrapper supported D1; statement/block returns pending D3."
+      "state": "supported",
+      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
     },
     {
       "operation": "YieldBreak",
@@ -97,7 +97,7 @@
       "operation": "ExpressionStatement",
       "owner": "D15",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "D3 admitted local assignments and pure discarded calls/constructions retained as bindings; complete local-state forms pending D15."
     },
     {
       "operation": "LocalFunction",
@@ -150,8 +150,8 @@
     {
       "operation": "LocalReference",
       "owner": "D3",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
     },
     {
       "operation": "ParameterReference",
@@ -187,31 +187,31 @@
       "operation": "Unary",
       "owner": "D5",
       "state": "pending",
-      "domain": "D1 identity conversion/constant-negative/safe-int arithmetic/comparisons supported; complete numeric domains and transport pending D5."
+      "domain": "D1 safe Int32 arithmetic/comparisons and D3 Boolean not/equality/inequality/eager and/or/xor supported; full numeric domains/transport pending D5."
     },
     {
       "operation": "UnaryOperator",
       "owner": "D5",
       "state": "pending",
-      "domain": "D1 identity conversion/constant-negative/safe-int arithmetic/comparisons supported; complete numeric domains and transport pending D5."
+      "domain": "D1 safe Int32 arithmetic/comparisons and D3 Boolean not/equality/inequality/eager and/or/xor supported; full numeric domains/transport pending D5."
     },
     {
       "operation": "Binary",
       "owner": "D5",
       "state": "pending",
-      "domain": "D1 identity conversion/constant-negative/safe-int arithmetic/comparisons supported; complete numeric domains and transport pending D5."
+      "domain": "D1 safe Int32 arithmetic/comparisons and D3 Boolean not/equality/inequality/eager and/or/xor supported; full numeric domains/transport pending D5."
     },
     {
       "operation": "BinaryOperator",
       "owner": "D5",
       "state": "pending",
-      "domain": "D1 identity conversion/constant-negative/safe-int arithmetic/comparisons supported; complete numeric domains and transport pending D5."
+      "domain": "D1 safe Int32 arithmetic/comparisons and D3 Boolean not/equality/inequality/eager and/or/xor supported; full numeric domains/transport pending D5."
     },
     {
       "operation": "Conditional",
       "owner": "D3",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
     },
     {
       "operation": "Coalesce",
@@ -265,7 +265,7 @@
       "operation": "SimpleAssignment",
       "owner": "D15",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "D3 simple local/by-value parameter rebinding and nested assignment expressions supported with immutable snapshots; full owned aliases/member/ref state remains pending D15."
     },
     {
       "operation": "CompoundAssignment",
@@ -450,8 +450,8 @@
     {
       "operation": "VariableInitializer",
       "owner": "D3",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
     },
     {
       "operation": "PropertyInitializer",
@@ -474,14 +474,14 @@
     {
       "operation": "VariableDeclarator",
       "owner": "D3",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
     },
     {
       "operation": "VariableDeclaration",
       "owner": "D3",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
     },
     {
       "operation": "Argument",

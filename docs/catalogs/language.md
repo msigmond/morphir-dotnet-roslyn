@@ -1,6 +1,6 @@
-# Language coverage — D1–D2
+# Language coverage — D1–D3
 
-Status: D1–D2 passed; D3 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is `fixtures/D2/expected/sample.json`; the D1 standalone reference is unchanged. No future business-source forms are included.
+Status: D1–D3 passed; D4 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is `fixtures/D3/expected/sample.json`; the D1 standalone reference is unchanged. No future business-source forms are included.
 
 | Supported form | Cumulative example symbol/location | Additional parity / behavior evidence |
 | --- | --- | --- |
@@ -34,3 +34,17 @@ D1 does not admit locals/aliases/mutation, nullable data or Decimal arithmetic. 
 | Distinct source containers with same method names | Original Eligibility owners + project/shared owners | D2 calls/project/internal distribution equality |
 
 [forms.json](forms.json) assigns every fixed language/purity/safety form through D18.4. [operations.json](operations.json) inventories every named Roslyn 5.0.0 OperationKind including aliases/non-C# markers; subset domains and pending owners are explicit. [framework.json](framework.json) inventories the exact fixed primitive/framework families; pending representations/member/proof work blocks final release. Catalog presence does not imply implementation.
+
+## D3 additions
+
+| Form / contract | Cumulative example | Complete parity / behavior evidence |
+| --- | --- | --- |
+| Block scopes, locals/constants, later initialization | `Scoped`, `InitLater`, `KnownLabel` in Blocks.cs | D3 sample complete codec parity; compiled C# boundary behavior; compiler unassigned/scope rejection |
+| Local/by-value parameter reassignment, value copies | `Category`, `Reassign`, `ValueCopy` | D3 ordinary Category and sample parity; MinValue/MaxValue and record copy behavior |
+| if/else, early/multiple returns, typed conditional | `Category`, `Early`, `ConstantBranch` | All active/age branches; changed assignment changes IR and result; CFG return paths |
+| Boolean not/equality/inequality, eager and/or/xor | `Boolean` | All four Boolean inputs; typed SDK mapping |
+| Nested assignment expressions, operand snapshots | `NestedAssignment`, `AssignmentOrder` | D3 sample parity; emitted C# comparison; later zero cannot erase earlier unknown numeric input |
+| Short circuit/conditional assignment expressions | `ShortAssignment`, `ConditionalAssignment` | Every Boolean combination; branch-specific local state |
+| Source-order call argument assignments | `ArgumentAssignment`, private `FirstArgument` | Complete private definition/call parity; original first argument retained |
+
+D3 preserves the D1 numeric contract: constants or an established zero operand only. It rebinds immutable IR variables for local/by-value parameter assignments and never mutates an input record or external state. String results are still known-present: only literals, closed source calls and initialized local/conditional combinations can produce them; general String input/data is D4. Full project-mode cumulative parity follows [the current reference pointer](../../samples/CurrentSupportedExample/reference.json); older references remain frozen.

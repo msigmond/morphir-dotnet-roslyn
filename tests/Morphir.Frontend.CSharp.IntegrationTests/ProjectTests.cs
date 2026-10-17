@@ -128,7 +128,7 @@ public class ProjectTests
         var loaded = await ProjectLoader.LoadAsync(project, new("net10.0"));
         Assert.True(loaded.Success, string.Join("\n", loaded.Diagnostics));
         var lib = Support.Success(Morphir.Frontend.CSharp.Frontend.Convert(loaded.Compilation!, new("Example", ["Example.CurrentSupported"]), loaded.SourceProjects));
-        var difference = StructuralComparison.Compare(Support.Read("fixtures/D2/expected/sample.json"), Codec.Encode(lib)); Assert.True(difference is null, difference?.ToString());
+        var difference = StructuralComparison.Compare(Support.Read(Support.CurrentSampleReference), Codec.Encode(lib)); Assert.True(difference is null, difference?.ToString());
         Assert.Equal(18, Support.Call(lib, "CurrentSupported.CurrentSupportedExample", "GeneratedThreshold"));
         Assert.True((bool)Support.Call(lib, "CurrentSupported.CurrentSupportedExample", "ProjectEligible", 18));
         Assert.False((bool)Support.Call(lib, "CurrentSupported.CurrentSupportedExample", "ProjectEligible", 17));

@@ -39,6 +39,7 @@ public sealed record ApplyValue<TA, VA>(VA Attributes, Value<TA, VA> Function, V
 public sealed record FieldValue<TA, VA>(VA Attributes, Value<TA, VA> Subject, Name Field) : Value<TA, VA>(Attributes);
 public sealed record RecordValue<TA, VA>(VA Attributes, IReadOnlyList<Entry<Name, Value<TA, VA>>> Fields) : Value<TA, VA>(Attributes);
 public sealed record IfValue<TA, VA>(VA Attributes, Value<TA, VA> Condition, Value<TA, VA> Then, Value<TA, VA> Else) : Value<TA, VA>(Attributes);
+public sealed record LetValue<TA, VA>(VA Attributes, Name Name, ValueDefinition<TA, VA> Definition, Value<TA, VA> Body) : Value<TA, VA>(Attributes);
 public sealed record Input<TA, VA>(Name Name, VA Attributes, IrType<TA> Type);
 public sealed record ValueDefinition<TA, VA>(IReadOnlyList<Input<TA, VA>> Inputs, IrType<TA> Output, Value<TA, VA> Body);
 public sealed record ValueSpecification<TA>(IReadOnlyList<Entry<Name, IrType<TA>>> Inputs, IrType<TA> Output);

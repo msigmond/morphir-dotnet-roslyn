@@ -1,0 +1,54 @@
+{
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "fixtures": [
+    {
+      "name": "blocks",
+      "output": "fixtures/D3/expected/blocks.json",
+      "kind": "ordinary Elm",
+      "mode": "default",
+      "source": "fixtures/D3/elm/blocks",
+      "sha256": "e642e1319ff449f114f2148d3a4d18efc02faa98cd0d2426281fc65b8b507c04"
+    },
+    {
+      "name": "sample",
+      "output": "fixtures/D3/expected/sample.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D3/codec-reference",
+      "sha256": "f99c6fdc32c2d99373eec6a8bda4d72c4494b34c00c3b3b79fb2dfbb88b4ad8e"
+    }
+  ],
+  "sources": [
+    {
+      "path": "fixtures/D3/elm/blocks/morphir.json",
+      "sha256": "2a8d07d3743932e4f2fbf13fb5571a47ba0a661551798a7848c1b163591848a5"
+    },
+    {
+      "path": "fixtures/D3/elm/blocks/src/Example/D3/Rules.elm",
+      "sha256": "c5537652d295e830c160e65513740bc3dc20d01d76d4f18a29e576b7280d8c02"
+    },
+    {
+      "path": "fixtures/D3/codec-reference/D1Sample.elm",
+      "sha256": "fa1064b971ae0c7d7d90005cac74fc306cf3debf3f57bacdee8ef6bddfae350c"
+    },
+    {
+      "path": "fixtures/D3/codec-reference/D2Sample.elm",
+      "sha256": "a4d311da5883381f9ab14c901d7f6a18b3412ba1644951d9983375264ae60e2e"
+    },
+    {
+      "path": "fixtures/D3/codec-reference/Main.elm",
+      "sha256": "5f6e99e89a002ea434a013128368e9c5738e45889f309a450e50fdc5c1893e3e"
+    },
+    {
+      "path": "fixtures/D3/codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    }
+  ]
+}
