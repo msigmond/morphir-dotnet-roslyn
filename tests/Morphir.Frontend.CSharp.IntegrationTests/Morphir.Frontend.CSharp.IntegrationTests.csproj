@@ -3,6 +3,7 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="../../src/Morphir.Frontend.CSharp.ProjectSystem/Morphir.Frontend.CSharp.ProjectSystem.csproj" />
     <ProjectReference Include="../../src/Morphir.Frontend.CSharp.Cli/Morphir.Frontend.CSharp.Cli.csproj" ReferenceOutputAssembly="false" />
     <Compile Include="../TestSupport.cs" Link="TestSupport.cs" />
     <ProjectReference Include="../../src/Morphir.IR.Classic/Morphir.IR.Classic.csproj" />

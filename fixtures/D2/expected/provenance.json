@@ -1,0 +1,70 @@
+{
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "fixtures": [
+    {
+      "name": "calls",
+      "output": "fixtures/D2/expected/calls.json",
+      "kind": "ordinary Elm",
+      "mode": "default",
+      "source": "fixtures/D2/elm/calls",
+      "sha256": "61de0d76924fd461729e45d5a2a5169c5931149edb48ed5596d506cfbc9a0bf2"
+    },
+    {
+      "name": "project",
+      "output": "fixtures/D2/expected/project.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D2/codec-reference",
+      "sha256": "db64a2d14239a581be05dbb675134563e03f21fec5a50a1adacde4f24841f7ad"
+    },
+    {
+      "name": "internal",
+      "output": "fixtures/D2/expected/internal.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D2/codec-reference",
+      "sha256": "827fd4c4cf50188996e89143acaceb52cfec68f798faedd3c54ccfcfaebdb9fb"
+    },
+    {
+      "name": "sample",
+      "output": "fixtures/D2/expected/sample.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D2/codec-reference",
+      "sha256": "8357565ef6bee84ffa67e572793fac14aa8df8d519c9ab4ea9a0809f1c0866cc"
+    }
+  ],
+  "sources": [
+    {
+      "path": "fixtures/D2/elm/calls/morphir.json",
+      "sha256": "8ebfea363366dab6f7a5359d009332f56bf97ba393d5cb371ca5902b7aa5cdf2"
+    },
+    {
+      "path": "fixtures/D2/elm/calls/src/Example/D2/Business/Rules.elm",
+      "sha256": "b473f663a423908109199e11c0d6708b3da513d51e6977a9702e00c460e5a49e"
+    },
+    {
+      "path": "fixtures/D2/elm/calls/src/Example/D2/Shared/AgeRule.elm",
+      "sha256": "6a0d97f6144436ab538219cf35a63ff5cc7002065d7348af65ceda4973df7ccd"
+    },
+    {
+      "path": "fixtures/D2/codec-reference/D1Sample.elm",
+      "sha256": "fa1064b971ae0c7d7d90005cac74fc306cf3debf3f57bacdee8ef6bddfae350c"
+    },
+    {
+      "path": "fixtures/D2/codec-reference/Main.elm",
+      "sha256": "b877017e85936ac27550c24dcc31164ac4c2f0954b0b43444a2c10381ab6bfa3"
+    },
+    {
+      "path": "fixtures/D2/codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    }
+  ]
+}

@@ -1,0 +1,793 @@
+{
+  "roslyn": "5.0.0",
+  "language": "C#14",
+  "inventory": "All named Roslyn OperationKind members, including obsolete aliases and non-C# markers; metadata/plumbing entries do not authorize business forms.",
+  "operations": [
+    {
+      "operation": "None",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Invalid/incomplete operations cannot produce a distribution."
+    },
+    {
+      "operation": "Invalid",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Invalid/incomplete operations cannot produce a distribution."
+    },
+    {
+      "operation": "Block",
+      "owner": "D3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "VariableDeclarationGroup",
+      "owner": "D3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Switch",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Loop",
+      "owner": "D15",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Labeled",
+      "owner": "D15",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Branch",
+      "owner": "D15",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Empty",
+      "owner": "D3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Return",
+      "owner": "D3",
+      "state": "pending",
+      "domain": "Expression-body return wrapper supported D1; statement/block returns pending D3."
+    },
+    {
+      "operation": "YieldBreak",
+      "owner": "D18.2",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Lock",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "Try",
+      "owner": "D18.1",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Using",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "YieldReturn",
+      "owner": "D18.2",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "ExpressionStatement",
+      "owner": "D15",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "LocalFunction",
+      "owner": "D13",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Stop",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "End",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "RaiseEvent",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "Literal",
+      "owner": "D1",
+      "state": "supported",
+      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+    },
+    {
+      "operation": "Conversion",
+      "owner": "D5",
+      "state": "pending",
+      "domain": "D1 identity conversion/constant-negative/safe-int arithmetic/comparisons supported; complete numeric domains and transport pending D5."
+    },
+    {
+      "operation": "Invocation",
+      "owner": "D2",
+      "state": "supported",
+      "domain": "D2 nonrecursive selected static positional by-value calls only; D7 extended calls and D10/D13/D14 dispatch/closures/recursion remain pending."
+    },
+    {
+      "operation": "ArrayElementReference",
+      "owner": "D11",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "LocalReference",
+      "owner": "D3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "ParameterReference",
+      "owner": "D1",
+      "state": "supported",
+      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+    },
+    {
+      "operation": "FieldReference",
+      "owner": "D9",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "MethodReference",
+      "owner": "D13",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "PropertyReference",
+      "owner": "D1",
+      "state": "supported",
+      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+    },
+    {
+      "operation": "EventReference",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "Unary",
+      "owner": "D5",
+      "state": "pending",
+      "domain": "D1 identity conversion/constant-negative/safe-int arithmetic/comparisons supported; complete numeric domains and transport pending D5."
+    },
+    {
+      "operation": "UnaryOperator",
+      "owner": "D5",
+      "state": "pending",
+      "domain": "D1 identity conversion/constant-negative/safe-int arithmetic/comparisons supported; complete numeric domains and transport pending D5."
+    },
+    {
+      "operation": "Binary",
+      "owner": "D5",
+      "state": "pending",
+      "domain": "D1 identity conversion/constant-negative/safe-int arithmetic/comparisons supported; complete numeric domains and transport pending D5."
+    },
+    {
+      "operation": "BinaryOperator",
+      "owner": "D5",
+      "state": "pending",
+      "domain": "D1 identity conversion/constant-negative/safe-int arithmetic/comparisons supported; complete numeric domains and transport pending D5."
+    },
+    {
+      "operation": "Conditional",
+      "owner": "D3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Coalesce",
+      "owner": "D4",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "AnonymousFunction",
+      "owner": "D13",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "ObjectCreation",
+      "owner": "D1",
+      "state": "supported",
+      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+    },
+    {
+      "operation": "TypeParameterObjectCreation",
+      "owner": "D10",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "ArrayCreation",
+      "owner": "D11",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "InstanceReference",
+      "owner": "D9",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "IsType",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Await",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "SimpleAssignment",
+      "owner": "D15",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "CompoundAssignment",
+      "owner": "D15",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Parenthesized",
+      "owner": "D1",
+      "state": "supported",
+      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+    },
+    {
+      "operation": "EventAssignment",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "ConditionalAccess",
+      "owner": "D4",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "ConditionalAccessInstance",
+      "owner": "D4",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "InterpolatedString",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "AnonymousObjectCreation",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "ObjectOrCollectionInitializer",
+      "owner": "D9",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "MemberInitializer",
+      "owner": "D9",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "CollectionElementInitializer",
+      "owner": "D11",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "NameOf",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "Tuple",
+      "owner": "D8",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "DynamicObjectCreation",
+      "owner": "D18.3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "DynamicMemberReference",
+      "owner": "D18.3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "DynamicInvocation",
+      "owner": "D18.3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "DynamicIndexerAccess",
+      "owner": "D18.3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "TranslatedQuery",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "DelegateCreation",
+      "owner": "D13",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "DefaultValue",
+      "owner": "D4",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "TypeOf",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "SizeOf",
+      "owner": "D5",
+      "state": "pending",
+      "domain": "Proved fixed-width sizeof constants can be pure; pointer/ref-like operands remain excluded. No blanket new sizeof exclusion."
+    },
+    {
+      "operation": "AddressOf",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "IsPattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Increment",
+      "owner": "D15",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Throw",
+      "owner": "D18.1",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Decrement",
+      "owner": "D15",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "DeconstructionAssignment",
+      "owner": "D8",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "DeclarationExpression",
+      "owner": "D15",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "OmittedArgument",
+      "owner": "D7",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "FieldInitializer",
+      "owner": "D9",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "VariableInitializer",
+      "owner": "D3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "PropertyInitializer",
+      "owner": "D9",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "ParameterInitializer",
+      "owner": "D7",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "ArrayInitializer",
+      "owner": "D11",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "VariableDeclarator",
+      "owner": "D3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "VariableDeclaration",
+      "owner": "D3",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Argument",
+      "owner": "D1",
+      "state": "supported",
+      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+    },
+    {
+      "operation": "CatchClause",
+      "owner": "D18.1",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "SwitchCase",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "CaseClause",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "InterpolatedStringText",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "Interpolation",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "ConstantPattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "DeclarationPattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "TupleBinary",
+      "owner": "D8",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "TupleBinaryOperator",
+      "owner": "D8",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "MethodBody",
+      "owner": "D1",
+      "state": "supported",
+      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+    },
+    {
+      "operation": "MethodBodyOperation",
+      "owner": "D1",
+      "state": "supported",
+      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+    },
+    {
+      "operation": "ConstructorBody",
+      "owner": "D9",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "ConstructorBodyOperation",
+      "owner": "D9",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Discard",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "FlowCapture",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "FlowCaptureReference",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "IsNull",
+      "owner": "D4",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "CaughtException",
+      "owner": "D18.1",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "StaticLocalInitializationSemaphore",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "FlowAnonymousFunction",
+      "owner": "D13",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "CoalesceAssignment",
+      "owner": "D4",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Range",
+      "owner": "D11",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "ReDim",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "ReDimClause",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "RecursivePattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "DiscardPattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "SwitchExpression",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "SwitchExpressionArm",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "PropertySubpattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "UsingDeclaration",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "NegatedPattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "BinaryPattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "TypePattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "RelationalPattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "With",
+      "owner": "D9",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "InterpolatedStringHandlerCreation",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "InterpolatedStringAddition",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "InterpolatedStringAppendLiteral",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "InterpolatedStringAppendFormatted",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "InterpolatedStringAppendInvalid",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "InterpolatedStringHandlerArgumentPlaceholder",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "FunctionPointerInvocation",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "ListPattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "SlicePattern",
+      "owner": "D12",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "ImplicitIndexerReference",
+      "owner": "D11",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Utf8String",
+      "owner": "D18.4",
+      "state": "required-rejection",
+      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+    },
+    {
+      "operation": "Attribute",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "InlineArrayAccess",
+      "owner": "D18.4",
+      "state": "pending",
+      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+    },
+    {
+      "operation": "CollectionExpression",
+      "owner": "D11",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    },
+    {
+      "operation": "Spread",
+      "owner": "D11",
+      "state": "pending",
+      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+    }
+  ]
+}

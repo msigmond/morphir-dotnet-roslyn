@@ -3,6 +3,7 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="../Morphir.Frontend.CSharp.ProjectSystem/Morphir.Frontend.CSharp.ProjectSystem.csproj" />
     <ProjectReference Include="../Morphir.Frontend.CSharp/Morphir.Frontend.CSharp.csproj" />
     <ProjectReference Include="../Morphir.IR.Json/Morphir.IR.Json.csproj" />
   </ItemGroup>

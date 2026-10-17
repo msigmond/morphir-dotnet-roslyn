@@ -1,0 +1,565 @@
+{
+  "baseline": ".NET10.0.0/C#14",
+  "forms": [
+    {
+      "form": "readonly-positional-record-int-bool",
+      "owner": "D1",
+      "state": "supported"
+    },
+    {
+      "form": "static-expression-method",
+      "owner": "D1",
+      "state": "supported"
+    },
+    {
+      "form": "int-bool-literals",
+      "owner": "D1",
+      "state": "supported"
+    },
+    {
+      "form": "known-present-string-literal",
+      "owner": "D1",
+      "state": "supported"
+    },
+    {
+      "form": "record-construction-and-reads",
+      "owner": "D1",
+      "state": "supported"
+    },
+    {
+      "form": "int-comparisons-short-circuit",
+      "owner": "D1",
+      "state": "supported"
+    },
+    {
+      "form": "constant-safe-or-zero-int-addition",
+      "owner": "D1",
+      "state": "supported"
+    },
+    {
+      "form": "source-owner-paths-access-overload-identity",
+      "owner": "D1",
+      "state": "supported"
+    },
+    {
+      "form": "project-framework-configuration-options",
+      "owner": "D2",
+      "state": "supported"
+    },
+    {
+      "form": "project-source-reference-graph",
+      "owner": "D2",
+      "state": "supported"
+    },
+    {
+      "form": "generated-partial-declarations",
+      "owner": "D2",
+      "state": "supported"
+    },
+    {
+      "form": "additional-files-analyzer-config",
+      "owner": "D2",
+      "state": "supported"
+    },
+    {
+      "form": "private-inclusive-qualified-static-calls",
+      "owner": "D2",
+      "state": "supported"
+    },
+    {
+      "form": "segment-descendant-namespace-selection",
+      "owner": "D2",
+      "state": "supported"
+    },
+    {
+      "form": "block-scope",
+      "owner": "D3",
+      "state": "pending"
+    },
+    {
+      "form": "local-bindings",
+      "owner": "D3",
+      "state": "pending"
+    },
+    {
+      "form": "if-else",
+      "owner": "D3",
+      "state": "pending"
+    },
+    {
+      "form": "conditional-expression",
+      "owner": "D3",
+      "state": "pending"
+    },
+    {
+      "form": "early-return",
+      "owner": "D3",
+      "state": "pending"
+    },
+    {
+      "form": "boolean-control-flow",
+      "owner": "D3",
+      "state": "pending"
+    },
+    {
+      "form": "nullable-values-references",
+      "owner": "D4",
+      "state": "pending"
+    },
+    {
+      "form": "null-literal-and-default",
+      "owner": "D4",
+      "state": "pending"
+    },
+    {
+      "form": "coalesce-and-conditional-access",
+      "owner": "D4",
+      "state": "pending"
+    },
+    {
+      "form": "lifted-nullable-operators",
+      "owner": "D4",
+      "state": "pending"
+    },
+    {
+      "form": "hasvalue-and-null-tests",
+      "owner": "D4",
+      "state": "pending"
+    },
+    {
+      "form": "dominating-present-value-proofs",
+      "owner": "D4",
+      "state": "pending"
+    },
+    {
+      "form": "assignment-alias-call-proof-invalidation",
+      "owner": "D4",
+      "state": "pending"
+    },
+    {
+      "form": "all-integer-widths-signedness-native64",
+      "owner": "D5",
+      "state": "pending"
+    },
+    {
+      "form": "float-double-half",
+      "owner": "D5",
+      "state": "pending"
+    },
+    {
+      "form": "int128-uint128-bigint-complex",
+      "owner": "D5",
+      "state": "pending"
+    },
+    {
+      "form": "numeric-conversions-and-promotions",
+      "owner": "D5",
+      "state": "pending"
+    },
+    {
+      "form": "unchecked-wrap-arithmetic",
+      "owner": "D5",
+      "state": "pending"
+    },
+    {
+      "form": "division-remainder-and-cast-safety",
+      "owner": "D5",
+      "state": "pending"
+    },
+    {
+      "form": "decimal-exact-constant-construction",
+      "owner": "D6",
+      "state": "pending"
+    },
+    {
+      "form": "decimal-rounding-scale-range",
+      "owner": "D6",
+      "state": "pending"
+    },
+    {
+      "form": "decimal-conversion-and-member-domain",
+      "owner": "D6",
+      "state": "pending"
+    },
+    {
+      "form": "decimal-overflow-division-proof",
+      "owner": "D6",
+      "state": "pending"
+    },
+    {
+      "form": "decimal-helper-m1-extraction",
+      "owner": "D6",
+      "state": "pending"
+    },
+    {
+      "form": "resolved-overload-calls",
+      "owner": "D7",
+      "state": "pending"
+    },
+    {
+      "form": "named-optional-params-arguments",
+      "owner": "D7",
+      "state": "pending"
+    },
+    {
+      "form": "cross-function-evaluation-order",
+      "owner": "D7",
+      "state": "pending"
+    },
+    {
+      "form": "catalog-or-morphir-dependency-calls",
+      "owner": "D7",
+      "state": "pending"
+    },
+    {
+      "form": "interprocedural-domain-effect-proof",
+      "owner": "D7",
+      "state": "pending"
+    },
+    {
+      "form": "enum-types-values-members",
+      "owner": "D8",
+      "state": "pending"
+    },
+    {
+      "form": "value-and-reference-tuples",
+      "owner": "D8",
+      "state": "pending"
+    },
+    {
+      "form": "tuple-labels-deconstruction",
+      "owner": "D8",
+      "state": "pending"
+    },
+    {
+      "form": "classes-structs-record-classes-record-structs",
+      "owner": "D9",
+      "state": "pending"
+    },
+    {
+      "form": "nested-and-recursive-acyclic-data",
+      "owner": "D9",
+      "state": "pending"
+    },
+    {
+      "form": "constructors-fields-properties",
+      "owner": "D9",
+      "state": "pending"
+    },
+    {
+      "form": "instance-receiver-input",
+      "owner": "D9",
+      "state": "pending"
+    },
+    {
+      "form": "value-equality-owned-object-initialization",
+      "owner": "D9",
+      "state": "pending"
+    },
+    {
+      "form": "generic-types-functions-constraints",
+      "owner": "D10",
+      "state": "pending"
+    },
+    {
+      "form": "interfaces-inheritance",
+      "owner": "D10",
+      "state": "pending"
+    },
+    {
+      "form": "closed-virtual-interface-dispatch",
+      "owner": "D10",
+      "state": "pending"
+    },
+    {
+      "form": "generic-owner-arity-specialization",
+      "owner": "D10",
+      "state": "pending"
+    },
+    {
+      "form": "arrays-and-indexing-default-slots",
+      "owner": "D11",
+      "state": "pending"
+    },
+    {
+      "form": "generic-collections-and-interfaces",
+      "owner": "D11",
+      "state": "pending"
+    },
+    {
+      "form": "read-only-wrappers-and-interfaces",
+      "owner": "D11",
+      "state": "pending"
+    },
+    {
+      "form": "immutable-collections",
+      "owner": "D11",
+      "state": "pending"
+    },
+    {
+      "form": "collection-construction-and-pure-members",
+      "owner": "D11",
+      "state": "pending"
+    },
+    {
+      "form": "ownership-backing-data-proof",
+      "owner": "D11",
+      "state": "pending"
+    },
+    {
+      "form": "constant-type-declaration-patterns",
+      "owner": "D12",
+      "state": "pending"
+    },
+    {
+      "form": "recursive-property-positional-patterns",
+      "owner": "D12",
+      "state": "pending"
+    },
+    {
+      "form": "relational-logical-list-slice-patterns",
+      "owner": "D12",
+      "state": "pending"
+    },
+    {
+      "form": "switch-statements-expressions-exhaustiveness",
+      "owner": "D12",
+      "state": "pending"
+    },
+    {
+      "form": "lambdas-and-local-functions",
+      "owner": "D13",
+      "state": "pending"
+    },
+    {
+      "form": "delegates-and-method-groups",
+      "owner": "D13",
+      "state": "pending"
+    },
+    {
+      "form": "immutable-and-wholly-local-captures",
+      "owner": "D13",
+      "state": "pending"
+    },
+    {
+      "form": "capture-alias-effect-proof",
+      "owner": "D13",
+      "state": "pending"
+    },
+    {
+      "form": "self-recursion",
+      "owner": "D14",
+      "state": "pending"
+    },
+    {
+      "form": "mutual-recursion",
+      "owner": "D14",
+      "state": "pending"
+    },
+    {
+      "form": "finite-domain-and-failure-proof",
+      "owner": "D14",
+      "state": "pending"
+    },
+    {
+      "form": "loops-and-branch-state",
+      "owner": "D15",
+      "state": "pending"
+    },
+    {
+      "form": "local-reassignment-and-counters",
+      "owner": "D15",
+      "state": "pending"
+    },
+    {
+      "form": "owned-object-collection-mutation",
+      "owner": "D15",
+      "state": "pending"
+    },
+    {
+      "form": "shared-local-alias-observations",
+      "owner": "D15",
+      "state": "pending"
+    },
+    {
+      "form": "ordinary-ref-out-in",
+      "owner": "D15",
+      "state": "pending"
+    },
+    {
+      "form": "escape-and-input-global-capture-ownership",
+      "owner": "D15",
+      "state": "pending"
+    },
+    {
+      "form": "dateonly-timeonly",
+      "owner": "D16",
+      "state": "pending"
+    },
+    {
+      "form": "datetime-datetimeoffset",
+      "owner": "D16",
+      "state": "pending"
+    },
+    {
+      "form": "timespan",
+      "owner": "D16",
+      "state": "pending"
+    },
+    {
+      "form": "guid",
+      "owner": "D16",
+      "state": "pending"
+    },
+    {
+      "form": "framework-pure-members-success-semantics",
+      "owner": "D16",
+      "state": "pending"
+    },
+    {
+      "form": "object-boxing-unboxing",
+      "owner": "D17",
+      "state": "pending"
+    },
+    {
+      "form": "closed-runtime-type-checks",
+      "owner": "D17",
+      "state": "pending"
+    },
+    {
+      "form": "complete-language-framework-type-catalog-closure",
+      "owner": "D17",
+      "state": "pending"
+    },
+    {
+      "form": "throw-try-catch-filter-rethrow-finally",
+      "owner": "D18.1",
+      "state": "pending"
+    },
+    {
+      "form": "handler-selection-order",
+      "owner": "D18.1",
+      "state": "pending"
+    },
+    {
+      "form": "state-and-finally-all-exit-paths",
+      "owner": "D18.1",
+      "state": "pending"
+    },
+    {
+      "form": "private-failure-helpers-public-totality",
+      "owner": "D18.1",
+      "state": "pending"
+    },
+    {
+      "form": "yield-return-break-lazy-steps",
+      "owner": "D18.2",
+      "state": "pending"
+    },
+    {
+      "form": "deferred-capture-arguments-state",
+      "owner": "D18.2",
+      "state": "pending"
+    },
+    {
+      "form": "fresh-repeated-nested-enumeration",
+      "owner": "D18.2",
+      "state": "pending"
+    },
+    {
+      "form": "early-disposal-finally-timing",
+      "owner": "D18.2",
+      "state": "pending"
+    },
+    {
+      "form": "closed-dynamic-binding-members-operators-conversions",
+      "owner": "D18.3",
+      "state": "pending"
+    },
+    {
+      "form": "dynamic-purity-evaluation-order-failure-proof",
+      "owner": "D18.3",
+      "state": "pending"
+    },
+    {
+      "form": "remaining-pure-feature-closure",
+      "owner": "D18.4",
+      "state": "pending"
+    },
+    {
+      "form": "string-interpolation-compiler-plumbing-audit",
+      "owner": "D18.4",
+      "state": "pending"
+    },
+    {
+      "form": "anonymous-data-event-local-disposal-closure-audit",
+      "owner": "D18.4",
+      "state": "pending"
+    },
+    {
+      "form": "complete-fixed-catalog-proof",
+      "owner": "D18.4",
+      "state": "pending"
+    },
+    {
+      "form": "checked-syntax-and-semantic-overflow",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "async-await-async-iteration",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "pointers-stackalloc-function-pointers",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "ref-like-types-spans-ref-structs",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "linq-query-and-linq-calls",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "reference-identity",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "cyclic-object-graphs",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "input-global-external-capture-mutation",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "clock-random-io-resources-effects",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "unproved-m1-decimal-other-failure",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "unhandled-public-failure",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    },
+    {
+      "form": "unknown-dynamic-target",
+      "owner": "D18.4",
+      "state": "required-rejection"
+    }
+  ]
+}

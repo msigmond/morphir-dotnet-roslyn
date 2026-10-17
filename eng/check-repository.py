@@ -34,10 +34,11 @@ for name in files:
         target = target.split('#')[0]
         check((file.parent/target).exists(), f'Broken Markdown link: {name}: {target}')
 
-manifest = json.loads((root/'fixtures/D1/expected/provenance.json').read_text())
-for item in manifest['fixtures'] + manifest['sources']:
-    name = item.get('output', item.get('path'))
-    check(hashlib.sha256((root/name).read_bytes()).hexdigest() == item['sha256'], f'Frozen reference hash differs: {name}')
+for manifest_path in sorted((root/'fixtures').glob('*/expected/provenance.json')):
+    manifest = json.loads(manifest_path.read_text())
+    for item in manifest['fixtures'] + manifest['sources']:
+        name = item.get('output', item.get('path'))
+        check(hashlib.sha256((root/name).read_bytes()).hexdigest() == item['sha256'], f'Frozen reference hash differs: {name}')
 for name, digest in [('LICENSE','b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1'),('NOTICE','24564967220aaade6950d5442cdab8d48033abde6c7906285a03a8b98a45542a')]:
     check(hashlib.sha256((root/name).read_bytes()).hexdigest() == digest, f'Protected bytes changed: {name}')
 check((root/'CLAUDE.md').read_bytes() == b'@AGENTS.md\n', 'CLAUDE.md must remain pointer-only')

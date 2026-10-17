@@ -2,10 +2,13 @@
   <Project Path="src/Morphir.IR.Classic/Morphir.IR.Classic.csproj"/>
   <Project Path="src/Morphir.IR.Json/Morphir.IR.Json.csproj"/>
   <Project Path="src/Morphir.Frontend.CSharp/Morphir.Frontend.CSharp.csproj"/>
+  <Project Path="src/Morphir.Frontend.CSharp.ProjectSystem/Morphir.Frontend.CSharp.ProjectSystem.csproj"/>
   <Project Path="src/Morphir.Frontend.CSharp.Cli/Morphir.Frontend.CSharp.Cli.csproj"/>
   <Project Path="samples/CurrentSupportedExample/CurrentSupportedExample.csproj"/>
   <Project Path="tests/Morphir.IR.Classic.Tests/Morphir.IR.Classic.Tests.csproj"/>
   <Project Path="tests/Morphir.IR.Json.Tests/Morphir.IR.Json.Tests.csproj"/>
   <Project Path="tests/Morphir.Frontend.CSharp.Tests/Morphir.Frontend.CSharp.Tests.csproj"/>
   <Project Path="tests/Morphir.Frontend.CSharp.IntegrationTests/Morphir.Frontend.CSharp.IntegrationTests.csproj"/>
+  <Project Path="samples/CurrentSupportedShared/CurrentSupportedShared.csproj"/>
+  <Project Path="samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj"/>
 </Solution>

@@ -1,4 +1,4 @@
-# Classic model and codec inventory — D1
+# Classic model and codec inventory — D1–D2
 
 This is the D1 increment, not a complete-v3 claim. Classic and Json projects have no Roslyn dependency. D19 owns complete algebra/codec coverage; missing later nodes remain pending.
 
@@ -18,3 +18,5 @@ This is the D1 increment, not a complete-v3 claim. Classic and Json projects hav
 | Deterministic UTF-8 atomic serialization | Atomic write test and CLI preservation/fresh-failure integration tests |
 
 Explicit codecs are implemented directly against the pinned Morphir codec contract. Native dictionary/record serialization is not used for union cases or IR dictionaries. Unit has an explicit empty-object encoder; null has its own representation. Every unsupported model node lacks an implementation rather than being serialized through an implicit fallback.
+
+D2 adds private-inclusive FQName definition lookup, exercised by independent `calls`, `project`, `internal`, and cumulative `sample` distributions. Existing Reference/Apply and public/private specification codecs cover the increment; no new union node is necessary. Source-reference compilation inputs remain outside IR. Complete v3 algebra coverage is still D19.

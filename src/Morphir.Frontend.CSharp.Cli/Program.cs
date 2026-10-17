@@ -1,16 +1,18 @@
 using Morphir.Frontend.CSharp;
+using Morphir.Frontend.CSharp.ProjectSystem;
 using Morphir.IR.Json;
 
 try
 {
-    string? package = null, output = null;
+    string? package = null, output = null, project = null, framework = null;
+    string configuration = "Debug";
     var selectors = new List<string>(); var sources = new List<string>();
     for (int i = 0; i < args.Length; i++)
     {
         var arg = args[i];
         if (arg == "--help")
         {
-            Console.WriteLine("Usage: morphir-csharp --package Example --namespace Example.D1 [--namespace ...] --output morphir-ir.json --source Customer.cs [--source ...]");
+            Console.WriteLine("Usage: morphir-csharp --package Example --namespace Example.Business [--namespace ...] --output morphir-ir.json (--source File.cs [--source ...] | --project App.csproj --framework net10.0 [--configuration Debug])");
             return 0;
         }
         if (++i >= args.Length) throw new ArgumentException($"Missing value for {arg}.");
@@ -18,14 +20,33 @@ try
         {
             case "--package" when package is null: package = args[i]; break;
             case "--output" when output is null: output = args[i]; break;
+            case "--project" when project is null: project = args[i]; break;
+            case "--framework" when framework is null: framework = args[i]; break;
+            case "--configuration": configuration = args[i]; break;
             case "--namespace": selectors.Add(args[i]); break;
             case "--source": sources.Add(args[i]); break;
             default: throw new ArgumentException($"Unknown or repeated option {arg}.");
         }
     }
-    if (string.IsNullOrWhiteSpace(output) || sources.Count == 0) throw new ArgumentException("Explicit --output and --source inputs are required. Use --help.");
-    var compilation = SourceCompilation.Create(sources.Distinct(StringComparer.Ordinal).Select(p => (p, File.ReadAllText(p))));
-    var result = Frontend.Convert(compilation, new(package ?? "", selectors));
+    if (string.IsNullOrWhiteSpace(output) || (project is null) == (sources.Count == 0)) throw new ArgumentException("Supply --output and exactly one input mode: --source files or --project. Use --help.");
+    FrontendResult result;
+    if (project is not null)
+    {
+        if (framework is null) throw new ArgumentException("Project mode requires an explicit --framework net10.0.");
+        var loaded = await ProjectLoader.LoadAsync(project, new(framework, configuration));
+        if (!loaded.Success)
+        {
+            foreach (var diagnostic in loaded.Diagnostics) Console.Error.WriteLine(diagnostic);
+            return 1;
+        }
+        result = Frontend.Convert(loaded.Compilation!, new(package ?? "", selectors), loaded.SourceProjects);
+    }
+    else
+    {
+        if (framework is not null) throw new ArgumentException("--framework applies only to --project inputs.");
+        var compilation = SourceCompilation.Create(sources.Distinct(StringComparer.Ordinal).Select(p => (p, File.ReadAllText(p))));
+        result = Frontend.Convert(compilation, new(package ?? "", selectors));
+    }
     foreach (var diagnostic in result.Diagnostics) Console.Error.WriteLine(diagnostic);
     if (!result.Success) return 1;
     Codec.WriteAtomic(output, result.Distribution!);

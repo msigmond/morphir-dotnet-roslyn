@@ -1,0 +1,978 @@
+{
+  "referencePack": "Microsoft.NETCore.App.Ref/10.0.0",
+  "catalogPolicy": "Full master fixed families and primitives; generic/user language data forms are in forms.json. Subsets are explicit in framework.md and mappings. Pending representation/member/proof/fixture work blocks final acceptance. No runtime-driven additions.",
+  "types": [
+    {
+      "type": "System.Boolean",
+      "version": "10.0.0",
+      "owner": "D1",
+      "state": "supported",
+      "representation": "SDK Basics.Bool",
+      "pureMembers": "Built-in Boolean conditional operations",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [
+        "D1/eligibility",
+        "D1/sample"
+      ],
+      "negativeFixtures": [
+        "D2/external-call",
+        "D1/unsupported-types"
+      ],
+      "boundaryFixtures": [
+        "D1/short-circuit"
+      ],
+      "memberState": "pending",
+      "memberOwner": "D18.4"
+    },
+    {
+      "type": "System.Char",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.String",
+      "version": "10.0.0",
+      "owner": "D4",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D4",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Object",
+      "version": "10.0.0",
+      "owner": "D17",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D17",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "dynamic",
+      "version": "C#14",
+      "owner": "D18.3",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D18.3",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Decimal",
+      "version": "10.0.0",
+      "owner": "D6",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D6",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Byte",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.SByte",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Int16",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.UInt16",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Int32",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.UInt32",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Int64",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.UInt64",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.IntPtr",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.UIntPtr",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Single",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Double",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Half",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Int128",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.UInt128",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Numerics.BigInteger",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Numerics.Complex",
+      "version": "10.0.0",
+      "owner": "D5",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D5",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.DateOnly",
+      "version": "10.0.0",
+      "owner": "D16",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D16",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.TimeOnly",
+      "version": "10.0.0",
+      "owner": "D16",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D16",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.DateTime",
+      "version": "10.0.0",
+      "owner": "D16",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D16",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.DateTimeOffset",
+      "version": "10.0.0",
+      "owner": "D16",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D16",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.TimeSpan",
+      "version": "10.0.0",
+      "owner": "D16",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D16",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Guid",
+      "version": "10.0.0",
+      "owner": "D16",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D16",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.List`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.Dictionary`2",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.HashSet`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.Queue`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.Stack`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.IEnumerable`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.ICollection`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.IList`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.IDictionary`2",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.ISet`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.IReadOnlyCollection`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.IReadOnlyList`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.IReadOnlyDictionary`2",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Generic.IReadOnlySet`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.ObjectModel.ReadOnlyCollection`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.ObjectModel.ReadOnlyDictionary`2",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Immutable.ImmutableArray`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Immutable.ImmutableList`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Immutable.ImmutableDictionary`2",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Immutable.ImmutableHashSet`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Immutable.ImmutableQueue`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    },
+    {
+      "type": "System.Collections.Immutable.ImmutableStack`1",
+      "version": "10.0.0",
+      "owner": "D11",
+      "state": "pending",
+      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
+      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
+      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "positiveFixtures": [],
+      "negativeFixtures": [],
+      "boundaryFixtures": [],
+      "memberState": "pending",
+      "memberOwner": "D11",
+      "requiredFixtures": [
+        "positive",
+        "negative",
+        "boundary"
+      ]
+    }
+  ]
+}

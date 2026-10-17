@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);D2_FEATURE</DefineConstants>
+  </PropertyGroup>
+</Project>

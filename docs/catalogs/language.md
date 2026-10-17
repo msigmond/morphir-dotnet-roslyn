@@ -1,6 +1,6 @@
-# Language coverage — D1
+# Language coverage — D1–D2
 
-Status: D1 implementation; D2 onward pending. All rows introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). No future business-source forms are included.
+Status: D1–D2 passed; D3 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is `fixtures/D2/expected/sample.json`; the D1 standalone reference is unchanged. No future business-source forms are included.
 
 | Supported form | Cumulative example symbol/location | Additional parity / behavior evidence |
 | --- | --- | --- |
@@ -21,3 +21,16 @@ Status: D1 implementation; D2 onward pending. All rows introduced in D1. Sample 
 Selection is an adapter contract rather than a new business expression: complete segment/descendant/overlap/private/outside-source fixtures are in `FrontendTests`. Compilation uses all explicit files, including unselected files for symbol binding, but conversion never implicitly selects referenced namespaces.
 
 D1 does not admit locals/aliases/mutation, nullable data or Decimal arithmetic. Their positive proof obligations remain D3–D6/D15; negative D1 fixtures reject these forms without fallback behavior. No language or framework scope has been removed from later deliveries.
+
+## D2 additions
+
+| Form / contract | Cumulative example | Complete parity / behavior evidence |
+| --- | --- | --- |
+| Real project and source reference, descendant selection | `CurrentSupportedExample.csproj` → `CurrentSupportedShared` | D2 sample, project/input/selection tests |
+| Multifile and generated partial declarations | `ProjectMode.cs`, generated `Rules.Generated.cs` on CurrentSupportedExample | D2 sample; GeneratedThreshold emitted unused |
+| Actual generator AdditionalFiles/configuration | `threshold.txt` + CompilerVisibleProperty Threshold; incremental generator | Changed/missing/throwing generator tests; input hashes |
+| Private same-module call | `ProjectEligible` → `ProjectAdult` | D2 sample/calls; age boundaries |
+| Legal internal cross-project qualified call, Private IR | `ProjectAdult` → Shared.AgeRule.Adult, friend assembly | D2 sample/internal; private-inclusive lookup, public specs |
+| Distinct source containers with same method names | Original Eligibility owners + project/shared owners | D2 calls/project/internal distribution equality |
+
+[forms.json](forms.json) assigns every fixed language/purity/safety form through D18.4. [operations.json](operations.json) inventories every named Roslyn 5.0.0 OperationKind including aliases/non-C# markers; subset domains and pending owners are explicit. [framework.json](framework.json) inventories the exact fixed primitive/framework families; pending representations/member/proof work blocks final release. Catalog presence does not imply implementation.

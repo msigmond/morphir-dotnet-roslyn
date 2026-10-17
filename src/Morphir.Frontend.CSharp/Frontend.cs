@@ -22,15 +22,30 @@ public sealed record FrontendResult(Library<Unit, IrType<Unit>>? Distribution, I
 
 public static class Frontend
 {
-    public static FrontendResult Convert(CSharpCompilation compilation, FrontendSettings settings) => new Translation(compilation, settings).Run();
+    public static FrontendResult Convert(CSharpCompilation compilation, FrontendSettings settings, IReadOnlyList<CSharpCompilation>? sourceProjects = null) =>
+        new Translation(compilation, settings, sourceProjects ?? []).Run();
 
     private sealed class Rejected : Exception;
-    private sealed class Translation(CSharpCompilation compilation, FrontendSettings settings)
+    private sealed class Translation(CSharpCompilation compilation, FrontendSettings settings, IReadOnlyList<CSharpCompilation> sourceProjects)
     {
         private readonly List<FrontendDiagnostic> diagnostics = [];
         private readonly Dictionary<ISymbol, FQName> symbols = new(SymbolEqualityComparer.Default);
-        private readonly Dictionary<INamedTypeSymbol, IParameterSymbol[]> records = new(SymbolEqualityComparer.Default);
-        private readonly Dictionary<string, (IrPath Path, List<Entry<Name, AccessControlled<Documented<AliasDefinition<Unit>>>>> Types, List<Entry<Name, AccessControlled<Documented<TypedDefinition>>>> Values)> modules = [];
+        private readonly Dictionary<string, IParameterSymbol[]> records = [];
+        private readonly Dictionary<string, FQName> identities = [];
+        private readonly Dictionary<string, List<(string Target, Location Location)>> calls = [];
+        private readonly CSharpCompilation[] compilations = sourceProjects.Prepend(compilation).Distinct().ToArray();
+        private string currentMethod = "";
+        private static string SymbolId(ISymbol symbol)
+        {
+            var format = SymbolDisplayFormat.FullyQualifiedFormat.WithMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.None);
+            if (symbol is IMethodSymbol method)
+                return SymbolId(method.ContainingType) + "::" + method.MetadataName + "(" + string.Join(",", method.Parameters.Select(p => p.RefKind + ":" + p.Type.ToDisplayString(format))) + ")";
+            return symbol.ContainingAssembly.Identity + "::" + symbol.ToDisplayString(format);
+        }
+        private FQName Identity(ISymbol symbol) => identities[SymbolId(symbol)];
+        private SemanticModel Semantic(SyntaxTree tree) => compilations.Single(c => c.SyntaxTrees.Contains(tree)).GetSemanticModel(tree);
+        private FrontendResult Failure() => new(null, diagnostics.Distinct().OrderBy(d => d.File, StringComparer.Ordinal).ThenBy(d => d.Line).ThenBy(d => d.Column).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray());
+        private readonly Dictionary<string, (IrPath Path, Access Access, List<Entry<Name, AccessControlled<Documented<AliasDefinition<Unit>>>>> Types, List<Entry<Name, AccessControlled<Documented<TypedDefinition>>>> Values)> modules = [];
         private IrPath package = IrPath.From(settings.Package ?? "");
         private static IEnumerable<INamedTypeSymbol> AllTypes(INamespaceOrTypeSymbol parent)
         {
@@ -82,21 +97,26 @@ public static class Frontend
                 Error("MCS1004", $"Other declaration colliding with {s}.", Location(collision.Key));
             }
             symbols[s] = id;
+            identities[SymbolId(s)] = id;
         }
-        private void EnsureModule(IrPath p)
+        private void EnsureModule(IrPath p, Access access = Access.Public)
         {
-            if (!modules.ContainsKey(p.Key)) modules[p.Key] = (p, [], []);
+            if (!modules.TryGetValue(p.Key, out var existing)) modules[p.Key] = (p, access, [], []);
+            else if (access == Access.Private && existing.Access != Access.Private) modules[p.Key] = (existing.Path, access, existing.Types, existing.Values);
         }
         public FrontendResult Run()
         {
             if (string.IsNullOrWhiteSpace(settings.Package) || package.Segments.Count == 0 || package.Segments.Any(n => n.Words.Count == 0)) Error("MCS1001", "An explicit nonempty package name is required.");
             if (settings.Namespaces.Count == 0 || settings.Namespaces.Any(n => string.IsNullOrWhiteSpace(n) || n.Split('.').Any(s => !SyntaxFacts.IsValidIdentifier(s)))) Error("MCS1002", "Supply complete, case-sensitive namespace selectors.");
-            if (compilation.Options.Platform is Platform.X86 or Platform.Arm or Platform.AnyCpu32BitPreferred) Error("MCS1003", "D1 requires 64-bit native semantics; 32-bit targets are incompatible.");
-            foreach (var tree in compilation.SyntaxTrees)
-                if (tree.Options is not CSharpParseOptions { LanguageVersion: LanguageVersion.CSharp14 }) Error("MCS1005", "The fixed baseline is C# 14.", tree.GetRoot().GetLocation());
-            foreach (var d in compilation.GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error)) Error("MCS0001", d.Id + ": " + d.GetMessage(), d.Location);
-            if (diagnostics.Count != 0) return new(null, diagnostics);
-            var selected = AllTypes(compilation.Assembly.GlobalNamespace).Where(Selected).ToArray();
+            foreach (var source in compilations)
+            {
+                if (source.Options.Platform is Platform.X86 or Platform.Arm or Platform.AnyCpu32BitPreferred) Error("MCS1003", "D1 requires 64-bit native semantics; 32-bit targets are incompatible.");
+                foreach (var tree in source.SyntaxTrees)
+                    if (tree.Options is not CSharpParseOptions { LanguageVersion: LanguageVersion.CSharp14 }) Error("MCS1005", "The fixed baseline is C# 14.", tree.GetRoot().GetLocation());
+                foreach (var d in source.GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error)) Error("MCS0001", d.Id + ": " + d.GetMessage(), d.Location);
+            }
+            if (diagnostics.Count != 0) return Failure();
+            var selected = compilations.SelectMany(c => AllTypes(c.Assembly.GlobalNamespace)).Where(Selected).ToArray();
             if (selected.Length == 0) Error("MCS1006", "No source declarations match the selected namespaces.");
             foreach (var type in selected)
             {
@@ -111,12 +131,14 @@ public static class Frontend
                     AddSymbol(m, type.ToDisplayString(), m.Name + suffix);
                 }
             }
+            if (diagnostics.Count != 0) return Failure();
             foreach (var type in selected) Try(() => Discover(type));
-            if (diagnostics.Count != 0) return new(null, diagnostics);
+            if (diagnostics.Count != 0) return Failure();
             foreach (var type in selected) Try(() => Emit(type));
-            if (diagnostics.Count != 0) return new(null, diagnostics);
+            RejectCycles();
+            if (diagnostics.Count != 0) return Failure();
             var defs = modules.Values.OrderBy(m => m.Path, IdentityOrder.Paths).Select(m => new Entry<IrPath, AccessControlled<ModuleDefinition<Unit, IrType<Unit>>>>(m.Path,
-                new(Access.Public, new(m.Types.OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray(), m.Values.OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray())))).ToArray();
+                new(m.Access, new(m.Types.OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray(), m.Values.OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray())))).ToArray();
             return new(new(package, [], new(defs)), diagnostics);
         }
         private static void Try(Action a) { try { a(); } catch (Rejected) { } }
@@ -143,14 +165,14 @@ public static class Frontend
             if (type.IsRefLikeType) Fail<object>("MCS2003", "Ref-like data is excluded.", Location(type));
             if (type.IsStatic && type.TypeKind == TypeKind.Class)
             {
-                EnsureModule(ModulePath(type.ToDisplayString()));
+                EnsureModule(ModulePath(type.ToDisplayString()), Visibility(type));
                 return;
             }
             if (!type.IsRecord || type.TypeKind != TypeKind.Struct || !type.IsReadOnly)
                 Fail<object>("MCS2102", "D1 data must be a positional readonly record struct.", Location(type));
             var recordSyntax = type.DeclaringSyntaxReferences.Select(r => r.GetSyntax()).OfType<RecordDeclarationSyntax>().SingleOrDefault(r => r.ParameterList is not null);
             if (recordSyntax?.ParameterList is null) Fail<object>("MCS2102", "A positional parameter list is required.", Location(type));
-            var model = compilation.GetSemanticModel(recordSyntax!.SyntaxTree);
+            var model = Semantic(recordSyntax!.SyntaxTree);
             var fields = recordSyntax.ParameterList!.Parameters.Select(p => (IParameterSymbol)model.GetDeclaredSymbol(p)!).ToArray();
             foreach (var p in fields)
             {
@@ -158,7 +180,7 @@ public static class Frontend
                     Fail<object>("MCS2103", "D1 positional data fields admit int/bool only, with no defaults, ref kinds, or attributes.", Location(p));
             }
             if (fields.GroupBy(p => Name.From(p.Name).Key).Any(g => g.Count() > 1)) Fail<object>("MCS1004", "Record field names collide after normalization.", Location(type));
-            records[type] = fields;
+            records[SymbolId(type)] = fields;
         }
         private IrType<Unit> Type(ITypeSymbol t, Location? loc, bool returnLiteralString = false)
         {
@@ -166,16 +188,16 @@ public static class Frontend
             if (t.SpecialType == SpecialType.System_Int32) return Types.Int;
             if (t.SpecialType == SpecialType.System_Boolean) return Types.Bool;
             if (returnLiteralString && t.SpecialType == SpecialType.System_String) return Types.String;
-            if (t is INamedTypeSymbol n && records.ContainsKey(n)) return new ReferenceType<Unit>(default, symbols[n], []);
-            if (t.Locations.Any(l => l.IsInSource) && !symbols.ContainsKey(t))
+            if (t is INamedTypeSymbol n && records.ContainsKey(SymbolId(n))) return new ReferenceType<Unit>(default, Identity(n), []);
+            if (t.Locations.Any(l => l.IsInSource) && !identities.ContainsKey(SymbolId(t)))
                 return Fail<IrType<Unit>>("MCS2201", $"Required source symbol {t} in namespace {t.ContainingNamespace} is not selected; add that namespace explicitly.", loc);
             return Fail<IrType<Unit>>("MCS2104", $"Type {t} is outside the D1 data domain.", loc);
         }
         private void Emit(INamedTypeSymbol type)
         {
-            if (records.TryGetValue(type, out var fields))
+            if (records.TryGetValue(SymbolId(type), out var fields))
             {
-                var id = symbols[type]; EnsureModule(id.Module);
+                var id = Identity(type); EnsureModule(id.Module, type.ContainingType is null ? Access.Public : Visibility(type.ContainingType));
                 var record = new RecordType<Unit>(default, fields.Select(p => new Entry<Name, IrType<Unit>>(Name.From(p.Name), Type(p.Type, Location(p)))).ToArray());
                 modules[id.Module.Key].Types.Add(new(id.Local, new(Visibility(type), new(Documentation(type), new([], record)))));
             }
@@ -189,12 +211,14 @@ public static class Frontend
             if (m.Parameters.GroupBy(p => Name.From(p.Name).Key).Any(g => g.Count() > 1)) Fail<object>("MCS1004", "Parameter names collide after normalization.", Location(m));
             var inputs = m.Parameters.Select(p => new Input<Unit, IrType<Unit>>(Name.From(p.Name), Type(p.Type, Location(p)), Type(p.Type, Location(p)))).ToArray();
             var output = Type(m.ReturnType, Location(m), true);
-            var methodBody = (IMethodBodyOperation)compilation.GetSemanticModel(syntax.SyntaxTree).GetOperation(syntax)!;
+            var methodBody = (IMethodBodyOperation)Semantic(syntax.SyntaxTree).GetOperation(syntax)!;
             var operation = ((IReturnOperation)methodBody.ExpressionBody!.Operations.Single()).ReturnedValue!;
+            currentMethod = SymbolId(m);
+            calls.TryAdd(currentMethod, []);
             var body = Lower(operation);
             if (m.ReturnType.SpecialType == SpecialType.System_String && body is not LiteralValue<Unit, IrType<Unit>> { Literal: StringLiteral })
                 Fail<object>("MCS2301", "D1 strings require a known-present literal; general nullable data waits for D4.", operation.Syntax.GetLocation());
-            var id = symbols[m]; EnsureModule(id.Module);
+            var id = Identity(m); EnsureModule(id.Module, Visibility(m.ContainingType));
             modules[id.Module.Key].Values.Add(new(id.Local, new(Visibility(m), new(Documentation(m), new(inputs, output, body)))));
         }
         private TypedValue Lit(IrType<Unit> t, Literal l) => new LiteralValue<Unit, IrType<Unit>>(t, l);
@@ -226,12 +250,14 @@ public static class Frontend
                     return Lower(creation);
                 case IParameterReferenceOperation p:
                     return new VariableValue<Unit, IrType<Unit>>(t, Name.From(p.Parameter.Name));
-                case IPropertyReferenceOperation p when p.Instance is not null && p.Property.ContainingType is { } owner && records.TryGetValue(owner, out var fields) && fields.Any(f => f.Name == p.Property.Name) && p.Arguments.Length == 0:
+                case IPropertyReferenceOperation p when p.Instance is not null && p.Property.ContainingType is { } owner && records.TryGetValue(SymbolId(owner), out var fields) && fields.Any(f => f.Name == p.Property.Name) && p.Arguments.Length == 0:
                     return new FieldValue<Unit, IrType<Unit>>(t, Lower(p.Instance), Name.From(p.Property.Name));
-                case IObjectCreationOperation c when c.Type is INamedTypeSymbol n && records.TryGetValue(n, out var fs) && c.Initializer is null && c.Constructor is { } ctor && ctor.Parameters.Length == fs.Length && c.Arguments.Length == fs.Length && c.Arguments.All(a => a.ArgumentKind == ArgumentKind.Explicit):
+                case IObjectCreationOperation c when c.Type is INamedTypeSymbol n && records.TryGetValue(SymbolId(n), out var fs) && c.Initializer is null && c.Constructor is { } ctor && ctor.Parameters.Length == fs.Length && c.Arguments.Length == fs.Length && c.Arguments.All(a => a.ArgumentKind == ArgumentKind.Explicit):
                     // Pure D1 arguments permit sorting record entries; evaluation cannot change observations.
                     var values = c.Arguments.Select(a => new Entry<Name, TypedValue>(Name.From(fs[a.Parameter!.Ordinal].Name), Lower(a.Value))).OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray();
                     return new RecordValue<Unit, IrType<Unit>>(t, values);
+                case IInvocationOperation invocation:
+                    return Invoke(invocation);
                 case IBinaryOperation b:
                     if (b.OperatorMethod is not null || b.IsLifted) return Fail<TypedValue>("MCS2106", "User-defined/lifted operators are outside D1.", loc);
                     if (b.IsChecked && b.OperatorKind == BinaryOperatorKind.Add) return Fail<TypedValue>("MCS2004", "Checked semantic arithmetic is excluded.", loc);
@@ -259,6 +285,48 @@ public static class Frontend
                     return new ApplyValue<Unit, IrType<Unit>>(t, new ApplyValue<Unit, IrType<Unit>>(partialType, reference, left), right);
                 default: return Fail<TypedValue>("MCS2107", $"Operation {op.Kind} is outside D1; no partial distribution was produced.", loc);
             }
+        }
+        private TypedValue Invoke(IInvocationOperation invocation)
+        {
+            var target = invocation.TargetMethod;
+            var loc = invocation.Syntax.GetLocation();
+            if (!identities.TryGetValue(SymbolId(target), out var fq))
+            {
+                bool source = compilations.Any(c => c.Assembly.Identity.Equals(target.ContainingAssembly.Identity));
+                return Fail<TypedValue>(source ? "MCS2201" : "MCS2202",
+                    source ? $"Required source symbol {target} in namespace {target.ContainingNamespace} is not selected; add that namespace explicitly."
+                           : $"External call {target} has no exact catalog mapping or configured Morphir specification; DLL bodies are not translated.", loc);
+            }
+            if (!target.IsStatic || target.Arity != 0 || target.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams || p.HasExplicitDefaultValue)
+                || invocation.Arguments.Any(a => a.ArgumentKind != ArgumentKind.Explicit || a.Syntax is ArgumentSyntax { NameColon: not null })
+                || !invocation.Arguments.Select(a => a.Parameter!.Ordinal).SequenceEqual(Enumerable.Range(0, target.Parameters.Length)))
+                return Fail<TypedValue>("MCS2204", "D2 calls require exact static, non-generic positional by-value arguments; extended argument forms arrive in D7.", loc);
+            calls[currentMethod].Add((SymbolId(target), loc));
+            IrType<Unit> functionType = Type(target.ReturnType, loc, true);
+            foreach (var parameter in target.Parameters.Reverse()) functionType = Types.Function(Type(parameter.Type, loc), functionType);
+            TypedValue result = new ReferenceValue<Unit, IrType<Unit>>(functionType, fq);
+            foreach (var argument in invocation.Arguments)
+            {
+                var argumentValue = Lower(argument.Value);
+                functionType = ((FunctionType<Unit>)functionType).Result;
+                result = new ApplyValue<Unit, IrType<Unit>>(functionType, result, argumentValue);
+            }
+            return result;
+        }
+        private void RejectCycles()
+        {
+            var state = new Dictionary<string, int>();
+            void Visit(string method)
+            {
+                state[method] = 1;
+                foreach (var edge in calls[method])
+                {
+                    if (state.GetValueOrDefault(edge.Target) == 1) Error("MCS2203", "Recursive calls require the D14 recursion proof contract.", edge.Location);
+                    else if (!state.ContainsKey(edge.Target) && calls.ContainsKey(edge.Target)) Visit(edge.Target);
+                }
+                state[method] = 2;
+            }
+            foreach (var method in calls.Keys.Order(StringComparer.Ordinal)) if (!state.ContainsKey(method)) Visit(method);
         }
         private static bool SafeAddition(IBinaryOperation b)
         {

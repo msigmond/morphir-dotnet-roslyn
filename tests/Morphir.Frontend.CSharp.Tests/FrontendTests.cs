@@ -51,7 +51,7 @@ public class FrontendTests
     [InlineData("public static int F(int[] a) => a[0];", "MCS2104")]
     [InlineData("public static int F() { int a=1; return a; }", "MCS2105")]
     [InlineData("public static int Field = 1;", "MCS2101")]
-    [InlineData("public static int F(int a) => F(a);", "MCS2107")]
+    [InlineData("public static int F(int a) => F(a);", "MCS2203")]
     [InlineData("public static int F(Customer c) => c.Age++;", "MCS0001")]
     public void UnsupportedSelectedFormsFailWholeConversion(string member, string code)
     {
