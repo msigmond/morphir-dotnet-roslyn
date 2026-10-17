@@ -175,27 +175,32 @@
     {
       "form": "decimal-exact-constant-construction",
       "owner": "D6",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "samples/CurrentSupportedExample/Decimal.cs; fixtures/D6 complete source/sample/model codec parity; DecimalTests and compiled Elm/CLR compatibility checks"
     },
     {
       "form": "decimal-rounding-scale-range",
       "owner": "D6",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "samples/CurrentSupportedExample/Decimal.cs; fixtures/D6 complete source/sample/model codec parity; DecimalTests and compiled Elm/CLR compatibility checks"
     },
     {
       "form": "decimal-conversion-and-member-domain",
       "owner": "D6",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "samples/CurrentSupportedExample/Decimal.cs; fixtures/D6 complete source/sample/model codec parity; DecimalTests and compiled Elm/CLR compatibility checks"
     },
     {
       "form": "decimal-overflow-division-proof",
       "owner": "D6",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "samples/CurrentSupportedExample/Decimal.cs; fixtures/D6 complete source/sample/model codec parity; DecimalTests and compiled Elm/CLR compatibility checks"
     },
     {
       "form": "decimal-helper-m1-extraction",
       "owner": "D6",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "samples/CurrentSupportedExample/Decimal.cs; fixtures/D6 complete source/sample/model codec parity; DecimalTests and compiled Elm/CLR compatibility checks"
     },
     {
       "form": "resolved-overload-calls",

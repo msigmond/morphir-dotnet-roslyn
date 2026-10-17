@@ -186,6 +186,7 @@ public static partial class Frontend
         private IrType<Unit> Type(ITypeSymbol t, Location? loc, bool returnLiteralString = false)
         {
             if (t.IsRefLikeType || t is IPointerTypeSymbol or IFunctionPointerTypeSymbol) return Fail<IrType<Unit>>("MCS2003", "Ref-like/pointer type use is excluded.", loc);
+            if (DecimalType(t)) return DecimalIrType(loc);
             if (Floating(t) is not null) return Types.Float;
             if (ComplexType(t)) return ComplexIrType(loc);
             if (Integral(t) is { } integer) return IntegerType(integer, loc);
@@ -233,12 +234,14 @@ public static partial class Frontend
             methodOutputs[key] = output;
             emittingMethods.Remove(key);
             var id = Identity(m); EnsureModule(id.Module, Visibility(m.ContainingType));
+            if (DecimalType(m.ReturnType)) decimalMethodDomains[DecimalOwnerKey(id)] = DecimalRange(body);
             modules[id.Module.Key].Values.Add(new(id.Local, new(Visibility(m), new(Documentation(m), new(inputs, output, body)))));
         }
         private TypedValue Lit(IrType<Unit> t, Literal l) => new LiteralValue<Unit, IrType<Unit>>(t, l);
         private TypedValue Lower(IOperation op)
         {
             if (operandValues.TryGetValue(op, out var evaluated)) return evaluated;
+            if (LowerDecimal(op) is { } decimalValue) return decimalValue;
             if (LowerFloating(op) is { } floating) return floating;
             if (LowerInteger(op) is { } numeric) return numeric;
             if (LowerPresence(op) is { } presence) return presence;
@@ -321,6 +324,7 @@ public static partial class Frontend
         }
         private FQName ValidateInvocation(IInvocationOperation invocation)
         {
+            if (DecimalMember(invocation)) return new(Types.Sdk, IrPath.From("Decimal"), Name.From(invocation.TargetMethod.Name));
             if (FloatingPredicateCall(invocation)) return new(Types.Sdk, IrPath.From("Basics"), Name.From(invocation.TargetMethod.Name));
             if (NullableDefaultCall(invocation)) return MaybeName("withDefault");
             var target = invocation.TargetMethod;

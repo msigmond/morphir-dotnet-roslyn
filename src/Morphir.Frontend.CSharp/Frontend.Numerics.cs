@@ -55,7 +55,7 @@ public static partial class Frontend
         {
             if (creation.Initializer is not null) return false;
             if (creation.Arguments.Length == 0) return NumericType(creation.Type);
-            if (Integral(creation.Type) is { Bits: 0 }) return creation.Arguments.Length == 1 && (Integral(creation.Arguments[0].Value.Type) is not null || Floating(creation.Arguments[0].Value.Type) is not null);
+            if (Integral(creation.Type) is { Bits: 0 }) return creation.Arguments.Length == 1 && (DecimalType(creation.Arguments[0].Value.Type) || Integral(creation.Arguments[0].Value.Type) is not null || Floating(creation.Arguments[0].Value.Type) is not null);
             if (Integral(creation.Type) is { Bits: 128 }) return creation.Arguments.Length == 2 && creation.Arguments.All(a => a.Value.Type?.SpecialType == SpecialType.System_UInt64);
             return ComplexType(creation.Type) && creation.Arguments.Length == 2 && creation.Arguments.All(a => a.Value.Type?.SpecialType == SpecialType.System_Double);
         }
@@ -66,7 +66,7 @@ public static partial class Frontend
             var generated = NumericLibrary.Modules(package);
             foreach (var entry in generated)
             {
-                if (modules.ContainsKey(entry.Key.Key)) Fail<object>("MCS1004", "A source owner collides with the generated numeric compatibility module.", location);
+                if (modules.ContainsKey(entry.Key.Key) || identities.Values.Any(id => id.Module.Key == entry.Key.Key)) Fail<object>("MCS1004", "A source owner collides with the generated numeric compatibility module.", location);
                 modules[entry.Key.Key] = (entry.Key, entry.Value.Access, entry.Value.Value.Types.ToList(), entry.Value.Value.Values.Select(v => new Entry<Name, AccessControlled<Documented<ValueDefinition<Unit, IrType<Unit>>>>>(v.Key, new(Access.Private, v.Value.Value))).ToList());
             }
             numericLibrary = generated;
@@ -134,6 +134,8 @@ public static partial class Frontend
         {
             var location = operation.Syntax.GetLocation();
             if (operation is ISizeOfOperation size && NumericSize(size.TypeOperand) is { } bytes) return Lit(Types.Int, new IntLiteral(bytes));
+            if (operation is IObjectCreationOperation decimalCreation && Integral(decimalCreation.Type) is { Bits: 0 } && decimalCreation.Arguments.Length == 1 && DecimalType(decimalCreation.Arguments[0].Value.Type))
+                return ConvertDecimalValue(Lower(decimalCreation.Arguments[0].Value), decimalCreation.Arguments[0].Value.Type!, decimalCreation.Type!, location);
             if (operation is IObjectCreationOperation wideCreation && Integral(wideCreation.Type) is { Bits: 128 } wideDomain && wideCreation.Arguments.Length == 2)
             {
                 var upper = wideCreation.Arguments.Single(a => a.Parameter!.Ordinal == 0).Value; var lower = wideCreation.Arguments.Single(a => a.Parameter!.Ordinal == 1).Value;

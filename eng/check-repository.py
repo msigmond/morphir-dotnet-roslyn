@@ -39,8 +39,7 @@ for manifest_path in sorted((root/'fixtures').glob('*/expected/provenance.json')
     for item in manifest['fixtures'] + manifest['sources']:
         name = item.get('output', item.get('path'))
         check(hashlib.sha256((root/name).read_bytes()).hexdigest() == item['sha256'], f'Frozen reference hash differs: {name}')
-compat_manifest=root/'docs/references/numeric-compat-provenance.json'
-if compat_manifest.exists():
+for compat_manifest in sorted((root/'docs/references').glob('*-compat-provenance.json')):
     compat=json.loads(compat_manifest.read_text())
     items=[{'path':compat['output'],'sha256':compat['sha256']},compat['generated'],*compat['sources']]
     for item in items:

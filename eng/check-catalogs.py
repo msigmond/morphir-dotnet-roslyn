@@ -11,7 +11,7 @@ args = parser.parse_args()
 root = Path(__file__).resolve().parent.parent
 pending = []
 count = 0
-for file, collection, identity in [('forms.json','forms','form'),('operations.json','operations','operation'),('framework.json','types','type'),('numeric-members.json','members','member')]:
+for file, collection, identity in [('forms.json','forms','form'),('operations.json','operations','operation'),('framework.json','types','type'),('numeric-members.json','members','member'),('decimal-members.json','members','member')]:
     rows = json.loads((root/'docs/catalogs'/file).read_text())[collection]
     keys = set()
     for row in rows:

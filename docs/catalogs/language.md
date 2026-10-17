@@ -1,6 +1,6 @@
-# Language coverage — D1–D5
+# Language coverage — D1–D6
 
-Status: D1–D5 passed; D6 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is identified by samples/CurrentSupportedExample/reference.json; the D1 standalone reference is unchanged. No future business-source forms are included.
+Status: D1–D6 passed; D7 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is identified by samples/CurrentSupportedExample/reference.json; the D1 standalone reference is unchanged. No future business-source forms are included.
 
 | Supported form | Cumulative example symbol/location | Additional parity / behavior evidence |
 | --- | --- | --- |
@@ -75,3 +75,7 @@ The D4 null-slot representation is reusable by later array/reference data owners
 | BigInteger binary64 truncation | NumericBigDouble | Pinned runtime comparison at >53-bit and signed 128-bit boundaries |
 
 D5 supersedes the historical safe-addition-only limitation with exact unchecked arithmetic. Earlier references retain their specialized structures, while formerly unproved general addition is now tested positively. Decimal and later call/data/state forms retain their assigned delivery gates. Full framework API closure remains explicit in numeric-members.json and is distinct from delivered language operators.
+
+## D6 additions
+
+Decimal.cs adds exact0.1/1.2300 construction, the guarded0..100 Price result, rounding, observable scale, signs/comparison and integral conversion. DecimalTests checks nullable slots/operators, local updates, source-call bounds, wide conversions, rounding/float boundaries, stale proofs and source-located safety failures. Complete independent source/sample/model codec references live in fixtures/D6. Decimal language support retains exact member/precondition boundaries in decimal-members.json and mappings/D6.md; complete framework closure remains explicit.

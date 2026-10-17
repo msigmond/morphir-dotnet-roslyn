@@ -26,6 +26,7 @@ public static class Codec
     private static object Alias<A>(AliasDefinition<A> d, Func<A, object> attr, bool spec = false) => Arr(spec ? "TypeAliasSpecification" : "TypeAliasDefinition", d.Parameters.Select(Name).ToArray(), Type(d.Body, attr));
     private static object Literal(Literal l) => l switch
     {
+        DecimalLiteral d => Arr("DecimalLiteral", d.Value),
         FloatLiteral f when double.IsFinite(f.Value) => Arr("FloatLiteral", f.Value),
         BoolLiteral b => Arr("BoolLiteral", b.Value),
         IntLiteral i => Arr("WholeNumberLiteral", i.Value),

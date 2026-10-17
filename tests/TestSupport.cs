@@ -114,6 +114,7 @@ internal static class Support
                 MatchValue<Unit, IrType<Unit>> matched => Match(matched, vars, library),
                 LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral i } => Narrow(i.Value),
                 LiteralValue<Unit, IrType<Unit>> { Literal: FloatLiteral f } => f.Value,
+                LiteralValue<Unit, IrType<Unit>> { Literal: DecimalLiteral d } => decimal.Parse(d.Value, System.Globalization.CultureInfo.InvariantCulture),
                 ListValue<Unit, IrType<Unit>> list => list.Elements.Select(e => Evaluate(e, vars, library)).ToArray(),
                 LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral b } => b.Value,
                 LiteralValue<Unit, IrType<Unit>> { Literal: StringLiteral s } => s.Value,
@@ -132,6 +133,23 @@ internal static class Support
     {
         if (name.Package.Key == Types.Sdk.Key)
         {
+            if (name.Module.Key == Morphir.IR.Classic.Path.From("Decimal").Key)
+            {
+                object DecimalUnary(string operation, object value) => operation switch
+                {
+                    "from\0int" => (decimal)Whole(value),
+                    "from\0string" => decimal.TryParse((string)value, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out var parsed) ? Maybe(parsed) : Maybe(null),
+                    "negate" => -(decimal)value,
+                    "abs" => Math.Abs((decimal)value),
+                    "to\0string" => ((decimal)value).ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    _ => throw new NotSupportedException(operation)
+                };
+                if (name.Local.Key == "zero") return 0m;
+                if (name.Local.Key == "one") return 1m;
+                if (name.Local.Key == "minus\0one") return -1m;
+                if (name.Local.Key is "from\0int" or "from\0string" or "negate" or "abs" or "to\0string") return (Func<object, object>)(v => DecimalUnary(name.Local.Key, v));
+                return (Func<object, object>)(a => (Func<object, object>)(b => name.Local.Key switch { "add" => (decimal)a + (decimal)b, "sub" => (decimal)a - (decimal)b, "mul" => (decimal)a * (decimal)b, _ => throw new NotSupportedException(name.Local.Key) }));
+            }
             if (name.Module.Key == Morphir.IR.Classic.Path.From("String").Key && name.Local.Key == "length") return (Func<object, object>)(value => ((string)value).Length);
             if (name.Module.Key == Morphir.IR.Classic.Path.From("List").Key && name.Local.Key == "cons") return (Func<object, object>)(head => (Func<object, object>)(tail => new[] { head }.Concat((IEnumerable<object>)tail).ToArray()));
             Func<object, object>? unary = name.Local.Key switch

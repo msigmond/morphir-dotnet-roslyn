@@ -33,6 +33,7 @@ public sealed record BoolLiteral(bool Value) : Literal;
 public sealed record IntLiteral(long Value) : Literal;
 public sealed record StringLiteral(string Value) : Literal;
 public sealed record FloatLiteral(double Value) : Literal;
+public sealed record DecimalLiteral(string Value) : Literal;
 public abstract record Value<TA, VA>(VA Attributes);
 public sealed record LiteralValue<TA, VA>(VA Attributes, Literal Literal) : Value<TA, VA>(Attributes);
 public sealed record VariableValue<TA, VA>(VA Attributes, Name Name) : Value<TA, VA>(Attributes);
@@ -72,6 +73,7 @@ public static class Types
     public static readonly Path Sdk = Path.From("Morphir.SDK");
     public static IrType<Unit> Reference(string module, string local) => new ReferenceType<Unit>(default, new(Sdk, Path.From(module), Name.From(local)), []);
     public static IrType<Unit> Int => Reference("Basics", "Int");
+    public static IrType<Unit> Decimal => Reference("Decimal", "Decimal");
     public static IrType<Unit> Float => Reference("Basics", "Float");
     public static IrType<Unit> List(IrType<Unit> element) => new ReferenceType<Unit>(default, new(Sdk, Path.From("List"), Name.From("List")), [element]);
     public static IrType<Unit> Bool => Reference("Basics", "Bool");

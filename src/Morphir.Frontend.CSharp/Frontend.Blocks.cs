@@ -26,7 +26,9 @@ public static partial class Frontend
             boundValues.Clear();
             operandValues.Clear();
             provedArithmetic.Clear();
+            provedDecimalOperations.Clear();
             numericFacts.Clear();
+            decimalFacts.Clear(); decimalDomains.Clear(); decimalConstants.Clear();
             numericValueRanges.Clear();
             finiteFacts.Clear();
             zeroFloatFacts.Clear();
@@ -95,8 +97,13 @@ public static partial class Frontend
         }
         private void ValidateUnreachedArithmetic(IOperation operation)
         {
-            if (operation is IBinaryOperation { OperatorKind: BinaryOperatorKind.Add } addition && !NumericType(NullableElement(addition.Type) ?? addition.Type) && !provedArithmetic.Contains(operation) && !SafeAddition(addition))
+            if (operation is IBinaryOperation { OperatorKind: BinaryOperatorKind.Add } addition && !NumericType(NullableElement(addition.Type) ?? addition.Type) && !DecimalType(NullableElement(addition.Type) ?? addition.Type) && !provedArithmetic.Contains(operation) && !SafeAddition(addition))
                 Fail<object>("MCS2302", "An unreachable addition still requires the delivered numeric proof contract.", operation.Syntax.GetLocation());
+            bool decimalFailure = operation is IBinaryOperation decimalBinary && DecimalType(NullableElement(decimalBinary.LeftOperand.Type) ?? decimalBinary.LeftOperand.Type)
+                || operation is IConversionOperation decimalConversion && (DecimalType(NullableElement(decimalConversion.Type) ?? decimalConversion.Type) || DecimalType(NullableElement(decimalConversion.Operand.Type) ?? decimalConversion.Operand.Type))
+                || operation is IInvocationOperation decimalCall && DecimalMember(decimalCall)
+                || operation is IObjectCreationOperation decimalCreation && DecimalConstruction(decimalCreation);
+            if (decimalFailure && !provedDecimalOperations.Contains(operation)) In(bindings, operation);
             foreach (var child in operation.ChildOperations) ValidateUnreachedArithmetic(child);
         }
         private void ValidateBlockOperations(IOperation operation)
@@ -117,9 +124,9 @@ public static partial class Frontend
             if (operation.Type is { SpecialType: not SpecialType.System_Void } type) Type(type, operation.Syntax.GetLocation(), true);
             if (operation is ISimpleAssignmentOperation assignment && (assignment.IsRef || assignment.Target is not (ILocalReferenceOperation or IParameterReferenceOperation)))
                 Fail<object>("MCS2404", "D3 assignment must rebind a local/by-value parameter; input/external member updates are not permitted.", operation.Syntax.GetLocation());
-            if (operation is IPropertyReferenceOperation property && !PresenceProperty(property) && !NumericProperty(property) && !records.ContainsKey(SymbolId(property.Property.ContainingType)))
+            if (operation is IPropertyReferenceOperation property && !PresenceProperty(property) && !NumericProperty(property) && !DecimalProperty(property) && !records.ContainsKey(SymbolId(property.Property.ContainingType)))
                 Fail<object>("MCS2107", "Unknown/effectful property read is outside the admitted record mapping.", operation.Syntax.GetLocation());
-            if (operation is IBinaryOperation binary && !PresenceBinary(binary) && Integral(binary.LeftOperand.Type) is null && Floating(binary.LeftOperand.Type) is null && !ComplexType(binary.LeftOperand.Type))
+            if (operation is IBinaryOperation binary && !PresenceBinary(binary) && !DecimalType(binary.LeftOperand.Type) && Integral(binary.LeftOperand.Type) is null && Floating(binary.LeftOperand.Type) is null && !ComplexType(binary.LeftOperand.Type))
             {
                 bool boolean = binary.LeftOperand.Type?.SpecialType == SpecialType.System_Boolean && binary.RightOperand.Type?.SpecialType == SpecialType.System_Boolean;
                 bool admitted = boolean
@@ -128,20 +135,20 @@ public static partial class Frontend
                 if (!admitted || binary.OperatorMethod is not null || binary.IsLifted) Fail<object>("MCS2106", "Unmapped binary operator in selected source.", operation.Syntax.GetLocation());
                 if (binary.IsChecked && binary.OperatorKind == BinaryOperatorKind.Add) Fail<object>("MCS2004", "Checked semantic arithmetic is excluded.", operation.Syntax.GetLocation());
             }
-            if (operation is IUnaryOperation unary && !unary.IsLifted && Integral(unary.Operand.Type) is null && Floating(unary.Operand.Type) is null && !ComplexType(unary.Operand.Type))
+            if (operation is IUnaryOperation unary && !unary.IsLifted && !DecimalType(unary.Operand.Type) && Integral(unary.Operand.Type) is null && Floating(unary.Operand.Type) is null && !ComplexType(unary.Operand.Type))
             {
                 if (unary.IsChecked) Fail<object>("MCS2004", "Checked semantic arithmetic is excluded.", operation.Syntax.GetLocation());
                 if (!(unary.OperatorMethod is null && (unary.OperatorKind == UnaryOperatorKind.Not && unary.Type?.SpecialType == SpecialType.System_Boolean || unary.OperatorKind == UnaryOperatorKind.Minus && unary.Type?.SpecialType == SpecialType.System_Int32 && unary.ConstantValue is { HasValue: true, Value: int })))
                     Fail<object>("MCS2107", "Unmapped unary operator in selected source.", operation.Syntax.GetLocation());
             }
-            if (operation is IConversionOperation conversion && !PresenceConversion(conversion) && !NumericConversion(conversion))
+            if (operation is IConversionOperation conversion && !PresenceConversion(conversion) && !NumericConversion(conversion) && !((DecimalType(conversion.Type) && (DecimalType(conversion.Operand.Type) || Integral(conversion.Operand.Type) is not null || Floating(conversion.Operand.Type) is not null)) || DecimalType(conversion.Operand.Type) && (Integral(conversion.Type) is not null || Floating(conversion.Type) is not null || ComplexType(conversion.Type))))
             {
                 if (conversion.IsChecked) Fail<object>("MCS2004", "Checked semantic conversions are excluded.", operation.Syntax.GetLocation());
                 if (!(conversion.Conversion.IsIdentity || conversion.Operand is IObjectCreationOperation creation && !conversion.Conversion.IsUserDefined && SymbolEqualityComparer.Default.Equals(conversion.Type, creation.Type)))
                     Fail<object>("MCS2107", "Unmapped conversion in selected source.", operation.Syntax.GetLocation());
             }
             if (operation is IConditionalOperation { IsRef: true }) Fail<object>("MCS2404", "Ref conditionals require later ownership analysis.", operation.Syntax.GetLocation());
-            if (operation is IObjectCreationOperation creationOperation && !NullableCreation(creationOperation) && !DefaultRecordCreation(creationOperation) && !NumericConstruction(creationOperation) && (creationOperation.Type is not INamedTypeSymbol named || !records.TryGetValue(SymbolId(named), out var fields) || creationOperation.Initializer is not null || creationOperation.Constructor?.Parameters.Length != fields.Length || creationOperation.Arguments.Length != fields.Length || creationOperation.Arguments.Any(a => a.ArgumentKind != ArgumentKind.Explicit)))
+            if (operation is IObjectCreationOperation creationOperation && !NullableCreation(creationOperation) && !DefaultRecordCreation(creationOperation) && !NumericConstruction(creationOperation) && !DecimalConstruction(creationOperation) && (creationOperation.Type is not INamedTypeSymbol named || !records.TryGetValue(SymbolId(named), out var fields) || creationOperation.Initializer is not null || creationOperation.Constructor?.Parameters.Length != fields.Length || creationOperation.Arguments.Length != fields.Length || creationOperation.Arguments.Any(a => a.ArgumentKind != ArgumentKind.Explicit)))
                 Fail<object>("MCS2107", "Unmapped construction in selected source.", operation.Syntax.GetLocation());
             if (operation is IFieldReferenceOperation field && !field.Field.HasConstantValue && !(field.Instance is null && field.Field.Name == "Zero" && field.Type?.SpecialType is SpecialType.System_IntPtr or SpecialType.System_UIntPtr) && !(field.Instance is null && ComplexType(field.Type) && field.Field.Name is "Zero" or "One" or "ImaginaryOne" or "NaN" or "Infinity") && !(field.Instance is null && Floating(field.Type) is { } precision && FloatingConstant(field.Field.Name, precision) is not null))
                 Fail<object>("MCS2107", "Unmapped field read in selected source.", field.Syntax.GetLocation());

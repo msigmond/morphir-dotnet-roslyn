@@ -1,0 +1,32 @@
+{
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "kind": "production compatibility library compiled from original pure Elm sources",
+  "mode": "default",
+  "output": "src/Morphir.Frontend.CSharp/Compatibility/decimal.json",
+  "sha256": "8a09d94f27a4b91916f566c08aed5be6971473655c1820e44e7e08f069006c81",
+  "generated": {
+    "path": "src/Morphir.Frontend.CSharp/Compatibility/DecimalLibrary.Generated.cs",
+    "sha256": "866cecd70f9c0021bfdc772543f3c4fd2f54348b56792a5d857233f4ad97b8c0"
+  },
+  "sources": [
+    {
+      "path": "eng/decimal-compat/morphir.json",
+      "sha256": "6a9927c3088dc518e2e399721bc76e7211bc715e609e7bb8dcea6588d845452b"
+    },
+    {
+      "path": "eng/decimal-compat/src/Example/Compat/Decimal.elm",
+      "sha256": "c56e42ab0f758c12801e6afabf7edd93505488083044634d244eec9812788b4e"
+    },
+    {
+      "path": "eng/decimal-compat/src/Example/Compat/Integers.elm",
+      "sha256": "e9e1d11e12db914753eb6de8bf200b90b8282792aab02bb7ef75aa594559c08e"
+    }
+  ]
+}

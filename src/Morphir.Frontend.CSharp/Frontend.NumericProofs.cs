@@ -17,6 +17,7 @@ public static partial class Frontend
         private Dictionary<TypedValue, NumericRange> numericValueRanges = new(ReferenceEqualityComparer.Instance);
         private BigInteger? KnownInteger(TypedValue value)
         {
+            if (numericValueRanges.TryGetValue(value, out var exact) && exact.Minimum is { } min && exact.Maximum == min) return min;
             if (value is LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral literal }) return literal.Value;
             if (value is VariableValue<Unit, IrType<Unit>> variable && boundValues.TryGetValue(variable.Name.Key, out var bound)) return KnownInteger(bound);
             if (value is RecordValue<Unit, IrType<Unit>> record && record.Fields.SingleOrDefault(f => f.Key.Key == "digits")?.Value is ListValue<Unit, IrType<Unit>> digits && record.Fields.SingleOrDefault(f => f.Key.Key == "negative")?.Value is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral negative })
@@ -47,6 +48,7 @@ public static partial class Frontend
             if (KnownInteger(value) is { } constant) return new(constant, constant, new HashSet<BigInteger>());
             if (ValueKey(value) is { } key && numericFacts.TryGetValue(key, out var range)) return range;
             if (numericValueRanges.TryGetValue(value, out var knownRange)) return knownRange;
+            if (value is VariableValue<Unit, IrType<Unit>> variable && boundValues.TryGetValue(variable.Name.Key, out var bound)) return IntegerRange(bound, domain);
             return new(domain.Bits == 0 ? null : domain.Minimum, domain.Bits == 0 ? null : domain.Maximum, new HashSet<BigInteger>());
         }
         private static bool NumericProbe(IOperation operation) => operation is IBinaryOperation binary && Integral(binary.LeftOperand.Type) is not null && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals or BinaryOperatorKind.LessThan or BinaryOperatorKind.LessThanOrEqual or BinaryOperatorKind.GreaterThan or BinaryOperatorKind.GreaterThanOrEqual;

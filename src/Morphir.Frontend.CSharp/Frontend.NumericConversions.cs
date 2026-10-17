@@ -62,6 +62,7 @@ public static partial class Frontend
         private TypedValue NumericUnary(IUnaryOperation unary, TypedValue value)
         {
             var location = unary.Syntax.GetLocation(); var source = NullableElement(unary.Operand.Type) ?? unary.Operand.Type; var target = NullableElement(unary.Type) ?? unary.Type;
+            if (DecimalType(source)) return DecimalUnary(unary.OperatorKind, value, location);
             if (unary.IsChecked) return Fail<TypedValue>("MCS2004", "Checked semantic arithmetic is excluded.", location);
             if (Integral(source) is { } integer && Integral(target) is { } result)
             {

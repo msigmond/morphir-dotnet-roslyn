@@ -15,7 +15,9 @@ for signature in (root/'artifacts/numeric-members.txt').read_text().splitlines()
     if 'checked ' in signature:
         state='required-rejection';owner='D5';domain='Explicit/semantic checked numeric operations are excluded: NumericSafetyTests.'
     elif 'decimal' in signature:
-        owner='D6';domain='Exact Decimal representation/conversion and proof prerequisite.'
+        state='supported';owner='D6';domain='Exact Decimal coefficient/scale/sign conversion with D3 target-range proof; mappings/D6.md and DecimalTests.'
+        if re.search(r'operator decimal\(System.Half\)',signature):
+            state='required-rejection';domain='Binary-floating Decimal construction excluded by exact-construction policy.'
     elif 'Span<' in signature or re.search(r'\w\*',signature):
         state='required-rejection';owner='D18.4';domain='Ref-like/pointer data is excluded by the master contract.'
     elif '[]' in signature:
@@ -49,7 +51,7 @@ for signature in (root/'artifacts/numeric-members.txt').read_text().splitlines()
         if supported:
             state='supported';owner='D5';domain='Exact resolved numeric constant/property; no name-only external dispatch.'
     row={'member':signature,'state':state,'owner':owner,'domain':domain}
-    if state=='required-rejection': row['evidence']='NumericSafetyTests' if owner=='D5' else 'FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + fixed pointer/ref-like type validation'
+    if state=='required-rejection': row['evidence']='NumericSafetyTests' if owner=='D5' else 'DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion' if owner=='D6' else 'FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + fixed pointer/ref-like type validation'
     rows.append(row)
 if len(rows)!=len({r['member'] for r in rows}):
     raise SystemExit('Duplicate numeric member')

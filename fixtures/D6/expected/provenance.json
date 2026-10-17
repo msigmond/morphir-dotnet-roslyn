@@ -1,0 +1,74 @@
+{
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "fixtures": [
+    {
+      "name": "helpers",
+      "output": "fixtures/D6/expected/helpers.json",
+      "kind": "ordinary Elm",
+      "mode": "default",
+      "source": "fixtures/D6/elm/helpers",
+      "sha256": "d3a09d3f322ea50c8fd1ac446caee07d05f7c4357f353f466faeeef1c85c89f9"
+    },
+    {
+      "name": "decimal",
+      "output": "fixtures/D6/expected/decimal.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D6/codec-reference",
+      "sha256": "b5d2ee58bc804d62e2d9dfa11b60826c6db21bd356a106723b991fd0ed109c17"
+    },
+    {
+      "name": "sample",
+      "output": "fixtures/D6/expected/sample.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D6/codec-reference",
+      "sha256": "59693bca55ca8246fd2bc6683d494152bfe5c2e542cd50b72ccc4d809c7769e6"
+    },
+    {
+      "name": "model-literal",
+      "output": "fixtures/D6/expected/model-literal.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D6/codec-reference",
+      "sha256": "ec946981d1148fdbd907c562021b62ecd45b22ab1ad502d02a49c2082cf13e7d"
+    }
+  ],
+  "sources": [
+    {
+      "path": "fixtures/D6/elm/helpers/morphir.json",
+      "sha256": "4b3e408449300e5254fac970e1a2c85d25b293aceb13eb3f66a6a839bd81f5bd"
+    },
+    {
+      "path": "fixtures/D6/elm/helpers/src/Example/Compat/Decimal.elm",
+      "sha256": "c56e42ab0f758c12801e6afabf7edd93505488083044634d244eec9812788b4e"
+    },
+    {
+      "path": "fixtures/D6/elm/helpers/src/Example/Compat/Floating.elm",
+      "sha256": "a3daa9516db2e2bdbf452bfb63ef7183bf42001eb9e3a63fd9655d3fb1fe9b8b"
+    },
+    {
+      "path": "fixtures/D6/elm/helpers/src/Example/Compat/Integers.elm",
+      "sha256": "e9e1d11e12db914753eb6de8bf200b90b8282792aab02bb7ef75aa594559c08e"
+    },
+    {
+      "path": "fixtures/D6/codec-reference/Main.elm",
+      "sha256": "eedbef955406d55826e65e09971c75cd34a72b8059e0ec07b2fbb1f0a4e8c714"
+    },
+    {
+      "path": "fixtures/D6/codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D5/expected/sample.json",
+      "sha256": "d3c8c67f2df8ea999f467345e68bff340c88a1e7bde7f9f641a5a85a62a1d1be"
+    }
+  ]
+}

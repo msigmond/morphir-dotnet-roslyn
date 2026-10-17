@@ -125,15 +125,23 @@
       "type": "System.Decimal",
       "version": "10.0.0",
       "owner": "D6",
-      "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
+      "state": "supported",
+      "representation": "Compat.Decimal.Decimal: exact 96-bit coefficient, scale0..28, sign including negative zero, and exact SDK Decimal value.",
+      "pureMembers": "Exact 131 public declared symbol inventory in decimal-members.json; listed operators/constructions/Scale/rounding/arithmetical members; later API prerequisites explicit.",
+      "boundaries": "D3 range/nonzero/conversion/member proof; binary-floating construction rejects. No fallback/error wrapper/saturation.",
+      "positiveFixtures": [
+        "fixtures/D6/expected/decimal.json",
+        "fixtures/D6/expected/sample.json"
+      ],
+      "negativeFixtures": [
+        "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
+      ],
+      "boundaryFixtures": [
+        "DecimalTests",
+        "eng/check-decimal-compat.mjs"
+      ],
       "memberState": "pending",
-      "memberOwner": "D6",
+      "memberOwner": "D18.4",
       "requiredFixtures": [
         "positive",
         "negative",

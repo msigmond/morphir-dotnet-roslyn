@@ -6443,9 +6443,9 @@
     },
     {
       "member": "System.Half.explicit operator System.Half(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Exact Decimal representation/conversion and proof prerequisite."
+      "domain": "Exact Decimal coefficient/scale/sign conversion with D3 target-range proof; mappings/D6.md and DecimalTests."
     },
     {
       "member": "System.Half.explicit operator System.Half(double)",
@@ -6624,9 +6624,10 @@
     },
     {
       "member": "System.Half.explicit operator decimal(System.Half)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "Exact Decimal representation/conversion and proof prerequisite."
+      "domain": "Binary-floating Decimal construction excluded by exact-construction policy.",
+      "evidence": "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
     },
     {
       "member": "System.Half.explicit operator double(System.Half)",
@@ -7170,9 +7171,9 @@
     },
     {
       "member": "System.Int128.explicit operator System.Int128(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Exact Decimal representation/conversion and proof prerequisite."
+      "domain": "Exact Decimal coefficient/scale/sign conversion with D3 target-range proof; mappings/D6.md and DecimalTests."
     },
     {
       "member": "System.Int128.explicit operator System.Int128(double)",
@@ -7304,9 +7305,9 @@
     },
     {
       "member": "System.Int128.explicit operator decimal(System.Int128)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Exact Decimal representation/conversion and proof prerequisite."
+      "domain": "Exact Decimal coefficient/scale/sign conversion with D3 target-range proof; mappings/D6.md and DecimalTests."
     },
     {
       "member": "System.Int128.explicit operator double(System.Int128)",
@@ -7959,9 +7960,9 @@
     },
     {
       "member": "System.UInt128.explicit operator System.UInt128(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Exact Decimal representation/conversion and proof prerequisite."
+      "domain": "Exact Decimal coefficient/scale/sign conversion with D3 target-range proof; mappings/D6.md and DecimalTests."
     },
     {
       "member": "System.UInt128.explicit operator System.UInt128(double)",
@@ -8152,9 +8153,9 @@
     },
     {
       "member": "System.UInt128.explicit operator decimal(System.UInt128)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Exact Decimal representation/conversion and proof prerequisite."
+      "domain": "Exact Decimal coefficient/scale/sign conversion with D3 target-range proof; mappings/D6.md and DecimalTests."
     },
     {
       "member": "System.UInt128.explicit operator double(System.UInt128)",
@@ -8472,9 +8473,9 @@
     },
     {
       "member": "System.Numerics.BigInteger.BigInteger(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Exact Decimal representation/conversion and proof prerequisite."
+      "domain": "Exact Decimal coefficient/scale/sign conversion with D3 target-range proof; mappings/D6.md and DecimalTests."
     },
     {
       "member": "System.Numerics.BigInteger.BigInteger(double)",
@@ -8983,9 +8984,9 @@
     },
     {
       "member": "System.Numerics.BigInteger.explicit operator System.Numerics.BigInteger(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Exact Decimal representation/conversion and proof prerequisite."
+      "domain": "Exact Decimal coefficient/scale/sign conversion with D3 target-range proof; mappings/D6.md and DecimalTests."
     },
     {
       "member": "System.Numerics.BigInteger.explicit operator System.Numerics.BigInteger(double)",
@@ -9019,9 +9020,9 @@
     },
     {
       "member": "System.Numerics.BigInteger.explicit operator decimal(System.Numerics.BigInteger)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Exact Decimal representation/conversion and proof prerequisite."
+      "domain": "Exact Decimal coefficient/scale/sign conversion with D3 target-range proof; mappings/D6.md and DecimalTests."
     },
     {
       "member": "System.Numerics.BigInteger.explicit operator double(System.Numerics.BigInteger)",
@@ -9955,9 +9956,9 @@
     },
     {
       "member": "System.Numerics.Complex.explicit operator System.Numerics.Complex(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Exact Decimal representation/conversion and proof prerequisite."
+      "domain": "Exact Decimal coefficient/scale/sign conversion with D3 target-range proof; mappings/D6.md and DecimalTests."
     },
     {
       "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(System.Half)",

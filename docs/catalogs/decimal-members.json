@@ -1,0 +1,812 @@
+{
+  "referencePack": "Microsoft.NETCore.App.Ref/10.0.0",
+  "roslyn": "5.0.0",
+  "policy": "Exact public declarations including default construction; accessors represented by properties. Decimal language/representation support does not imply complete framework API closure. Later dependencies remain explicit.",
+  "members": [
+    {
+      "member": "decimal.Abs(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Add(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Ceiling(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Clamp(decimal, decimal, decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.Compare(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.CompareTo(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.CompareTo(object?)",
+      "state": "pending",
+      "owner": "D17",
+      "domain": "Object boxing/type-domain prerequisite."
+    },
+    {
+      "member": "decimal.ConvertToInteger<TInteger>(decimal)",
+      "state": "pending",
+      "owner": "D10",
+      "domain": "Resolved generic constraints/type arguments prerequisite."
+    },
+    {
+      "member": "decimal.ConvertToIntegerNative<TInteger>(decimal)",
+      "state": "pending",
+      "owner": "D10",
+      "domain": "Resolved generic constraints/type arguments prerequisite."
+    },
+    {
+      "member": "decimal.CopySign(decimal, decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.CreateChecked<TOther>(TOther)",
+      "state": "pending",
+      "owner": "D10",
+      "domain": "Resolved generic constraints/type arguments prerequisite."
+    },
+    {
+      "member": "decimal.CreateSaturating<TOther>(TOther)",
+      "state": "pending",
+      "owner": "D10",
+      "domain": "Resolved generic constraints/type arguments prerequisite."
+    },
+    {
+      "member": "decimal.CreateTruncating<TOther>(TOther)",
+      "state": "pending",
+      "owner": "D10",
+      "domain": "Resolved generic constraints/type arguments prerequisite."
+    },
+    {
+      "member": "decimal.Decimal()",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.Decimal(System.ReadOnlySpan<int>)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.Decimal(double)",
+      "state": "required-rejection",
+      "owner": "D6",
+      "domain": "Binary-floating Decimal construction excluded by exact-construction policy; MCS2704.",
+      "evidence": "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
+    },
+    {
+      "member": "decimal.Decimal(float)",
+      "state": "required-rejection",
+      "owner": "D6",
+      "domain": "Binary-floating Decimal construction excluded by exact-construction policy; MCS2704.",
+      "evidence": "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
+    },
+    {
+      "member": "decimal.Decimal(int)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.Decimal(int, int, int, bool, byte)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact 96-bit parts with scale proved 0..28."
+    },
+    {
+      "member": "decimal.Decimal(int[])",
+      "state": "pending",
+      "owner": "D11",
+      "domain": "Array/owned-buffer safety prerequisite."
+    },
+    {
+      "member": "decimal.Decimal(long)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.Decimal(uint)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.Decimal(ulong)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.Divide(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Equals(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Equals(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Equals(object?)",
+      "state": "pending",
+      "owner": "D17",
+      "domain": "Object boxing/type-domain prerequisite."
+    },
+    {
+      "member": "decimal.Floor(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.FromOACurrency(long)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.GetBits(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.GetBits(decimal, System.Span<int>)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.GetHashCode()",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.GetTypeCode()",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.IsCanonical(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.IsEvenInteger(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.IsInteger(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.IsNegative(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.IsOddInteger(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.IsPositive(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.Max(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.MaxMagnitude(decimal, decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.MaxValue",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient, scale and sign, including signed zero and full CLR range."
+    },
+    {
+      "member": "decimal.Min(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.MinMagnitude(decimal, decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.MinValue",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient, scale and sign, including signed zero and full CLR range."
+    },
+    {
+      "member": "decimal.MinusOne",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient, scale and sign, including signed zero and full CLR range."
+    },
+    {
+      "member": "decimal.Multiply(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Negate(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.One",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient, scale and sign, including signed zero and full CLR range."
+    },
+    {
+      "member": "decimal.Parse(System.ReadOnlySpan<byte>, System.Globalization.NumberStyles, System.IFormatProvider?)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.Parse(System.ReadOnlySpan<byte>, System.IFormatProvider?)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.Parse(System.ReadOnlySpan<char>, System.Globalization.NumberStyles, System.IFormatProvider?)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.Parse(System.ReadOnlySpan<char>, System.IFormatProvider?)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.Parse(string)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.Parse(string, System.Globalization.NumberStyles)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.Parse(string, System.Globalization.NumberStyles, System.IFormatProvider?)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.Parse(string, System.IFormatProvider?)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.Remainder(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Round(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Round(decimal, System.MidpointRounding)",
+      "state": "pending",
+      "owner": "D8",
+      "domain": "Enum representation and member binding prerequisite; default ToEven rounding is delivered."
+    },
+    {
+      "member": "decimal.Round(decimal, int)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Round(decimal, int, System.MidpointRounding)",
+      "state": "pending",
+      "owner": "D8",
+      "domain": "Enum representation and member binding prerequisite; default ToEven rounding is delivered."
+    },
+    {
+      "member": "decimal.Scale",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient, scale and sign, including signed zero and full CLR range."
+    },
+    {
+      "member": "decimal.Sign(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.Subtract(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.ToByte(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToDouble(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToInt16(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToInt32(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToInt64(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToOACurrency(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToSByte(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToSingle(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToString()",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToString(System.IFormatProvider?)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToString(string?)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToString(string?, System.IFormatProvider?)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToUInt16(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToUInt32(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.ToUInt64(decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.Truncate(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact resolved Decimal overload with D3 safety and member preconditions."
+    },
+    {
+      "member": "decimal.TryFormat(System.Span<byte>, out int, System.ReadOnlySpan<char>, System.IFormatProvider?)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.TryFormat(System.Span<char>, out int, System.ReadOnlySpan<char>, System.IFormatProvider?)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.TryGetBits(decimal, System.Span<int>, out int)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.TryParse(System.ReadOnlySpan<byte>, System.Globalization.NumberStyles, System.IFormatProvider?, out decimal)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.TryParse(System.ReadOnlySpan<byte>, System.IFormatProvider?, out decimal)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.TryParse(System.ReadOnlySpan<byte>, out decimal)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.TryParse(System.ReadOnlySpan<char>, System.Globalization.NumberStyles, System.IFormatProvider?, out decimal)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.TryParse(System.ReadOnlySpan<char>, System.IFormatProvider?, out decimal)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.TryParse(System.ReadOnlySpan<char>, out decimal)",
+      "state": "required-rejection",
+      "owner": "D18.4",
+      "domain": "Ref-like/pointer representations excluded by the master contract.",
+      "evidence": "FrontendTests.CheckedOperatorAndRefStructAreSyntaxRejections + ref-like/pointer type rejection"
+    },
+    {
+      "member": "decimal.TryParse(string?, System.Globalization.NumberStyles, System.IFormatProvider?, out decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.TryParse(string?, System.IFormatProvider?, out decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.TryParse(string?, out decimal)",
+      "state": "pending",
+      "owner": "D18.4",
+      "domain": "Remaining pure Decimal API closure; no current support claim."
+    },
+    {
+      "member": "decimal.Zero",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient, scale and sign, including signed zero and full CLR range."
+    },
+    {
+      "member": "decimal.explicit operator byte(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.explicit operator char(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.explicit operator decimal(double)",
+      "state": "required-rejection",
+      "owner": "D6",
+      "domain": "Binary-floating Decimal construction excluded by exact-construction policy; MCS2704.",
+      "evidence": "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
+    },
+    {
+      "member": "decimal.explicit operator decimal(float)",
+      "state": "required-rejection",
+      "owner": "D6",
+      "domain": "Binary-floating Decimal construction excluded by exact-construction policy; MCS2704.",
+      "evidence": "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
+    },
+    {
+      "member": "decimal.explicit operator double(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.explicit operator float(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.explicit operator int(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.explicit operator long(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.explicit operator sbyte(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.explicit operator short(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.explicit operator uint(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.explicit operator ulong(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.explicit operator ushort(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.implicit operator decimal(byte)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.implicit operator decimal(char)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.implicit operator decimal(int)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.implicit operator decimal(long)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.implicit operator decimal(sbyte)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.implicit operator decimal(short)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.implicit operator decimal(uint)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.implicit operator decimal(ulong)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.implicit operator decimal(ushort)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator !=(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator %(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator *(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator +(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator +(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator ++(decimal)",
+      "state": "pending",
+      "owner": "D15",
+      "domain": "Increment and owned rebinding prerequisite."
+    },
+    {
+      "member": "decimal.operator -(decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator -(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator --(decimal)",
+      "state": "pending",
+      "owner": "D15",
+      "domain": "Increment and owned rebinding prerequisite."
+    },
+    {
+      "member": "decimal.operator /(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator <(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator <=(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator ==(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator >(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    },
+    {
+      "member": "decimal.operator >=(decimal, decimal)",
+      "state": "supported",
+      "owner": "D6",
+      "domain": "Exact coefficient/scale/sign and D3 range/nonzero/conversion proofs; mappings/D6.md."
+    }
+  ]
+}

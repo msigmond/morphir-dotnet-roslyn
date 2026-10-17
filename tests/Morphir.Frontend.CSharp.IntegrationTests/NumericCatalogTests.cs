@@ -45,3 +45,27 @@ public class NumericCatalogTests
         var rejected = Support.Convert(collision, selectors: ["Example"]); Assert.Null(rejected.Distribution); Assert.Contains(rejected.Diagnostics, d => d.Code == "MCS1004");
     }
 }
+
+[Trait("Delivery", "D6")]
+public class DecimalCatalogTests
+{
+    [Theory]
+    [InlineData("Decimal")]
+    [InlineData("Integers")]
+    [InlineData("Floating")]
+    public void SourceDataOwnersCannotMergeWithGeneratedCompatibilityModules(string owner)
+    {
+        var code = "namespace Example.D6 {public static class Rules {public static decimal F()=>0.1m;}} namespace Example.Compat." + owner + " {public readonly record struct Collision(int Value);}";
+        var result = Support.Convert(code, selectors: ["Example"]);
+        Assert.Null(result.Distribution); Assert.Contains(result.Diagnostics, d => d.Code == "MCS1004");
+    }
+    [Fact]
+    public void DecimalPublicInventoryMatchesEveryPinnedReferenceDeclaration()
+    {
+        var compilation = SourceCompilation.Create([]);
+        var actual = compilation.GetTypeByMetadataName("System.Decimal")!.GetMembers().Where(m => m.DeclaredAccessibility == Accessibility.Public && m is not IMethodSymbol { MethodKind: MethodKind.PropertyGet or MethodKind.PropertySet }).Select(m => m.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat)).Order(StringComparer.Ordinal).ToArray();
+        using var inventory = JsonDocument.Parse(Support.Read("docs/catalogs/decimal-members.json"));
+        var expected = inventory.RootElement.GetProperty("members").EnumerateArray().Select(m => m.GetProperty("member").GetString()!).Order(StringComparer.Ordinal).ToArray();
+        Assert.Equal(actual, expected);
+    }
+}

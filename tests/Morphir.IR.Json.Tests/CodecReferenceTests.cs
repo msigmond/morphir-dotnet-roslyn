@@ -34,3 +34,16 @@ public class CodecReferenceTests
         Assert.Equal(5, publicSpec.Modules.SelectMany(m => m.Value.Values).Count());
     }
 }
+
+[Trait("Delivery", "D6")]
+public class DecimalCodecReferenceTests
+{
+    [Fact]
+    public void ExactDecimalLiteralMatchesTheIndependentCompleteElmCodecDistribution()
+    {
+        var definition = new ValueDefinition<Unit, IrType<Unit>>([], Types.Decimal, new LiteralValue<Unit, IrType<Unit>>(Types.Decimal, new DecimalLiteral("0.1")));
+        var model = new Library<Unit, IrType<Unit>>(IrPath.From("Example"), [], new([
+            new(IrPath.From("D6.Model"), new(Access.Public, new([], [new(Name.From("exactTenth"), new(Access.Public, new("Exact decimal literal payload", definition)))])))]));
+        Assert.Null(StructuralComparison.Compare(Support.Read("fixtures/D6/expected/model-literal.json"), Codec.Encode(model)));
+    }
+}
