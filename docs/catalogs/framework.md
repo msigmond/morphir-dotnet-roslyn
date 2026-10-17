@@ -1,4 +1,4 @@
-# Framework catalog — D1–D7
+# Framework catalog — D1–D9
 
 Baseline: .NET reference pack 10.0.0; Roslyn 5.0.0. This inventory grows in its owning deliveries and does not expand automatically with runtime/package versions.
 
@@ -26,3 +26,5 @@ D6 represents the full CLR Decimal data domain with exact coefficient/scale/sign
 D7 binds source calls and standard Func method references under the [call contract](../mappings/D7.md). Exact existing Decimal/classification mappings are reusable through adapters. Array data remains D11 except scoped initialized params vectors with M1/bounds proofs. External function mappings require exact metadata symbols, complete specification ABI, and explicit reviewed pure/total full-domain assertions; no opaque DLL purity inference or source-body override is allowed.
 
 D8 adds exact baseline System.Tuple/ValueTuple constructors, Create factories and positional/Rest access in the scoped tuple data mapping, plus baseline FlagsAttribute metadata on selected source enums. Reference slots retain M1; invalid rest construction and unproved dereferences reject. Enum operators/casts reuse D5/D6 numeric proofs and do not enable arbitrary System.Enum members or framework enum declarations. Full pure API closure and dependent interfaces/arrays/object members remain assigned to later deliveries; language generic data forms are tracked in forms.json. See [D8 mapping](../mappings/D8.md) and EnumTupleTests.
+
+The D9 source-data increment handles the compiler-resolved ValueType.Equals boundary for proved source value types using their exact field equality, including NaN-aware floating/Complex Equals and scale-insensitive Decimal equality. It preserves record-generated and resolved source value equality; unknown reference identity is rejected. This is not general System.Object/boxing or framework-member closure, which retains its catalog prerequisites. D9 passed its independent, native, rejection and cumulative gates.

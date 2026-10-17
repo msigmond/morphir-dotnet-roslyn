@@ -131,6 +131,7 @@ internal static class Support
                 LiteralValue<Unit, IrType<Unit>> { Literal: StringLiteral s } => s.Value,
                 VariableValue<Unit, IrType<Unit>> x => vars[x.Name.Key],
                 FieldValue<Unit, IrType<Unit>> x => ((IReadOnlyDictionary<string, object>)Evaluate(x.Subject, vars, library))[x.Field.Key],
+                UpdateRecordValue<Unit, IrType<Unit>> update => UpdateRecord(update, vars, library),
                 RecordValue<Unit, IrType<Unit>> x => x.Fields.ToDictionary(e => e.Key.Key, e => Evaluate(e.Value, vars, library)),
                 LetValue<Unit, IrType<Unit>> x => Evaluate(x.Body, new Dictionary<string, object>(vars) { [x.Name.Key] = Evaluate(x.Definition.Body, vars, library) }, library),
                 IfValue<Unit, IrType<Unit>> x => Evaluate((bool)Evaluate(x.Condition, vars, library) ? x.Then : x.Else, vars, library),
@@ -201,6 +202,12 @@ internal static class Support
     private static BigInteger Whole(object value) => value switch { BigInteger i => i, int i => i, long i => i, uint i => i, ulong i => i, _ => throw new InvalidOperationException("Not an integer " + value) };
     private static object Narrow(BigInteger value) => value >= int.MinValue && value <= int.MaxValue ? (object)(int)value : value;
     private static double Real(object value) => value is double d ? d : (double)Whole(value);
+    private static object UpdateRecord(UpdateRecordValue<Unit, IrType<Unit>> update, IReadOnlyDictionary<string, object> variables, Library<Unit, IrType<Unit>>? library)
+    {
+        var record = new Dictionary<string, object>((IReadOnlyDictionary<string, object>)Evaluate(update.Subject, variables, library));
+        foreach (var field in update.Fields) record[field.Key.Key] = Evaluate(field.Value, variables, library);
+        return record;
+    }
     private static bool Equal(object a, object b)
     {
         if (a is CustomData ca && b is CustomData cb) return ca.Constructor.Package.Key == cb.Constructor.Package.Key && ca.Constructor.Module.Key == cb.Constructor.Module.Key && ca.Constructor.Local.Key == cb.Constructor.Local.Key && ca.Arguments.Count == cb.Arguments.Count && ca.Arguments.Zip(cb.Arguments).All(pair => Equal(pair.First, pair.Second));

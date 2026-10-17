@@ -21,7 +21,7 @@ public static partial class Frontend
             _ => type.TypeKind + "_" + type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.None))
         };
         private static string SignatureSuffix(IMethodSymbol method) => "__" + method.Arity + "__" + string.Join("__", method.Parameters.Select(parameter => parameter.RefKind + "_" + SignatureType(parameter.Type)));
-        private static bool ReceiverRequired(IMethodSymbol method) => method.MethodKind == MethodKind.Ordinary && !method.IsStatic;
+        private static bool ReceiverRequired(IMethodSymbol method) => method.MethodKind is MethodKind.Ordinary or MethodKind.PropertyGet or MethodKind.PropertySet && !method.IsStatic;
         private IEnumerable<IMethodSymbol> LocalMethods(IMethodSymbol method)
         {
             var syntax = method.DeclaringSyntaxReferences.Single().GetSyntax();
@@ -34,7 +34,7 @@ public static partial class Frontend
                 var parent = (IMethodSymbol)local.ContainingSymbol; var parentIdentity = Identity(parent);
                 var declaration = (LocalFunctionStatementSyntax)local.DeclaringSyntaxReferences.Single().GetSyntax();
                 var parentSyntax = parent.DeclaringSyntaxReferences.Single().GetSyntax();
-                var blocks = parentSyntax.DescendantNodes().OfType<BlockSyntax>().Where(block => block.Ancestors().First(node => node is MethodDeclarationSyntax or LocalFunctionStatementSyntax).Span == parentSyntax.Span).ToArray();
+                var blocks = parentSyntax.DescendantNodes().OfType<BlockSyntax>().Where(block => block.Ancestors().First(node => node is BaseMethodDeclarationSyntax or LocalFunctionStatementSyntax or AccessorDeclarationSyntax or PropertyDeclarationSyntax or IndexerDeclarationSyntax).Span == parentSyntax.Span).ToArray();
                 var scope = declaration.Ancestors().OfType<BlockSyntax>().First(); var index = Array.FindIndex(blocks, block => block.Span == scope.Span);
                 var segments = parentIdentity.Module.Segments.Append(parentIdentity.Local);
                 if (index > 0) segments = segments.Append(Name.From("scope" + index));
@@ -45,7 +45,7 @@ public static partial class Frontend
         {
             if (method.MethodKind == MethodKind.LocalFunction) return CallableGraph((IMethodSymbol)method.ContainingSymbol).GetLocalFunctionControlFlowGraph(method);
             var syntax = method.DeclaringSyntaxReferences.Single().GetSyntax();
-            return ControlFlowGraph.Create((IMethodBodyOperation)Semantic(syntax.SyntaxTree).GetOperation(syntax)!);
+            return CallableOperation(Semantic(syntax.SyntaxTree), syntax) switch { IBlockOperation block => ControlFlowGraph.Create(block), IConstructorBodyOperation constructor => ControlFlowGraph.Create(constructor), IMethodBodyOperation body => ControlFlowGraph.Create(body), _ => Fail<ControlFlowGraph>("MCS3001", "Callable graph requires a supported method/constructor body.", syntax.GetLocation()) };
         }
         private static IEnumerable<IOperation> LocalBodyOperations(IOperation root)
         {

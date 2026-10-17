@@ -1,6 +1,6 @@
-# Classic model and codec inventory — D1–D7
+# Classic model and codec inventory — D1–D9 (D9 passed)
 
-This is the D1 increment, not a complete-v3 claim. Classic and Json projects have no Roslyn dependency. D19 owns complete algebra/codec coverage; missing later nodes remain pending.
+This inventory records delivered increments, not a complete-v3 claim. Classic and Json projects have no Roslyn dependency. D19 owns complete algebra/codec coverage; missing later nodes remain pending.
 
 | Delivered model/codec | Reference / checks |
 | --- | --- |
@@ -32,3 +32,5 @@ D6 adds exact string-payload DecimalLiteral and SDK Decimal type references. The
 D7 adds Unit type/value/pattern and typed Lambda adapters for resolved method references and zero-argument Func thunks. Complete independent source/cumulative codec distributions verify these nodes, explicit receiver inputs, nested private local definitions and full external dependency specifications. General source lambdas/captures remain D13; full Classic algebra closure remains D19.
 
 D8 adds Tuple types/values/patterns, TypeDefinition/TypeSpecification algebras, access-controlled CustomTypeDefinition constructor dictionaries, CustomTypeSpecification and OpaqueTypeSpecification. Separate alias definition/specification nodes preserve existing JSON exactly. Complete original Elm source/tuple/flags/cumulative/model references verify union tags, attributes, ordered dictionaries, source owners and hidden constructors. Production helper C# factories were re-emitted from unchanged original Elm IR solely for the typed container migration; existing golden JSON is unchanged. Full Classic algebra closure remains D19.
+
+D9 increment adds the typed UpdateRecord node with the pinned explicit codec shape. Complete original Counter and six-form/private/recursive data distributions verify the full surrounding definitions, Maybe slots, attributes, record updates and recursive custom wrappers. Finite recursive record equality uses explicit pure definitions/references; no runtime heap or CLR identity helper enters IR. D9 passed its full delivery gates; complete algebra coverage remains D19.

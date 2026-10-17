@@ -31,7 +31,7 @@ public static partial class Frontend
             if (value is FieldValue<Unit, IrType<Unit>> projected && projected.Subject is VariableValue<Unit, IrType<Unit>> receiver && boundValues.TryGetValue(receiver.Name.Key, out var instance)) return ProvedFinite(new FieldValue<Unit, IrType<Unit>>(projected.Attributes, instance, projected.Field));
             return false;
         }
-        private TypedValue? FloatingDecision(IOperation condition, Dictionary<ISymbol, Binding> environment, Func<Dictionary<ISymbol, Binding>, TypedValue> yes, Func<Dictionary<ISymbol, Binding>, TypedValue> no)
+        private TypedValue? FloatingDecision(IOperation condition, BindingEnvironment environment, Func<BindingEnvironment, TypedValue> yes, Func<BindingEnvironment, TypedValue> no)
         {
             if (!FloatProbe(condition) || HasAssignment(condition)) return null;
             if (condition is IBinaryOperation comparison) return Expression(condition, environment, (test, state) =>

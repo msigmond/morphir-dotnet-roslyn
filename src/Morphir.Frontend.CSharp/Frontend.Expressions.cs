@@ -11,7 +11,7 @@ public static partial class Frontend
     {
         private Dictionary<IOperation, TypedValue> operandValues = [];
         private readonly Dictionary<string, object?> bindingConstants = new(StringComparer.Ordinal);
-        private object? ValueConstant(TypedValue value) => value switch
+        private object? ValueConstant(TypedValue value) => dataProjections.TryGetValue(value, out var projection) ? ValueConstant(projection) : value switch
         {
             LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral i } => i.Value is >= int.MinValue and <= int.MaxValue ? (object)(int)i.Value : new System.Numerics.BigInteger(i.Value),
             LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral b } => b.Value,
@@ -22,11 +22,19 @@ public static partial class Frontend
             _ => null
         };
         private static bool HasAssignment(IOperation operation) => operation is ISimpleAssignmentOperation or ICoalesceAssignmentOperation or IDeconstructionAssignmentOperation || operation.ChildOperations.Any(HasAssignment);
-        private TypedValue Expression(IOperation operation, Dictionary<ISymbol, Binding> environment, Func<TypedValue, Dictionary<ISymbol, Binding>, TypedValue> continuation)
+        private TypedValue Expression(IOperation operation, BindingEnvironment environment, Func<TypedValue, BindingEnvironment, TypedValue> continuation)
         {
+            if (DataExpression(operation, environment, continuation) is { } dataExpression) return dataExpression;
             if (TupleExpression(operation, environment, continuation) is { } tupleExpression) return tupleExpression;
             if (PresenceExpression(operation, environment, continuation) is { } presence) return presence;
-            if (!HasAssignment(operation)) return continuation(In(environment, operation), environment);
+            if (operation is IBinaryOperation { OperatorMethod: null, OperatorKind: BinaryOperatorKind.ConditionalAnd or BinaryOperatorKind.ConditionalOr } guarded && PresenceProbe(guarded))
+            {
+                var isAnd = guarded.OperatorKind == BinaryOperatorKind.ConditionalAnd;
+                TypedValue Right(BindingEnvironment state) => Expression(guarded.RightOperand, state, continuation);
+                TypedValue Skipped(BindingEnvironment state) => continuation(Lit(Types.Bool, new BoolLiteral(!isAnd)), state);
+                return Decision(guarded.LeftOperand, environment, isAnd ? Right : Skipped, isAnd ? Skipped : Right);
+            }
+            if (!HasAssignment(operation) && !DataStateExpression(operation)) return continuation(In(environment, operation), environment);
             if (operation is ISimpleAssignmentOperation assignment)
             {
                 var symbol = assignment.Target switch { ILocalReferenceOperation l => (ISymbol)l.Local, IParameterReferenceOperation p => p.Parameter, _ => null };
@@ -60,11 +68,11 @@ public static partial class Frontend
                 IConversionOperation c => [c.Operand],
                 IInvocationOperation i => (i.Instance is null ? Enumerable.Empty<IOperation>() : new[] { i.Instance }).Concat(i.Arguments.Select(a => a.Value)).ToArray(),
                 IObjectCreationOperation c => c.Arguments.Select(a => a.Value).ToArray(),
-                IPropertyReferenceOperation { Instance: not null } p => [p.Instance],
+                IPropertyReferenceOperation p => (p.Instance is null ? Enumerable.Empty<IOperation>() : [p.Instance]).Concat(p.Arguments.Select(argument => argument.Value)).ToArray(),
                 _ => []
             };
             var evaluated = new Dictionary<IOperation, TypedValue>();
-            TypedValue Evaluate(int index, Dictionary<ISymbol, Binding> state)
+            TypedValue Evaluate(int index, BindingEnvironment state)
             {
                 if (index != operands.Length)
                     return Expression(operands[index], state, (value, updated) => { evaluated[operands[index]] = value; return Evaluate(index + 1, updated); });
@@ -77,8 +85,8 @@ public static partial class Frontend
             }
             return Evaluate(0, environment);
         }
-        private TypedValue BindValue(ISymbol symbol, ITypeSymbol type, TypedValue value, Dictionary<ISymbol, Binding> environment,
-            Func<Dictionary<ISymbol, Binding>, TypedValue> continuation, Location location)
+        private TypedValue BindValue(ISymbol symbol, ITypeSymbol type, TypedValue value, BindingEnvironment environment,
+            Func<BindingEnvironment, TypedValue> continuation, Location location)
         {
             var attr = Type(type, location, DelegateType(type) is null);
             if (MaybeElement(attr) is not null) value = Adapt(value, attr);
@@ -93,7 +101,8 @@ public static partial class Frontend
                 if (ValueKey(variable) is { } key) numericFacts[key] = IntegerRange(value, integerDomain);
             }
             if (KnownPureFunction(value) && ValueKey(new VariableValue<Unit, IrType<Unit>>(attr, name)) is { } functionKey) pureFunctionOrigins.Add(functionKey);
-            var next = Copy(environment); next[symbol] = new(name, attr, constant);
+            var next = Copy(environment); var dataOrigin = type.IsReferenceType ? DataOriginOf(value) : null; next[symbol] = new(name, attr, constant, dataOrigin);
+            SnapshotDataBinding(dataOrigin, name, attr, next);
             var result = continuation(next);
             return new LetValue<Unit, IrType<Unit>>(result.Attributes, name, new([], attr, value), result);
         }

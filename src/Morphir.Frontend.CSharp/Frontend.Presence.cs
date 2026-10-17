@@ -21,7 +21,7 @@ public static partial class Frontend
         private IrType<Unit> currentReturnSlot = Types.Bool;
         private static IEnumerable<IOperation> Operations(IOperation root) => root.ChildOperations.SelectMany(Operations).Prepend(root);
         private static ITypeSymbol? NullableElement(ITypeSymbol? type) => type is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T } nullable ? nullable.TypeArguments[0] : null;
-        private static bool AdmittedDataSlot(ITypeSymbol type) => TupleType(type) || EnumType(type) is not null || DecimalType(type) || Integral(type) is not null || Floating(type) is not null || ComplexType(type) || type.SpecialType is SpecialType.System_Boolean or SpecialType.System_String || NullableElement(type) is { } element && (EnumType(element) is not null || DecimalType(element) || Integral(element) is not null || Floating(element) is not null || ComplexType(element) || element.SpecialType == SpecialType.System_Boolean);
+        private bool AdmittedDataSlot(ITypeSymbol type) => DataType(NullableElement(type) ?? type) || TupleType(type) || EnumType(type) is not null || DecimalType(type) || Integral(type) is not null || Floating(type) is not null || ComplexType(type) || type.SpecialType is SpecialType.System_Boolean or SpecialType.System_String || NullableElement(type) is { } element && (EnumType(element) is not null || DecimalType(element) || Integral(element) is not null || Floating(element) is not null || ComplexType(element) || element.SpecialType == SpecialType.System_Boolean);
         private static IrType<Unit>? MaybeElement(IrType<Unit> type) => type is ReferenceType<Unit> reference && reference.Name.Package.Key == Types.Sdk.Key && reference.Name.Module.Key == IrPath.From("Maybe").Key && reference.Name.Local.Key == Name.From("Maybe").Key && reference.Arguments.Count == 1 ? reference.Arguments[0] : null;
         private static FQName MaybeName(string name) => new(Types.Sdk, IrPath.From("Maybe"), Name.From(name));
         private TypedValue Nothing(IrType<Unit> type) => new ConstructorValue<Unit, IrType<Unit>>(type, MaybeName("Nothing"));
@@ -38,7 +38,7 @@ public static partial class Frontend
             if (DecimalIrType(value.Attributes)) decimalDomains[result] = DecimalRange(value);
             return result;
         }
-        private string? ValueKey(TypedValue value) => value switch
+        private string? ValueKey(TypedValue value) => dataValueKeys.TryGetValue(value, out var dataKey) ? dataKey : value switch
         {
             VariableValue<Unit, IrType<Unit>> variable => bindingOrigins.GetValueOrDefault(variable.Name.Key) ?? "var:" + variable.Name.Key,
             FieldValue<Unit, IrType<Unit>> field when ValueKey(field.Subject) is { } owner => owner + "/" + field.Field.Key,
@@ -47,6 +47,7 @@ public static partial class Frontend
         private TypedValue DemandPresent(TypedValue value, Location location)
         {
             if (MaybeElement(value.Attributes) is null) return value;
+            if (dataProjections.TryGetValue(value, out var dataProjection)) return DemandPresent(dataProjection, location);
             if (tupleProjections.TryGetValue(value, out var projected)) return DemandPresent(projected, location);
             if (ValueKey(value) is { } key && presentValues.TryGetValue(key, out var present)) return present;
             if (value is VariableValue<Unit, IrType<Unit>> variable && boundValues.TryGetValue(variable.Name.Key, out var bound)) return DemandPresent(bound, location);
@@ -95,8 +96,8 @@ public static partial class Frontend
             if (pattern is INegatedPatternOperation not) { negated = true; pattern = not.Pattern; }
             return pattern is IConstantPatternOperation constant && Null(constant.Value);
         }
-        private static bool PresenceProbe(IOperation operation) => Operations(operation).Any(op => DecimalProbe(op) || FloatProbe(op) || NumericProbe(op) || op is IPropertyReferenceOperation p && HasValue(p) || op is IIsPatternOperation p2 && NullPattern(p2.Pattern, out _) || op is IBinaryOperation b && b.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(b.LeftOperand) || Null(b.RightOperand)));
-        private TypedValue Decision(IOperation condition, Dictionary<ISymbol, Binding> environment, Func<Dictionary<ISymbol, Binding>, TypedValue> yes, Func<Dictionary<ISymbol, Binding>, TypedValue> no)
+        private static bool PresenceProbe(IOperation operation) => Operations(operation).Any(op => DecimalProbe(op) || FloatProbe(op) || NumericProbe(op) || op is IPropertyReferenceOperation p && HasValue(p) || op is IIsPatternOperation p2 && NullPattern(p2.Pattern, out _) || op is IBinaryOperation b && (b.OperatorMethod is null || b.IsLifted) && b.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(b.LeftOperand) || Null(b.RightOperand)));
+        private TypedValue Decision(IOperation condition, BindingEnvironment environment, Func<BindingEnvironment, TypedValue> yes, Func<BindingEnvironment, TypedValue> no)
         {
             if (ParamsDecision(condition, environment, yes, no) is { } paramsDecision) return paramsDecision;
             if (DecimalDecision(condition, environment, yes, no) is { } decimalDecision) return decimalDecision;
@@ -108,7 +109,7 @@ public static partial class Frontend
             if (condition is IBinaryOperation { OperatorKind: BinaryOperatorKind.ConditionalOr } or && PresenceProbe(or)) return Decision(or.LeftOperand, environment, yes, state => Decision(or.RightOperand, state, yes, no));
             IOperation? tested = null; bool positive = true;
             if (condition is IPropertyReferenceOperation property && HasValue(property)) tested = property.Instance;
-            if (condition is IBinaryOperation binary && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand)))
+            if (condition is IBinaryOperation binary && (binary.OperatorMethod is null || binary.IsLifted) && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand)))
             { tested = Null(binary.LeftOperand) ? binary.RightOperand : binary.LeftOperand; positive = binary.OperatorKind == BinaryOperatorKind.NotEquals; }
             if (condition is IIsPatternOperation pattern && NullPattern(pattern.Pattern, out var negated)) { tested = pattern.Value; positive = negated; }
             if (tested is not null)
@@ -122,7 +123,7 @@ public static partial class Frontend
             ApplyValue<Unit, IrType<Unit>> { Function: ReferenceValue<Unit, IrType<Unit>> function, Argument: var argument } => function.Name.Package.Key == Types.Sdk.Key && function.Name.Module.Key == IrPath.From("Basics").Key && function.Name.Local.Key == "not" && PresencePredicate(argument),
             _ => false
         };
-        private TypedValue DecisionValue(TypedValue value, Dictionary<ISymbol, Binding> state, Func<Dictionary<ISymbol, Binding>, TypedValue> yes, Func<Dictionary<ISymbol, Binding>, TypedValue> no)
+        private TypedValue DecisionValue(TypedValue value, BindingEnvironment state, Func<BindingEnvironment, TypedValue> yes, Func<BindingEnvironment, TypedValue> no)
         {
             if (value is VariableValue<Unit, IrType<Unit>> variable && boundValues.TryGetValue(variable.Name.Key, out var initializer) && PresencePredicate(initializer)) return DecisionValue(initializer, state, yes, no);
             if (value is MatchValue<Unit, IrType<Unit>> match && match.Cases.Count == 2 && match.Cases[0].Body is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral missing } && match.Cases[1].Body is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral present })
@@ -140,10 +141,11 @@ public static partial class Frontend
         private static bool NullTestConversion(IConversionOperation conversion) => conversion.Type?.SpecialType == SpecialType.System_Object && conversion.Operand.Type?.IsReferenceType == true && conversion.Parent is IBinaryOperation binary && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand));
         private static bool NullTestConstant(IOperation operation) => Null(operation) && (operation.Parent is IConstantPatternOperation || operation.Parent is IBinaryOperation binary && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand)));
         private static bool PresenceConversion(IConversionOperation conversion) => Null(conversion.Operand) || conversion.Operand is IDefaultValueOperation || NullableElement(conversion.Type) is not null || NullableElement(conversion.Operand.Type) is not null;
-        private static bool PresenceBinary(IBinaryOperation binary) => binary.IsLifted || binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand));
+        private static bool PresenceBinary(IBinaryOperation binary) => binary.IsLifted || (binary.OperatorMethod is null || binary.IsLifted) && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand));
         private TypedValue Default(ITypeSymbol type, Location location)
         {
             if (NullableElement(type) is not null || type.IsReferenceType) return Nothing(Type(type, location));
+            if (dataTypes.TryGetValue(SymbolId(type), out var data)) return DataRecord(data, location);
             if (TupleType(type)) return MakeTuple(type, TupleElements(type).Select(element => Default(element, location)).ToArray(), location);
             if (EnumType(type) is { } enumType) return WrapEnum(enumType, IntegerLiteral(BigInteger.Zero, Integral(enumType.EnumUnderlyingType)!, location), location);
             if (DecimalType(type)) return DecimalConstant(0m, location);
@@ -154,7 +156,7 @@ public static partial class Frontend
             if (records.TryGetValue(SymbolId(type), out var fields)) return new RecordValue<Unit, IrType<Unit>>(Type(type, location), fields.Select(f => new Entry<Name, TypedValue>(Name.From(f.Name), Default(f.Type, location))).OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray());
             return Fail<TypedValue>("MCS2502", "Default construction has no delivered representation.", location);
         }
-        private TypedValue? PresenceExpression(IOperation operation, Dictionary<ISymbol, Binding> environment, Func<TypedValue, Dictionary<ISymbol, Binding>, TypedValue> continuation)
+        private TypedValue? PresenceExpression(IOperation operation, BindingEnvironment environment, Func<TypedValue, BindingEnvironment, TypedValue> continuation)
         {
             if (operation is ICoalesceAssignmentOperation assignment)
             {

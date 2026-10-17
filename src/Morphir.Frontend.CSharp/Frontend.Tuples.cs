@@ -45,7 +45,15 @@ public static partial class Frontend
             if (value.Attributes is not TupleType<Unit> tuple || index < 0 || index >= tuple.Elements.Count) return Fail<TypedValue>("MCS2904", "Tuple member has no mapped element.", location);
             var name = Fresh("tupleElement"); var element = tuple.Elements[index];
             var result = new MatchValue<Unit, IrType<Unit>>(element, value, [new(new TuplePattern<IrType<Unit>>(tuple, tuple.Elements.Select((t, i) => (Pattern<IrType<Unit>>)(i == index ? new AsPattern<IrType<Unit>>(t, new WildcardPattern<IrType<Unit>>(t), name) : new WildcardPattern<IrType<Unit>>(t))).ToArray()), new VariableValue<Unit, IrType<Unit>>(element, name))]);
-            var origin = value; while (origin is VariableValue<Unit, IrType<Unit>> variable && boundValues.TryGetValue(variable.Name.Key, out var bound)) origin = bound;
+            if (ValueKey(value) is { } key) dataValueKeys[result] = key + "/tuple:" + index;
+            var origin = value; var seen = new HashSet<TypedValue>(ReferenceEqualityComparer.Instance);
+            while (seen.Add(origin))
+            {
+                if (origin is VariableValue<Unit, IrType<Unit>> variable && boundValues.TryGetValue(variable.Name.Key, out var bound)) { origin = bound; continue; }
+                if (dataProjections.TryGetValue(origin, out var dataProjection)) { origin = dataProjection; continue; }
+                if (tupleProjections.TryGetValue(origin, out var tupleProjection)) { origin = tupleProjection; continue; }
+                break;
+            }
             if (origin is TupleValue<Unit, IrType<Unit>> known) tupleProjections[result] = known.Elements[index];
             return result;
         }
@@ -167,13 +175,13 @@ public static partial class Frontend
             if (operation is IPropertyReferenceOperation { Instance: not null } property && TupleType(property.Property.ContainingType)) return TupleAt(Lower(property.Instance), property.Property.Name == "Rest" ? 7 : TupleIndex(property.Property), location);
             return null;
         }
-        private TypedValue Deconstruct(IOperation target, TypedValue value, ITypeSymbol sourceType, Dictionary<ISymbol, Binding> environment, Func<Dictionary<ISymbol, Binding>, TypedValue> continuation, Location location)
+        private TypedValue Deconstruct(IOperation target, TypedValue value, ITypeSymbol sourceType, BindingEnvironment environment, Func<BindingEnvironment, TypedValue> continuation, Location location)
         {
             if (target is IDeclarationExpressionOperation declaration) return Deconstruct(declaration.Expression, value, sourceType, environment, continuation, location);
             if (target is IDiscardOperation) return continuation(environment);
             if (target is ITupleOperation tuple)
             {
-                TypedValue Element(int index, Dictionary<ISymbol, Binding> state) => index == tuple.Elements.Length ? continuation(state) : Deconstruct(tuple.Elements[index], TupleAt(value, index, location), TupleElements(sourceType)[index], state, next => Element(index + 1, next), location);
+                TypedValue Element(int index, BindingEnvironment state) => index == tuple.Elements.Length ? continuation(state) : Deconstruct(tuple.Elements[index], TupleAt(value, index, location), TupleElements(sourceType)[index], state, next => Element(index + 1, next), location);
                 return Element(0, environment);
             }
             if (target is IFieldReferenceOperation field && TupleLocalTarget(field)) return AssignTupleField(field, ConvertTupleElement(value, sourceType, target.Type!, location), environment, (_, next) => continuation(next), location);
@@ -182,7 +190,7 @@ public static partial class Frontend
             return BindValue(symbol, target.Type!, ConvertTupleElement(value, sourceType, target.Type!, location), environment, continuation, location);
         }
         private static bool TupleLocalTarget(IOperation target) => target is IFieldReferenceOperation { Instance: not null } field && TupleType(field.Field.ContainingType) && field.Field.ContainingType.IsValueType && (field.Instance is ILocalReferenceOperation or IParameterReferenceOperation || TupleLocalTarget(field.Instance));
-        private TypedValue AssignTupleField(IFieldReferenceOperation target, TypedValue value, Dictionary<ISymbol, Binding> environment, Func<TypedValue, Dictionary<ISymbol, Binding>, TypedValue> continuation, Location location)
+        private TypedValue AssignTupleField(IFieldReferenceOperation target, TypedValue value, BindingEnvironment environment, Func<TypedValue, BindingEnvironment, TypedValue> continuation, Location location)
         {
             var path = new List<int>(); IOperation root = target;
             while (root is IFieldReferenceOperation { Instance: not null } field) { var index = TupleIndex(field.Field); if (index < 0) return Fail<TypedValue>("MCS2905", "Tuple location requires a mapped element.", location); path.Insert(0, index); root = field.Instance; }
@@ -196,7 +204,7 @@ public static partial class Frontend
             var changed = Replace(new VariableValue<Unit, IrType<Unit>>(binding.Type, binding.Name), 0);
             return BindValue(symbol, root.Type!, changed, environment, next => continuation(value, next), location);
         }
-        private TypedValue? TupleExpression(IOperation operation, Dictionary<ISymbol, Binding> environment, Func<TypedValue, Dictionary<ISymbol, Binding>, TypedValue> continuation)
+        private TypedValue? TupleExpression(IOperation operation, BindingEnvironment environment, Func<TypedValue, BindingEnvironment, TypedValue> continuation)
         {
             if (operation is ISimpleAssignmentOperation { Target: IFieldReferenceOperation target } update && TupleLocalTarget(target)) return Expression(update.Value, environment, (value, state) => AssignTupleField(target, value, state, continuation, operation.Syntax.GetLocation()));
             if (operation is not IDeconstructionAssignmentOperation assignment) return null;

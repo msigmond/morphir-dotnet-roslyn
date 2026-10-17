@@ -1,6 +1,6 @@
 # Language coverage — D1–D7
 
-Status: D1–D7 passed; D8 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is identified by samples/CurrentSupportedExample/reference.json; the D1 standalone reference is unchanged. No future business-source forms are included.
+Status: D1–D9 passed; D10 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is identified by samples/CurrentSupportedExample/reference.json; the D1 standalone reference is unchanged. No future business-source forms are included.
 
 | Supported form | Cumulative example symbol/location | Additional parity / behavior evidence |
 | --- | --- | --- |
@@ -87,3 +87,5 @@ Calls.cs adds canonical private overloads, declaration defaults, named evaluatio
 ## D8 additions
 
 EnumsTuples.cs adds numeric SampleAccess aliases/flags/unnamed values and named tuple results, deconstruction and M1 reference tuples. EnumTupleTests exercises all eight enum underlying domains, scoped member ownership, nullable flags/casts/equality, value/reference constructors, long/nested tuples, copying/local updates, destination conversions, defaults, source evaluation order and unsafe access rejection. Full independent ordinary/codec/cumulative references are under fixtures/D8. See [D8 mapping](../mappings/D8.md). General user data/dispatch/generics/collections retain their prerequisite gates.
+
+D9 passed. Its current increment covers non-generic class/struct/record data layouts and owners, primary/explicit construction and initialization, pure getters/setters/init/indexers, field-backed C#14 properties, local alias-preserving updates across mixed value/reference locations, source operators/conversions and exact value equality. Independent complete Counter/data-form parity and native boundary/rejection checks pass; complete cumulative/final D9 gates passed. See [D9 mapping](../mappings/D9.md) and [execution evidence](../deliveries/D9-state.md). D9 form/operation catalog owners are supported with exact evidence.

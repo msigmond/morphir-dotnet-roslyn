@@ -56,7 +56,6 @@ public class FrontendTests
     }
     [Theory]
     [InlineData("Checked", "MCS2001")]
-    [InlineData("InputUpdate", "MCS2107")]
     [InlineData("Effects", "MCS2107")]
     public void IsolatedRejectionFixtures(string file, string code)
     {

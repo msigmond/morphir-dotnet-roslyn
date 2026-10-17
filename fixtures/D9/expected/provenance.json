@@ -1,0 +1,98 @@
+{
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "fixtures": [
+    {
+      "name": "counter",
+      "output": "fixtures/D9/expected/counter.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D9/codec-reference",
+      "sha256": "6eac31e940f72a941d0f4af8a76655b89da135ff7c3de3634b4515d26db40cc4"
+    },
+    {
+      "name": "data-forms",
+      "output": "fixtures/D9/expected/data-forms.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D9/forms-codec-reference",
+      "sha256": "b8d2119ff4d6ca4e8ae59dbc8f46a753af57acb5b6af05e6f1681aac04d013c5"
+    },
+    {
+      "name": "sample",
+      "output": "fixtures/D9/expected/sample.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D9/sample-codec-reference",
+      "sha256": "1cd17e324d848f996479a2e3a454adda859504b0490d051a647808eb8396dad2"
+    },
+    {
+      "name": "constants",
+      "output": "fixtures/D9/expected/constants.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D9/constants-codec-reference",
+      "sha256": "db1156abb6a2ff5cce9948b566c2c61b49d844fdb32cd5bbb6b1d4b13eaecf88"
+    }
+  ],
+  "sources": [
+    {
+      "path": "fixtures/D9/codec-reference/Main.elm",
+      "sha256": "ea89c30cda558c22f935ee8f38f4926699f0f07430e102b91c3e81f63a12621c"
+    },
+    {
+      "path": "fixtures/D9/codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D9/csharp/Counter.cs",
+      "sha256": "322dc18a4c5f4ac2e345e261657257b6c90aacca9cbc14e62f937e7d8aae7112"
+    },
+    {
+      "path": "fixtures/D9/forms-codec-reference/Main.elm",
+      "sha256": "aa917e2336e72d91ec31d615e8d637332b54e43fcf40831d6fea155634478e36"
+    },
+    {
+      "path": "fixtures/D9/forms-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D9/csharp/DataForms.cs",
+      "sha256": "5b230fd07fd1f86137bf9c216d8182ba389e180544b7f8af201e2890317d9092"
+    },
+    {
+      "path": "fixtures/D9/sample-codec-reference/Main.elm",
+      "sha256": "9c9b5e2c3428a0b4b778373d3ba9112f15ed07a899594b8bea850cd1287c08dc"
+    },
+    {
+      "path": "fixtures/D9/sample-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "samples/CurrentSupportedExample/Data.cs",
+      "sha256": "3250fab339dde8bb28d5525a5f61d37de68c84cc0875878a947da994dac1d80f"
+    },
+    {
+      "path": "fixtures/D8/expected/sample.json",
+      "sha256": "048dfdad77743ec4a05a274bf6e31c419b76c481ccda4fb190d3ccb03a249976"
+    },
+    {
+      "path": "fixtures/D9/constants-codec-reference/Main.elm",
+      "sha256": "73ef5a6b54519dd621852e2d14b4e4f796b07279bce9ab4674fa8e368ae06863"
+    },
+    {
+      "path": "fixtures/D9/constants-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D9/csharp/Constants.cs",
+      "sha256": "abbf9bbcf71f4910be35369389d499cb3a28f40087f966b1bf9ca54f5291c268"
+    }
+  ]
+}

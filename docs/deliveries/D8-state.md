@@ -1,6 +1,6 @@
 # D8 — execution evidence
 
-- Status: passed. Prerequisites D5 and D7 passed; D7 be0b46c5e5115f44e78289f1ae0e890d4f287d8f and D6 c22ec6f are pushed and verified. D9/D10 implementation remains pending until D8 is published.
+- Status: passed. Prerequisites D5 and D7 passed; D7 be0b46c5e5115f44e78289f1ae0e890d4f287d8f and D6 c22ec6f are pushed and verified. Publication verified: f604f6a1ce840e63781b3975ab980b6b6cac6ea8 is on origin/main, confirmed through authenticated gh. D9 is now active.
 - Fixed baseline retained: SDK10.0.100, C#14, reference pack10.0.0, Roslyn5.0.0, x64. Master/child/prerequisite evidence read; all24 embedded paired examples unchanged.
 
 ## Implementation and independent evidence
@@ -24,4 +24,4 @@
 ## Continuation
 
 - Previous ordinary capacity reset was observed before resuming. No reset credits or billing actions were used. Existing continue-morphir-d2-d10 hourly follow-up remains active until D10 passes/is pushed.
-- All implementation and required gates passed. Publication remains: staged repository checks, commit all D8 changes, push origin/main using authenticated gh and verify the remote SHA, then begin D9. No automatic commit of incomplete/failed work.
+- All implementation and required gates passed; staged checks, commit and push completed. Remote f604f6a1ce840e63781b3975ab980b6b6cac6ea8 was verified through authenticated gh. D9 follows with no automatic commit of incomplete/failed work.

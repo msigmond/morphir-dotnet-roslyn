@@ -52,7 +52,7 @@ public static partial class Frontend
             return new(domain.Bits == 0 ? null : domain.Minimum, domain.Bits == 0 ? null : domain.Maximum, new HashSet<BigInteger>());
         }
         private static bool NumericProbe(IOperation operation) => operation is IBinaryOperation binary && Integral(binary.LeftOperand.Type) is not null && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals or BinaryOperatorKind.LessThan or BinaryOperatorKind.LessThanOrEqual or BinaryOperatorKind.GreaterThan or BinaryOperatorKind.GreaterThanOrEqual;
-        private TypedValue? NumericDecision(IOperation condition, Dictionary<ISymbol, Binding> environment, Func<Dictionary<ISymbol, Binding>, TypedValue> yes, Func<Dictionary<ISymbol, Binding>, TypedValue> no)
+        private TypedValue? NumericDecision(IOperation condition, BindingEnvironment environment, Func<BindingEnvironment, TypedValue> yes, Func<BindingEnvironment, TypedValue> no)
         {
             if (condition is not IBinaryOperation binary || !NumericProbe(binary) || binary.IsLifted || HasAssignment(condition)) return null;
             return Expression(condition, environment, (test, state) =>
@@ -68,7 +68,7 @@ public static partial class Frontend
                 else return Choose(test, yes(Copy(state)), no(Copy(state)));
                 if (ValueKey(variable) is not { } key) return Choose(test, yes(Copy(state)), no(Copy(state)));
                 var previous = numericFacts; var initial = IntegerRange(variable, domain);
-                TypedValue Branch(bool truth, Func<Dictionary<ISymbol, Binding>, TypedValue> body)
+                TypedValue Branch(bool truth, Func<BindingEnvironment, TypedValue> body)
                 {
                     numericFacts = new(previous); var min = initial.Minimum; var max = initial.Maximum; var excluded = new HashSet<BigInteger>(initial.Excluded);
                     var op = truth ? comparison : comparison switch { BinaryOperatorKind.Equals => BinaryOperatorKind.NotEquals, BinaryOperatorKind.NotEquals => BinaryOperatorKind.Equals, BinaryOperatorKind.LessThan => BinaryOperatorKind.GreaterThanOrEqual, BinaryOperatorKind.LessThanOrEqual => BinaryOperatorKind.GreaterThan, BinaryOperatorKind.GreaterThan => BinaryOperatorKind.LessThanOrEqual, _ => BinaryOperatorKind.LessThan };

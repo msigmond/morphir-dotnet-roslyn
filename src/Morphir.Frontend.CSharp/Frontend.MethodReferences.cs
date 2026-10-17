@@ -41,9 +41,10 @@ public static partial class Frontend
         {
             var location = call.Syntax.GetLocation(); var function = DemandPresent(Lower(call.Instance!), location);
             if (!KnownPureFunction(function)) return Fail<TypedValue>("MCS2804", "Delegate invocation requires a resolved pure method reference; unknown callable effects need the D13 contract.", location);
+            BorrowUnknownDataResult(call.Type!, call.Arguments.Select(argument => Lower(argument.Value)).Append(function));
             provedDelegateCalls.Add(call);
             if (call.Arguments.Length == 0) return new ApplyValue<Unit, IrType<Unit>>(((FunctionType<Unit>)function.Attributes).Result, function, new UnitValue<Unit, IrType<Unit>>(Types.Unit));
-            foreach (var argument in call.Arguments.OrderBy(argument => argument.Parameter!.Ordinal)) function = new ApplyValue<Unit, IrType<Unit>>(((FunctionType<Unit>)function.Attributes).Result, function, Adapt(Lower(argument.Value), Type(argument.Parameter!.Type, location)));
+            foreach (var argument in call.Arguments.OrderBy(argument => argument.Parameter!.Ordinal)) function = new ApplyValue<Unit, IrType<Unit>>(((FunctionType<Unit>)function.Attributes).Result, function, Adapt(DataArgument(Lower(argument.Value), location), Type(argument.Parameter!.Type, location)));
             return function;
         }
         private TypedValue? LowerMethodReference(IOperation operation)
@@ -56,6 +57,7 @@ public static partial class Frontend
         private TypedValue MethodReference(IMethodReferenceOperation reference, INamedTypeSymbol delegateType)
         {
             var target = reference.Method; var location = reference.Syntax.GetLocation();
+            if (ReceiverRequired(target) && DataType(target.ContainingType) && target.ContainingType.IsReferenceType) return Fail<TypedValue>("MCS2802", "Mutable reference receiver captures require their D13 live-reference/capture mapping; a readonly value snapshot cannot replace them.", location);
             bool mapped = DecimalMethod(target) || FloatingPredicateMethod(target);
             FQName? fq = null;
             if (!mapped)

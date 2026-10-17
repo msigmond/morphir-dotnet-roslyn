@@ -76,6 +76,7 @@ public static class Codec
             ReferenceValue<TA, VA> x => Arr("Reference", a, Fq(x.Name)),
             ApplyValue<TA, VA> x => Arr("Apply", a, V(x.Function), V(x.Argument)),
             FieldValue<TA, VA> x => Arr("Field", a, V(x.Subject), Name(x.Field)),
+            UpdateRecordValue<TA, VA> x => Arr("UpdateRecord", a, V(x.Subject), Entries(x.Fields, Name, V)),
             RecordValue<TA, VA> x => Arr("Record", a, Entries(x.Fields, Name, V)),
             LetValue<TA, VA> x => Arr("LetDefinition", a, Name(x.Name), Definition(x.Definition, ta, va), V(x.Body)),
             IfValue<TA, VA> x => Arr("IfThenElse", a, V(x.Condition), V(x.Then), V(x.Else)),

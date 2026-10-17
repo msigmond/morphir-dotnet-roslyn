@@ -51,6 +51,7 @@ public sealed record VariableValue<TA, VA>(VA Attributes, Name Name) : Value<TA,
 public sealed record ReferenceValue<TA, VA>(VA Attributes, FQName Name) : Value<TA, VA>(Attributes);
 public sealed record ApplyValue<TA, VA>(VA Attributes, Value<TA, VA> Function, Value<TA, VA> Argument) : Value<TA, VA>(Attributes);
 public sealed record FieldValue<TA, VA>(VA Attributes, Value<TA, VA> Subject, Name Field) : Value<TA, VA>(Attributes);
+public sealed record UpdateRecordValue<TA, VA>(VA Attributes, Value<TA, VA> Subject, IReadOnlyList<Entry<Name, Value<TA, VA>>> Fields) : Value<TA, VA>(Attributes);
 public sealed record RecordValue<TA, VA>(VA Attributes, IReadOnlyList<Entry<Name, Value<TA, VA>>> Fields) : Value<TA, VA>(Attributes);
 public sealed record IfValue<TA, VA>(VA Attributes, Value<TA, VA> Condition, Value<TA, VA> Then, Value<TA, VA> Else) : Value<TA, VA>(Attributes);
 public sealed record LetValue<TA, VA>(VA Attributes, Name Name, ValueDefinition<TA, VA> Definition, Value<TA, VA> Body) : Value<TA, VA>(Attributes);

@@ -164,8 +164,9 @@
     {
       "operation": "FieldReference",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "operation": "MethodReference",
@@ -316,14 +317,16 @@
     {
       "operation": "ObjectOrCollectionInitializer",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "operation": "MemberInitializer",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "operation": "CollectionElementInitializer",
@@ -460,8 +463,9 @@
     {
       "operation": "FieldInitializer",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "operation": "VariableInitializer",
@@ -472,8 +476,9 @@
     {
       "operation": "PropertyInitializer",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "operation": "ParameterInitializer",
@@ -582,14 +587,16 @@
     {
       "operation": "ConstructorBody",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "operation": "ConstructorBodyOperation",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "operation": "Discard",
@@ -723,8 +730,9 @@
     {
       "operation": "With",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "operation": "InterpolatedStringHandlerCreation",

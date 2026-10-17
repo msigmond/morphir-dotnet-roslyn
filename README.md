@@ -2,7 +2,7 @@
 
 C# data and pure business logic → typed Morphir Classic IR, format version 3.
 
-D1 supplies an explicit-source-file CLI, a Roslyn frontend, a Roslyn-free typed model and explicit JSON codecs. D2 adds actual project inputs, explicit generator execution and qualified source-reference calls; D3 adds blocks, locals/reassignment and decisions. D1–D8 are passed; D9 onward remains pending. See the [master plan](Morphir_CSharp_Frontend_delivery_plan.md), [D1 contract](Morphir_CSharp_Frontend_deliveries/D01-cli-record.md), and [D1 evidence](docs/deliveries/D1-state.md) and [D2 state](docs/deliveries/D2-state.md).
+D1 supplies an explicit-source-file CLI, a Roslyn frontend, a Roslyn-free typed model and explicit JSON codecs. D2 adds actual project inputs, explicit generator execution and qualified source-reference calls; D3 adds blocks, locals/reassignment and decisions. D1–D9 are passed; D10 onward remains pending. See the [master plan](Morphir_CSharp_Frontend_delivery_plan.md), [D1 contract](Morphir_CSharp_Frontend_deliveries/D01-cli-record.md), and [D1 evidence](docs/deliveries/D1-state.md) and [D2 state](docs/deliveries/D2-state.md).
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ Run from this repository root:
 ```sh
 dotnet restore Morphir.CSharp.slnx --packages .packages --locked-mode
 dotnet build Morphir.CSharp.slnx --no-restore -m:1
-dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1 --filter 'Delivery=D1|Delivery=D2|Delivery=D3|Delivery=D4|Delivery=D5|Delivery=D6|Delivery=D7|Delivery=D8'
+dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1 --filter 'Delivery=D1|Delivery=D2|Delivery=D3|Delivery=D4|Delivery=D5|Delivery=D6|Delivery=D7|Delivery=D8|Delivery=D9'
 python3 eng/check-repository.py
 python3 eng/check-catalogs.py
 ```
@@ -111,3 +111,5 @@ D6 Decimal contracts and gate evidence: [mapping](docs/mappings/D6.md), [state](
 D7 call contracts and gate evidence: [mapping](docs/mappings/D7.md), [state](docs/deliveries/D7-state.md), [cumulative calls](samples/CurrentSupportedExample/Calls.cs). The core API accepts explicit reviewed pure/total external contracts and complete dependency specifications; the CLI never infers DLL purity. Params vectors preserve null/empty distinctions and require presence/bounds proofs. General arrays and captured/delegate forms keep D11/D13 prerequisites.
 
 D8 maps selected numeric enums (all underlying domains, aliases, flags and unnamed values) and scoped value/reference tuples with element names, deconstruction, local value copies/updates and M1. [D8 mapping](docs/mappings/D8.md) and [gate evidence](docs/deliveries/D8-state.md) record exact supported contracts and remaining gates. Independent references are under fixtures/D8; arbitrary framework APIs and later user-data/dispatch/collection forms retain their planned owners.
+
+D9 passed: [mapping](docs/mappings/D9.md), [execution evidence](docs/deliveries/D9-state.md), and [cumulative data example](samples/CurrentSupportedExample/Data.cs). The current implementation includes class/struct/record data, explicit/primary construction, properties and owned alias updates, source operators/conversions, and exact value equality. All200 D1–D9 tests and complete independent/cumulative project/generator/CLI, rejection, catalog and documentation gates passed. D10 is next. Separate reviewed D9 generation uses `node eng/generate-d9-references.mjs --write`, `node eng/generate-d9-data-forms.mjs --write`, and `node eng/generate-d9-sample.mjs --write`, and `node eng/generate-d9-constants.mjs --write`; these refuse changed existing output bytes. Never run generation during validation.

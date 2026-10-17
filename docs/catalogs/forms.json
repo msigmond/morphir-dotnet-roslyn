@@ -265,17 +265,23 @@
     {
       "form": "classes-structs-record-classes-record-structs",
       "owner": "D9",
-      "state": "pending"
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "form": "nested-and-recursive-acyclic-data",
       "owner": "D9",
-      "state": "pending"
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "form": "constructors-fields-properties",
       "owner": "D9",
-      "state": "pending"
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "form": "instance-receiver-input",
@@ -287,7 +293,9 @@
     {
       "form": "value-equality-owned-object-initialization",
       "owner": "D9",
-      "state": "pending"
+      "state": "supported",
+      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
+      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
     },
     {
       "form": "generic-types-functions-constraints",

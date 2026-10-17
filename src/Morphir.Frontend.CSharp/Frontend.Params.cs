@@ -57,7 +57,7 @@ public static partial class Frontend
             }
             return null;
         }
-        private TypedValue? ParamsDecision(IOperation condition, Dictionary<ISymbol, Binding> environment, Func<Dictionary<ISymbol, Binding>, TypedValue> yes, Func<Dictionary<ISymbol, Binding>, TypedValue> no)
+        private TypedValue? ParamsDecision(IOperation condition, BindingEnvironment environment, Func<BindingEnvironment, TypedValue> yes, Func<BindingEnvironment, TypedValue> no)
         {
             if (condition is not IBinaryOperation binary || HasAssignment(condition)) return null;
             IPropertyReferenceOperation? length = null; int bound; var kind = binary.OperatorKind;
@@ -70,7 +70,7 @@ public static partial class Frontend
             {
                 var array = DemandPresent(In(state, length.Instance!), length.Syntax.GetLocation()); if (ValueKey(array) is not { } key) return Choose(test, yes(Copy(state)), no(Copy(state)));
                 var initial = ParamsLengthRange(array); var previous = paramsLengths;
-                TypedValue Branch(bool truth, Func<Dictionary<ISymbol, Binding>, TypedValue> body)
+                TypedValue Branch(bool truth, Func<BindingEnvironment, TypedValue> body)
                 {
                     var operation = truth ? kind : kind switch { BinaryOperatorKind.Equals => BinaryOperatorKind.NotEquals, BinaryOperatorKind.NotEquals => BinaryOperatorKind.Equals, BinaryOperatorKind.LessThan => BinaryOperatorKind.GreaterThanOrEqual, BinaryOperatorKind.LessThanOrEqual => BinaryOperatorKind.GreaterThan, BinaryOperatorKind.GreaterThan => BinaryOperatorKind.LessThanOrEqual, _ => BinaryOperatorKind.LessThan };
                     var min = initial.Minimum!.Value; var max = initial.Maximum!.Value;

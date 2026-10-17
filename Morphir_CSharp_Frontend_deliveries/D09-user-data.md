@@ -1,6 +1,6 @@
 # D9 — Classes, structs, records, nested data
 
-- status: planned
+- status: passed
 - required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
 - prerequisites: [D7](D07-calls.md), [D8](D08-enums-tuples.md)
 - outcome: User-defined data forms as values; local alias-preserving updates
@@ -9,12 +9,12 @@
 
 ## Implementation
 
-- [ ] CurrentSupportedExample update: class/struct/record/nested data, constructors/properties/operators/value equality, owned alias updates
-- [ ] Classes/structs/record classes/record structs; nested types including private; fields/properties; constructors/initializers; record updates
-- [ ] Custom value equality/conversions/operators via resolved pure implementations
-- [ ] Value-data identity policy; recursive declarations + finite acyclic values; cyclic graph rejection
-- [ ] Local owned object updates reflected through all local aliases; input reachability retained through new wrappers
-- [ ] Initialization/getter/constructor purity; hidden effects rejected
+- [x] CurrentSupportedExample update: class/struct/record/nested data, constructors/properties/operators/value equality, owned alias updates
+- [x] Classes/structs/record classes/record structs; nested types including private; fields/properties; constructors/initializers; record updates
+- [x] Custom value equality/conversions/operators via resolved pure implementations
+- [x] Value-data identity policy; recursive declarations + finite acyclic values; cyclic graph rejection
+- [x] Local owned object updates reflected through all local aliases; input reachability retained through new wrappers
+- [x] Initialization/getter/constructor purity; hidden effects rejected
 
 ## Model increment
 
@@ -29,16 +29,16 @@
 
 ## Acceptance
 
-- [ ] Counter build/local alias update → 2 through either alias
-- [ ] Each data form: construction/read/local update/value-equality fixture
-- [ ] Nested private type: enclosing-type module + correct local name/Private wrapper
-- [ ] Input mutation via alias/new wrapper/helper → rejection; identity observations/cyclic graphs → rejection
-- [ ] Recursive type declaration + finite acyclic value → success
+- [x] Counter build/local alias update → 2 through either alias
+- [x] Each data form: construction/read/local update/value-equality fixture
+- [x] Nested private type: enclosing-type module + correct local name/Private wrapper
+- [x] Input mutation via alias/new wrapper/helper → rejection; identity observations/cyclic graphs → rejection
+- [x] Recursive type declaration + finite acyclic value → success
 
 ## Rejections
 
-- [ ] ReferenceEquals/reference-identity equality; cyclic graph
-- [ ] Input/global/external mutation; impure initialization/getter/operator
+- [x] ReferenceEquals/reference-identity equality; cyclic graph
+- [x] Input/global/external mutation; impure initialization/getter/operator
 
 ## Code examples
 
