@@ -22,12 +22,19 @@ public sealed record Documented<T>(string Doc, T Value);
 public sealed record Entry<K, V>(K Key, V Value);
 
 public abstract record IrType<A>(A Attributes);
+public sealed record TupleType<A>(A Attributes, IReadOnlyList<IrType<A>> Elements) : IrType<A>(Attributes);
 public sealed record UnitType<A>(A Attributes) : IrType<A>(Attributes);
 public sealed record ReferenceType<A>(A Attributes, FQName Name, IReadOnlyList<IrType<A>> Arguments) : IrType<A>(Attributes);
 public sealed record FunctionType<A>(A Attributes, IrType<A> Argument, IrType<A> Result) : IrType<A>(Attributes);
 public sealed record RecordType<A>(A Attributes, IReadOnlyList<Entry<Name, IrType<A>>> Fields) : IrType<A>(Attributes);
 public sealed record VariableType<A>(A Attributes, Name Name) : IrType<A>(Attributes);
-public sealed record AliasDefinition<A>(IReadOnlyList<Name> Parameters, IrType<A> Body);
+public abstract record TypeDefinition<A>(IReadOnlyList<Name> Parameters);
+public sealed record AliasDefinition<A>(IReadOnlyList<Name> Parameters, IrType<A> Body) : TypeDefinition<A>(Parameters);
+public sealed record CustomDefinition<A>(IReadOnlyList<Name> Parameters, AccessControlled<IReadOnlyList<Entry<Name, IReadOnlyList<Entry<Name, IrType<A>>>>>> Constructors) : TypeDefinition<A>(Parameters);
+public abstract record TypeSpecification<A>(IReadOnlyList<Name> Parameters);
+public sealed record AliasSpecification<A>(IReadOnlyList<Name> Parameters, IrType<A> Body) : TypeSpecification<A>(Parameters);
+public sealed record CustomSpecification<A>(IReadOnlyList<Name> Parameters, IReadOnlyList<Entry<Name, IReadOnlyList<Entry<Name, IrType<A>>>>> Constructors) : TypeSpecification<A>(Parameters);
+public sealed record OpaqueSpecification<A>(IReadOnlyList<Name> Parameters) : TypeSpecification<A>(Parameters);
 
 public abstract record Literal;
 public sealed record BoolLiteral(bool Value) : Literal;
@@ -36,6 +43,7 @@ public sealed record StringLiteral(string Value) : Literal;
 public sealed record FloatLiteral(double Value) : Literal;
 public sealed record DecimalLiteral(string Value) : Literal;
 public abstract record Value<TA, VA>(VA Attributes);
+public sealed record TupleValue<TA, VA>(VA Attributes, IReadOnlyList<Value<TA, VA>> Elements) : Value<TA, VA>(Attributes);
 public sealed record UnitValue<TA, VA>(VA Attributes) : Value<TA, VA>(Attributes);
 public sealed record LambdaValue<TA, VA>(VA Attributes, Pattern<VA> Argument, Value<TA, VA> Body) : Value<TA, VA>(Attributes);
 public sealed record LiteralValue<TA, VA>(VA Attributes, Literal Literal) : Value<TA, VA>(Attributes);
@@ -48,6 +56,7 @@ public sealed record IfValue<TA, VA>(VA Attributes, Value<TA, VA> Condition, Val
 public sealed record LetValue<TA, VA>(VA Attributes, Name Name, ValueDefinition<TA, VA> Definition, Value<TA, VA> Body) : Value<TA, VA>(Attributes);
 public sealed record ConstructorValue<TA, VA>(VA Attributes, FQName Name) : Value<TA, VA>(Attributes);
 public abstract record Pattern<VA>(VA Attributes);
+public sealed record TuplePattern<VA>(VA Attributes, IReadOnlyList<Pattern<VA>> Elements) : Pattern<VA>(Attributes);
 public sealed record UnitPattern<VA>(VA Attributes) : Pattern<VA>(Attributes);
 public sealed record WildcardPattern<VA>(VA Attributes) : Pattern<VA>(Attributes);
 public sealed record AsPattern<VA>(VA Attributes, Pattern<VA> Pattern, Name Name) : Pattern<VA>(Attributes);
@@ -61,11 +70,11 @@ public sealed record Input<TA, VA>(Name Name, VA Attributes, IrType<TA> Type);
 public sealed record ValueDefinition<TA, VA>(IReadOnlyList<Input<TA, VA>> Inputs, IrType<TA> Output, Value<TA, VA> Body);
 public sealed record ValueSpecification<TA>(IReadOnlyList<Entry<Name, IrType<TA>>> Inputs, IrType<TA> Output);
 public sealed record ModuleDefinition<TA, VA>(
-    IReadOnlyList<Entry<Name, AccessControlled<Documented<AliasDefinition<TA>>>>> Types,
+    IReadOnlyList<Entry<Name, AccessControlled<Documented<TypeDefinition<TA>>>>> Types,
     IReadOnlyList<Entry<Name, AccessControlled<Documented<ValueDefinition<TA, VA>>>>> Values,
     string? Doc = null);
 public sealed record ModuleSpecification<TA>(
-    IReadOnlyList<Entry<Name, Documented<AliasDefinition<TA>>>> Types,
+    IReadOnlyList<Entry<Name, Documented<TypeSpecification<TA>>>> Types,
     IReadOnlyList<Entry<Name, Documented<ValueSpecification<TA>>>> Values,
     string? Doc = null);
 public sealed record PackageSpecification<TA>(IReadOnlyList<Entry<Path, ModuleSpecification<TA>>> Modules);

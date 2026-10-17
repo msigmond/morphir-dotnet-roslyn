@@ -26,7 +26,16 @@ public static partial class Frontend
                 foreach (var module in dependency.Specification.Modules)
                 {
                     if (module.Value.Values.GroupBy(value => value.Key.Key).Any(group => group.Count() > 1) || module.Value.Types.GroupBy(type => type.Key.Key).Any(group => group.Count() > 1)) Fail<object>("MCS2809", "Dependency declaration identities must be unique.", null);
-                    foreach (var alias in module.Value.Types) TypeShape(alias.Value.Value.Body);
+                    foreach (var entry in module.Value.Types)
+                    {
+                        switch (entry.Value.Value)
+                        {
+                            case AliasSpecification<Unit> alias: TypeShape(alias.Body); break;
+                            case CustomSpecification<Unit> custom: foreach (var constructor in custom.Constructors) foreach (var argument in constructor.Value) TypeShape(argument.Value); break;
+                            case OpaqueSpecification<Unit>: break;
+                            default: Fail<object>("MCS2809", "Unsupported dependency type specification.", null); break;
+                        }
+                    }
                     foreach (var value in module.Value.Values) { TypeShape(value.Value.Value.Output); foreach (var input in value.Value.Value.Inputs) TypeShape(input.Value); if (value.Value.Value.Inputs.GroupBy(input => input.Key.Key).Any(group => group.Count() > 1)) Fail<object>("MCS2809", "Dependency input names must be unique.", null); }
                 }
                 externalDependencies.Add(new(dependency.Package, dependency.Specification));
@@ -47,6 +56,7 @@ public static partial class Frontend
         private string TypeShape(IrType<Unit> type) => type switch
         {
             UnitType<Unit> => "unit",
+            TupleType<Unit> tuple => "tuple(" + string.Join(";", tuple.Elements.Select(TypeShape)) + ")",
             VariableType<Unit> variable => "variable(" + variable.Name.Key + ")",
             ReferenceType<Unit> reference => "reference(" + reference.Name.Package.Key + ";" + reference.Name.Module.Key + ";" + reference.Name.Local.Key + ";" + string.Join(";", reference.Arguments.Select(TypeShape)) + ")",
             FunctionType<Unit> function => "function(" + TypeShape(function.Argument) + ";" + TypeShape(function.Result) + ")",

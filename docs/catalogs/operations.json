@@ -340,8 +340,12 @@
     {
       "operation": "Tuple",
       "owner": "D8",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
+      "evidence": [
+        "EnumTupleTests",
+        "fixtures/D8/expected/provenance.json"
+      ]
     },
     {
       "operation": "DynamicObjectCreation",
@@ -431,14 +435,21 @@
     {
       "operation": "DeconstructionAssignment",
       "owner": "D8",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
+      "evidence": [
+        "EnumTupleTests",
+        "fixtures/D8/expected/provenance.json"
+      ]
     },
     {
       "operation": "DeclarationExpression",
-      "owner": "D15",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "owner": "D8",
+      "state": "supported",
+      "domain": "D8 nested tuple deconstruction targets and discards; pattern/general declarations remain assigned to their later owners.",
+      "evidence": [
+        "EnumTupleTests"
+      ]
     },
     {
       "operation": "OmittedArgument",
@@ -539,14 +550,22 @@
     {
       "operation": "TupleBinary",
       "owner": "D8",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
+      "evidence": [
+        "EnumTupleTests",
+        "fixtures/D8/expected/provenance.json"
+      ]
     },
     {
       "operation": "TupleBinaryOperator",
       "owner": "D8",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "state": "supported",
+      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
+      "evidence": [
+        "EnumTupleTests",
+        "fixtures/D8/expected/provenance.json"
+      ]
     },
     {
       "operation": "MethodBody",
@@ -574,9 +593,12 @@
     },
     {
       "operation": "Discard",
-      "owner": "D12",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "owner": "D8",
+      "state": "supported",
+      "domain": "D8 nested tuple deconstruction targets and discards; pattern/general declarations remain assigned to their later owners.",
+      "evidence": [
+        "EnumTupleTests"
+      ]
     },
     {
       "operation": "FlowCapture",

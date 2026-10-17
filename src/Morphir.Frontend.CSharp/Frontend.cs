@@ -38,6 +38,7 @@ public static partial class Frontend
         private static string SymbolId(ISymbol symbol)
         {
             var format = SymbolDisplayFormat.FullyQualifiedFormat.WithMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.None);
+            if (symbol is IFieldSymbol field) return SymbolId(field.ContainingType) + "::field:" + field.MetadataName;
             if (symbol is IMethodSymbol method)
                 return (method.MethodKind == MethodKind.LocalFunction ? SymbolId(method.ContainingSymbol) + "::local@" + method.DeclaringSyntaxReferences.Single().Span.Start : SymbolId(method.ContainingType)) + "::" + method.MetadataName + SignatureSuffix(method);
             return symbol.ContainingAssembly.Identity + "::" + symbol.ToDisplayString(format);
@@ -45,7 +46,7 @@ public static partial class Frontend
         private FQName Identity(ISymbol symbol) => identities[SymbolId(symbol)];
         private SemanticModel Semantic(SyntaxTree tree) => compilations.Single(c => c.SyntaxTrees.Contains(tree)).GetSemanticModel(tree);
         private FrontendResult Failure() => new(null, diagnostics.Distinct().OrderBy(d => d.File, StringComparer.Ordinal).ThenBy(d => d.Line).ThenBy(d => d.Column).ThenBy(d => d.Code, StringComparer.Ordinal).ThenBy(d => d.Message, StringComparer.Ordinal).ToArray());
-        private readonly Dictionary<string, (IrPath Path, Access Access, List<Entry<Name, AccessControlled<Documented<AliasDefinition<Unit>>>>> Types, List<Entry<Name, AccessControlled<Documented<TypedDefinition>>>> Values)> modules = [];
+        private readonly Dictionary<string, (IrPath Path, Access Access, List<Entry<Name, AccessControlled<Documented<TypeDefinition<Unit>>>>> Types, List<Entry<Name, AccessControlled<Documented<TypedDefinition>>>> Values)> modules = [];
         private IrPath package = IrPath.From(settings.Package ?? "");
         private static IEnumerable<INamedTypeSymbol> AllTypes(INamespaceOrTypeSymbol parent)
         {
@@ -164,12 +165,14 @@ public static partial class Frontend
                     if (node is PointerTypeSyntax or FunctionPointerTypeSyntax or StackAllocArrayCreationExpressionSyntax or ImplicitStackAllocArrayCreationExpressionSyntax || node is TypeDeclarationSyntax td && td.Modifiers.Any(SyntaxKind.RefKeyword))
                         Error("MCS2003", "Pointers, stack allocation, and ref-like forms are excluded.", node.GetLocation());
                 }
+                if (syntax is EnumDeclarationSyntax) continue;
                 if (syntax is not TypeDeclarationSyntax || ((TypeDeclarationSyntax)syntax).BaseList is not null || ((TypeDeclarationSyntax)syntax).AttributeLists.Count != 0 || type.Arity != 0)
                     Fail<object>("MCS2100", "D1 admits non-generic static containers and positional readonly record structs without base lists or attributes.", syntax.GetLocation());
                 var decl = (TypeDeclarationSyntax)syntax;
-                if (decl.Members.Any(m => m is not MethodDeclarationSyntax && m is not TypeDeclarationSyntax))
-                    Fail<object>("MCS2101", "A selected member is outside D1; no declarations may be silently omitted.", decl.Members.First(m => m is not MethodDeclarationSyntax && m is not TypeDeclarationSyntax).GetLocation());
+                if (decl.Members.Any(m => m is not MethodDeclarationSyntax && m is not BaseTypeDeclarationSyntax))
+                    Fail<object>("MCS2101", "A selected member is outside D1; no declarations may be silently omitted.", decl.Members.First(m => m is not MethodDeclarationSyntax && m is not BaseTypeDeclarationSyntax).GetLocation());
             }
+            if (type.TypeKind == TypeKind.Enum) { DiscoverEnum(type); return; }
             if (type.IsRefLikeType) Fail<object>("MCS2003", "Ref-like data is excluded.", Location(type));
             if (type.IsStatic && type.TypeKind == TypeKind.Class)
             {
@@ -195,6 +198,8 @@ public static partial class Frontend
             if (t.IsRefLikeType || t is IPointerTypeSymbol or IFunctionPointerTypeSymbol) return Fail<IrType<Unit>>("MCS2003", "Ref-like/pointer type use is excluded.", loc);
             if (t is IArrayTypeSymbol array && ParamsArray(t)) return Types.Maybe(Types.List(Type(array.ElementType, loc)));
             if (DelegateType(t) is { } function) return returnLiteralString && t.NullableAnnotation != NullableAnnotation.Annotated ? FunctionSignature(function, loc) : Types.Maybe(FunctionSignature(function, loc));
+            if (TupleType(t)) return TupleIrType(t, loc);
+            if (EnumType(t) is { } enumType) return EnumIrType(enumType, loc);
             if (DecimalType(t)) return DecimalIrType(loc);
             if (Floating(t) is not null) return Types.Float;
             if (ComplexType(t)) return ComplexIrType(loc);
@@ -209,11 +214,12 @@ public static partial class Frontend
         }
         private void Emit(INamedTypeSymbol type)
         {
+            if (type.TypeKind == TypeKind.Enum) { EmitEnum(type); return; }
             if (records.TryGetValue(SymbolId(type), out var fields))
             {
                 var id = Identity(type); EnsureModule(id.Module, type.ContainingType is null ? Access.Public : Visibility(type.ContainingType));
                 var record = new RecordType<Unit>(default, fields.Select(p => new Entry<Name, IrType<Unit>>(Name.From(p.Name), Type(p.Type, Location(p)))).ToArray());
-                modules[id.Module.Key].Types.Add(new(id.Local, new(Visibility(type), new(Documentation(type), new([], record)))));
+                modules[id.Module.Key].Types.Add(new(id.Local, new(Visibility(type), new(Documentation(type), new AliasDefinition<Unit>([], record)))));
             }
             foreach (var m in type.GetMembers().OfType<IMethodSymbol>().Where(m => !m.IsImplicitlyDeclared && m.MethodKind == MethodKind.Ordinary)) Try(() => EmitMethod(m));
             foreach (var local in sourceMethods.Values.Where(method => method.MethodKind == MethodKind.LocalFunction && SymbolEqualityComparer.Default.Equals(method.ContainingType, type))) Try(() => EmitMethod(local));
@@ -252,6 +258,7 @@ public static partial class Frontend
                     var methodBody = (IMethodBodyOperation)operationRoot;
                     body = methodBody.BlockBody is { } block ? LowerMethodBlock(methodBody, block, normal!) : Expression(((IReturnOperation)methodBody.ExpressionBody!.Operations.Single()).ReturnedValue!, Copy(bindings), (value, _) => ReturnValue(value));
                 }
+                ValidateUnreachedArithmetic(operationRoot);
                 output = body.Attributes;
                 methodOutputs[key] = output;
                 emittingMethods.Remove(key);
@@ -266,6 +273,8 @@ public static partial class Frontend
         private TypedValue Lower(IOperation op)
         {
             if (operandValues.TryGetValue(op, out var evaluated)) return evaluated;
+            if (LowerTuple(op) is { } tupleValue) return tupleValue;
+            if (LowerEnum(op) is { } enumValue) return enumValue;
             if (LowerParams(op) is { } paramsValue) return paramsValue;
             if (op is IMethodReferenceOperation methodReference && methodReference.Parent is IDelegateCreationOperation parentCreation) return MethodReference(methodReference, DelegateType(parentCreation.Type)!);
             if (LowerMethodReference(op) is { } functionValue) return functionValue;
@@ -354,6 +363,7 @@ public static partial class Frontend
         }
         private FQName ValidateInvocation(IInvocationOperation invocation)
         {
+            if (TupleFactory(invocation)) return new(Types.Sdk, IrPath.From("Basics"), Name.From("identity"));
             if (invocation.TargetMethod.MethodKind == MethodKind.DelegateInvoke && DelegateType(invocation.TargetMethod.ContainingType) is not null) return MaybeName("map");
             if (DecimalMember(invocation)) return new(Types.Sdk, IrPath.From("Decimal"), Name.From(invocation.TargetMethod.Name));
             if (FloatingPredicateCall(invocation)) return new(Types.Sdk, IrPath.From("Basics"), Name.From(invocation.TargetMethod.Name));

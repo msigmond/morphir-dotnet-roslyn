@@ -13,7 +13,7 @@ public class CodecReferenceTests
     {
         var name = Name.From("Answer"); var module = IrPath.From("Rules");
         var dependency = new PackageSpecification<Unit>([new(module,new(
-            [new(Name.From("Age"),new("dependency alias",new([],Types.Int)))],
+            [new(Name.From("Age"),new("dependency alias",new AliasSpecification<Unit>([],Types.Int)))],
             [new(name,new("external constant",new([],Types.Int)))],"external module"))]);
         var lib = new Library<Unit, IrType<Unit>>(IrPath.From("Model"), [new(IrPath.From("External"), dependency)], new([
             new(module,new(Access.Public,new([], [new(name,new(Access.Public,new("qualified reference",new([],Types.Int,
@@ -45,5 +45,22 @@ public class DecimalCodecReferenceTests
         var model = new Library<Unit, IrType<Unit>>(IrPath.From("Example"), [], new([
             new(IrPath.From("D6.Model"), new(Access.Public, new([], [new(Name.From("exactTenth"), new(Access.Public, new("Exact decimal literal payload", definition)))])))]));
         Assert.Null(StructuralComparison.Compare(Support.Read("fixtures/D6/expected/model-literal.json"), Codec.Encode(model)));
+    }
+}
+
+[Trait("Delivery", "D8")]
+public class CustomCodecReferenceTests
+{
+    [Fact]
+    public void PublicAndOpaqueCustomSpecificationsMatchCompleteOriginalCodecReference()
+    {
+        IReadOnlyList<Entry<Name, IReadOnlyList<Entry<Name, IrType<Unit>>>>> constructors = [new(Name.From("Token"), [new(Name.From("arg1"), Types.Int)])];
+        var definitions = new PackageDefinition<Unit, IrType<Unit>>([new(IrPath.From("Types"),new(Access.Public,new(
+            [new(Name.From("Hidden"),new(Access.Public,new("private constructors",new CustomDefinition<Unit>([],new(Access.Private,constructors))))),
+             new(Name.From("Token"),new(Access.Public,new("public constructors",new CustomDefinition<Unit>([],new(Access.Public,constructors)))))],[])))]);
+        var spec = Specifications.Public(definitions); Assert.IsType<OpaqueSpecification<Unit>>(spec.Modules.Single().Value.Types.First().Value.Value);
+        Assert.IsType<CustomSpecification<Unit>>(spec.Modules.Single().Value.Types.Last().Value.Value);
+        var lib = new Library<Unit, IrType<Unit>>(IrPath.From("Model"), [new(IrPath.From("External"), spec)], definitions);
+        var difference = StructuralComparison.Compare(Support.Read("fixtures/D8/expected/model.json"), Codec.Encode(lib)); Assert.True(difference is null, difference?.ToString());
     }
 }

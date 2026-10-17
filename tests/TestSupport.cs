@@ -49,6 +49,8 @@ internal static class Support
         bytes.Position = 0;
         return new AssemblyLoadContext(Guid.NewGuid().ToString(), true).LoadFromStream(bytes);
     }
+    public sealed record CustomData(FQName Constructor, IReadOnlyList<object> Arguments);
+    public static CustomData Enum(string module, string type, object value) => new(new(Morphir.IR.Classic.Path.From("Example"), Morphir.IR.Classic.Path.From(module), Name.From(type)), [value]);
     public sealed record MaybeData(bool Present, object? Value);
     public static MaybeData Maybe(object? value) => new(value is not null, value);
     public static object Integer(BigInteger value)
@@ -74,6 +76,10 @@ internal static class Support
             case HeadTailPattern<IrType<Unit>> list:
                 var values = (IReadOnlyList<object>)subject;
                 return values.Count > 0 && MatchPattern(list.Head, values[0], variables) && MatchPattern(list.Tail, values.Skip(1).ToArray(), variables);
+            case TuplePattern<IrType<Unit>> tuple:
+                return subject is IReadOnlyList<object> elements && elements.Count == tuple.Elements.Count && tuple.Elements.Zip(elements).All(pair => MatchPattern(pair.First, pair.Second, variables));
+            case ConstructorPattern<IrType<Unit>> constructor when constructor.Name.Package.Key != Types.Sdk.Key:
+                return subject is CustomData data && data.Constructor.Package.Key == constructor.Name.Package.Key && data.Constructor.Module.Key == constructor.Name.Module.Key && data.Constructor.Local.Key == constructor.Name.Local.Key && data.Arguments.Count == constructor.Arguments.Count && constructor.Arguments.Zip(data.Arguments).All(pair => MatchPattern(pair.First, pair.Second, variables));
             case ConstructorPattern<IrType<Unit>> constructor:
                 var maybe = (MaybeData)subject;
                 return (constructor.Name.Local.Key == "just") == maybe.Present && (!maybe.Present || MatchPattern(constructor.Arguments.Single(), maybe.Value!, variables));
@@ -111,6 +117,8 @@ internal static class Support
             }
             return v switch
             {
+                ConstructorValue<Unit, IrType<Unit>> constructor when constructor.Name.Package.Key != Types.Sdk.Key => (Func<object, object>)(argument => new CustomData(constructor.Name, [argument])),
+                TupleValue<Unit, IrType<Unit>> tuple => tuple.Elements.Select(element => Evaluate(element, vars, library)).ToArray(),
                 ConstructorValue<Unit, IrType<Unit>> constructor => constructor.Name.Local.Key == "just" ? (Func<object, object>)(value => Maybe(value)) : Maybe(null),
                 MatchValue<Unit, IrType<Unit>> matched => Match(matched, vars, library),
                 LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral i } => Narrow(i.Value),
@@ -195,6 +203,7 @@ internal static class Support
     private static double Real(object value) => value is double d ? d : (double)Whole(value);
     private static bool Equal(object a, object b)
     {
+        if (a is CustomData ca && b is CustomData cb) return ca.Constructor.Package.Key == cb.Constructor.Package.Key && ca.Constructor.Module.Key == cb.Constructor.Module.Key && ca.Constructor.Local.Key == cb.Constructor.Local.Key && ca.Arguments.Count == cb.Arguments.Count && ca.Arguments.Zip(cb.Arguments).All(pair => Equal(pair.First, pair.Second));
         if (a is IReadOnlyList<object> aa && b is IReadOnlyList<object> bb) return aa.Count == bb.Count && aa.Zip(bb).All(pair => Equal(pair.First, pair.Second));
         if (a is IReadOnlyDictionary<string, object> ad && b is IReadOnlyDictionary<string, object> bd) return ad.Count == bd.Count && ad.All(pair => bd.TryGetValue(pair.Key, out var other) && Equal(pair.Value, other));
         if (a is double || b is double) return Real(a) == Real(b);

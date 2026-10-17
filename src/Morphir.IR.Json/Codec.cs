@@ -17,6 +17,7 @@ public static class Codec
     private static object Entries<K, V>(IReadOnlyList<Entry<K, V>> list, Func<K, object> key, Func<V, object> val) => list.Select(e => Arr(key(e.Key), val(e.Value))).ToArray();
     public static object Type<A>(IrType<A> t, Func<A, object> attr) => t switch
     {
+        TupleType<A> tuple => Arr("Tuple", attr(tuple.Attributes), tuple.Elements.Select(element => Type(element, attr)).ToArray()),
         UnitType<A> u => Arr("Unit", attr(u.Attributes)),
         VariableType<A> v => Arr("Variable", attr(v.Attributes), Name(v.Name)),
         ReferenceType<A> r => Arr("Reference", attr(r.Attributes), Fq(r.Name), r.Arguments.Select(a => Type(a, attr)).ToArray()),
@@ -24,7 +25,20 @@ public static class Codec
         RecordType<A> r => Arr("Record", attr(r.Attributes), r.Fields.Select(f => new { name = Name(f.Key), tpe = Type(f.Value, attr) }).ToArray()),
         _ => throw new NotSupportedException(t.GetType().Name)
     };
-    private static object Alias<A>(AliasDefinition<A> d, Func<A, object> attr, bool spec = false) => Arr(spec ? "TypeAliasSpecification" : "TypeAliasDefinition", d.Parameters.Select(Name).ToArray(), Type(d.Body, attr));
+    private static object Constructors<A>(IReadOnlyList<Entry<Name, IReadOnlyList<Entry<Name, IrType<A>>>>> constructors, Func<A, object> attr) => Entries(constructors, Name, args => Entries(args, Name, t => Type(t, attr)));
+    private static object TypeDefinition<A>(TypeDefinition<A> d, Func<A, object> attr) => d switch
+    {
+        AliasDefinition<A> alias => Arr("TypeAliasDefinition", alias.Parameters.Select(Name).ToArray(), Type(alias.Body, attr)),
+        CustomDefinition<A> custom => Arr("CustomTypeDefinition", custom.Parameters.Select(Name).ToArray(), Access(custom.Constructors, c => Constructors(c, attr))),
+        _ => throw new NotSupportedException(d.GetType().Name)
+    };
+    private static object TypeSpecification<A>(TypeSpecification<A> d, Func<A, object> attr) => d switch
+    {
+        AliasSpecification<A> alias => Arr("TypeAliasSpecification", alias.Parameters.Select(Name).ToArray(), Type(alias.Body, attr)),
+        CustomSpecification<A> custom => Arr("CustomTypeSpecification", custom.Parameters.Select(Name).ToArray(), Constructors(custom.Constructors, attr)),
+        OpaqueSpecification<A> opaque => Arr("OpaqueTypeSpecification", opaque.Parameters.Select(Name).ToArray()),
+        _ => throw new NotSupportedException(d.GetType().Name)
+    };
     private static object Literal(Literal l) => l switch
     {
         DecimalLiteral d => Arr("DecimalLiteral", d.Value),
@@ -36,6 +50,7 @@ public static class Codec
     };
     private static object Pattern<VA>(Pattern<VA> pattern, Func<VA, object> attr) => pattern switch
     {
+        TuplePattern<VA> tuple => Arr("TuplePattern", attr(tuple.Attributes), tuple.Elements.Select(element => Pattern(element, attr)).ToArray()),
         UnitPattern<VA> p => Arr("UnitPattern", attr(p.Attributes)),
         EmptyListPattern<VA> p => Arr("EmptyListPattern", attr(p.Attributes)),
         HeadTailPattern<VA> p => Arr("HeadTailPattern", attr(p.Attributes), Pattern(p.Head, attr), Pattern(p.Tail, attr)),
@@ -50,6 +65,7 @@ public static class Codec
         var a = va(v.Attributes);
         return v switch
         {
+            TupleValue<TA, VA> tuple => Arr("Tuple", a, tuple.Elements.Select(V).ToArray()),
             UnitValue<TA, VA> x => Arr("Unit", a),
             LambdaValue<TA, VA> x => Arr("Lambda", a, Pattern(x.Argument, va), V(x.Body)),
             ListValue<TA, VA> x => Arr("List", a, x.Elements.Select(V).ToArray()),
@@ -74,7 +90,7 @@ public static class Codec
     };
     private static object Module<TA, VA>(ModuleDefinition<TA, VA> m, Func<TA, object> ta, Func<VA, object> va) => new
     {
-        types = Entries(m.Types, Name, x => Access(x, d => Doc(d, a => Alias(a, ta)))),
+        types = Entries(m.Types, Name, x => Access(x, d => Doc(d, a => TypeDefinition(a, ta)))),
         values = Entries(m.Values, Name, x => Access(x, d => Doc(d, v => Definition(v, ta, va)))),
         doc = m.Doc
     };
@@ -82,7 +98,7 @@ public static class Codec
     {
         modules = Entries(p.Modules, Path, m => new
         {
-            types = Entries(m.Types, Name, d => Doc(d, a => Alias(a, ta, true))),
+            types = Entries(m.Types, Name, d => Doc(d, a => TypeSpecification(a, ta))),
             values = Entries(m.Values, Name, d => Doc(d, v => new { inputs = Entries(v.Inputs, Name, t => Type(t, ta)), output = Type(v.Output, ta) })),
             doc = m.Doc
         })

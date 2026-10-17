@@ -83,3 +83,7 @@ Decimal.cs adds exact0.1/1.2300 construction, the guarded0..100 Price result, ro
 ## D7 additions
 
 Calls.cs adds canonical private overloads, declaration defaults, named evaluation order, nullable/empty/valued params packs, guarded element reads, explicit record receivers, noncapturing local definitions and method references with receiver snapshots. CallTests/ExternalCallTests verify source/cumulative/full external-spec distributions and emitted C#/IR behavior. Unknown callable effects and hidden/unmapped bodies reject. Params-vector support does not enable general D11 arrays, and generated adapters do not enable D13 source lambdas/captures.
+
+## D8 additions
+
+EnumsTuples.cs adds numeric SampleAccess aliases/flags/unnamed values and named tuple results, deconstruction and M1 reference tuples. EnumTupleTests exercises all eight enum underlying domains, scoped member ownership, nullable flags/casts/equality, value/reference constructors, long/nested tuples, copying/local updates, destination conversions, defaults, source evaluation order and unsafe access rejection. Full independent ordinary/codec/cumulative references are under fixtures/D8. See [D8 mapping](../mappings/D8.md). General user data/dispatch/generics/collections retain their prerequisite gates.

@@ -1,6 +1,6 @@
 # D8 — Enums and tuples
 
-- status: planned
+- status: passed
 - required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
 - prerequisites: [D5](D05-numerics.md), [D7](D07-calls.md)
 - outcome: Flags/numeric enum values + multiple business results
@@ -9,11 +9,11 @@
 
 ## Implementation
 
-- [ ] CurrentSupportedExample update: enum domains/aliases/flags/conversions, named constants, tuple forms/deconstruction
-- [ ] Explicit enum underlying values; aliases; flags; conversions; unnamed values
-- [ ] Enum data type in namespace/enclosing-type module; named values in enum member module
-- [ ] Value/reference tuples; element names; deconstruction; respective null/value contracts
-- [ ] Flags operations reuse delivered numeric semantics
+- [x] CurrentSupportedExample update: enum domains/aliases/flags/conversions, named constants, tuple forms/deconstruction
+- [x] Explicit enum underlying values; aliases; flags; conversions; unnamed values
+- [x] Enum data type in namespace/enclosing-type module; named values in enum member module
+- [x] Value/reference tuples; element names; deconstruction; respective null/value contracts
+- [x] Flags operations reuse delivered numeric semantics
 
 ## Model increment
 
@@ -28,13 +28,13 @@
 
 ## Acceptance
 
-- [ ] Example.D8.Access type in Example.D8; Access.Read → Example.D8.Access.read; no extra Access segment
-- [ ] Read → (1,true); All → (3,false); unnamed 8 → (8,false)
-- [ ] Underlying-domain boundaries; aliases/flags/conversions; tuple result/deconstruction parity
+- [x] Example.D8.Access type in Example.D8; Access.Read → Example.D8.Access.read; no extra Access segment
+- [x] Read → (1,true); All → (3,false); unnamed 8 → (8,false)
+- [x] Underlying-domain boundaries; aliases/flags/conversions; tuple result/deconstruction parity
 
 ## Rejections
 
-- [ ] Closed-named-case assumption dropping unnamed values; wrong numeric domain; unsafe tuple dereference
+- [x] Closed-named-case assumption dropping unnamed values; wrong numeric domain; unsafe tuple dereference
 
 ## Code examples
 

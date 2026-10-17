@@ -209,7 +209,7 @@ public static partial class Frontend
                 var name = binary.OperatorKind switch { BinaryOperatorKind.Equals => "equal", BinaryOperatorKind.NotEquals => "notEqual", BinaryOperatorKind.LessThan => "lessThan", BinaryOperatorKind.LessThanOrEqual => "lessThanOrEqual", BinaryOperatorKind.GreaterThan => "greaterThan", _ => "greaterThanOrEqual" };
                 return SdkBinary(name, Types.Int, Types.Bool, compared, Lit(Types.Int, new IntLiteral(0)));
             }
-            if (Integral(NullableElement(binary.Type) ?? binary.Type) is not { } resultDomain) return null;
+            if (Integral(binary.Type is null ? null : NumericUnderlying(NullableElement(binary.Type) ?? binary.Type)) is not { } resultDomain) return null;
             if (binary.OperatorKind is BinaryOperatorKind.Divide or BinaryOperatorKind.Remainder) ProveDivision(binary, leftDomain, left, right);
             string? helper = binary.OperatorKind switch
             {

@@ -21,7 +21,7 @@ public static partial class Frontend
         private IrType<Unit> currentReturnSlot = Types.Bool;
         private static IEnumerable<IOperation> Operations(IOperation root) => root.ChildOperations.SelectMany(Operations).Prepend(root);
         private static ITypeSymbol? NullableElement(ITypeSymbol? type) => type is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T } nullable ? nullable.TypeArguments[0] : null;
-        private static bool AdmittedDataSlot(ITypeSymbol type) => DecimalType(type) || Integral(type) is not null || Floating(type) is not null || ComplexType(type) || type.SpecialType is SpecialType.System_Boolean or SpecialType.System_String || NullableElement(type) is { } element && (DecimalType(element) || Integral(element) is not null || Floating(element) is not null || ComplexType(element) || element.SpecialType == SpecialType.System_Boolean);
+        private static bool AdmittedDataSlot(ITypeSymbol type) => TupleType(type) || EnumType(type) is not null || DecimalType(type) || Integral(type) is not null || Floating(type) is not null || ComplexType(type) || type.SpecialType is SpecialType.System_Boolean or SpecialType.System_String || NullableElement(type) is { } element && (EnumType(element) is not null || DecimalType(element) || Integral(element) is not null || Floating(element) is not null || ComplexType(element) || element.SpecialType == SpecialType.System_Boolean);
         private static IrType<Unit>? MaybeElement(IrType<Unit> type) => type is ReferenceType<Unit> reference && reference.Name.Package.Key == Types.Sdk.Key && reference.Name.Module.Key == IrPath.From("Maybe").Key && reference.Name.Local.Key == Name.From("Maybe").Key && reference.Arguments.Count == 1 ? reference.Arguments[0] : null;
         private static FQName MaybeName(string name) => new(Types.Sdk, IrPath.From("Maybe"), Name.From(name));
         private TypedValue Nothing(IrType<Unit> type) => new ConstructorValue<Unit, IrType<Unit>>(type, MaybeName("Nothing"));
@@ -47,6 +47,7 @@ public static partial class Frontend
         private TypedValue DemandPresent(TypedValue value, Location location)
         {
             if (MaybeElement(value.Attributes) is null) return value;
+            if (tupleProjections.TryGetValue(value, out var projected)) return DemandPresent(projected, location);
             if (ValueKey(value) is { } key && presentValues.TryGetValue(key, out var present)) return present;
             if (value is VariableValue<Unit, IrType<Unit>> variable && boundValues.TryGetValue(variable.Name.Key, out var bound)) return DemandPresent(bound, location);
             if (value is FieldValue<Unit, IrType<Unit>> field)
@@ -143,6 +144,8 @@ public static partial class Frontend
         private TypedValue Default(ITypeSymbol type, Location location)
         {
             if (NullableElement(type) is not null || type.IsReferenceType) return Nothing(Type(type, location));
+            if (TupleType(type)) return MakeTuple(type, TupleElements(type).Select(element => Default(element, location)).ToArray(), location);
+            if (EnumType(type) is { } enumType) return WrapEnum(enumType, IntegerLiteral(BigInteger.Zero, Integral(enumType.EnumUnderlyingType)!, location), location);
             if (DecimalType(type)) return DecimalConstant(0m, location);
             if (Floating(type) is not null) return FloatLiteral(0, location);
             if (ComplexType(type)) return ComplexValue(FloatLiteral(0, location), FloatLiteral(0, location), location);
@@ -192,6 +195,8 @@ public static partial class Frontend
             {
                 var leftType = NullableElement(operation.LeftOperand.Type) ?? operation.LeftOperand.Type;
                 var rightType = NullableElement(operation.RightOperand.Type) ?? operation.RightOperand.Type;
+                if (EnumType(leftType) is not null || EnumType(rightType) is not null)
+                { var result = EnumBinary(operation, a, b); return nullableResult ? Just(result) : result; }
                 if (DecimalType(leftType) && DecimalType(rightType))
                 {
                     var result = DecimalBinary(operation.OperatorKind, a, b, location);
@@ -281,6 +286,7 @@ public static partial class Frontend
                     return new ApplyValue<Unit, IrType<Unit>>(Types.Int, new ReferenceValue<Unit, IrType<Unit>>(Types.Function(Types.String, Types.Int), new(Types.Sdk, IrPath.From("String"), Name.From("length"))), DemandPresent(Lower(property.Instance), location));
             }
             if (operation is IBinaryOperation { IsLifted: true } lifted && !(lifted.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(lifted.LeftOperand) || Null(lifted.RightOperand)))) return Lifted(lifted);
+            if (operation is IUnaryOperation { IsLifted: true } enumUnary && EnumType(NullableElement(enumUnary.Operand.Type)) is { } enumOperand) return MatchMaybe(Lower(enumUnary.Operand), () => Nothing(Type(enumUnary.Type!, location)), present => Just(EnumUnary(enumUnary, present, enumOperand)));
             if (operation is IUnaryOperation { IsLifted: true } numericUnary && (NumericType(NullableElement(numericUnary.Operand.Type) ?? numericUnary.Operand.Type) || DecimalType(NullableElement(numericUnary.Operand.Type) ?? numericUnary.Operand.Type)))
                 return MatchMaybe(Lower(numericUnary.Operand), () => Nothing(Type(numericUnary.Type!, location)), present => Just(NumericUnary(numericUnary, present)));
             if (operation is IUnaryOperation { IsLifted: true, OperatorKind: UnaryOperatorKind.Not } unary)

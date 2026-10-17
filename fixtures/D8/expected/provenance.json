@@ -1,0 +1,98 @@
+{
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "fixtures": [
+    {
+      "name": "enums",
+      "output": "fixtures/D8/expected/enums-source.json",
+      "kind": "ordinary Elm",
+      "mode": "default",
+      "source": "fixtures/D8/elm/enums",
+      "sha256": "00fcee87cab46a2ee84861de4b02190cc7c71cc9785ddfcbdcda01a45a7694cf"
+    },
+    {
+      "name": "tuples",
+      "output": "fixtures/D8/expected/tuples.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D8/codec-reference",
+      "sha256": "d6bbd0662e83f4c688956911145a4bb256bb4c443c04e4c09df636788ac93da5"
+    },
+    {
+      "name": "flags",
+      "output": "fixtures/D8/expected/flags.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D8/codec-reference",
+      "sha256": "e31dc3e090d93338fa23f2b56b8881ca0cedd95197f7a7e5df1e43fd58269dbc"
+    },
+    {
+      "name": "sample",
+      "output": "fixtures/D8/expected/sample.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D8/codec-reference",
+      "sha256": "048dfdad77743ec4a05a274bf6e31c419b76c481ccda4fb190d3ccb03a249976"
+    },
+    {
+      "name": "model",
+      "output": "fixtures/D8/expected/model.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D8/codec-reference",
+      "sha256": "dbeb2906549e72d58286654a294b65232c01dabdacc55bea355ccd2677f1e0e8"
+    }
+  ],
+  "sources": [
+    {
+      "path": "fixtures/D8/elm/enums/morphir.json",
+      "sha256": "72be9b48fcc9c6c7133f46d84f41039f356c65e34a138b805ac80d8c1c994a5e"
+    },
+    {
+      "path": "fixtures/D8/elm/enums/src/Example/D8/Access.elm",
+      "sha256": "c5ed1c54e70b92b92d85c6cffe3c0ec16165a59f91aa6c23ced092be36e3663a"
+    },
+    {
+      "path": "fixtures/D8/elm/enums/src/Example/D8/Rules.elm",
+      "sha256": "d2005f4326162a1476aae0a595d8e1b0f68823f3f2f67977be1f469753e56570"
+    },
+    {
+      "path": "fixtures/D8/elm/enums/src/Example/D8.elm",
+      "sha256": "85c1fb6fd0c91360a902a856466fbabddb60aeb49c83e7d3b1980382ceca358b"
+    },
+    {
+      "path": "fixtures/D8/codec-reference/Main.elm",
+      "sha256": "ccd115b64745fc4da12d08b9cc76e037530f204c5e560fa3f5dd987308c69973"
+    },
+    {
+      "path": "fixtures/D8/codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D7/expected/sample.json",
+      "sha256": "0cccda112fa854887351e8bd73cdda2bed09f6a5f3d79ce917d9bab84347cca3"
+    },
+    {
+      "path": "fixtures/D8/csharp/Enums.cs",
+      "sha256": "0330941035624474a333f7045f9788c6f7ce4f1f86eb1f120ee822b20a17701d"
+    },
+    {
+      "path": "fixtures/D8/csharp/Flags.cs",
+      "sha256": "7d1f96e6dd1976d18934065e64d41a707f918af4680383be423af12f5ae47726"
+    },
+    {
+      "path": "fixtures/D8/csharp/SampleEnumsTuples.cs",
+      "sha256": "5a312660fc5978e66766544739775f035437d6dd6a2e4087fef0bf435e30803f"
+    },
+    {
+      "path": "fixtures/D8/csharp/Tuples.cs",
+      "sha256": "3243b539c1cec823bfdc7dc4b02bf68e8ef72feff39bdc0daef716cc937e1dba"
+    }
+  ]
+}

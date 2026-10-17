@@ -21,9 +21,10 @@ public static partial class Frontend
                 when function.Name.Package.Key == Types.Sdk.Key && function.Name.Local.Key == "add" && ValueConstant(left) is int x && ValueConstant(right) is int y && (long)x + y is >= int.MinValue and <= int.MaxValue => x + y,
             _ => null
         };
-        private static bool HasAssignment(IOperation operation) => operation is ISimpleAssignmentOperation or ICoalesceAssignmentOperation || operation.ChildOperations.Any(HasAssignment);
+        private static bool HasAssignment(IOperation operation) => operation is ISimpleAssignmentOperation or ICoalesceAssignmentOperation or IDeconstructionAssignmentOperation || operation.ChildOperations.Any(HasAssignment);
         private TypedValue Expression(IOperation operation, Dictionary<ISymbol, Binding> environment, Func<TypedValue, Dictionary<ISymbol, Binding>, TypedValue> continuation)
         {
+            if (TupleExpression(operation, environment, continuation) is { } tupleExpression) return tupleExpression;
             if (PresenceExpression(operation, environment, continuation) is { } presence) return presence;
             if (!HasAssignment(operation)) return continuation(In(environment, operation), environment);
             if (operation is ISimpleAssignmentOperation assignment)
@@ -47,6 +48,9 @@ public static partial class Frontend
                 });
             IOperation[] operands = operation switch
             {
+                ITupleBinaryOperation tupleBinary => [tupleBinary.LeftOperand, tupleBinary.RightOperand],
+                ITupleOperation tuple => tuple.Elements.ToArray(),
+                IFieldReferenceOperation { Instance: not null } field => [field.Instance],
                 IArrayCreationOperation { Initializer: not null } array => array.Initializer.ElementValues.ToArray(),
                 IArrayElementReferenceOperation array => new[] { array.ArrayReference }.Concat(array.Indices).ToArray(),
                 IDelegateCreationOperation d => [d.Target],

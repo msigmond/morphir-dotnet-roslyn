@@ -58,7 +58,7 @@ export function emitCompatCSharp(library, output, options={}){
   }}
   const aliases=module.types.map(([n,c])=>{
    const d=c.value.value;if(d[0]!=='TypeAliasDefinition')throw new Error('Unknown definition');
-   return `new Entry<Name,AccessControlled<Documented<AliasDefinition<Unit>>>>(${name(n)},new(Access.${c.access},new(${q(c.value.doc)},new(${array(d[1].map(name))},${type(d[2])}))))`;
+   return `new Entry<Name,AccessControlled<Documented<TypeDefinition<Unit>>>>(${name(n)},new(Access.${c.access},new(${q(c.value.doc)},new AliasDefinition<Unit>(${array(d[1].map(name))},${type(d[2])}))))`;
   });
   const definitions=module.values.map(([n,c])=>`new Entry<Name,AccessControlled<Documented<ValueDefinition<Unit,IrType<Unit>>>>>(${name(n)},new(Access.${c.access},new(${q(c.value.doc)},${definition(c.value.value)})))`);
   methods.push(`internal static Entry<IrPath,AccessControlled<ModuleDefinition<Unit,IrType<Unit>>>> Module${moduleIndex}(IrPath package)\n{\n${types.join('\n')}\nreturn new(${path(modulePath)},new(Access.${controlled.access},new(${array(aliases)},${array(definitions)},${q(module.doc)})));\n}`);

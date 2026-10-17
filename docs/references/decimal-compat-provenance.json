@@ -13,7 +13,7 @@
   "sha256": "8a09d94f27a4b91916f566c08aed5be6971473655c1820e44e7e08f069006c81",
   "generated": {
     "path": "src/Morphir.Frontend.CSharp/Compatibility/DecimalLibrary.Generated.cs",
-    "sha256": "866cecd70f9c0021bfdc772543f3c4fd2f54348b56792a5d857233f4ad97b8c0"
+    "sha256": "acf148456d5e357483c25e849bf362988732a0e354ce6c790ff60b1f0182ee2a"
   },
   "sources": [
     {

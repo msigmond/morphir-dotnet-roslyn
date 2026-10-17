@@ -235,17 +235,32 @@
     {
       "form": "enum-types-values-members",
       "owner": "D8",
-      "state": "pending"
+      "state": "supported",
+      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
+      "evidence": [
+        "EnumTupleTests",
+        "fixtures/D8/expected/provenance.json"
+      ]
     },
     {
       "form": "value-and-reference-tuples",
       "owner": "D8",
-      "state": "pending"
+      "state": "supported",
+      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
+      "evidence": [
+        "EnumTupleTests",
+        "fixtures/D8/expected/provenance.json"
+      ]
     },
     {
       "form": "tuple-labels-deconstruction",
       "owner": "D8",
-      "state": "pending"
+      "state": "supported",
+      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
+      "evidence": [
+        "EnumTupleTests",
+        "fixtures/D8/expected/provenance.json"
+      ]
     },
     {
       "form": "classes-structs-record-classes-record-structs",

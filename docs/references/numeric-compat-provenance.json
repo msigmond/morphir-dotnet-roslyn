@@ -13,7 +13,7 @@
   "sha256": "a1b4c7f3cf6ffc98405ca2272ddbd9d9a6b632a3cbc17dcdaae189a144049d7d",
   "generated": {
     "path": "src/Morphir.Frontend.CSharp/Compatibility/NumericLibrary.Generated.cs",
-    "sha256": "af273fcc46139d115104ee3daef5e66379a1a95369a1797340cf3f17b0b5d3bb"
+    "sha256": "36095548b250723736eac5f5045b08447a9a4576a6e7e554ff31be771061d51f"
   },
   "sources": [
     {
