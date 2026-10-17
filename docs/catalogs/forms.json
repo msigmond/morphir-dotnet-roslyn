@@ -205,27 +205,32 @@
     {
       "form": "resolved-overload-calls",
       "owner": "D7",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     },
     {
       "form": "named-optional-params-arguments",
       "owner": "D7",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     },
     {
       "form": "cross-function-evaluation-order",
       "owner": "D7",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     },
     {
       "form": "catalog-or-morphir-dependency-calls",
       "owner": "D7",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     },
     {
       "form": "interprocedural-domain-effect-proof",
       "owner": "D7",
-      "state": "pending"
+      "state": "supported",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     },
     {
       "form": "enum-types-values-members",
@@ -259,8 +264,10 @@
     },
     {
       "form": "instance-receiver-input",
-      "owner": "D9",
-      "state": "pending"
+      "owner": "D7",
+      "state": "supported",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs",
+      "domain": "Explicit receiver for already-delivered readonly record structs; later class/data/dispatch domains keep D9/D10 prerequisites."
     },
     {
       "form": "value-equality-owned-object-initialization",
@@ -340,12 +347,14 @@
     {
       "form": "lambdas-and-local-functions",
       "owner": "D13",
-      "state": "pending"
+      "state": "pending",
+      "domain": "D7 delivers noncapturing local definitions and resolved pure standard Func method references; general lambda/delegate/capture forms remain D13."
     },
     {
       "form": "delegates-and-method-groups",
       "owner": "D13",
-      "state": "pending"
+      "state": "pending",
+      "domain": "D7 delivers noncapturing local definitions and resolved pure standard Func method references; general lambda/delegate/capture forms remain D13."
     },
     {
       "form": "immutable-and-wholly-local-captures",
@@ -571,6 +580,20 @@
       "form": "unknown-dynamic-target",
       "owner": "D18.4",
       "state": "required-rejection"
+    },
+    {
+      "form": "noncapturing-local-callables",
+      "owner": "D7",
+      "state": "supported",
+      "domain": "Canonical containing-callable/scope owner; all definitions including unused/private retained; source captures require D13.",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+    },
+    {
+      "form": "resolved-pure-method-references",
+      "owner": "D7",
+      "state": "supported",
+      "domain": "Standard Func values, unit thunks, immutable value receiver snapshots, exact source/catalog/explicit pure-total metadata contracts; unknown delegate effects reject.",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     }
   ]
 }

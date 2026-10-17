@@ -1,4 +1,4 @@
-# Classic model and codec inventory — D1–D6
+# Classic model and codec inventory — D1–D7
 
 This is the D1 increment, not a complete-v3 claim. Classic and Json projects have no Roslyn dependency. D19 owns complete algebra/codec coverage; missing later nodes remain pending.
 
@@ -28,3 +28,5 @@ D4 adds typed Constructor values, ConstructorPattern/AsPattern/WildcardPattern a
 D5 adds finite FloatLiteral (nonfinite numeric JSON rejects), VariableType, ListValue, EmptyListPattern and HeadTailPattern. Full typed numeric helper libraries exercise these nodes in ordinary Elm output and independent complete codec distributions, including specifications, private imported values and alias definitions. Wide values use canonical exact limb records; NaN/infinities/negative zero are ordinary helper expressions rather than invalid JSON numeric literals. NumericTests also compares the generated production Classic factory with its complete pinned compiler output.
 
 D6 adds exact string-payload DecimalLiteral and SDK Decimal type references. The model-only independent complete Elm codec fixture verifies DecimalLiteral even though business source constants lower to exact proved construction calls. Complete Decimal helpers and the source/cumulative distributions also verify every alias, value, typed attribute and access wrapper. See fixtures/D6 and DecimalCodecReferenceTests.
+
+D7 adds Unit type/value/pattern and typed Lambda adapters for resolved method references and zero-argument Func thunks. Complete independent source/cumulative codec distributions verify these nodes, explicit receiver inputs, nested private local definitions and full external dependency specifications. General source lambdas/captures remain D13; full Classic algebra closure remains D19.

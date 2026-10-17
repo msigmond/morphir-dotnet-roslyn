@@ -67,6 +67,7 @@ internal static class Support
     {
         switch (pattern)
         {
+            case UnitPattern<IrType<Unit>>: return subject is Unit;
             case WildcardPattern<IrType<Unit>>: return true;
             case AsPattern<IrType<Unit>> bound: if (!MatchPattern(bound.Pattern, subject, variables)) return false; variables[bound.Name.Key] = subject; return true;
             case EmptyListPattern<IrType<Unit>>: return ((IReadOnlyList<object>)subject).Count == 0;
@@ -115,6 +116,8 @@ internal static class Support
                 LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral i } => Narrow(i.Value),
                 LiteralValue<Unit, IrType<Unit>> { Literal: FloatLiteral f } => f.Value,
                 LiteralValue<Unit, IrType<Unit>> { Literal: DecimalLiteral d } => decimal.Parse(d.Value, System.Globalization.CultureInfo.InvariantCulture),
+                UnitValue<Unit, IrType<Unit>> => default(Unit),
+                LambdaValue<Unit, IrType<Unit>> lambda => (Func<object, object>)(argument => { var bound = new Dictionary<string, object>(vars); if (!MatchPattern(lambda.Argument, argument, bound)) throw new InvalidOperationException("Function argument pattern did not match"); return Evaluate(lambda.Body, bound, library); }),
                 ListValue<Unit, IrType<Unit>> list => list.Elements.Select(e => Evaluate(e, vars, library)).ToArray(),
                 LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral b } => b.Value,
                 LiteralValue<Unit, IrType<Unit>> { Literal: StringLiteral s } => s.Value,
@@ -128,6 +131,12 @@ internal static class Support
                 _ => throw new NotSupportedException(v.ToString())
             };
         }
+    }
+    private static readonly AsyncLocal<Func<FQName, object?>?> ExternalValues = new();
+    public static object WithExternalValues(Func<FQName, object?> resolver, Func<object> run)
+    {
+        var previous = ExternalValues.Value; ExternalValues.Value = resolver;
+        try { return run(); } finally { ExternalValues.Value = previous; }
     }
     private static object Resolve(FQName name, Library<Unit, IrType<Unit>>? library)
     {
@@ -150,8 +159,15 @@ internal static class Support
                 if (name.Local.Key is "from\0int" or "from\0string" or "negate" or "abs" or "to\0string") return (Func<object, object>)(v => DecimalUnary(name.Local.Key, v));
                 return (Func<object, object>)(a => (Func<object, object>)(b => name.Local.Key switch { "add" => (decimal)a + (decimal)b, "sub" => (decimal)a - (decimal)b, "mul" => (decimal)a * (decimal)b, _ => throw new NotSupportedException(name.Local.Key) }));
             }
+            if (name.Module.Key == Morphir.IR.Classic.Path.From("List").Key) return name.Local.Key switch
+            {
+                "cons" => (Func<object, object>)(head => (Func<object, object>)(tail => new[] { head }.Concat((IEnumerable<object>)tail).ToArray())),
+                "length" => (Func<object, object>)(value => ((IReadOnlyList<object>)value).Count),
+                "drop" => (Func<object, object>)(count => (Func<object, object>)(value => ((IReadOnlyList<object>)value).Skip((int)count).ToArray())),
+                "head" => (Func<object, object>)(value => ((IReadOnlyList<object>)value) is { Count: > 0 } list ? Maybe(list[0]) : Maybe(null)),
+                _ => throw new NotSupportedException("List." + name.Local.Key)
+            };
             if (name.Module.Key == Morphir.IR.Classic.Path.From("String").Key && name.Local.Key == "length") return (Func<object, object>)(value => ((string)value).Length);
-            if (name.Module.Key == Morphir.IR.Classic.Path.From("List").Key && name.Local.Key == "cons") return (Func<object, object>)(head => (Func<object, object>)(tail => new[] { head }.Concat((IEnumerable<object>)tail).ToArray()));
             Func<object, object>? unary = name.Local.Key switch
             {
                 "not" => value => !(bool)value,
@@ -167,6 +183,7 @@ internal static class Support
             };
             return unary is not null ? unary : (Func<object, object>)(left => (Func<object, object>)(right => Binary(name.Local.Key, left, right)));
         }
+        if (library is not null && name.Package.Key != library.Package.Key && ExternalValues.Value?.Invoke(name) is { } external) return external;
         var definition = Lookup.Value(library!, name) ?? throw new InvalidOperationException($"Missing definition {name}");
         object Bind(int index, Dictionary<string, object> values) => index == definition.Inputs.Count
             ? Evaluate(definition.Body, values, library)

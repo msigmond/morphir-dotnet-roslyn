@@ -16,6 +16,13 @@ public static partial class Frontend
         private Dictionary<ISymbol, Binding> bindings = new(SymbolEqualityComparer.Default);
         private readonly HashSet<string> bindingNames = new(StringComparer.Ordinal);
         private readonly HashSet<IOperation> provedArithmetic = [];
+        private TypedValue? currentReceiver;
+        private static Name ReceiverName(IMethodSymbol method)
+        {
+            var name = Name.From("receiver"); var used = method.Parameters.Select(p => Name.From(p.Name).Key).ToHashSet(); var version = 0;
+            while (used.Contains(name.Key)) name = Name.From("receiver_" + (++version));
+            return name;
+        }
         private void PrepareBindings(IMethodSymbol method)
         {
             bindings = new(SymbolEqualityComparer.Default);
@@ -26,6 +33,8 @@ public static partial class Frontend
             boundValues.Clear();
             operandValues.Clear();
             provedArithmetic.Clear();
+            paramsLengths.Clear(); provedParamsReads.Clear();
+            pureFunctionOrigins.Clear(); provedDelegateCalls.Clear();
             provedDecimalOperations.Clear();
             numericFacts.Clear();
             decimalFacts.Clear(); decimalDomains.Clear(); decimalConstants.Clear();
@@ -33,6 +42,8 @@ public static partial class Frontend
             finiteFacts.Clear();
             zeroFloatFacts.Clear();
             foreach (var id in identities.Values) bindingNames.Add(id.Local.Key);
+            currentReceiver = !ReceiverRequired(method) ? null : new VariableValue<Unit, IrType<Unit>>(Type(method.ContainingType, Location(method)), ReceiverName(method));
+            if (currentReceiver is not null) bindingNames.Add(ReceiverName(method).Key);
             foreach (var parameter in method.Parameters)
             {
                 var name = Name.From(parameter.Name); bindingNames.Add(name.Key);
@@ -75,8 +86,9 @@ public static partial class Frontend
                 new ReferenceValue<Unit, IrType<Unit>>(Types.Function(argument, partial), new(Types.Sdk, IrPath.From("Basics"), Name.From(name))), left), right);
         }
         private TypedValue LowerMethodBlock(IMethodBodyOperation methodBody, IBlockOperation body, MethodDeclarationSyntax syntax)
+            => LowerCallableBlock(ControlFlowGraph.Create(methodBody), body, syntax, syntax.Body!);
+        private TypedValue LowerCallableBlock(ControlFlowGraph graph, IBlockOperation body, SyntaxNode syntax, SyntaxNode flowSyntax)
         {
-            var graph = ControlFlowGraph.Create(methodBody);
             foreach (var predecessor in graph.Blocks[^1].Predecessors)
             {
                 if (!predecessor.Source.IsReachable) continue;
@@ -88,7 +100,7 @@ public static partial class Frontend
                 if (predecessor.Semantics != ControlFlowBranchSemantics.Return)
                     Fail<object>("MCS2402", "The control-flow graph has an unproved value-return path.", syntax.GetLocation());
             }
-            var dataFlow = Semantic(syntax.SyntaxTree).AnalyzeDataFlow(syntax.Body!);
+            var dataFlow = Semantic(syntax.SyntaxTree).AnalyzeDataFlow(flowSyntax);
             if (!dataFlow.Succeeded) Fail<object>("MCS2401", "Definite-assignment/scope analysis failed.", syntax.GetLocation());
             ValidateBlockOperations(body);
             var result = Statements(body.Operations, 0, Copy(bindings), _ => Fail<TypedValue>("MCS2402", "A value-return path falls through.", syntax.GetLocation()));
@@ -97,6 +109,7 @@ public static partial class Frontend
         }
         private void ValidateUnreachedArithmetic(IOperation operation)
         {
+            if (operation is ILocalFunctionOperation) return;
             if (operation is IBinaryOperation { OperatorKind: BinaryOperatorKind.Add } addition && !NumericType(NullableElement(addition.Type) ?? addition.Type) && !DecimalType(NullableElement(addition.Type) ?? addition.Type) && !provedArithmetic.Contains(operation) && !SafeAddition(addition))
                 Fail<object>("MCS2302", "An unreachable addition still requires the delivered numeric proof contract.", operation.Syntax.GetLocation());
             bool decimalFailure = operation is IBinaryOperation decimalBinary && DecimalType(NullableElement(decimalBinary.LeftOperand.Type) ?? decimalBinary.LeftOperand.Type)
@@ -104,15 +117,18 @@ public static partial class Frontend
                 || operation is IInvocationOperation decimalCall && DecimalMember(decimalCall)
                 || operation is IObjectCreationOperation decimalCreation && DecimalConstruction(decimalCreation);
             if (decimalFailure && !provedDecimalOperations.Contains(operation)) In(bindings, operation);
+            if (operation is IArrayElementReferenceOperation arrayRead && ParamsArray(arrayRead.ArrayReference.Type) && !provedParamsReads.Contains(operation)) In(bindings, operation);
+            if (operation is IInvocationOperation delegateCall && delegateCall.TargetMethod.MethodKind == MethodKind.DelegateInvoke && !provedDelegateCalls.Contains(operation)) In(bindings, operation);
             foreach (var child in operation.ChildOperations) ValidateUnreachedArithmetic(child);
         }
         private void ValidateBlockOperations(IOperation operation)
         {
+            if (operation is ILocalFunctionOperation) return;
             // Validate selected source even where a constant branch/return makes it unreachable.
             bool supported = PresenceOperation(operation) || operation is IBlockOperation or IVariableDeclarationGroupOperation or IVariableDeclarationOperation
                 or IVariableDeclaratorOperation or IVariableInitializerOperation or IExpressionStatementOperation
                 or ISimpleAssignmentOperation or IReturnOperation or IConditionalOperation or IEmptyOperation
-                or ISizeOfOperation or IFieldReferenceOperation or ILiteralOperation or IParameterReferenceOperation or ILocalReferenceOperation or IPropertyReferenceOperation
+                or IArrayCreationOperation or IArrayInitializerOperation or IArrayElementReferenceOperation or IDelegateCreationOperation or IMethodReferenceOperation or IInstanceReferenceOperation or ISizeOfOperation or IFieldReferenceOperation or ILiteralOperation or IParameterReferenceOperation or ILocalReferenceOperation or IPropertyReferenceOperation
                 or IObjectCreationOperation or IArgumentOperation or IConversionOperation or IBinaryOperation or IUnaryOperation or IInvocationOperation;
             if (!supported) Fail<object>("MCS2403", $"Operation {operation.Kind} is outside the D3 structured block contract.", operation.Syntax.GetLocation());
             if (operation is IBinaryOperation { IsChecked: true } checkedBinary && NumericType(NullableElement(checkedBinary.LeftOperand.Type) ?? checkedBinary.LeftOperand.Type))
@@ -121,10 +137,11 @@ public static partial class Frontend
                 Fail<object>("MCS2004", "Checked semantic numeric arithmetic is excluded, including unreachable source.", operation.Syntax.GetLocation());
             if (operation is IConversionOperation { IsChecked: true } checkedConversion && NumericType(NullableElement(checkedConversion.Type) ?? checkedConversion.Type))
                 Fail<object>("MCS2004", "Checked semantic numeric conversion is excluded, including unreachable source.", operation.Syntax.GetLocation());
-            if (operation.Type is { SpecialType: not SpecialType.System_Void } type) Type(type, operation.Syntax.GetLocation(), true);
+            if (operation.Type is { SpecialType: not SpecialType.System_Void } type && !(operation is IConversionOperation nullComparison && NullTestConversion(nullComparison)) && !NullTestConstant(operation)) Type(type, operation.Syntax.GetLocation(), true);
             if (operation is ISimpleAssignmentOperation assignment && (assignment.IsRef || assignment.Target is not (ILocalReferenceOperation or IParameterReferenceOperation)))
                 Fail<object>("MCS2404", "D3 assignment must rebind a local/by-value parameter; input/external member updates are not permitted.", operation.Syntax.GetLocation());
-            if (operation is IPropertyReferenceOperation property && !PresenceProperty(property) && !NumericProperty(property) && !DecimalProperty(property) && !records.ContainsKey(SymbolId(property.Property.ContainingType)))
+            if (operation is IArrayCreationOperation packed && !ParamsPack(packed)) Fail<object>("MCS2807", "General array construction requires D11; D7 packs only initialized params arguments.", operation.Syntax.GetLocation());
+            if (operation is IPropertyReferenceOperation property && !PresenceProperty(property) && !ParamsLength(property) && !NumericProperty(property) && !DecimalProperty(property) && !records.ContainsKey(SymbolId(property.Property.ContainingType)))
                 Fail<object>("MCS2107", "Unknown/effectful property read is outside the admitted record mapping.", operation.Syntax.GetLocation());
             if (operation is IBinaryOperation binary && !PresenceBinary(binary) && !DecimalType(binary.LeftOperand.Type) && Integral(binary.LeftOperand.Type) is null && Floating(binary.LeftOperand.Type) is null && !ComplexType(binary.LeftOperand.Type))
             {
@@ -141,7 +158,7 @@ public static partial class Frontend
                 if (!(unary.OperatorMethod is null && (unary.OperatorKind == UnaryOperatorKind.Not && unary.Type?.SpecialType == SpecialType.System_Boolean || unary.OperatorKind == UnaryOperatorKind.Minus && unary.Type?.SpecialType == SpecialType.System_Int32 && unary.ConstantValue is { HasValue: true, Value: int })))
                     Fail<object>("MCS2107", "Unmapped unary operator in selected source.", operation.Syntax.GetLocation());
             }
-            if (operation is IConversionOperation conversion && !PresenceConversion(conversion) && !NumericConversion(conversion) && !((DecimalType(conversion.Type) && (DecimalType(conversion.Operand.Type) || Integral(conversion.Operand.Type) is not null || Floating(conversion.Operand.Type) is not null)) || DecimalType(conversion.Operand.Type) && (Integral(conversion.Type) is not null || Floating(conversion.Type) is not null || ComplexType(conversion.Type))))
+            if (operation is IConversionOperation conversion && !PresenceConversion(conversion) && !NullTestConversion(conversion) && !NumericConversion(conversion) && !((DecimalType(conversion.Type) && (DecimalType(conversion.Operand.Type) || Integral(conversion.Operand.Type) is not null || Floating(conversion.Operand.Type) is not null)) || DecimalType(conversion.Operand.Type) && (Integral(conversion.Type) is not null || Floating(conversion.Type) is not null || ComplexType(conversion.Type))))
             {
                 if (conversion.IsChecked) Fail<object>("MCS2004", "Checked semantic conversions are excluded.", operation.Syntax.GetLocation());
                 if (!(conversion.Conversion.IsIdentity || conversion.Operand is IObjectCreationOperation creation && !conversion.Conversion.IsUserDefined && SymbolEqualityComparer.Default.Equals(conversion.Type, creation.Type)))
@@ -192,6 +209,8 @@ public static partial class Frontend
                     return Decision(conditional.Condition, environment,
                         state => Statements([conditional.WhenTrue], 0, Copy(state), Next),
                         state => conditional.WhenFalse is null ? Next(Copy(state)) : Statements([conditional.WhenFalse], 0, Copy(state), Next));
+                case ILocalFunctionOperation:
+                    return Next(environment);
                 case IEmptyOperation:
                     return Next(environment);
                 default:

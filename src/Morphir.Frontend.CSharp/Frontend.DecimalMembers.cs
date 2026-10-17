@@ -12,9 +12,10 @@ public static partial class Frontend
     {
         private static bool DecimalProperty(IPropertyReferenceOperation property) => DecimalType(property.Property.ContainingType) && property.Instance is not null && property.Property.Name == "Scale";
         private static bool DecimalConstruction(IObjectCreationOperation creation) => DecimalType(creation.Type) && creation.Initializer is null && (creation.Arguments.Length == 0 || creation.Arguments.Length == 1 && (Integral(creation.Arguments[0].Value.Type) is not null || Floating(creation.Arguments[0].Value.Type) is not null) || creation.Arguments.Length == 5 && creation.Constructor!.Parameters.Select(p => p.Type.SpecialType).SequenceEqual(new[] { SpecialType.System_Int32, SpecialType.System_Int32, SpecialType.System_Int32, SpecialType.System_Boolean, SpecialType.System_Byte }));
-        private static bool DecimalMember(IInvocationOperation call)
+        private static bool DecimalMember(IInvocationOperation call) => DecimalMethod(call.TargetMethod);
+        private static bool DecimalMethod(IMethodSymbol method)
         {
-            var method = call.TargetMethod; if (!DecimalType(method.ContainingType) || method.Arity != 0 || method.Parameters.Any(p => p.RefKind != RefKind.None)) return false;
+            if (!DecimalType(method.ContainingType) || method.Arity != 0 || method.Parameters.Any(p => p.RefKind != RefKind.None)) return false;
             if (!method.IsStatic) return method.Name is "CompareTo" or "Equals" && method.Parameters.Length == 1 && DecimalType(method.Parameters[0].Type);
             if (method.Name == "Round") return method.Parameters.Length is 1 or 2 && DecimalType(method.Parameters[0].Type) && (method.Parameters.Length == 1 || method.Parameters[1].Type.SpecialType == SpecialType.System_Int32);
             if (method.Parameters.Length == 1 && DecimalType(method.Parameters[0].Type)) return method.Name is "Abs" or "Negate" or "Ceiling" or "Floor" or "Truncate" or "Sign" or "IsNegative";
@@ -94,7 +95,11 @@ public static partial class Frontend
             }
             if (operation is not IInvocationOperation call || !DecimalMember(call)) return null;
             var arguments = call.Arguments.OrderBy(a => a.Parameter!.Ordinal).Select(a => Lower(a.Value)).ToList(); if (call.Instance is not null) arguments.Insert(0, Lower(call.Instance));
-            var a = arguments[0]; var name = call.TargetMethod.Name;
+            return DecimalMethodValue(call.TargetMethod, arguments, location);
+        }
+        private TypedValue DecimalMethodValue(IMethodSymbol method, List<TypedValue> arguments, Location location)
+        {
+            var a = arguments[0]; var name = method.Name;
             var binary = name switch { "Add" => BinaryOperatorKind.Add, "Subtract" => BinaryOperatorKind.Subtract, "Multiply" => BinaryOperatorKind.Multiply, "Divide" => BinaryOperatorKind.Divide, "Remainder" => BinaryOperatorKind.Remainder, _ => (BinaryOperatorKind?)null };
             if (binary is { } kind) return DecimalBinary(kind, a, arguments[1], location);
             if (name == "IsNegative") return new FieldValue<Unit, IrType<Unit>>(Types.Bool, a, Name.From("negative"));

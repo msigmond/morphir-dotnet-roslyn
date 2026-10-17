@@ -1,6 +1,6 @@
-# Language coverage — D1–D6
+# Language coverage — D1–D7
 
-Status: D1–D6 passed; D7 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is identified by samples/CurrentSupportedExample/reference.json; the D1 standalone reference is unchanged. No future business-source forms are included.
+Status: D1–D7 passed; D8 onward pending. Existing table rows were introduced in D1. Sample owner namespace: `Example.CurrentSupported`; main container: `CurrentSupportedExample`. Every row has complete sample distribution parity against the independent Elm codec host (`fixtures/D1/expected/sample.json`). The full project-mode cumulative reference is identified by samples/CurrentSupportedExample/reference.json; the D1 standalone reference is unchanged. No future business-source forms are included.
 
 | Supported form | Cumulative example symbol/location | Additional parity / behavior evidence |
 | --- | --- | --- |
@@ -79,3 +79,7 @@ D5 supersedes the historical safe-addition-only limitation with exact unchecked 
 ## D6 additions
 
 Decimal.cs adds exact0.1/1.2300 construction, the guarded0..100 Price result, rounding, observable scale, signs/comparison and integral conversion. DecimalTests checks nullable slots/operators, local updates, source-call bounds, wide conversions, rounding/float boundaries, stale proofs and source-located safety failures. Complete independent source/sample/model codec references live in fixtures/D6. Decimal language support retains exact member/precondition boundaries in decimal-members.json and mappings/D6.md; complete framework closure remains explicit.
+
+## D7 additions
+
+Calls.cs adds canonical private overloads, declaration defaults, named evaluation order, nullable/empty/valued params packs, guarded element reads, explicit record receivers, noncapturing local definitions and method references with receiver snapshots. CallTests/ExternalCallTests verify source/cumulative/full external-spec distributions and emitted C#/IR behavior. Unknown callable effects and hidden/unmapped bodies reject. Params-vector support does not enable general D11 arrays, and generated adapters do not enable D13 source lambdas/captures.

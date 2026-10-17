@@ -101,9 +101,10 @@
     },
     {
       "operation": "LocalFunction",
-      "owner": "D13",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "owner": "D7",
+      "state": "supported",
+      "domain": "D7 noncapturing local callables, resolved standard Func method groups and explicit readonly-record receivers only; general captures/delegates/classes remain gated.",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     },
     {
       "operation": "Stop",
@@ -139,13 +140,14 @@
       "operation": "Invocation",
       "owner": "D2",
       "state": "supported",
-      "domain": "D2 nonrecursive selected static positional by-value calls only; D7 extended calls and D10/D13/D14 dispatch/closures/recursion remain pending."
+      "domain": "D7 resolved named/optional/params calls, explicit receivers, noncapturing local functions and known-pure delegate invocation; unknown effects reject; generic/dispatch/capture/recursion prerequisites retained.",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     },
     {
       "operation": "ArrayElementReference",
       "owner": "D11",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "D7 has initialized params-vector packs and presence/bounds-proved reads in that scoped domain; general array data/construction/indexing remains D11."
     },
     {
       "operation": "LocalReference",
@@ -167,9 +169,10 @@
     },
     {
       "operation": "MethodReference",
-      "owner": "D13",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "owner": "D7",
+      "state": "supported",
+      "domain": "D7 noncapturing local callables, resolved standard Func method groups and explicit readonly-record receivers only; general captures/delegates/classes remain gated.",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     },
     {
       "operation": "PropertyReference",
@@ -241,13 +244,14 @@
       "operation": "ArrayCreation",
       "owner": "D11",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "D7 has initialized params-vector packs and presence/bounds-proved reads in that scoped domain; general array data/construction/indexing remains D11."
     },
     {
       "operation": "InstanceReference",
-      "owner": "D9",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "owner": "D7",
+      "state": "supported",
+      "domain": "D7 noncapturing local callables, resolved standard Func method groups and explicit readonly-record receivers only; general captures/delegates/classes remain gated.",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     },
     {
       "operation": "IsType",
@@ -371,9 +375,10 @@
     },
     {
       "operation": "DelegateCreation",
-      "owner": "D13",
-      "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "owner": "D7",
+      "state": "supported",
+      "domain": "D7 noncapturing local callables, resolved standard Func method groups and explicit readonly-record receivers only; general captures/delegates/classes remain gated.",
+      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
     },
     {
       "operation": "DefaultValue",
@@ -469,7 +474,7 @@
       "operation": "ArrayInitializer",
       "owner": "D11",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "D7 has initialized params-vector packs and presence/bounds-proved reads in that scoped domain; general array data/construction/indexing remains D11."
     },
     {
       "operation": "VariableDeclarator",

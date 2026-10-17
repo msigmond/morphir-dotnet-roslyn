@@ -10,7 +10,7 @@ using TypedDefinition = Morphir.IR.Classic.ValueDefinition<Morphir.IR.Classic.Un
 
 namespace Morphir.Frontend.CSharp;
 
-public sealed record FrontendSettings(string Package, IReadOnlyList<string> Namespaces);
+public sealed record FrontendSettings(string Package, IReadOnlyList<string> Namespaces, IReadOnlyList<ExternalDependencyContract>? Dependencies = null);
 public sealed record FrontendDiagnostic(string Code, string Message, string File, int Line, int Column)
 {
     public override string ToString() => $"{File}({Line},{Column}): {Code}: {Message}";
@@ -39,7 +39,7 @@ public static partial class Frontend
         {
             var format = SymbolDisplayFormat.FullyQualifiedFormat.WithMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.None);
             if (symbol is IMethodSymbol method)
-                return SymbolId(method.ContainingType) + "::" + method.MetadataName + "(" + string.Join(",", method.Parameters.Select(p => p.RefKind + ":" + p.Type.ToDisplayString(format))) + ")";
+                return (method.MethodKind == MethodKind.LocalFunction ? SymbolId(method.ContainingSymbol) + "::local@" + method.DeclaringSyntaxReferences.Single().Span.Start : SymbolId(method.ContainingType)) + "::" + method.MetadataName + SignatureSuffix(method);
             return symbol.ContainingAssembly.Identity + "::" + symbol.ToDisplayString(format);
         }
         private FQName Identity(ISymbol symbol) => identities[SymbolId(symbol)];
@@ -89,7 +89,10 @@ public static partial class Frontend
         }
         private void AddSymbol(ISymbol s, string owner, string local)
         {
-            var id = new FQName(package, ModulePath(owner), Name.From(local));
+            AddSymbol(s, new FQName(package, ModulePath(owner), Name.From(local)));
+        }
+        private void AddSymbol(ISymbol s, FQName id)
+        {
             var collision = symbols.FirstOrDefault(kv => kv.Value.Module.Key == id.Module.Key && kv.Value.Local.Key == id.Local.Key && (kv.Key is INamedTypeSymbol) == (s is INamedTypeSymbol));
             if (collision.Key is not null && !SymbolEqualityComparer.Default.Equals(s, collision.Key))
             {
@@ -127,20 +130,24 @@ public static partial class Frontend
                 foreach (var m in type.GetMembers().OfType<IMethodSymbol>().Where(m => !m.IsImplicitlyDeclared && m.MethodKind == MethodKind.Ordinary))
                 {
                     var overloads = type.GetMembers(m.Name).OfType<IMethodSymbol>().Count(x => !x.IsImplicitlyDeclared && x.MethodKind == MethodKind.Ordinary);
-                    var suffix = overloads > 1 ? "__" + m.Arity + "__" + string.Join("__", m.Parameters.Select(p => p.RefKind + "_" + p.Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.None)))) : "";
+                    var suffix = overloads > 1 ? SignatureSuffix(m) : "";
                     AddSymbol(m, type.ToDisplayString(), m.Name + suffix);
                 }
             }
+            foreach (var method in selected.SelectMany(type => type.GetMembers().OfType<IMethodSymbol>()).Where(method => !method.IsImplicitlyDeclared && method.MethodKind == MethodKind.Ordinary)) RegisterLocalMethods(method);
             if (diagnostics.Count != 0) return Failure();
             foreach (var type in selected) Try(() => Discover(type));
             if (diagnostics.Count != 0) return Failure();
-            foreach (var method in selected.SelectMany(t => t.GetMembers().OfType<IMethodSymbol>()).Where(m => !m.IsImplicitlyDeclared && m.MethodKind == MethodKind.Ordinary)) sourceMethods[SymbolId(method)] = method;
+            foreach (var method in selected.SelectMany(t => t.GetMembers().OfType<IMethodSymbol>()).Where(m => !m.IsImplicitlyDeclared && m.MethodKind == MethodKind.Ordinary)) { sourceMethods[SymbolId(method)] = method; foreach (var local in LocalMethods(method)) sourceMethods[SymbolId(local)] = local; }
+            foreach (var parameter in sourceMethods.Values.SelectMany(method => method.Parameters).Where(parameter => parameter.IsParams)) if (parameter.Type is IArrayTypeSymbol { Rank: 1, IsSZArray: true }) paramsArrayTypes.Add(parameter.Type);
+            Try(ConfigureExternalContracts);
+            if (diagnostics.Count != 0) return Failure();
             foreach (var type in selected) Try(() => Emit(type));
             RejectCycles();
             if (diagnostics.Count != 0) return Failure();
             var defs = modules.Values.OrderBy(m => m.Path, IdentityOrder.Paths).Select(m => new Entry<IrPath, AccessControlled<ModuleDefinition<Unit, IrType<Unit>>>>(m.Path,
                 new(m.Access, new(m.Types.OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray(), m.Values.OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray())))).ToArray();
-            return new(new(package, [], new(defs)), diagnostics);
+            return new(new(package, externalDependencies.OrderBy(entry => entry.Key, IdentityOrder.Paths).ToArray(), new(defs)), diagnostics);
         }
         private static void Try(Action a) { try { a(); } catch (Rejected) { } }
         private void Discover(INamedTypeSymbol type)
@@ -186,6 +193,8 @@ public static partial class Frontend
         private IrType<Unit> Type(ITypeSymbol t, Location? loc, bool returnLiteralString = false)
         {
             if (t.IsRefLikeType || t is IPointerTypeSymbol or IFunctionPointerTypeSymbol) return Fail<IrType<Unit>>("MCS2003", "Ref-like/pointer type use is excluded.", loc);
+            if (t is IArrayTypeSymbol array && ParamsArray(t)) return Types.Maybe(Types.List(Type(array.ElementType, loc)));
+            if (DelegateType(t) is { } function) return returnLiteralString && t.NullableAnnotation != NullableAnnotation.Annotated ? FunctionSignature(function, loc) : Types.Maybe(FunctionSignature(function, loc));
             if (DecimalType(t)) return DecimalIrType(loc);
             if (Floating(t) is not null) return Types.Float;
             if (ComplexType(t)) return ComplexIrType(loc);
@@ -207,40 +216,59 @@ public static partial class Frontend
                 modules[id.Module.Key].Types.Add(new(id.Local, new(Visibility(type), new(Documentation(type), new([], record)))));
             }
             foreach (var m in type.GetMembers().OfType<IMethodSymbol>().Where(m => !m.IsImplicitlyDeclared && m.MethodKind == MethodKind.Ordinary)) Try(() => EmitMethod(m));
+            foreach (var local in sourceMethods.Values.Where(method => method.MethodKind == MethodKind.LocalFunction && SymbolEqualityComparer.Default.Equals(method.ContainingType, type))) Try(() => EmitMethod(local));
         }
         private void EmitMethod(IMethodSymbol m)
         {
             var key = SymbolId(m);
             if (methodOutputs.ContainsKey(key)) return;
             if (!emittingMethods.Add(key)) Fail<object>("MCS2203", "Recursive calls require D14.", Location(m));
-            var syntax = (MethodDeclarationSyntax)m.DeclaringSyntaxReferences.Single().GetSyntax();
-            var operationRoot = Semantic(syntax.SyntaxTree).GetOperation(syntax)!;
-            foreach (var call in Operations(operationRoot).OfType<IInvocationOperation>())
-                if (sourceMethods.TryGetValue(SymbolId(call.TargetMethod), out var dependency)) EmitMethod(dependency);
-            if (!m.IsStatic || m.Arity != 0 || m.IsAsync || (syntax.ExpressionBody is null && syntax.Body is null) || syntax.AttributeLists.Count != 0 || m.GetAttributes().Length != 0 || m.ReturnsByRef || m.ReturnsByRefReadonly || m.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams || p.HasExplicitDefaultValue || p.GetAttributes().Length != 0))
-                Fail<object>("MCS2105", "Functions require static expression or block bodies and ordinary, non-generic by-value parameters.", Location(m));
-            if (m.Parameters.GroupBy(p => Name.From(p.Name).Key).Any(g => g.Count() > 1)) Fail<object>("MCS1004", "Parameter names collide after normalization.", Location(m));
-            var inputs = m.Parameters.Select(p => new Input<Unit, IrType<Unit>>(Name.From(p.Name), Type(p.Type, Location(p)), Type(p.Type, Location(p)))).ToArray();
-            var output = Type(m.ReturnType, Location(m), true);
-            var methodBody = (IMethodBodyOperation)Semantic(syntax.SyntaxTree).GetOperation(syntax)!;
-            currentMethod = SymbolId(m);
-            calls.TryAdd(currentMethod, []);
-            PrepareBindings(m);
-            currentReturnSlot = output;
-            var body = methodBody.BlockBody is { } block
-                ? LowerMethodBlock(methodBody, block, syntax)
-                : Expression(((IReturnOperation)methodBody.ExpressionBody!.Operations.Single()).ReturnedValue!, Copy(bindings), (value, _) => ReturnValue(value));
-            output = body.Attributes;
-            methodOutputs[key] = output;
-            emittingMethods.Remove(key);
-            var id = Identity(m); EnsureModule(id.Module, Visibility(m.ContainingType));
-            if (DecimalType(m.ReturnType)) decimalMethodDomains[DecimalOwnerKey(id)] = DecimalRange(body);
-            modules[id.Module.Key].Values.Add(new(id.Local, new(Visibility(m), new(Documentation(m), new(inputs, output, body)))));
+            try
+            {
+                var syntax = m.DeclaringSyntaxReferences.Single().GetSyntax();
+                var operationRoot = Semantic(syntax.SyntaxTree).GetOperation(syntax)!;
+                foreach (var call in Operations(operationRoot).OfType<IInvocationOperation>())
+                    if (sourceMethods.TryGetValue(SymbolId(call.TargetMethod), out var dependency)) EmitMethod(dependency);
+                foreach (var reference in Operations(operationRoot).OfType<IMethodReferenceOperation>())
+                    if (sourceMethods.TryGetValue(SymbolId(reference.Method), out var dependency)) EmitMethod(dependency);
+                var normal = syntax as MethodDeclarationSyntax; var local = syntax as LocalFunctionStatementSyntax;
+                if ((ReceiverRequired(m) && !records.ContainsKey(SymbolId(m.ContainingType))) || m.Arity != 0 || m.IsAsync || (normal?.ExpressionBody is null && normal?.Body is null && local?.ExpressionBody is null && local?.Body is null) || (normal?.AttributeLists.Count ?? local?.AttributeLists.Count ?? 0) != 0 || m.GetAttributes().Length != 0 || m.ReturnsByRef || m.ReturnsByRefReadonly || m.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams && !ParamsArray(p.Type) || p.GetAttributes().Length != 0))
+                    Fail<object>("MCS2105", "Functions require supported pure bodies, non-generic by-value parameters and explicit supported receivers.", Location(m));
+                if (m.Parameters.GroupBy(p => Name.From(p.Name).Key).Any(g => g.Count() > 1)) Fail<object>("MCS1004", "Parameter names collide after normalization.", Location(m));
+                if (m.Parameters.Any(parameter => parameter.Type is IArrayTypeSymbol && !parameter.IsParams)) Fail<object>("MCS2104", "General array parameter domains require D11.", Location(m));
+                var inputs = m.Parameters.Select(p => new Input<Unit, IrType<Unit>>(Name.From(p.Name), Type(p.Type, Location(p)), Type(p.Type, Location(p)))).ToArray();
+                if (ReceiverRequired(m)) inputs = new[] { new Input<Unit, IrType<Unit>>(ReceiverName(m), Type(m.ContainingType, Location(m)), Type(m.ContainingType, Location(m))) }.Concat(inputs).ToArray();
+                if (m.ReturnType is IArrayTypeSymbol) Fail<object>("MCS2104", "General array return domains require D11.", Location(m));
+                var output = Type(m.ReturnType, Location(m), true);
+                currentMethod = SymbolId(m); calls.TryAdd(currentMethod, []); PrepareBindings(m); currentReturnSlot = output;
+                TypedValue body;
+                if (operationRoot is ILocalFunctionOperation localOperation)
+                {
+                    ValidateLocalCaptures(m, localOperation.Body!);
+                    body = LowerCallableBlock(CallableGraph(m), localOperation.Body!, syntax, (SyntaxNode?)local!.Body ?? local.ExpressionBody!.Expression);
+                }
+                else
+                {
+                    var methodBody = (IMethodBodyOperation)operationRoot;
+                    body = methodBody.BlockBody is { } block ? LowerMethodBlock(methodBody, block, normal!) : Expression(((IReturnOperation)methodBody.ExpressionBody!.Operations.Single()).ReturnedValue!, Copy(bindings), (value, _) => ReturnValue(value));
+                }
+                output = body.Attributes;
+                methodOutputs[key] = output;
+                emittingMethods.Remove(key);
+                var id = Identity(m); EnsureModule(id.Module, Visibility(m.ContainingType));
+                if (DelegateType(m.ReturnType) is not null && KnownPureFunction(body)) pureFunctionMethods.Add(FunctionOwner(id));
+                if (DecimalType(m.ReturnType)) decimalMethodDomains[DecimalOwnerKey(id)] = DecimalRange(body);
+                modules[id.Module.Key].Values.Add(new(id.Local, new(Visibility(m), new(Documentation(m), new(inputs, output, body)))));
+            }
+            finally { emittingMethods.Remove(key); }
         }
         private TypedValue Lit(IrType<Unit> t, Literal l) => new LiteralValue<Unit, IrType<Unit>>(t, l);
         private TypedValue Lower(IOperation op)
         {
             if (operandValues.TryGetValue(op, out var evaluated)) return evaluated;
+            if (LowerParams(op) is { } paramsValue) return paramsValue;
+            if (op is IMethodReferenceOperation methodReference && methodReference.Parent is IDelegateCreationOperation parentCreation) return MethodReference(methodReference, DelegateType(parentCreation.Type)!);
+            if (LowerMethodReference(op) is { } functionValue) return functionValue;
             if (LowerDecimal(op) is { } decimalValue) return decimalValue;
             if (LowerFloating(op) is { } floating) return floating;
             if (LowerInteger(op) is { } numeric) return numeric;
@@ -271,6 +299,8 @@ public static partial class Frontend
                     // Roslyn wraps target-typed new in an object-creation conversion,
                     // distinct from CommonConversion.IsIdentity despite equal bound types.
                     return Lower(creation);
+                case IInstanceReferenceOperation instance when instance.ReferenceKind == InstanceReferenceKind.ContainingTypeInstance && currentReceiver is not null:
+                    return currentReceiver;
                 case IParameterReferenceOperation p:
                     return ReadBinding(p.Parameter, loc);
                 case ILocalReferenceOperation l:
@@ -324,11 +354,13 @@ public static partial class Frontend
         }
         private FQName ValidateInvocation(IInvocationOperation invocation)
         {
+            if (invocation.TargetMethod.MethodKind == MethodKind.DelegateInvoke && DelegateType(invocation.TargetMethod.ContainingType) is not null) return MaybeName("map");
             if (DecimalMember(invocation)) return new(Types.Sdk, IrPath.From("Decimal"), Name.From(invocation.TargetMethod.Name));
             if (FloatingPredicateCall(invocation)) return new(Types.Sdk, IrPath.From("Basics"), Name.From(invocation.TargetMethod.Name));
             if (NullableDefaultCall(invocation)) return MaybeName("withDefault");
             var target = invocation.TargetMethod;
             var loc = invocation.Syntax.GetLocation();
+            if (externalFunctions.ContainsKey(SymbolId(target))) return ExternalTarget(target, loc);
             if (!identities.TryGetValue(SymbolId(target), out var fq))
             {
                 bool source = compilations.Any(c => c.Assembly.Identity.Equals(target.ContainingAssembly.Identity));
@@ -336,21 +368,29 @@ public static partial class Frontend
                     source ? $"Required source symbol {target} in namespace {target.ContainingNamespace} is not selected; add that namespace explicitly."
                            : $"External call {target} has no exact catalog mapping or configured Morphir specification; DLL bodies are not translated.", loc);
             }
-            if (!target.IsStatic || target.Arity != 0 || target.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams || p.HasExplicitDefaultValue)
-                || invocation.Arguments.Any(a => a.ArgumentKind != ArgumentKind.Explicit || a.Syntax is ArgumentSyntax { NameColon: not null })
-                || !invocation.Arguments.Select(a => a.Parameter!.Ordinal).SequenceEqual(Enumerable.Range(0, target.Parameters.Length)))
-                return Fail<FQName>("MCS2204", "D2 calls require exact static, non-generic positional by-value arguments; extended argument forms arrive in D7.", loc);
+            if ((ReceiverRequired(target) && !records.ContainsKey(SymbolId(target.ContainingType))) || target.Arity != 0 || target.Parameters.Any(p => p.RefKind != RefKind.None || p.IsParams && !ParamsArray(p.Type))
+                || invocation.Arguments.Any(a => a.Parameter is null || a.ArgumentKind is not (ArgumentKind.Explicit or ArgumentKind.DefaultValue or ArgumentKind.ParamArray))
+                || !invocation.Arguments.Select(a => a.Parameter!.Ordinal).Order().SequenceEqual(Enumerable.Range(0, target.Parameters.Length)))
+                return Fail<FQName>("MCS2204", "Calls require resolved non-generic by-value parameters and supported argument packing.", loc);
             calls[currentMethod].Add((SymbolId(target), loc));
             return fq;
         }
         private TypedValue Invoke(IInvocationOperation invocation)
         {
+            if (invocation.TargetMethod.MethodKind == MethodKind.DelegateInvoke) return InvokeDelegate(invocation);
             var target = invocation.TargetMethod; var loc = invocation.Syntax.GetLocation();
             var fq = ValidateInvocation(invocation);
-            IrType<Unit> functionType = methodOutputs[SymbolId(target)];
+            IrType<Unit> functionType = CallableOutput(target, loc);
             foreach (var parameter in target.Parameters.Reverse()) functionType = Types.Function(Type(parameter.Type, loc), functionType);
+            if (ReceiverRequired(target)) functionType = Types.Function(Type(target.ContainingType, loc), functionType);
             TypedValue result = new ReferenceValue<Unit, IrType<Unit>>(functionType, fq);
-            foreach (var argument in invocation.Arguments)
+            if (ReceiverRequired(target))
+            {
+                var receiver = DemandPresent(Lower(invocation.Instance!), loc);
+                result = new ApplyValue<Unit, IrType<Unit>>(((FunctionType<Unit>)functionType).Result, result, receiver);
+                functionType = ((FunctionType<Unit>)functionType).Result;
+            }
+            foreach (var argument in invocation.Arguments.OrderBy(a => a.Parameter!.Ordinal))
             {
                 var argumentValue = Adapt(Lower(argument.Value), Type(argument.Parameter!.Type, loc));
                 functionType = ((FunctionType<Unit>)functionType).Result;

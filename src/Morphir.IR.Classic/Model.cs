@@ -22,6 +22,7 @@ public sealed record Documented<T>(string Doc, T Value);
 public sealed record Entry<K, V>(K Key, V Value);
 
 public abstract record IrType<A>(A Attributes);
+public sealed record UnitType<A>(A Attributes) : IrType<A>(Attributes);
 public sealed record ReferenceType<A>(A Attributes, FQName Name, IReadOnlyList<IrType<A>> Arguments) : IrType<A>(Attributes);
 public sealed record FunctionType<A>(A Attributes, IrType<A> Argument, IrType<A> Result) : IrType<A>(Attributes);
 public sealed record RecordType<A>(A Attributes, IReadOnlyList<Entry<Name, IrType<A>>> Fields) : IrType<A>(Attributes);
@@ -35,6 +36,8 @@ public sealed record StringLiteral(string Value) : Literal;
 public sealed record FloatLiteral(double Value) : Literal;
 public sealed record DecimalLiteral(string Value) : Literal;
 public abstract record Value<TA, VA>(VA Attributes);
+public sealed record UnitValue<TA, VA>(VA Attributes) : Value<TA, VA>(Attributes);
+public sealed record LambdaValue<TA, VA>(VA Attributes, Pattern<VA> Argument, Value<TA, VA> Body) : Value<TA, VA>(Attributes);
 public sealed record LiteralValue<TA, VA>(VA Attributes, Literal Literal) : Value<TA, VA>(Attributes);
 public sealed record VariableValue<TA, VA>(VA Attributes, Name Name) : Value<TA, VA>(Attributes);
 public sealed record ReferenceValue<TA, VA>(VA Attributes, FQName Name) : Value<TA, VA>(Attributes);
@@ -45,6 +48,7 @@ public sealed record IfValue<TA, VA>(VA Attributes, Value<TA, VA> Condition, Val
 public sealed record LetValue<TA, VA>(VA Attributes, Name Name, ValueDefinition<TA, VA> Definition, Value<TA, VA> Body) : Value<TA, VA>(Attributes);
 public sealed record ConstructorValue<TA, VA>(VA Attributes, FQName Name) : Value<TA, VA>(Attributes);
 public abstract record Pattern<VA>(VA Attributes);
+public sealed record UnitPattern<VA>(VA Attributes) : Pattern<VA>(Attributes);
 public sealed record WildcardPattern<VA>(VA Attributes) : Pattern<VA>(Attributes);
 public sealed record AsPattern<VA>(VA Attributes, Pattern<VA> Pattern, Name Name) : Pattern<VA>(Attributes);
 public sealed record ConstructorPattern<VA>(VA Attributes, FQName Name, IReadOnlyList<Pattern<VA>> Arguments) : Pattern<VA>(Attributes);
@@ -72,6 +76,7 @@ public static class Types
 {
     public static readonly Path Sdk = Path.From("Morphir.SDK");
     public static IrType<Unit> Reference(string module, string local) => new ReferenceType<Unit>(default, new(Sdk, Path.From(module), Name.From(local)), []);
+    public static IrType<Unit> Unit => new UnitType<Unit>(default);
     public static IrType<Unit> Int => Reference("Basics", "Int");
     public static IrType<Unit> Decimal => Reference("Decimal", "Decimal");
     public static IrType<Unit> Float => Reference("Basics", "Float");

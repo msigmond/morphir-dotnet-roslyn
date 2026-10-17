@@ -97,6 +97,7 @@ public static partial class Frontend
         private static bool PresenceProbe(IOperation operation) => Operations(operation).Any(op => DecimalProbe(op) || FloatProbe(op) || NumericProbe(op) || op is IPropertyReferenceOperation p && HasValue(p) || op is IIsPatternOperation p2 && NullPattern(p2.Pattern, out _) || op is IBinaryOperation b && b.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(b.LeftOperand) || Null(b.RightOperand)));
         private TypedValue Decision(IOperation condition, Dictionary<ISymbol, Binding> environment, Func<Dictionary<ISymbol, Binding>, TypedValue> yes, Func<Dictionary<ISymbol, Binding>, TypedValue> no)
         {
+            if (ParamsDecision(condition, environment, yes, no) is { } paramsDecision) return paramsDecision;
             if (DecimalDecision(condition, environment, yes, no) is { } decimalDecision) return decimalDecision;
             if (FloatingDecision(condition, environment, yes, no) is { } floatingDecision) return floatingDecision;
             if (NumericDecision(condition, environment, yes, no) is { } numericDecision) return numericDecision;
@@ -131,9 +132,12 @@ public static partial class Frontend
         }
         private static bool PresenceOperation(IOperation operation) => operation is ICoalesceAssignmentOperation or ICoalesceOperation or IConditionalAccessOperation or IConditionalAccessInstanceOperation or IDefaultValueOperation || operation is IIsPatternOperation pattern && NullPattern(pattern.Pattern, out _) || operation is IConstantPatternOperation constant && Null(constant.Value) || operation is INegatedPatternOperation not && NullPattern(not, out _);
         private static bool PresenceProperty(IPropertyReferenceOperation property) => NullableElement(property.Property.ContainingType) is not null && property.Property.Name is "HasValue" or "Value" || property.Property.ContainingType.SpecialType == SpecialType.System_String && property.Property.Name == "Length";
-        private static bool NullableDefaultCall(IInvocationOperation call) => NullableElement(call.TargetMethod.ContainingType) is not null && call.TargetMethod.Name == "GetValueOrDefault" && call.Arguments.Length <= 1 && call.TargetMethod.Parameters.All(p => p.RefKind == RefKind.None) && call.Instance is not null;
+        private static bool NullableDefaultCall(IInvocationOperation call) => NullableDefaultMethod(call.TargetMethod) && call.Instance is not null;
+        private static bool NullableDefaultMethod(IMethodSymbol method) => NullableElement(method.ContainingType) is not null && method.Name == "GetValueOrDefault" && method.Parameters.Length <= 1 && method.Parameters.All(p => p.RefKind == RefKind.None);
         private bool DefaultRecordCreation(IObjectCreationOperation creation) => creation.Type is { IsValueType: true } && records.ContainsKey(SymbolId(creation.Type)) && creation.Arguments.Length == 0 && creation.Initializer is null && creation.Constructor?.Parameters.Length == 0;
         private static bool NullableCreation(IObjectCreationOperation creation) => NullableElement(creation.Type) is not null && creation.Initializer is null && creation.Arguments.Length <= 1;
+        private static bool NullTestConversion(IConversionOperation conversion) => conversion.Type?.SpecialType == SpecialType.System_Object && conversion.Operand.Type?.IsReferenceType == true && conversion.Parent is IBinaryOperation binary && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand));
+        private static bool NullTestConstant(IOperation operation) => Null(operation) && (operation.Parent is IConstantPatternOperation || operation.Parent is IBinaryOperation binary && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand)));
         private static bool PresenceConversion(IConversionOperation conversion) => Null(conversion.Operand) || conversion.Operand is IDefaultValueOperation || NullableElement(conversion.Type) is not null || NullableElement(conversion.Operand.Type) is not null;
         private static bool PresenceBinary(IBinaryOperation binary) => binary.IsLifted || binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand));
         private TypedValue Default(ITypeSymbol type, Location location)
@@ -247,6 +251,7 @@ public static partial class Frontend
         private TypedValue? LowerPresence(IOperation operation)
         {
             var location = operation.Syntax.GetLocation();
+            if (operation is IConversionOperation nullComparison && NullTestConversion(nullComparison)) return Lower(nullComparison.Operand);
             if (operation is ILiteralOperation { ConstantValue: { HasValue: true, Value: null } })
             {
                 var nullableType = operation.Type is null ? currentReturnSlot : Type(operation.Type, location);

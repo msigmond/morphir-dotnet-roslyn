@@ -1,6 +1,7 @@
 # D7 — Resolved calls, overloads, parameters
 
-- status: planned
+- status: passed
+- evidence: [implementation and gates](../docs/deliveries/D7-state.md)
 - required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
 - prerequisites: [D2](D02-project-inputs.md), [D3](D03-blocks-locals.md), [D4](D04-maybe.md), [D5](D05-numerics.md), [D6](D06-decimal.md)
 - outcome: Pure composition with resolved overloads and source argument semantics
@@ -9,11 +10,11 @@
 
 ## Implementation
 
-- [ ] CurrentSupportedExample update: static/instance calls, overloads, named/optional/params arguments, local functions, method references
-- [ ] Static + pure instance calls; explicit receiver; overloads; optional/named arguments; params; local functions; method references
-- [ ] Resolved symbols; source argument evaluation order; optional defaults from bound declaration
-- [ ] Canonical callable signature suffix: generic arity, parameter/ref kinds; nested declarations; collision diagnostics
-- [ ] Purity across reachable constructors/getters/operators/helpers; explicit external mapping contract
+- [x] CurrentSupportedExample update: static/instance calls, overloads, named/optional/params arguments, local functions, method references
+- [x] Static + pure instance calls; explicit receiver; overloads; optional/named arguments; params; local functions; method references
+- [x] Resolved symbols; source argument evaluation order; optional defaults from bound declaration
+- [x] Canonical callable signature suffix: generic arity, parameter/ref kinds; nested declarations; collision diagnostics
+- [x] Purity across reachable constructors/getters/operators/helpers; explicit external mapping contract
 
 ## Model increment
 
@@ -28,14 +29,14 @@
 
 ## Acceptance
 
-- [ ] Named arguments → intended parameters and evaluation order; declaration-derived optional default
-- [ ] Rules overloads: distinct private definitions; private dependencies retained
-- [ ] Illustrative meetsBool/meetsIntInt suffixes → final canonical signature-derived names in paired fixtures
-- [ ] Instance receiver type paths + helper calls resolve intended owner; normalized collision diagnostics include both locations
+- [x] Named arguments → intended parameters and evaluation order; declaration-derived optional default
+- [x] Rules overloads: distinct private definitions; private dependencies retained
+- [x] Illustrative meetsBool/meetsIntInt suffixes → final canonical signature-derived names in paired fixtures
+- [x] Instance receiver type paths + helper calls resolve intended owner; normalized collision diagnostics include both locations
 
 ## Rejections
 
-- [ ] Unknown purity/external contract; unresolved/colliding target; hidden impure getter/operator/constructor
+- [x] Unknown purity/external contract; unresolved/colliding target; hidden impure getter/operator/constructor
 
 ## Code examples
 

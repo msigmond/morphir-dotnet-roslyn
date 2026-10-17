@@ -10,7 +10,8 @@ public static partial class Frontend
     {
         private HashSet<string> finiteFacts = [];
         private HashSet<string> zeroFloatFacts = [];
-        private static bool FloatingPredicateCall(IInvocationOperation call) => call.TargetMethod.IsStatic && Floating(call.TargetMethod.ContainingType) is not null && call.TargetMethod.Name is "IsFinite" or "IsNaN" or "IsInfinity" && call.Arguments.Length == 1;
+        private static bool FloatingPredicateCall(IInvocationOperation call) => FloatingPredicateMethod(call.TargetMethod);
+        private static bool FloatingPredicateMethod(IMethodSymbol method) => method.IsStatic && Floating(method.ContainingType) is not null && method.Name is "IsFinite" or "IsNaN" or "IsInfinity" && method.Parameters.Length == 1;
         private static bool FloatProbe(IOperation operation) => operation is IInvocationOperation call && FloatingPredicateCall(call) && call.TargetMethod.Name == "IsFinite" || operation is IBinaryOperation { IsLifted: false, OperatorKind: BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals } binary && Floating(binary.LeftOperand.Type) is not null;
         private bool ProvedZeroFloat(TypedValue value)
         {

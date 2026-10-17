@@ -17,6 +17,7 @@ public static class Codec
     private static object Entries<K, V>(IReadOnlyList<Entry<K, V>> list, Func<K, object> key, Func<V, object> val) => list.Select(e => Arr(key(e.Key), val(e.Value))).ToArray();
     public static object Type<A>(IrType<A> t, Func<A, object> attr) => t switch
     {
+        UnitType<A> u => Arr("Unit", attr(u.Attributes)),
         VariableType<A> v => Arr("Variable", attr(v.Attributes), Name(v.Name)),
         ReferenceType<A> r => Arr("Reference", attr(r.Attributes), Fq(r.Name), r.Arguments.Select(a => Type(a, attr)).ToArray()),
         FunctionType<A> f => Arr("Function", attr(f.Attributes), Type(f.Argument, attr), Type(f.Result, attr)),
@@ -35,6 +36,7 @@ public static class Codec
     };
     private static object Pattern<VA>(Pattern<VA> pattern, Func<VA, object> attr) => pattern switch
     {
+        UnitPattern<VA> p => Arr("UnitPattern", attr(p.Attributes)),
         EmptyListPattern<VA> p => Arr("EmptyListPattern", attr(p.Attributes)),
         HeadTailPattern<VA> p => Arr("HeadTailPattern", attr(p.Attributes), Pattern(p.Head, attr), Pattern(p.Tail, attr)),
         WildcardPattern<VA> p => Arr("WildcardPattern", attr(p.Attributes)),
@@ -48,6 +50,8 @@ public static class Codec
         var a = va(v.Attributes);
         return v switch
         {
+            UnitValue<TA, VA> x => Arr("Unit", a),
+            LambdaValue<TA, VA> x => Arr("Lambda", a, Pattern(x.Argument, va), V(x.Body)),
             ListValue<TA, VA> x => Arr("List", a, x.Elements.Select(V).ToArray()),
             ConstructorValue<TA, VA> x => Arr("Constructor", a, Fq(x.Name)),
             MatchValue<TA, VA> x => Arr("PatternMatch", a, V(x.Subject), x.Cases.Select(c => Arr(Pattern(c.Pattern, va), V(c.Body))).ToArray()),

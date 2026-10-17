@@ -47,6 +47,10 @@ public static partial class Frontend
                 });
             IOperation[] operands = operation switch
             {
+                IArrayCreationOperation { Initializer: not null } array => array.Initializer.ElementValues.ToArray(),
+                IArrayElementReferenceOperation array => new[] { array.ArrayReference }.Concat(array.Indices).ToArray(),
+                IDelegateCreationOperation d => [d.Target],
+                IMethodReferenceOperation { Instance: not null } m => [m.Instance],
                 IBinaryOperation b => [b.LeftOperand, b.RightOperand],
                 IUnaryOperation u => [u.Operand],
                 IConversionOperation c => [c.Operand],
@@ -72,7 +76,7 @@ public static partial class Frontend
         private TypedValue BindValue(ISymbol symbol, ITypeSymbol type, TypedValue value, Dictionary<ISymbol, Binding> environment,
             Func<Dictionary<ISymbol, Binding>, TypedValue> continuation, Location location)
         {
-            var attr = Type(type, location, true);
+            var attr = Type(type, location, DelegateType(type) is null);
             if (MaybeElement(attr) is not null) value = Adapt(value, attr);
             else attr = value.Attributes;
             var name = Fresh((symbol is IParameterSymbol ? "parameter_" : "local_") + symbol.Name);
@@ -84,6 +88,7 @@ public static partial class Frontend
                 var variable = new VariableValue<Unit, IrType<Unit>>(attr, name);
                 if (ValueKey(variable) is { } key) numericFacts[key] = IntegerRange(value, integerDomain);
             }
+            if (KnownPureFunction(value) && ValueKey(new VariableValue<Unit, IrType<Unit>>(attr, name)) is { } functionKey) pureFunctionOrigins.Add(functionKey);
             var next = Copy(environment); next[symbol] = new(name, attr, constant);
             var result = continuation(next);
             return new LetValue<Unit, IrType<Unit>>(result.Attributes, name, new([], attr, value), result);

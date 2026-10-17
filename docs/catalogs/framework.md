@@ -1,4 +1,4 @@
-# Framework catalog — D1–D6
+# Framework catalog — D1–D7
 
 Baseline: .NET reference pack 10.0.0; Roslyn 5.0.0. This inventory grows in its owning deliveries and does not expand automatically with runtime/package versions.
 
@@ -22,3 +22,5 @@ D4 maps exact Nullable<int/bool>.HasValue, .Value, construction/conversion and G
 D5 delivers the full fixed numeric representation/operator/conversion domains in [D5 mapping](../mappings/D5.md). The [numeric member inventory](numeric-members.json) names all 1,648 public declared overloads/properties/default constructors in the pinned reference symbols; NumericCatalogTests checks that set without regenerating it. Each member is classified individually. Type support covers no unlisted API implicitly. Decimal overloads retain D6, generic factories D10, array transport D11, increment/update D15 and object overloads D17. Remaining pure numeric API implementation/proof closure is retained under D18.4's complete-fixed-catalog obligation; ref-like/pointer forms remain master exclusions. D5's child scope is numeric domains, literals, constructors, promotions/casts/operators and their exact runtime/transport/failure behavior. This distinction preserves the master final pure-member scope and does not claim complete .NET numeric API support.
 
 D6 represents the full CLR Decimal data domain with exact coefficient/scale/sign and SDK value, including negative zero. The [Decimal mapping](../mappings/D6.md) records exact constructors, operators, rounding/Scale/member binding, M1 and mandatory source failure proofs. [decimal-members.json](decimal-members.json) inventories all131 pinned public declarations; DecimalCatalogTests compares that set read-only. Generic, enum, buffer, object and update prerequisites remain explicit, as does D18.4 complete pure-member closure. No complete Decimal framework API claim is made.
+
+D7 binds source calls and standard Func method references under the [call contract](../mappings/D7.md). Exact existing Decimal/classification mappings are reusable through adapters. Array data remains D11 except scoped initialized params vectors with M1/bounds proofs. External function mappings require exact metadata symbols, complete specification ABI, and explicit reviewed pure/total full-domain assertions; no opaque DLL purity inference or source-body override is allowed.
