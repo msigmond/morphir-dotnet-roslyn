@@ -28,3 +28,33 @@ D7 binds source calls and standard Func method references under the [call contra
 D8 adds exact baseline System.Tuple/ValueTuple constructors, Create factories and positional/Rest access in the scoped tuple data mapping, plus baseline FlagsAttribute metadata on selected source enums. Reference slots retain M1; invalid rest construction and unproved dereferences reject. Enum operators/casts reuse D5/D6 numeric proofs and do not enable arbitrary System.Enum members or framework enum declarations. Full pure API closure and dependent interfaces/arrays/object members remain assigned to later deliveries; language generic data forms are tracked in forms.json. See [D8 mapping](../mappings/D8.md) and EnumTupleTests.
 
 The D9 source-data increment handles the compiler-resolved ValueType.Equals boundary for proved source value types using their exact field equality, including NaN-aware floating/Complex Equals and scale-insensitive Decimal equality. It preserves record-generated and resolved source value equality; unknown reference identity is rejected. This is not general System.Object/boxing or framework-member closure, which retains its catalog prerequisites. D9 passed its independent, native, rejection and cumulative gates.
+
+D10 remains active. Ordinary selected generic source calls and pure method references do not admit generic framework APIs by name. All D10-owned generic numeric/Decimal API entries retain pending status until exact resolved conversion semantics, witnesses, safety and independent gates pass. See [D10 mapping](../mappings/D10.md).
+
+Concrete integral generic factories have native development checks; Decimal/integral factory and Decimal integer API extensions are under validation. All D10 API entries remain pending for complete domains/witnesses and full delivery gates. See the [pinned API audit](../references/d10-numeric-api-semantics.md).
+
+The current D10 numeric increment has concrete native matrices, NaN-aware checked bounds, Half native fallback and explicit conversion witnesses for pinned INumberBase/IFloatingPoint contracts. Eighteen complete independent development distributions are frozen. Native platform-dependent overflow, source static operators/constraints, remaining numeric domains and full cumulative/delivery gates remain open; all62 assigned API entries keep pending status.
+
+Source static interface method constraints now have a development increment with explicit type-directed callback forwarding and effect/ownership/closure/recursion checks. Generic/private/default member and full independent parity checks are pending; static properties/operators, reference-result ownership and nonuniform self contracts remain open. This does not complete the assigned numeric contracts or their catalog entries.
+
+Read-only source static interface properties and resolved static reference graphs now have development native checks and a twentieth independent complete distribution. Opaque callback argument aliases remain borrowed; unresolved representation/freshness and static operator/member/numeric closure gates remain open. D10 catalog states are unchanged pending the complete delivery gates.
+
+Fieldless abstract class domains and direct source base-body calls reuse the selected-source closure/purity contract. Their runtime alternatives are exact sealed source leaves, including interface views of inherited overrides. No new framework API family is inferred; all remaining assigned numeric/member/representation obligations retain pending status.
+
+
+Source base-constructor chains now participate in the same selected-source closure, purity, generic witness and ownership checks. Constructor effects and checked syntax reject even without an allocation site. No additional framework API catalog row is marked passed by this source-language increment; all62 D10 numeric API rows remain pending for full closure.
+
+
+Source interface reabstraction retains exact original inherited member identities for concrete/default callback resolution. Unused overridden source defaults are still emitted and checked for effects and safety. This adds no framework mapping by name, and pending numeric API states are unchanged.
+
+
+Primary base argument dependency and witness discovery includes exact generic numeric calls, while argument effects and unsafe/checked conversions reject even when no allocation site exists. The selected source domain is extended without marking any pending numeric API row passed.
+
+
+Implicit source base overloads bind against the pinned compiler in a temporary equivalent initializer; only an original declaration identity is retained. Default constants preserve Decimal scale, enum values and Maybe arguments; expanded params produce an empty present list. This preserves actual C# acquisition semantics and introduces no framework API mapping or catalog status change.
+
+The D10 inherited-property increment validates every acquired getter/setter body for effects and checked syntax. Owned source locations preserve alias reachability; mutation of borrowed receivers rejects. No additional framework API is implicitly admitted, and the62 assigned numeric API rows remain pending full delivery closure.
+
+Instance source property contracts now validate complete resolved getters and setters. Default accessor bodies remain emitted and purity checked even when all acquired implementations override them; read/write targets retain original owner/access metadata and owned updates. The numeric factory callbacks used by generic setters still require full D10 domain/catalog closure.
+
+Box allocation is mapped only for acquired source value alternatives with delivered mutable interface setter contracts. Receiver ownership is local, by-value inputs are copied and borrowed child references stay borrowed. This adds no general object boxing, reflection or identity API support; those fixed catalog assignments remain unchanged.

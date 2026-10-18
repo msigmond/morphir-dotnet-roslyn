@@ -10,12 +10,26 @@ public static partial class Frontend
     private sealed partial class Translation
     {
         private sealed record DataLocation(Func<BindingEnvironment, TypedValue> Read, Func<TypedValue, BindingEnvironment, Func<BindingEnvironment, TypedValue>, TypedValue> Write);
+        private TypedValue? DataCoalescingAssignment(IOperation operation, BindingEnvironment environment, Func<TypedValue, BindingEnvironment, TypedValue> continuation)
+        {
+            if (operation is not ICoalesceAssignmentOperation assignment || DataMemberOf(assignment.Target) is null) return null;
+            var location = operation.Syntax.GetLocation();
+            return WithDataLocation(assignment.Target, environment, (destination, state) =>
+            {
+                var value = destination.Read(state);
+                TypedValue Missing() => Expression(assignment.Value, Copy(state), (replacement, next) => destination.Write(Adapt(replacement, Type(assignment.Target.Type!, location)), next, after => { provedDataOperations.Add(operation); return continuation(Adapt(replacement, Type(operation.Type!, location)), after); }));
+                TypedValue Present(TypedValue present) { provedDataOperations.Add(operation); return continuation(Adapt(present, Type(operation.Type!, location)), Copy(state)); }
+                return value.Attributes is VariableType<Unit> ? GenericCoalesceSubject(value, subject => Choose(GenericIsAbsent(assignment.Target.Type!, subject, location), Missing(), Present(value))) : MatchMaybe(value, Missing, Present);
+            });
+        }
         private TypedValue DataLocationMember(TypedValue subject, DataMember member, BindingEnvironment state, Location location)
         {
-            var result = new FieldValue<Unit, IrType<Unit>>(Type(member.Type, location), DataPayload(dataTypes[SymbolId(member.Symbol.ContainingType)], subject), Name.From(member.Symbol.Name));
-            var previous = bindings; bindings = state; try { if (KnownDataField(subject, Name.From(member.Symbol.Name).Key) is { } known) dataProjections[result] = known; } finally { bindings = previous; }
-            if (DataOriginOf(subject) is { } origin && state.Heap.TryGetValue(origin.Cell, out var cell)) dataValueKeys[result] = "data:" + origin.Cell + ":" + cell.Version + "/" + Name.From(member.Symbol.Name).Key;
-            else if (ValueKey(subject) is { } key) dataValueKeys[result] = key + "/" + Name.From(member.Symbol.Name).Key;
+            if (InheritedStorageMember(member.Symbol)) { var saved = bindings; bindings = state; try { return ReadInheritedMember(member, subject, location); } finally { bindings = saved; } }
+            var data = ResolvedDataLayout(member.Symbol.ContainingType); var name = DataStorageName(data, member.Symbol);
+            var result = new FieldValue<Unit, IrType<Unit>>(Type(member.Type, location), DataPayload(data, subject), Name.From(name));
+            var previous = bindings; bindings = state; try { if (KnownDataField(subject, Name.From(name).Key) is { } known) dataProjections[result] = known; } finally { bindings = previous; }
+            if (DataOriginOf(subject) is { } origin && state.Heap.TryGetValue(origin.Cell, out var cell)) dataValueKeys[result] = "data:" + origin.Cell + ":" + cell.Version + "/" + Name.From(name).Key;
+            else if (ValueKey(subject) is { } key) dataValueKeys[result] = key + "/" + Name.From(name).Key;
             return result;
         }
         private TypedValue WithDataLocation(IOperation target, BindingEnvironment environment, Func<DataLocation, BindingEnvironment, TypedValue> continuation)
@@ -31,11 +45,11 @@ public static partial class Frontend
             if (DataMemberOf(target) is { } member)
             {
                 if (member.Instance.Type!.IsValueType)
-                    return WithDataLocation(member.Instance, environment, (parent, state) => continuation(new(next => DataLocationMember(parent.Read(next), member, next, location), (value, next, finish) => parent.Write(UpdateData(dataTypes[SymbolId(member.Symbol.ContainingType)], parent.Read(next), member.Symbol.Name, Adapt(value, Type(member.Type, location))), next, finish)), state));
+                    return WithDataLocation(member.Instance, environment, (parent, state) => continuation(new(next => DataLocationMember(parent.Read(next), member, next, location), (value, next, finish) => parent.Write(UpdateData(ResolvedDataLayout(member.Symbol.ContainingType), parent.Read(next), DataStorageName(ResolvedDataLayout(member.Symbol.ContainingType), member.Symbol), Adapt(value, Type(member.Type, location))), next, finish)), state));
                 return Expression(member.Instance, environment, (receiver, state) =>
                 {
                     var saved = bindings; bindings = state; try { DemandPresent(receiver, location); } finally { bindings = saved; }
-                    var origin = DataOriginOf(receiver); if (origin is null || !state.Heap.TryGetValue(origin.Cell, out var cell) || !cell.Mutable) return Fail<TypedValue>("MCS3002", "Nested update requires owned receiver reachability; input/external data remains immutable.", location);
+                    var origin = ClassFieldOrigin(receiver); if (origin is null || !state.Heap.TryGetValue(origin.Cell, out var cell) || !cell.Mutable) return Fail<TypedValue>("MCS3002", "Nested update requires owned receiver reachability; input/external data remains immutable.", location);
                     return continuation(new(next => DataLocationMember(DemandPresent(ReadDataOrigin(origin, next, location), location), member, next, location), (value, next, finish) => { WriteDataCell(origin, member, Adapt(value, Type(member.Type, location)), next, location); return finish(next); }), state);
                 });
             }

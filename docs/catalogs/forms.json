@@ -300,22 +300,26 @@
     {
       "form": "generic-types-functions-constraints",
       "owner": "D10",
-      "state": "pending"
+      "state": "pending",
+      "domain": "D10 active ordinary-variable/data-storage/scoped-argument and default/creation/absence/member/view witness increments. Uniform generic interfaces/members and default bodies have active checks; nonuniform specialization, variance, static constraints and assigned numeric/Decimal member closure remain pending. See docs/mappings/D10.md."
     },
     {
       "form": "interfaces-inheritance",
       "owner": "D10",
-      "state": "pending"
+      "state": "pending",
+      "domain": "D10 active selected inherited interfaces with uniform generic class/value alternatives, default/generic members and reference-bearing graph results. Nonuniform specialization, variance, static members and abstract/base/override data remain pending. See docs/mappings/D10.md."
     },
     {
       "form": "closed-virtual-interface-dispatch",
       "owner": "D10",
-      "state": "pending"
+      "state": "pending",
+      "domain": "D10 active closed value/reference dispatch, owned graph results, presence-aware generic views, source-known/guarded casts, type tests and nullable as. Nonuniform specialization, static constraints, base/override dispatch, variance and cumulative gates remain pending. See docs/mappings/D10.md."
     },
     {
       "form": "generic-owner-arity-specialization",
       "owner": "D10",
-      "state": "pending"
+      "state": "pending",
+      "domain": "D10 active arity/owner identities, ordinary variables and captured simultaneous substitutions. Necessary full dispatch specialization and final gates remain pending. See docs/mappings/D10.md."
     },
     {
       "form": "arrays-and-indexing-default-slots",

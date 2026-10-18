@@ -21,7 +21,7 @@ public static partial class Frontend
         private IrType<Unit> currentReturnSlot = Types.Bool;
         private static IEnumerable<IOperation> Operations(IOperation root) => root.ChildOperations.SelectMany(Operations).Prepend(root);
         private static ITypeSymbol? NullableElement(ITypeSymbol? type) => type is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T } nullable ? nullable.TypeArguments[0] : null;
-        private bool AdmittedDataSlot(ITypeSymbol type) => DataType(NullableElement(type) ?? type) || TupleType(type) || EnumType(type) is not null || DecimalType(type) || Integral(type) is not null || Floating(type) is not null || ComplexType(type) || type.SpecialType is SpecialType.System_Boolean or SpecialType.System_String || NullableElement(type) is { } element && (EnumType(element) is not null || DecimalType(element) || Integral(element) is not null || Floating(element) is not null || ComplexType(element) || element.SpecialType == SpecialType.System_Boolean);
+        private bool AdmittedDataSlot(ITypeSymbol type) => ValueInterfaceType(type) || type is ITypeParameterSymbol || NullableElement(type) is ITypeParameterSymbol || type is INamedTypeSymbol genericRecord && identities.ContainsKey(SymbolId(genericRecord)) && LegacyRecordShape(genericRecord) || DataType(NullableElement(type) ?? type) || TupleType(type) || EnumType(type) is not null || DecimalType(type) || Integral(type) is not null || Floating(type) is not null || ComplexType(type) || type.SpecialType is SpecialType.System_Boolean or SpecialType.System_String || NullableElement(type) is { } element && (EnumType(element) is not null || DecimalType(element) || Integral(element) is not null || Floating(element) is not null || ComplexType(element) || element.SpecialType == SpecialType.System_Boolean);
         private static IrType<Unit>? MaybeElement(IrType<Unit> type) => type is ReferenceType<Unit> reference && reference.Name.Package.Key == Types.Sdk.Key && reference.Name.Module.Key == IrPath.From("Maybe").Key && reference.Name.Local.Key == Name.From("Maybe").Key && reference.Arguments.Count == 1 ? reference.Arguments[0] : null;
         private static FQName MaybeName(string name) => new(Types.Sdk, IrPath.From("Maybe"), Name.From(name));
         private TypedValue Nothing(IrType<Unit> type) => new ConstructorValue<Unit, IrType<Unit>>(type, MaybeName("Nothing"));
@@ -32,9 +32,12 @@ public static partial class Frontend
             if (MaybeElement(target) is { } element && MaybeElement(value.Attributes) is null) return Just(Adapt(value, element));
             return value;
         }
-        private TypedValue ReturnValue(TypedValue value)
+        private TypedValue ReturnValue(TypedValue value, Location location, BindingEnvironment environment)
         {
-            var result = Adapt(value, currentReturnSlot);
+            var previous = bindings; bindings = environment;
+            TypedValue result;
+            try { result = Adapt(DataArgument(value, location), currentReturnSlot); }
+            finally { bindings = previous; }
             if (DecimalIrType(value.Attributes)) decimalDomains[result] = DecimalRange(value);
             return result;
         }
@@ -73,10 +76,14 @@ public static partial class Frontend
         }
         private TypedValue MatchMaybe(TypedValue value, Func<TypedValue> absent, Func<TypedValue, TypedValue> present)
         {
+            if (value.Attributes is VariableType<Unit>) return Fail<TypedValue>("MCS3102", "Testing generic absence requires a concrete representation witness.", sourceMethods.TryGetValue(currentMethod, out var method) ? Location(method) : null);
             if (MaybeElement(value.Attributes) is not { } element) return present(value);
+            if (InterfaceGraphOf(value) is { } graph) return present(((ApplyValue<Unit, IrType<Unit>>)InterfaceValue(graph.Contract, graph.Alternative, graph.Payload)).Argument);
+            if (KnownDataPresence(value) is { } known && !ReferenceEquals(known, value)) return MatchMaybe(known, absent, present);
             if (value is ApplyValue<Unit, IrType<Unit>> { Function: ConstructorValue<Unit, IrType<Unit>> constructor, Argument: var argument } && constructor.Name.Local.Key == "just") return present(argument);
             if (value is ConstructorValue<Unit, IrType<Unit>> nothingValue && nothingValue.Name.Local.Key == "nothing") return absent();
             var nothing = absent(); var name = Fresh("presentValue"); var variable = new VariableValue<Unit, IrType<Unit>>(element, name);
+            RefineInterfacePresence(value, variable);
             bindingOrigins[name.Key] = ValueKey(value);
             var key = ValueKey(value); bool had = key is not null && presentValues.TryGetValue(key, out _); var previous = key is null ? null : presentValues.GetValueOrDefault(key);
             TypedValue just;
@@ -96,38 +103,62 @@ public static partial class Frontend
             if (pattern is INegatedPatternOperation not) { negated = true; pattern = not.Pattern; }
             return pattern is IConstantPatternOperation constant && Null(constant.Value);
         }
-        private static bool PresenceProbe(IOperation operation) => Operations(operation).Any(op => DecimalProbe(op) || FloatProbe(op) || NumericProbe(op) || op is IPropertyReferenceOperation p && HasValue(p) || op is IIsPatternOperation p2 && NullPattern(p2.Pattern, out _) || op is IBinaryOperation b && (b.OperatorMethod is null || b.IsLifted) && b.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(b.LeftOperand) || Null(b.RightOperand)));
+        private bool PresenceProbe(IOperation operation) => Operations(operation).Any(op => InterfaceTypeTest(op) is not null || DecimalProbe(op) || FloatProbe(op) || NumericProbe(op) || op is IPropertyReferenceOperation p && HasValue(p) || op is IIsPatternOperation p2 && NullPattern(p2.Pattern, out _) || op is IBinaryOperation b && (b.OperatorMethod is null || b.IsLifted) && b.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(b.LeftOperand) || Null(b.RightOperand)));
+        private bool BoundPresenceProbe(IOperation operation, BindingEnvironment environment) => Operations(operation).Any(candidate =>
+        {
+            var symbol = candidate switch { ILocalReferenceOperation local => (ISymbol)local.Local, IParameterReferenceOperation parameter => parameter.Parameter.OriginalDefinition, _ => null };
+            return symbol is not null && environment.TryGetValue(symbol, out var binding) && PresencePredicate(new VariableValue<Unit, IrType<Unit>>(binding.Type, binding.Name));
+        });
         private TypedValue Decision(IOperation condition, BindingEnvironment environment, Func<BindingEnvironment, TypedValue> yes, Func<BindingEnvironment, TypedValue> no)
         {
+            if (InterfaceTypeTest(condition) is { } interfaceTest) return Expression(interfaceTest.Subject, environment, (value, state) => InterfaceDecisionValue(value, interfaceTest, state, yes, no, condition.Syntax.GetLocation()));
             if (ParamsDecision(condition, environment, yes, no) is { } paramsDecision) return paramsDecision;
             if (DecimalDecision(condition, environment, yes, no) is { } decimalDecision) return decimalDecision;
             if (FloatingDecision(condition, environment, yes, no) is { } floatingDecision) return floatingDecision;
             if (NumericDecision(condition, environment, yes, no) is { } numericDecision) return numericDecision;
             if (condition.ConstantValue is { HasValue: true, Value: bool known }) return known ? yes(environment) : no(environment);
             if (condition is IUnaryOperation { OperatorKind: UnaryOperatorKind.Not, IsLifted: false } not && PresenceProbe(not.Operand)) return Decision(not.Operand, environment, no, yes);
-            if (condition is IBinaryOperation { OperatorKind: BinaryOperatorKind.ConditionalAnd } and && PresenceProbe(and)) return Decision(and.LeftOperand, environment, state => Decision(and.RightOperand, state, yes, no), no);
-            if (condition is IBinaryOperation { OperatorKind: BinaryOperatorKind.ConditionalOr } or && PresenceProbe(or)) return Decision(or.LeftOperand, environment, yes, state => Decision(or.RightOperand, state, yes, no));
+            if (condition is IBinaryOperation { OperatorKind: BinaryOperatorKind.ConditionalAnd } and && (PresenceProbe(and) || BoundPresenceProbe(and, environment))) return Decision(and.LeftOperand, environment, state => Decision(and.RightOperand, state, yes, no), no);
+            if (condition is IBinaryOperation { OperatorKind: BinaryOperatorKind.ConditionalOr } or && (PresenceProbe(or) || BoundPresenceProbe(or, environment))) return Decision(or.LeftOperand, environment, yes, state => Decision(or.RightOperand, state, yes, no));
             IOperation? tested = null; bool positive = true;
             if (condition is IPropertyReferenceOperation property && HasValue(property)) tested = property.Instance;
             if (condition is IBinaryOperation binary && (binary.OperatorMethod is null || binary.IsLifted) && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand)))
             { tested = Null(binary.LeftOperand) ? binary.RightOperand : binary.LeftOperand; positive = binary.OperatorKind == BinaryOperatorKind.NotEquals; }
             if (condition is IIsPatternOperation pattern && NullPattern(pattern.Pattern, out var negated)) { tested = pattern.Value; positive = negated; }
             if (tested is not null)
-                return Expression(tested, environment, (value, state) => MatchMaybe(value, () => positive ? no(Copy(state)) : yes(Copy(state)), _ => positive ? yes(Copy(state)) : no(Copy(state))));
+                return Expression(tested, environment, (value, state) =>
+                {
+                    if (value.Attributes is VariableType<Unit> && AbsenceSubjectType(condition) is { } genericType)
+                    {
+                        if (GenericPresenceViews(genericType, value, condition.Syntax.GetLocation()) is { Length: > 0 } views) return MatchGenericViews(views, () => positive ? no(Copy(state)) : yes(Copy(state)), () => positive ? yes(Copy(state)) : no(Copy(state)));
+                        return Choose(GenericIsAbsent(genericType, value, condition.Syntax.GetLocation()), positive ? no(Copy(state)) : yes(Copy(state)), positive ? yes(Copy(state)) : no(Copy(state)));
+                    }
+                    return MatchMaybe(value, () => positive ? no(Copy(state)) : yes(Copy(state)), _ => positive ? yes(Copy(state)) : no(Copy(state)));
+                });
             return Expression(condition, environment, (value, state) => DecisionValue(value, state, yes, no));
         }
-        private bool PresencePredicate(TypedValue value) => value switch
+        private bool PresencePredicate(TypedValue value) => interfacePredicates.ContainsKey(value) || floatingPredicates.ContainsKey(value) || value switch
         {
-            MatchValue<Unit, IrType<Unit>> match => match.Cases.Count == 2 && match.Cases.All(c => c.Body is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral }),
+            MatchValue<Unit, IrType<Unit>> match => MaybeElement(match.Subject.Attributes) is not null && match.Cases.Count == 2 && match.Cases.All(c => c.Body is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral } || PresencePredicate(c.Body)),
             VariableValue<Unit, IrType<Unit>> variable when boundValues.TryGetValue(variable.Name.Key, out var initializer) => PresencePredicate(initializer),
+            IfValue<Unit, IrType<Unit>> conditional => PresencePredicate(conditional.Condition) && (conditional.Then is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral } || PresencePredicate(conditional.Then)) && (conditional.Else is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral } || PresencePredicate(conditional.Else)),
             ApplyValue<Unit, IrType<Unit>> { Function: ReferenceValue<Unit, IrType<Unit>> function, Argument: var argument } => function.Name.Package.Key == Types.Sdk.Key && function.Name.Module.Key == IrPath.From("Basics").Key && function.Name.Local.Key == "not" && PresencePredicate(argument),
             _ => false
         };
         private TypedValue DecisionValue(TypedValue value, BindingEnvironment state, Func<BindingEnvironment, TypedValue> yes, Func<BindingEnvironment, TypedValue> no)
         {
-            if (value is VariableValue<Unit, IrType<Unit>> variable && boundValues.TryGetValue(variable.Name.Key, out var initializer) && PresencePredicate(initializer)) return DecisionValue(initializer, state, yes, no);
+            if (value is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral literalCondition }) return literalCondition.Value ? yes(Copy(state)) : no(Copy(state));
+            if (FloatingDecisionValue(value, state, yes, no) is { } floatingDecision) return floatingDecision;
+            if (interfacePredicates.TryGetValue(value, out var predicate)) return InterfaceDecisionValue(predicate.Subject, predicate.Test, state, yes, no, predicate.Location);
+            if (value is VariableValue<Unit, IrType<Unit>> variable && boundValues.TryGetValue(variable.Name.Key, out var initializer) && (PresencePredicate(initializer) || initializer is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral })) return DecisionValue(initializer, state, yes, no);
+            if (value is IfValue<Unit, IrType<Unit>> conditional && PresencePredicate(conditional)) return DecisionValue(conditional.Condition, state, branch => DecisionValue(conditional.Then, branch, yes, no), branch => DecisionValue(conditional.Else, branch, yes, no));
             if (value is MatchValue<Unit, IrType<Unit>> match && match.Cases.Count == 2 && match.Cases[0].Body is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral missing } && match.Cases[1].Body is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral present })
                 return MatchMaybe(match.Subject, () => missing.Value ? yes(Copy(state)) : no(Copy(state)), _ => present.Value ? yes(Copy(state)) : no(Copy(state)));
+            if (value is MatchValue<Unit, IrType<Unit>> nested && MaybeElement(nested.Subject.Attributes) is not null && nested.Cases.Count == 2 && PresencePredicate(nested))
+            {
+                TypedValue Branch(TypedValue body) => body is LiteralValue<Unit, IrType<Unit>> { Literal: BoolLiteral known } ? known.Value ? yes(Copy(state)) : no(Copy(state)) : DecisionValue(body, Copy(state), yes, no);
+                return MatchMaybe(nested.Subject, () => Branch(nested.Cases[0].Body), _ => Branch(nested.Cases[1].Body));
+            }
             if (value is ApplyValue<Unit, IrType<Unit>> { Function: ReferenceValue<Unit, IrType<Unit>> function, Argument: var argument } && function.Name.Package.Key == Types.Sdk.Key && function.Name.Module.Key == IrPath.From("Basics").Key && function.Name.Local.Key == "not" && PresencePredicate(argument))
                 return DecisionValue(argument, state, no, yes);
             return Choose(value, yes(Copy(state)), no(Copy(state)));
@@ -138,14 +169,16 @@ public static partial class Frontend
         private static bool NullableDefaultMethod(IMethodSymbol method) => NullableElement(method.ContainingType) is not null && method.Name == "GetValueOrDefault" && method.Parameters.Length <= 1 && method.Parameters.All(p => p.RefKind == RefKind.None);
         private bool DefaultRecordCreation(IObjectCreationOperation creation) => creation.Type is { IsValueType: true } && records.ContainsKey(SymbolId(creation.Type)) && creation.Arguments.Length == 0 && creation.Initializer is null && creation.Constructor?.Parameters.Length == 0;
         private static bool NullableCreation(IObjectCreationOperation creation) => NullableElement(creation.Type) is not null && creation.Initializer is null && creation.Arguments.Length <= 1;
-        private static bool NullTestConversion(IConversionOperation conversion) => conversion.Type?.SpecialType == SpecialType.System_Object && conversion.Operand.Type?.IsReferenceType == true && conversion.Parent is IBinaryOperation binary && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand));
+        private static bool NullTestConversion(IConversionOperation conversion) => conversion.Type?.SpecialType == SpecialType.System_Object && (conversion.Operand.Type?.IsReferenceType == true || conversion.Operand.Type is ITypeParameterSymbol) && conversion.Parent is IBinaryOperation binary && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand));
         private static bool NullTestConstant(IOperation operation) => Null(operation) && (operation.Parent is IConstantPatternOperation || operation.Parent is IBinaryOperation binary && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand)));
         private static bool PresenceConversion(IConversionOperation conversion) => Null(conversion.Operand) || conversion.Operand is IDefaultValueOperation || NullableElement(conversion.Type) is not null || NullableElement(conversion.Operand.Type) is not null;
         private static bool PresenceBinary(IBinaryOperation binary) => binary.IsLifted || (binary.OperatorMethod is null || binary.IsLifted) && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals && (Null(binary.LeftOperand) || Null(binary.RightOperand));
         private TypedValue Default(ITypeSymbol type, Location location)
         {
+            if (GenericArgument(type, out var actual, out var scope)) return WithGenericScope(scope, () => Default(actual, location));
+            if (type is ITypeParameterSymbol parameter) return genericDefaultValues.TryGetValue(parameter, out var witness) ? witness : Fail<TypedValue>("MCS3102", "default(T) requires a concrete default witness; ordinary type variables carry no invented default.", location);
             if (NullableElement(type) is not null || type.IsReferenceType) return Nothing(Type(type, location));
-            if (dataTypes.TryGetValue(SymbolId(type), out var data)) return DataRecord(data, location);
+            if (type is INamedTypeSymbol namedDefault && DataType(type)) return DataRecord(ResolvedDataLayout(namedDefault), location);
             if (TupleType(type)) return MakeTuple(type, TupleElements(type).Select(element => Default(element, location)).ToArray(), location);
             if (EnumType(type) is { } enumType) return WrapEnum(enumType, IntegerLiteral(BigInteger.Zero, Integral(enumType.EnumUnderlyingType)!, location), location);
             if (DecimalType(type)) return DecimalConstant(0m, location);
@@ -153,11 +186,17 @@ public static partial class Frontend
             if (ComplexType(type)) return ComplexValue(FloatLiteral(0, location), FloatLiteral(0, location), location);
             if (Integral(type) is { } integer) return IntegerLiteral(BigInteger.Zero, integer, location);
             if (type.SpecialType == SpecialType.System_Boolean) return Lit(Types.Bool, new BoolLiteral(false));
-            if (records.TryGetValue(SymbolId(type), out var fields)) return new RecordValue<Unit, IrType<Unit>>(Type(type, location), fields.Select(f => new Entry<Name, TypedValue>(Name.From(f.Name), Default(f.Type, location))).OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray());
+            if (records.TryGetValue(SymbolId(type), out var fields)) return new RecordValue<Unit, IrType<Unit>>(Type(type, location), fields.Select(f => new Entry<Name, TypedValue>(Name.From(f.Name), Default(((INamedTypeSymbol)type).GetMembers(f.Name).OfType<IPropertySymbol>().Single().Type, location))).OrderBy(e => e.Key.Key, StringComparer.Ordinal).ToArray());
             return Fail<TypedValue>("MCS2502", "Default construction has no delivered representation.", location);
         }
         private TypedValue? PresenceExpression(IOperation operation, BindingEnvironment environment, Func<TypedValue, BindingEnvironment, TypedValue> continuation)
         {
+            if (operation is ICoalesceAssignmentOperation genericAssignment && Type(genericAssignment.Target.Type!, operation.Syntax.GetLocation()) is VariableType<Unit>)
+            {
+                var symbol = genericAssignment.Target switch { ILocalReferenceOperation local => (ISymbol)local.Local, IParameterReferenceOperation parameter => parameter.Parameter, _ => null };
+                if (symbol is null) return Fail<TypedValue>("MCS2404", "Generic coalescing assignment requires a local/by-value root.", operation.Syntax.GetLocation());
+                return Expression(genericAssignment.Target, environment, (value, state) => GenericCoalesceSubject(value, subject => Choose(GenericIsAbsent(genericAssignment.Target.Type!, subject, operation.Syntax.GetLocation()), Expression(genericAssignment.Value, Copy(state), (replacement, updated) => BindValue(symbol, genericAssignment.Target.Type!, replacement, updated, next => continuation(new VariableValue<Unit, IrType<Unit>>(next[symbol].Type, next[symbol].Name), next), operation.Syntax.GetLocation())), continuation(subject, Copy(state)))));
+            }
             if (operation is ICoalesceAssignmentOperation assignment)
             {
                 var symbol = assignment.Target switch { ILocalReferenceOperation local => (ISymbol)local.Local, IParameterReferenceOperation parameter => parameter.Parameter, _ => null };
@@ -168,8 +207,9 @@ public static partial class Frontend
                     present => continuation(Adapt(present, value.Attributes), Copy(state))));
             }
             if (operation is ICoalesceOperation coalesce)
-                return Expression(coalesce.Value, environment, (value, state) => MatchMaybe(value,
-                    () => Expression(coalesce.WhenNull, Copy(state), continuation), present => continuation(present, Copy(state))));
+                return Expression(coalesce.Value, environment, (value, state) => value.Attributes is VariableType<Unit>
+                    ? GenericCoalesceSubject(value, subject => Choose(GenericIsAbsent(coalesce.Value.Type!, subject, operation.Syntax.GetLocation()), Expression(coalesce.WhenNull, Copy(state), continuation), continuation(subject, Copy(state))))
+                    : MatchMaybe(value, () => Expression(coalesce.WhenNull, Copy(state), continuation), present => continuation(present, Copy(state))));
             if (operation is IConditionalAccessOperation access)
                 return Expression(access.Operation, environment, (value, state) => MatchMaybe(value,
                     () => continuation(Nothing(Type(access.Type!, access.Syntax.GetLocation())), Copy(state)), present =>
@@ -258,6 +298,8 @@ public static partial class Frontend
         private TypedValue? LowerPresence(IOperation operation)
         {
             var location = operation.Syntax.GetLocation();
+            if (LowerGenericAbsence(operation) is { } genericAbsence) return genericAbsence;
+            if (operation.Type is ITypeParameterSymbol && Null(operation) && Type(operation.Type, location) is VariableType<Unit>) return Default(operation.Type, location);
             if (operation is IConversionOperation nullComparison && NullTestConversion(nullComparison)) return Lower(nullComparison.Operand);
             if (operation is ILiteralOperation { ConstantValue: { HasValue: true, Value: null } })
             {

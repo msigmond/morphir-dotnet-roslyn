@@ -1,6 +1,6 @@
 # Morphir C# frontend — master execution plan
 
-- status: D1–D9 passed; D10–D21 planned; implementation target: this repository
+- status: D1–D9 passed; D10 active; D11–D21 planned; implementation target: this repository
 - updated: 2026-10-16
 - executor target: GPT-6.1 Sol / High
 - authority: this master → active delivery → implementation evidence
@@ -53,7 +53,7 @@
 | [D20](Morphir_CSharp_Frontend_deliveries/D20-msbuild.md) | MSBuild adapter | D19, D2 |
 | [D21](Morphir_CSharp_Frontend_deliveries/D21-acceptance.md) | Complete frontend acceptance | D20 |
 
-- current execution: D1–D9 passed; next delivery D10; [D9 evidence](docs/deliveries/D9-state.md); [D8 evidence](docs/deliveries/D8-state.md); [D7 evidence](docs/deliveries/D7-state.md); [D6 evidence](docs/deliveries/D6-state.md); [D5 evidence](docs/deliveries/D5-state.md); [D4 evidence](docs/deliveries/D4-state.md); [D3 evidence](docs/deliveries/D3-state.md); [D2 evidence](docs/deliveries/D2-state.md); [D1 implementation/gate evidence](docs/deliveries/D1-state.md)
+- current execution: D1–D9 passed; active delivery D10; [D9 evidence](docs/deliveries/D9-state.md); [D8 evidence](docs/deliveries/D8-state.md); [D7 evidence](docs/deliveries/D7-state.md); [D6 evidence](docs/deliveries/D6-state.md); [D5 evidence](docs/deliveries/D5-state.md); [D4 evidence](docs/deliveries/D4-state.md); [D3 evidence](docs/deliveries/D3-state.md); [D2 evidence](docs/deliveries/D2-state.md); [D1 implementation/gate evidence](docs/deliveries/D1-state.md)
 - D18 grouping: D18.1 → D18.2 → D18.3 → D18.4; no separate D18 implementation delivery
 - test trait: `Delivery=<ID>`; example `Delivery=D18.1`
 - validation minimum: active-delivery tests + affected prerequisite regression suites; D21 full clean suite

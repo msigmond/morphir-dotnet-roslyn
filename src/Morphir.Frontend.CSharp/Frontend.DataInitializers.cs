@@ -12,6 +12,7 @@ public static partial class Frontend
     {
         private static EqualsValueClauseSyntax? DataInitializerSyntax(ISymbol symbol) => symbol.DeclaringSyntaxReferences.Select(reference => reference.GetSyntax()).Select(syntax => syntax switch { VariableDeclaratorSyntax variable => variable.Initializer, PropertyDeclarationSyntax property => property.Initializer, _ => null }).FirstOrDefault(initializer => initializer is not null);
         private static bool HasDataInitializers(INamedTypeSymbol type) => type.GetMembers().Any(member => (member is IFieldSymbol { IsStatic: false } or IPropertySymbol { IsStatic: false }) && DataInitializerSyntax(member) is not null);
+        private IEnumerable<(DataSlot Slot, IOperation Value)> ConstructorInitializers(IMethodSymbol constructor) => DataInitializers(ConstructorLayout(constructor.ContainingType)).Where(entry => SymbolId(entry.Slot.Symbol.ContainingType) == SymbolId(constructor.ContainingType));
         private IEnumerable<(DataSlot Slot, IOperation Value)> DataInitializers(DataLayout data)
         {
             var trees = compilations.SelectMany(compilation => compilation.SyntaxTrees).Distinct().Select((tree, index) => (tree, index)).ToDictionary(item => item.tree, item => item.index);
@@ -23,7 +24,7 @@ public static partial class Frontend
         }
         private TypedValue RunDataInitializers(IMethodSymbol constructor, DataOrigin origin, BindingEnvironment environment, Func<BindingEnvironment, TypedValue> continuation)
         {
-            var entries = DataInitializers(dataTypes[SymbolId(constructor.ContainingType)]).ToArray();
+            var entries = ConstructorInitializers(constructor).ToArray();
             TypedValue Initialize(int index, BindingEnvironment state)
             {
                 if (index == entries.Length) return continuation(state);

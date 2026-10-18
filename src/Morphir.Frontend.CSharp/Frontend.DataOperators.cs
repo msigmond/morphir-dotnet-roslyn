@@ -14,7 +14,7 @@ public static partial class Frontend
         private void RegisterDataOperators(IEnumerable<INamedTypeSymbol> selected)
         {
             foreach (var type in selected.Where(DataType)) foreach (var method in type.GetMembers().OfType<IMethodSymbol>().Where(method => !method.IsImplicitlyDeclared && method.MethodKind is MethodKind.UserDefinedOperator or MethodKind.Conversion))
-                { AddSymbol(method, type.ToDisplayString(), method.MetadataName + SignatureSuffix(method)); dataOperators[SymbolId(method)] = method; RegisterLocalMethods(method); }
+                { AddSymbol(method, SourceOwnerName(type), method.MetadataName + SignatureSuffix(method)); dataOperators[SymbolId(method)] = method; RegisterLocalMethods(method); }
         }
         private IMethodSymbol? DataOperator(IOperation operation)
         {

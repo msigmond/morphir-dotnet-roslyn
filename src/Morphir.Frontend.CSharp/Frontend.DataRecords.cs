@@ -32,14 +32,14 @@ public static partial class Frontend
         }
         private TypedValue CopyDataRecord(INamedTypeSymbol owner, TypedValue value, BindingEnvironment state, Location location, IObjectOrCollectionInitializerOperation? initializer, Func<TypedValue, BindingEnvironment, TypedValue> continuation)
         {
-            var previous = bindings; bindings = state; TypedValue present; Dictionary<string, TypedValue> fields; var data = dataTypes[SymbolId(owner)];
+            var previous = bindings; bindings = state; TypedValue present; Dictionary<string, TypedValue> fields; var data = ResolvedDataLayout(owner);
             try
             {
                 value = DataArgument(value, location); present = DemandPresent(value, location);
                 fields = data.Slots.ToDictionary(slot => Name.From(slot.Name).Key, slot => KnownDataField(value, Name.From(slot.Name).Key) ?? (TypedValue)new FieldValue<Unit, IrType<Unit>>(Type(slot.Type, location), DataPayload(data, present), Name.From(slot.Name)));
             }
             finally { bindings = previous; }
-            var origin = new DataOrigin(++nextDataCell); var payload = DataPayload(data, present); var copied = PackData(data, new UpdateRecordValue<Unit, IrType<Unit>>(payload.Attributes, payload, [])); state.Heap[origin.Cell] = new(owner, copied, fields, ++nextDataVersion);
+            var origin = new DataOrigin(++nextDataCell); var payload = DataPayload(data, present); var copied = PackData(data, new UpdateRecordValue<Unit, IrType<Unit>>(payload.Attributes, payload, []), present.Attributes); state.Heap[origin.Cell] = new(owner, copied, fields, ++nextDataVersion, Layout: data);
             return RunDataObjectInitializer(initializer, origin, state, next => continuation(ReadDataOrigin(origin, next, location), next));
         }
         private bool RecordUpdateTarget(IOperation operation) => operation is IPropertyReferenceOperation property && records.ContainsKey(SymbolId(property.Property.ContainingType));
@@ -64,7 +64,7 @@ public static partial class Frontend
                 }
                 if (ExplicitRecordCopy(owner) is { } constructor)
                 {
-                    var copyOrigin = new DataOrigin(++nextDataCell); state.Heap[copyOrigin.Cell] = NewDataCell(dataTypes[SymbolId(owner)], location); calls[currentMethod].Add((SymbolId(constructor), location));
+                    var copyOrigin = new DataOrigin(++nextDataCell); state.Heap[copyOrigin.Cell] = NewDataCell(ResolvedDataLayout(owner), location); calls[currentMethod].Add((SymbolId(constructor), location));
                     return BindValue(constructor.Parameters[0], owner, Adapt(present, Type(owner, location)), state, next => RunDataConstructor(constructor, copyOrigin, next, after => RunDataObjectInitializer(update.Initializer, copyOrigin, after, final => { provedDataOperations.Add(update); return continuation(ReadDataOrigin(copyOrigin, final, location), final); })), location);
                 }
                 return CopyDataRecord(owner, value, state, location, update.Initializer, (copied, next) => { provedDataOperations.Add(update); return continuation(copied, next); });

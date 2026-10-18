@@ -12,10 +12,10 @@ public static partial class Frontend
         private readonly Dictionary<string, FQName> dataEqualityHelpers = [];
         private TypedValue RecursiveDataEquality(INamedTypeSymbol owner, TypedValue left, TypedValue right, Location location)
         {
-            var id = SymbolId(owner); var raw = ReceiverIrType(owner.InstanceConstructors[0], location);
+            var id = SymbolId(owner) + "::" + SignatureType(owner); var raw = ReceiverIrType(owner.InstanceConstructors[0], location);
             if (!dataEqualityHelpers.TryGetValue(id, out var name))
             {
-                var module = ModulePath(owner.ToDisplayString()); var local = Name.From("finiteValueEquals"); var version = 0;
+                var module = ModulePath(SourceOwnerName(owner)); var local = Name.From("finiteValueEquals"); var version = 0;
                 while (identities.Values.Any(identity => identity.Module.Key == module.Key && identity.Local.Key == local.Key) || dataEqualityHelpers.Values.Any(identity => identity.Module.Key == module.Key && identity.Local.Key == local.Key)) local = Name.From("finiteValueEquals_" + (++version));
                 name = new(package, module, local); dataEqualityHelpers[id] = name; var a = Fresh("equalLeft"); var b = Fresh("equalRight");
                 var body = ClrDataEquality(new VariableValue<Unit, IrType<Unit>>(raw, a), new VariableValue<Unit, IrType<Unit>>(raw, b), owner, location, []);
@@ -32,7 +32,7 @@ public static partial class Frontend
                 if (TupleType(type)) { foreach (var element in TupleElements(type)) Visit(element); return; }
                 if (!(DataType(type) || records.ContainsKey(SymbolId(type))) || !visited.Add(SymbolId(type))) return;
                 foreach (var method in owner.GetMembers("Equals").OfType<IMethodSymbol>().Where(method => owner.IsRecord && !method.IsImplicitlyDeclared && method.Parameters.Length == 1 && SymbolEqualityComparer.Default.Equals(method.Parameters[0].Type, owner))) EmitMethod(method);
-                foreach (var slot in DataType(type) ? dataTypes[SymbolId(type)].Slots : records[SymbolId(type)].Select(parameter => new DataSlot(parameter, parameter.Type))) Visit(slot.Type);
+                foreach (var slot in DataType(type) ? ResolvedDataLayout(owner).Slots : records[SymbolId(type)].Select(parameter => new DataSlot(parameter, parameter.Type))) Visit(slot.Type);
             }
             foreach (var operation in Operations(root))
                 if (operation is IBinaryOperation binary && RecordEqualityBinary(binary)) Visit(binary.OperatorMethod!.ContainingType);
@@ -65,9 +65,9 @@ public static partial class Frontend
                 }
                 if (owner.IsReferenceType && !owner.IsRecord) return Fail<TypedValue>("MCS3003", "Default reference-member equality observes identity; no structural replacement is permitted.", location);
                 visiting ??= []; var id = SymbolId(owner); if (!visiting.Add(id)) return RecursiveDataEquality(owner, left, right, location);
-                var fields = DataType(owner) ? dataTypes[id].Slots : records[id].Select(parameter => new DataSlot(parameter, parameter.Type)).ToArray();
+                var fields = DataType(owner) ? ResolvedDataLayout(owner).Slots : records[id].Select(parameter => new DataSlot(parameter, parameter.Type)).ToArray();
                 TypedValue result = Lit(Types.Bool, new BoolLiteral(true));
-                var leftPayload = DataType(owner) ? DataPayload(dataTypes[id], left) : left; var rightPayload = DataType(owner) ? DataPayload(dataTypes[id], right) : right;
+                var leftPayload = DataType(owner) ? DataPayload(ResolvedDataLayout(owner), left) : left; var rightPayload = DataType(owner) ? DataPayload(ResolvedDataLayout(owner), right) : right;
                 foreach (var field in fields.Reverse())
                 {
                     var fieldType = Type(field.Type, location); var name = Name.From(field.Name);

@@ -1,11 +1,12 @@
 # D10 — Generics, interfaces, inheritance
 
-- status: planned
+- status: active
 - required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
 - prerequisites: [D9](D09-user-data.md)
 - outcome: Generic business values + closed pure polymorphic dispatch
 - ownership: Generic representations; closure analysis; dispatch/cast lowering
 - fixture-root: `fixtures/D10/`; test trait: `Delivery=D10`
+- active evidence: [D10 state](../docs/deliveries/D10-state.md); ordinary generics and closed value/reference interface graph increments are under validation; the complete delivery gates below remain open
 
 ## Implementation
 

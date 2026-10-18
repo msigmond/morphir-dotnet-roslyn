@@ -83,7 +83,11 @@ public static partial class Frontend
             var location = binary.Syntax.GetLocation();
             string? helper = binary.OperatorKind switch { BinaryOperatorKind.Add => "add", BinaryOperatorKind.Subtract => "subtract", BinaryOperatorKind.Multiply => "multiply", BinaryOperatorKind.Divide => "divide", BinaryOperatorKind.Remainder => "remainder", BinaryOperatorKind.Equals => "equal", BinaryOperatorKind.NotEquals => "notEqual", BinaryOperatorKind.LessThan => "lessThan", BinaryOperatorKind.LessThanOrEqual => "lessThanOrEqual", BinaryOperatorKind.GreaterThan => "greaterThan", BinaryOperatorKind.GreaterThanOrEqual => "greaterThanOrEqual", _ => null };
             if (helper is null) return null;
-            if (Floating(NullableElement(binary.Type) ?? binary.Type) is not { } resultPrecision) return SdkBinary(helper, Types.Float, Types.Bool, a, b);
+            if (Floating(NullableElement(binary.Type) ?? binary.Type) is not { } resultPrecision)
+            {
+                var test = SdkBinary(helper, Types.Float, Types.Bool, a, b);
+                return binary.IsLifted ? test : RememberFloatingPredicate(test, a, b, binary.OperatorKind);
+            }
             var result = helper == "remainder" ? FloatCall(helper, location, a, b) : SdkBinary(helper, Types.Float, Types.Float, a, b);
             if (resultPrecision == 11) result = RoundFloat(result, 24, location);
             return RoundFloat(result, resultPrecision, location);
@@ -95,9 +99,8 @@ public static partial class Frontend
             if (operation is IInvocationOperation numericCall && FloatingPredicateCall(numericCall))
             {
                 var argument = Lower(numericCall.Arguments[0].Value);
-                if (numericCall.TargetMethod.Name == "IsNaN") return SdkUnary("isNaN", Types.Float, Types.Bool, argument);
-                if (numericCall.TargetMethod.Name == "IsInfinity") return SdkUnary("isInfinite", Types.Float, Types.Bool, argument);
-                return SdkUnary("not", Types.Bool, Types.Bool, SdkBinary("or", Types.Bool, Types.Bool, SdkUnary("isNaN", Types.Float, Types.Bool, argument), SdkUnary("isInfinite", Types.Float, Types.Bool, argument)));
+                var test = numericCall.TargetMethod.Name == "IsNaN" ? SdkUnary("isNaN", Types.Float, Types.Bool, argument) : numericCall.TargetMethod.Name == "IsInfinity" ? SdkUnary("isInfinite", Types.Float, Types.Bool, argument) : SdkUnary("not", Types.Bool, Types.Bool, SdkBinary("or", Types.Bool, Types.Bool, SdkUnary("isNaN", Types.Float, Types.Bool, argument), SdkUnary("isInfinite", Types.Float, Types.Bool, argument)));
+                return RememberFloatingPredicate(test, argument, classification: numericCall.TargetMethod.Name);
             }
             if (operation is IObjectCreationOperation bigIntegerCreation && Integral(bigIntegerCreation.Type) is { Bits: 0 } && bigIntegerCreation.Arguments.Length == 1 && Floating(bigIntegerCreation.Arguments[0].Value.Type) is not null)
                 return ConvertNumericValue(Lower(bigIntegerCreation.Arguments[0].Value), bigIntegerCreation.Arguments[0].Value.Type!, bigIntegerCreation.Type!, location);

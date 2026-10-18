@@ -70,6 +70,6 @@ public static partial class Frontend
                 return Fail<FQName>("MCS2809", "External method symbol and complete input/output ABI must exactly match the reviewed dependency specification.", location);
             return contract.Target;
         }
-        private IrType<Unit> CallableOutput(IMethodSymbol target, Location location) => methodOutputs.TryGetValue(SymbolId(target), out var output) ? output : externalFunctions.ContainsKey(SymbolId(target)) ? externalSpecifications[SymbolId(target)].Output : Fail<IrType<Unit>>("MCS2202", "Callable has no validated body or external contract.", location);
+        private IrType<Unit> CallableOutput(IMethodSymbol target, Location location) => methodOutputs.TryGetValue(SymbolId(target), out var output) ? InstantiateCallableOutput(target, output, location) : externalFunctions.ContainsKey(SymbolId(target)) ? externalSpecifications[SymbolId(target)].Output : Fail<IrType<Unit>>("MCS2202", "Callable has no validated body or external contract.", location);
     }
 }

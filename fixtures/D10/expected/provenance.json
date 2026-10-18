@@ -1,0 +1,682 @@
+{
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "fixtures": [
+    {
+      "name": "generic-values",
+      "output": "fixtures/D10/expected/generic-values.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/codec-reference",
+      "sha256": "d94bc389e2ad73f09e98d98e73a0858127749869ea07a1fc871bee05914dfdae"
+    },
+    {
+      "name": "closed-rules",
+      "output": "fixtures/D10/expected/closed-rules.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/dispatch-codec-reference",
+      "sha256": "d44249db8439ae94d51b07a5ab8330541c55e5423f811d6179e5ddbe753513e3"
+    },
+    {
+      "name": "generic-storage",
+      "output": "fixtures/D10/expected/generic-storage.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/storage-codec-reference",
+      "sha256": "3ba44f289d52eeab073f05006179a40ce26fc6764ec54e9a01c9a80bbc9df9df"
+    },
+    {
+      "name": "generic-creation",
+      "output": "fixtures/D10/expected/generic-creation.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/creation-codec-reference",
+      "sha256": "2d42beae8ad382952a3753635d247211dddc93d536855c32b6ba20266e1cfddc"
+    },
+    {
+      "name": "generic-presence",
+      "output": "fixtures/D10/expected/generic-presence.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/presence-codec-reference",
+      "sha256": "454fae2a4111d0de01730f79768245c92c2ffebb35f58c57fa712cd710579c55"
+    },
+    {
+      "name": "generic-dispatch",
+      "output": "fixtures/D10/expected/generic-dispatch.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/constrained-codec-reference",
+      "sha256": "b42633a16ba4803539f4f57b7d6a28113a2b0c13a7e51cfdf60a4aeb5f157b4d"
+    },
+    {
+      "name": "generic-view",
+      "output": "fixtures/D10/expected/generic-view.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/view-codec-reference",
+      "sha256": "3126212e8cb2ccd9449e43045ab4a0ebe9e219582c2e5dfb7972b862b6b4cbec"
+    },
+    {
+      "name": "interface-casts",
+      "output": "fixtures/D10/expected/interface-casts.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/casts-codec-reference",
+      "sha256": "4abf3223801d54dc721dd67c2f88c257d87915f0b6300433311ca71830f12150"
+    },
+    {
+      "name": "inherited-interfaces",
+      "output": "fixtures/D10/expected/inherited-interfaces.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/inherited-codec-reference",
+      "sha256": "02adb22f26cfe6581d297ac6652f4a0ae659cad44dd720afee7a0687b8b1919e"
+    },
+    {
+      "name": "value-alternatives",
+      "output": "fixtures/D10/expected/value-alternatives.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/value-codec-reference",
+      "sha256": "b207e5e46df18b7fdc262fc8d4b90319db8e12754043032170062c588ad3c46a"
+    },
+    {
+      "name": "reference-interfaces",
+      "output": "fixtures/D10/expected/reference-interfaces.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/reference-codec-reference",
+      "sha256": "83cb0086ae67e051ba819f0aa98a2b6b159fcbde1cf7f38b9a12af545b2b1ab7"
+    },
+    {
+      "name": "generic-interfaces",
+      "output": "fixtures/D10/expected/generic-interfaces.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/generic-interface-codec-reference",
+      "sha256": "6cb1fc0a58f747af85f213067e242003a878f20308414637e3de68e34b05a398"
+    },
+    {
+      "name": "generic-members",
+      "output": "fixtures/D10/expected/generic-members.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/generic-member-codec-reference",
+      "sha256": "77e860c05db2d24e7ea8c37613246e5edb8fb50785432ddffac95497deb9874a"
+    },
+    {
+      "name": "default-interfaces",
+      "output": "fixtures/D10/expected/default-interfaces.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/default-interface-codec-reference",
+      "sha256": "6e3f693428eb7d3b6dd79dc1521859c273316cd1eda1e6839b5a247c0765c2d7"
+    },
+    {
+      "name": "integer-factories",
+      "output": "fixtures/D10/expected/integer-factories.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/integer-factory-codec-reference",
+      "sha256": "caa9a9c4f538a303ce0e8ce08905fdefe7980755b9dd519a2fc35a1828e2465b"
+    },
+    {
+      "name": "decimal-factories",
+      "output": "fixtures/D10/expected/decimal-factories.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/decimal-factory-codec-reference",
+      "sha256": "be7cd5b9b17681c44b1d6a05672ea645514f46fe3c854f63bd5b2fba33d83132"
+    },
+    {
+      "name": "floating-factories",
+      "output": "fixtures/D10/expected/floating-factories.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/floating-factory-codec-reference",
+      "sha256": "d6d58cac83e735327153044b72cffd2c9d8be2cb26c786dff955605f0db2263d"
+    },
+    {
+      "name": "generic-factories",
+      "output": "fixtures/D10/expected/generic-factories.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/generic-factory-codec-reference",
+      "sha256": "222cceebc6ec45da4b27d201ee21a3c045fb962db015199668d24021043ed634"
+    },
+    {
+      "name": "static-interfaces",
+      "output": "fixtures/D10/expected/static-interfaces.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/static-interface-codec-reference",
+      "sha256": "ffacbdeb059ec7a0b959014a99d71f6cef2cd0213058134e9b6caa6f13e2f8ae"
+    },
+    {
+      "name": "static-properties",
+      "output": "fixtures/D10/expected/static-properties.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/static-property-codec-reference",
+      "sha256": "d3204b012b3988af41cc89a2dce6c68e77d56cf4482b97d054fa8466eb69e42d"
+    },
+    {
+      "name": "abstract-classes",
+      "output": "fixtures/D10/expected/abstract-classes.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/abstract-class-codec-reference",
+      "sha256": "7014afa135cb4057ca4e7330fbbee4cefa5b9ce932e8600b71f7a46583e7a2da"
+    },
+    {
+      "name": "base-bodies",
+      "output": "fixtures/D10/expected/base-bodies.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/base-body-codec-reference",
+      "sha256": "35420a3e7972301e6595f4e86c65f081a859fab8ca1931ab3ba6a1b5b2583d5a"
+    },
+    {
+      "name": "inherited-fields",
+      "output": "fixtures/D10/expected/inherited-fields.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/inherited-field-codec-reference",
+      "sha256": "170bf3bc0985c8eaeed13c77c14ac45d7f78a0a8a278c57d11788c3d9de244d9"
+    },
+    {
+      "name": "base-construction",
+      "output": "fixtures/D10/expected/base-construction.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/base-construction-codec-reference",
+      "sha256": "a2a938def87d1d497bb068f6545d16cd69878732df9cbaf53f9c4359afb7bfef"
+    },
+    {
+      "name": "reabstraction",
+      "output": "fixtures/D10/expected/reabstraction.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/reabstraction-codec-reference",
+      "sha256": "bc4883e3dc5bfa1b121c5366437029c5d3e5f5fef6cc6aa002f59bf248e16be0"
+    },
+    {
+      "name": "primary-base",
+      "output": "fixtures/D10/expected/primary-base.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/primary-base-codec-reference",
+      "sha256": "07f66d7019322b23d318c054cb7d2493696067d5fd80e930772a7ba0de904df8"
+    },
+    {
+      "name": "hidden-storage",
+      "output": "fixtures/D10/expected/hidden-storage.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/hidden-storage-codec-reference",
+      "sha256": "06de3d66c359cab34cfffbf2ef6431a36d448a643facb009e746ec2056514524"
+    },
+    {
+      "name": "implicit-base",
+      "output": "fixtures/D10/expected/implicit-base.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/implicit-base-codec-reference",
+      "sha256": "b88940e54236aa07610f5a83b4701f86209ccc77ac26b850e11699a002252bd9"
+    },
+    {
+      "name": "inherited-properties",
+      "output": "fixtures/D10/expected/inherited-properties.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/inherited-property-codec-reference",
+      "sha256": "f4ad2a5738591c86cbaeae58d2b738c7a7a3a4d3c613954ccb6107f739ad0d01"
+    },
+    {
+      "name": "polymorphic-properties",
+      "output": "fixtures/D10/expected/polymorphic-properties.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/polymorphic-property-codec-reference",
+      "sha256": "68094f0ccb3072049f2377796c25295227e52e4b18fd32182345febf526dbed1"
+    },
+    {
+      "name": "polymorphic-setters",
+      "output": "fixtures/D10/expected/polymorphic-setters.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/polymorphic-setter-codec-reference",
+      "sha256": "e7c4d8117fb874be6da0ea539c4e286053d034289a0c61adac93bcc3ef955e42"
+    },
+    {
+      "name": "concrete-base",
+      "output": "fixtures/D10/expected/concrete-base.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/concrete-base-codec-reference",
+      "sha256": "86b1adb2165d1331bbff0453fa2e4c7456279074215c1a0905785c57b1a05d37"
+    },
+    {
+      "name": "interface-boxes",
+      "output": "fixtures/D10/expected/interface-boxes.json",
+      "kind": "independent complete Elm codec distribution",
+      "mode": "Elm 0.19.1 host",
+      "source": "fixtures/D10/interface-box-codec-reference",
+      "sha256": "3a13379e2fb69175e5d3b9ba77616f79654ce05a6482eef25c8f8b4ebe1b0007"
+    }
+  ],
+  "sources": [
+    {
+      "path": "fixtures/D10/codec-reference/Main.elm",
+      "sha256": "d0d71adc74bf081106b4e14c73e01e8460c12cbe11edf4d6c26089d32b1dd548"
+    },
+    {
+      "path": "fixtures/D10/codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/GenericValues.cs",
+      "sha256": "22ddd3ccf829338a217ec028640fddb3bdcad5d175c02534f9fca9270f976755"
+    },
+    {
+      "path": "fixtures/D10/dispatch-codec-reference/Main.elm",
+      "sha256": "ca0d38c2100d96a76ea58c76544fa77953f139b79941e01e09b5750f2af3a279"
+    },
+    {
+      "path": "fixtures/D10/dispatch-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/Rules.cs",
+      "sha256": "f31829d59582762b2e7c7b167861347a1319490f3486ae45c4d4086f634d7442"
+    },
+    {
+      "path": "fixtures/D10/storage-codec-reference/Main.elm",
+      "sha256": "57d64fe361b1745f559e6475dc93e0823da1f4f5c964790a8525c4fa817f292f"
+    },
+    {
+      "path": "fixtures/D10/storage-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/GenericStorage.cs",
+      "sha256": "18a3e145f1eed179e338f643957740537b9bc6a1ea5c9aae1009755cd3a1bd9d"
+    },
+    {
+      "path": "fixtures/D10/creation-codec-reference/Main.elm",
+      "sha256": "ca22622a6cb9fa2a4dad2cce2193bb7e1c1bf35192fc74d83a599722526848f3"
+    },
+    {
+      "path": "fixtures/D10/creation-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/GenericCreation.cs",
+      "sha256": "b8b69376e76731507354193e7bace9ad9f01a0d24cb10d2ffb88804d178c7d43"
+    },
+    {
+      "path": "fixtures/D10/presence-codec-reference/Main.elm",
+      "sha256": "0ebac1146b023a4318e40fe6e203d029a073a5c205957ab81d2b58c508aee78e"
+    },
+    {
+      "path": "fixtures/D10/presence-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/GenericPresence.cs",
+      "sha256": "23633b69080043166bf71852d5d3346b4c265fa04efd96fb344f04d76352e49a"
+    },
+    {
+      "path": "fixtures/D10/constrained-codec-reference/Main.elm",
+      "sha256": "4ae0b5ca67280736e9d7d1179f5b1ec4ff41fda589ff257d68ad608558e0c70f"
+    },
+    {
+      "path": "fixtures/D10/constrained-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/GenericDispatch.cs",
+      "sha256": "22fad3349a71efc3b45f00f0a5173f12a52f4442fd101c063426b0a314ec7eaf"
+    },
+    {
+      "path": "fixtures/D10/view-codec-reference/Main.elm",
+      "sha256": "099b7d17248672001a074f9bde1a4b6efa61d5e15324b18ea5acc56cb4324f10"
+    },
+    {
+      "path": "fixtures/D10/view-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/GenericView.cs",
+      "sha256": "630fd4a21d5589b2f287b9365235f4ed5fe85ca916928056fa345b1f99b3b90c"
+    },
+    {
+      "path": "fixtures/D10/casts-codec-reference/Main.elm",
+      "sha256": "2016d1cd5ef699224f00c7f5e6a668ddaf37de1f7081c14b1db697ba0e962a75"
+    },
+    {
+      "path": "fixtures/D10/casts-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/InterfaceCasts.cs",
+      "sha256": "3f2764a0cb8f4e1dd83912506cfc6285045b64dba950ee890e0b9b0c8a392b7d"
+    },
+    {
+      "path": "fixtures/D10/inherited-codec-reference/Main.elm",
+      "sha256": "ab4ffae148ea9d9786872d29b4f70182479a19bc4f049fdf1cc10098d4f36825"
+    },
+    {
+      "path": "fixtures/D10/inherited-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/InheritedInterfaces.cs",
+      "sha256": "05dce29ce15a484e79276e1444fe59f203bf0a10147627c295bdf60607aeb99a"
+    },
+    {
+      "path": "fixtures/D10/value-codec-reference/Main.elm",
+      "sha256": "92155768969cdb2db2614f02aef6fd1fa07b2629beec7d144d1463aabe357ac8"
+    },
+    {
+      "path": "fixtures/D10/value-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/ValueAlternatives.cs",
+      "sha256": "6849069541638b99fccd7370ecde0b1cca3ee69e76f06d9cfc9334d200e95e60"
+    },
+    {
+      "path": "fixtures/D10/reference-codec-reference/Main.elm",
+      "sha256": "e74cd08601b260d190a512c1b9797ab5c0095bd7e4381a2182371de74cae57c8"
+    },
+    {
+      "path": "fixtures/D10/reference-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/ReferenceInterfaces.cs",
+      "sha256": "4ae53f1029ba50151c5d06c6fad078326e4d55102973b4b97fb1b9f01fdaf406"
+    },
+    {
+      "path": "fixtures/D10/generic-interface-codec-reference/Main.elm",
+      "sha256": "2d12254c6fd319c344c7f2f9faa3fa4ce97e11c96a2a32d89673c99fb3c4fa17"
+    },
+    {
+      "path": "fixtures/D10/generic-interface-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/GenericInterfaces.cs",
+      "sha256": "e294781d50d2fac037839f75d2a755e9fed316359ceb6693575a3450ad7ebe3a"
+    },
+    {
+      "path": "fixtures/D10/generic-member-codec-reference/Main.elm",
+      "sha256": "fa95e7ce260efb004a7af6a9149716bbc406ece82aa32427ea2f6c9af68fd4aa"
+    },
+    {
+      "path": "fixtures/D10/generic-member-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/GenericMembers.cs",
+      "sha256": "0b48652c2b975972efa8fd27b35c64f7eb6aadabd17deafcf68237e846525f38"
+    },
+    {
+      "path": "fixtures/D10/default-interface-codec-reference/Main.elm",
+      "sha256": "7918bc1f63c1f5f9fcf201dc74a2e14af9670f13b72855683f651c62fec3b64e"
+    },
+    {
+      "path": "fixtures/D10/default-interface-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/DefaultRules.cs",
+      "sha256": "0910ad4e17d75fc186e249c0ee695faac3848e8439d912db8f8c7b934b4f6a88"
+    },
+    {
+      "path": "fixtures/D10/integer-factory-codec-reference/Main.elm",
+      "sha256": "a0708b3b9a4d31c8215fdbd1d8efbc456158c5efcec645e88339b50dd28bbe27"
+    },
+    {
+      "path": "fixtures/D10/integer-factory-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/IntegerFactories.cs",
+      "sha256": "11b04e0c15047eeda6505aba68d860fe3d620ab28d96620a4fe6f057d6060d63"
+    },
+    {
+      "path": "fixtures/D10/decimal-factory-codec-reference/Main.elm",
+      "sha256": "a92865d615e99504e91f114e9d54907556afdc33583f1e27fb7b6ca4074606f0"
+    },
+    {
+      "path": "fixtures/D10/decimal-factory-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D6/expected/helpers.json",
+      "sha256": "d3a09d3f322ea50c8fd1ac446caee07d05f7c4357f353f466faeeef1c85c89f9"
+    },
+    {
+      "path": "fixtures/D10/csharp/DecimalFactories.cs",
+      "sha256": "796c9d846cc33dc90e3ae3b753ac43b3534e837a24fe0ae9b97a37dbd3238d18"
+    },
+    {
+      "path": "fixtures/D10/floating-factory-codec-reference/Main.elm",
+      "sha256": "e4bc3b5b8c335ea8194718f633067d6f51d3f99474882b9e63b71b231dfd23b6"
+    },
+    {
+      "path": "fixtures/D10/floating-factory-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/FloatingFactories.cs",
+      "sha256": "510d4fe356b0ad61482a8b4dff078643f7c091049bbdf4c01343acf731216ef9"
+    },
+    {
+      "path": "fixtures/D10/generic-factory-codec-reference/Main.elm",
+      "sha256": "f9cb37fc66e67d1be81c3ab69359cf2c9ac6345c887b488c383fdaff0a6a7d09"
+    },
+    {
+      "path": "fixtures/D10/generic-factory-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D5/expected/helpers.json",
+      "sha256": "a1b4c7f3cf6ffc98405ca2272ddbd9d9a6b632a3cbc17dcdaae189a144049d7d"
+    },
+    {
+      "path": "fixtures/D10/csharp/GenericNumericFactories.cs",
+      "sha256": "beb1f0726e7b3acf64bd6d2d32ee2c68e3c0a29344399b3596039b8d9b13423f"
+    },
+    {
+      "path": "fixtures/D10/static-interface-codec-reference/Main.elm",
+      "sha256": "2114c0fc51473281367d19beb70a914e1a55164c7c382c407fa3a90ffca372ed"
+    },
+    {
+      "path": "fixtures/D10/static-interface-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/StaticInterfaces.cs",
+      "sha256": "cacb7cb78a0c4928bc4e3236b9ade0f754ce506c236853b68cd896762e4b0dc0"
+    },
+    {
+      "path": "fixtures/D10/static-property-codec-reference/Main.elm",
+      "sha256": "153e4a1ef5c6a5bc0e5b08e7bc6ff7ec96361fd1a17f8b0536a68d283e656f24"
+    },
+    {
+      "path": "fixtures/D10/static-property-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/StaticProperties.cs",
+      "sha256": "e8bee040f8907e38bc21507efbb81304c760505304ea8788719d5459883fea08"
+    },
+    {
+      "path": "fixtures/D10/abstract-class-codec-reference/Main.elm",
+      "sha256": "85a724cafa0ca4b7ad1379640b0e2ff1dd6f45da7cf0078f84c215c64cee170a"
+    },
+    {
+      "path": "fixtures/D10/abstract-class-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/AbstractRules.cs",
+      "sha256": "ea7335f038a52ddd3c0f76ab7cb881f10b808ea4ddfdfe6743b4b8ff6ba347fe"
+    },
+    {
+      "path": "fixtures/D10/base-body-codec-reference/Main.elm",
+      "sha256": "ace75cf28bb42936f66496b0ebdf26e81339b2a1ab8fc186a8246183890e5584"
+    },
+    {
+      "path": "fixtures/D10/base-body-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/BaseBodies.cs",
+      "sha256": "8c11ade92a9d9534a9e2bbeb68cb7de0c8ea313cfd7799449f18b11cd7ad76c9"
+    },
+    {
+      "path": "fixtures/D10/inherited-field-codec-reference/Main.elm",
+      "sha256": "8238cf0fe798c50c2966c59e0b6093fee6c635817c0cd41be22c2df0b0dd5e9f"
+    },
+    {
+      "path": "fixtures/D10/inherited-field-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/InheritedFields.cs",
+      "sha256": "9ad810e0f0749a1645de1c984c7ebaf47df7252f88003dab5e89b7e9e0e51b8d"
+    },
+    {
+      "path": "fixtures/D10/base-construction-codec-reference/Main.elm",
+      "sha256": "8bd92dfe8b6903bfdcb5a08f81819039ec87dd414ca9de289b6c11a300e3730d"
+    },
+    {
+      "path": "fixtures/D10/base-construction-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/BaseConstruction.cs",
+      "sha256": "2b34db0153f035eeb61a56f069ec1c1d457a63ad279abe45390a633f5ead270b"
+    },
+    {
+      "path": "fixtures/D10/reabstraction-codec-reference/Main.elm",
+      "sha256": "46f421209dcec254fa6e8ff5f2fa70312b57aa64f07f979ba94ed7288f325f99"
+    },
+    {
+      "path": "fixtures/D10/reabstraction-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/Reabstraction.cs",
+      "sha256": "abb31c29d26d22b4ddc02bf769b685b8a3da7e0da7f5ce9a57a930567b321d79"
+    },
+    {
+      "path": "fixtures/D10/primary-base-codec-reference/Main.elm",
+      "sha256": "4c4aa50e2398f7d6045e09e1a67c695825b94147616107b7de86e07681be82ee"
+    },
+    {
+      "path": "fixtures/D10/primary-base-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/PrimaryBase.cs",
+      "sha256": "bb031ebf9ccfcd167c629b0e394d6af09f75669883fe325f9fb0935c933a3290"
+    },
+    {
+      "path": "fixtures/D10/hidden-storage-codec-reference/Main.elm",
+      "sha256": "35264c5d6f5ce20cbcc41aa29b7f5607ae96b9eb6432b8235a29f72cfe50ca8f"
+    },
+    {
+      "path": "fixtures/D10/hidden-storage-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/HiddenStorage.cs",
+      "sha256": "28978c8822d44208fca3886bc9d6dd06f48fecd190c07f33358bee9005511ff1"
+    },
+    {
+      "path": "fixtures/D10/implicit-base-codec-reference/Main.elm",
+      "sha256": "a59d201ed214e43d6c95ea4d61bbb2d60ead598e3d288b1e5f084c013cb09f5a"
+    },
+    {
+      "path": "fixtures/D10/implicit-base-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/ImplicitBase.cs",
+      "sha256": "21dbe4d1398a03de2866ebb4d9725e10743e6090e380ca978fc24bab178a4d7f"
+    },
+    {
+      "path": "fixtures/D10/inherited-property-codec-reference/Main.elm",
+      "sha256": "55b2356b5b9af48d8e9f281eea255c8156509d65cb61e287563b64b886424d6f"
+    },
+    {
+      "path": "fixtures/D10/inherited-property-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/InheritedProperties.cs",
+      "sha256": "f2de4bfb03d0957da7c1bf1793f2856d9ec5ecc973188380109d49510d8d2da2"
+    },
+    {
+      "path": "fixtures/D10/polymorphic-property-codec-reference/Main.elm",
+      "sha256": "ce715efdf5ca9493571c543c1b41af012c91573a4fab283f511dfa0ddf19199a"
+    },
+    {
+      "path": "fixtures/D10/polymorphic-property-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/PolymorphicProperties.cs",
+      "sha256": "7da1646b2dc5443204b414a6691cb9a9b472a79c15038fed5f83cf74635eb3b7"
+    },
+    {
+      "path": "fixtures/D10/polymorphic-setter-codec-reference/Main.elm",
+      "sha256": "9efab9240b13229f5d0291dfe0c1de2f2eed77d8957a43c1270d129f070f6bde"
+    },
+    {
+      "path": "fixtures/D10/polymorphic-setter-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/PolymorphicSetters.cs",
+      "sha256": "c6734f5836eba051f234233d7ee5687c52b342bf92cd42af6622fc5efe35ed55"
+    },
+    {
+      "path": "fixtures/D10/concrete-base-codec-reference/Main.elm",
+      "sha256": "d17562960f51f48a06990c895bffc01b05f094c31ac3782c83e7f8b3a0fe589e"
+    },
+    {
+      "path": "fixtures/D10/concrete-base-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/ConcreteBase.cs",
+      "sha256": "589aafc646f5ef47b443d01aa6c246b29bda349624a832b9bda80e7e9e242e67"
+    },
+    {
+      "path": "fixtures/D10/interface-box-codec-reference/Main.elm",
+      "sha256": "2010bc49f27bb7899b981b70feabd64bd4c5080470aaf08619d99a29a074dbb1"
+    },
+    {
+      "path": "fixtures/D10/interface-box-codec-reference/elm.json",
+      "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
+    },
+    {
+      "path": "fixtures/D10/csharp/InterfaceBoxes.cs",
+      "sha256": "0fa7570fc4460848d083aac1bdb0dcd8e12160e31f6bf2db00162f62620673b6"
+    }
+  ]
+}

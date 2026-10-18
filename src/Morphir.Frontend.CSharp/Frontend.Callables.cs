@@ -14,14 +14,19 @@ public static partial class Frontend
         private static string SignatureType(ITypeSymbol type) => type switch
         {
             IArrayTypeSymbol array => "ArrayRank" + array.Rank + "_" + (array.IsSZArray ? "Vector" : "NonVector") + "_Of_" + SignatureType(array.ElementType),
-            ITypeParameterSymbol parameter => "Parameter_" + parameter.TypeParameterKind + "_" + parameter.Ordinal,
+            ITypeParameterSymbol parameter => "Parameter_" + parameter.TypeParameterKind + "_" + SignatureParameterDepth(parameter) + "_" + parameter.Ordinal,
             INamedTypeSymbol { IsTupleType: true, TupleUnderlyingType: not null } tuple => SignatureType(tuple.TupleUnderlyingType),
             INamedTypeSymbol { Arity: > 0 } named => "Generic_" + (named.ContainingType is null ? named.ContainingNamespace.ToDisplayString() : SignatureType(named.ContainingType)) + "_" + named.MetadataName + "_Of_" + string.Join("_And_", named.TypeArguments.Select(SignatureType)),
             INamedTypeSymbol named => named.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.None)),
             _ => type.TypeKind + "_" + type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.None))
         };
+        private static int SignatureParameterDepth(ITypeParameterSymbol parameter)
+        {
+            var depth = 0; for (var parent = parameter.ContainingType.ContainingType; parent is not null; parent = parent.ContainingType) depth++; return depth;
+        }
         private static string SignatureSuffix(IMethodSymbol method) => "__" + method.Arity + "__" + string.Join("__", method.Parameters.Select(parameter => parameter.RefKind + "_" + SignatureType(parameter.Type)));
-        private static bool ReceiverRequired(IMethodSymbol method) => method.MethodKind is MethodKind.Ordinary or MethodKind.PropertyGet or MethodKind.PropertySet && !method.IsStatic;
+        private static bool SourceMethod(IMethodSymbol method) => method.MethodKind is MethodKind.Ordinary or MethodKind.ExplicitInterfaceImplementation;
+        private static bool ReceiverRequired(IMethodSymbol method) => method.MethodKind is MethodKind.Ordinary or MethodKind.ExplicitInterfaceImplementation or MethodKind.PropertyGet or MethodKind.PropertySet && !method.IsStatic;
         private IEnumerable<IMethodSymbol> LocalMethods(IMethodSymbol method)
         {
             var syntax = method.DeclaringSyntaxReferences.Single().GetSyntax();

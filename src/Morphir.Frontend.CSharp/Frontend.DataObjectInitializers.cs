@@ -33,7 +33,7 @@ public static partial class Frontend
                     if (member.InitializedMember.Type!.IsValueType)
                         return WithDataLocation(member.InitializedMember, state, (destination, next) =>
                         {
-                            var nested = new DataOrigin(++nextDataCell); next.Heap[nested.Cell] = new((INamedTypeSymbol)member.InitializedMember.Type, destination.Read(next), null, ++nextDataVersion);
+                            var nested = new DataOrigin(++nextDataCell); next.Heap[nested.Cell] = new((INamedTypeSymbol)member.InitializedMember.Type, destination.Read(next), null, ++nextDataVersion, Layout: DataType(member.InitializedMember.Type) ? ResolvedDataLayout((INamedTypeSymbol)member.InitializedMember.Type) : null);
                             return RunDataObjectInitializer(member.Initializer, nested, next, after => destination.Write(ReadDataOrigin(nested, after, location), after, final => { provedDataOperations.Add(member); return Initialize(index + 1, final); }));
                         });
                     return Expression(member.InitializedMember, state, (value, next) =>

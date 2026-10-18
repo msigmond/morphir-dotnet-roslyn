@@ -24,10 +24,11 @@ public static partial class Frontend
         private static bool HasAssignment(IOperation operation) => operation is ISimpleAssignmentOperation or ICoalesceAssignmentOperation or IDeconstructionAssignmentOperation || operation.ChildOperations.Any(HasAssignment);
         private TypedValue Expression(IOperation operation, BindingEnvironment environment, Func<TypedValue, BindingEnvironment, TypedValue> continuation)
         {
+            if (operandValues.TryGetValue(operation, out var captured)) return continuation(captured, environment);
             if (DataExpression(operation, environment, continuation) is { } dataExpression) return dataExpression;
             if (TupleExpression(operation, environment, continuation) is { } tupleExpression) return tupleExpression;
             if (PresenceExpression(operation, environment, continuation) is { } presence) return presence;
-            if (operation is IBinaryOperation { OperatorMethod: null, OperatorKind: BinaryOperatorKind.ConditionalAnd or BinaryOperatorKind.ConditionalOr } guarded && PresenceProbe(guarded))
+            if (operation is IBinaryOperation { OperatorMethod: null, OperatorKind: BinaryOperatorKind.ConditionalAnd or BinaryOperatorKind.ConditionalOr } guarded && (PresenceProbe(guarded) || BoundPresenceProbe(guarded, environment)))
             {
                 var isAnd = guarded.OperatorKind == BinaryOperatorKind.ConditionalAnd;
                 TypedValue Right(BindingEnvironment state) => Expression(guarded.RightOperand, state, continuation);
@@ -88,6 +89,8 @@ public static partial class Frontend
         private TypedValue BindValue(ISymbol symbol, ITypeSymbol type, TypedValue value, BindingEnvironment environment,
             Func<BindingEnvironment, TypedValue> continuation, Location location)
         {
+            symbol = symbol.OriginalDefinition;
+            if (type is INamedTypeSymbol valueType && valueType.IsValueType && DataOriginOf(value) is { } box && environment.Heap.TryGetValue(box.Cell, out var cell) && cell.Boxed) value = SnapshotBoxValue(valueType, value, environment, location);
             var attr = Type(type, location, DelegateType(type) is null);
             if (MaybeElement(attr) is not null) value = Adapt(value, attr);
             else attr = value.Attributes;
@@ -101,7 +104,7 @@ public static partial class Frontend
                 if (ValueKey(variable) is { } key) numericFacts[key] = IntegerRange(value, integerDomain);
             }
             if (KnownPureFunction(value) && ValueKey(new VariableValue<Unit, IrType<Unit>>(attr, name)) is { } functionKey) pureFunctionOrigins.Add(functionKey);
-            var next = Copy(environment); var dataOrigin = type.IsReferenceType ? DataOriginOf(value) : null; next[symbol] = new(name, attr, constant, dataOrigin);
+            var next = Copy(environment); var dataOrigin = ResolveGenericParameter(type).IsReferenceType ? DataOriginOf(value) : null; next[symbol] = new(name, attr, constant, dataOrigin);
             SnapshotDataBinding(dataOrigin, name, attr, next);
             var result = continuation(next);
             return new LetValue<Unit, IrType<Unit>>(result.Attributes, name, new([], attr, value), result);

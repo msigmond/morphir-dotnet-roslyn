@@ -26,7 +26,7 @@ public static partial class Frontend
             foreach (var field in type.GetMembers().OfType<IFieldSymbol>().Where(f => !f.IsImplicitlyDeclared))
             {
                 if (!field.HasConstantValue || field.GetAttributes().Length != 0) Fail<object>("MCS2901", "Enum members must be constants without unmapped attributes.", Location(field));
-                AddSymbol(field, type.ToDisplayString(), field.Name);
+                AddSymbol(field, SourceOwnerName(type), field.Name);
             }
         }
         private IrType<Unit> EnumIrType(INamedTypeSymbol type, Location? location)
@@ -39,7 +39,7 @@ public static partial class Frontend
             var id = Identity(type); var underlying = Type(type.EnumUnderlyingType!, Location(type)); var enumType = EnumIrType(type, Location(type));
             EnsureModule(id.Module, type.ContainingType is null ? Access.Public : Visibility(type.ContainingType));
             modules[id.Module.Key].Types.Add(new(id.Local, new(Visibility(type), new(Documentation(type), new CustomDefinition<Unit>([], new(Access.Public, [new(id.Local, [new(Name.From("arg1"), underlying)])]))))));
-            EnsureModule(ModulePath(type.ToDisplayString()), Visibility(type));
+            EnsureModule(ModulePath(SourceOwnerName(type)), Visibility(type));
             foreach (var field in type.GetMembers().OfType<IFieldSymbol>().Where(f => !f.IsImplicitlyDeclared))
             {
                 var member = Identity(field); var body = WrapEnum(type, IntegerLiteral(IntegerConstant(field.ConstantValue)!.Value, Integral(type.EnumUnderlyingType)!, Location(field)), Location(field));

@@ -24,3 +24,5 @@ The cumulative Data.cs adds six forms, private/recursive owners, source construc
 - Language/framework/model/form/operation catalogs, mapping, README, AGENTS, child/master and cumulative sample are maintained. The historical D1 with-copy rejection is now a D9 positive input-preservation check; its source fixture remains unchanged.
 
 Development failures and their source corrections are retained in [development history](D9-development.md). No failed/incomplete run was committed or marked passed. Publication is automatic under the user's authorization; commit/push verification follows these gates.
+
+Publication: commit e083653ede4f2875a965595aecedd450f437d600 pushed to origin/main and verified with authenticated gh. Working tree was clean before D10 activation.

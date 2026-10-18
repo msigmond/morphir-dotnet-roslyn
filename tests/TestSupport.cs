@@ -1,5 +1,7 @@
 using System.Numerics;
+using System.Collections.Concurrent;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Loader;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -12,6 +14,58 @@ namespace Morphir.Tests;
 
 internal static class Support
 {
+    // Libraries are immutable during behavioral checks. Cache resolution only;
+    // every helper body still runs through the independent interpreter below.
+    private sealed record ResolvedDefinition(ValueDefinition<Unit, IrType<Unit>>? Value);
+    private static readonly ConditionalWeakTable<Library<Unit, IrType<Unit>>, ConcurrentDictionary<FQName, ResolvedDefinition>> ResolvedDefinitions = new();
+    private static ValueDefinition<Unit, IrType<Unit>>? FindDefinition(Library<Unit, IrType<Unit>> library, FQName name)
+    {
+        var cache = ResolvedDefinitions.GetValue(library, static _ => new(ReferenceEqualityComparer.Instance));
+        if (cache.TryGetValue(name, out var found)) return found.Value;
+        return cache.GetOrAdd(name, new ResolvedDefinition(Lookup.Value(library, name))).Value;
+    }
+    private static readonly ConditionalWeakTable<Library<Unit, IrType<Unit>>, ConcurrentDictionary<string, object>> DataCalls = new();
+    // Pure first-order calls can repeat across translated methods. This is a
+    // general evaluator optimization, never a replacement for a helper body.
+    private static bool Snapshot(object? value, int depth, ref int count, out object? copy, out object? description)
+    {
+        copy = null; description = null; if (depth > 32 || ++count > 256) return false;
+        switch (value)
+        {
+            case null: description = new object[] { "null" }; return true;
+            case double number: copy = number; description = new object[] { "double", BitConverter.DoubleToInt64Bits(number) }; return true;
+            case decimal number: copy = number; description = new object[] { "decimal", decimal.GetBits(number) }; return true;
+            case BigInteger number: copy = number; description = new object[] { "integer", number.ToString(System.Globalization.CultureInfo.InvariantCulture) }; return true;
+            case Unit: copy = value; description = new object[] { "unit" }; return true;
+            case string text when text.Length <= 256: copy = text; description = new object[] { "string", text.Select(character => (int)character).ToArray() }; return true;
+            case char character: copy = character; description = new object[] { "char", (int)character }; return true;
+            case bool or int or long or uint or ulong or short or ushort or byte or sbyte:
+                copy = value; description = new object[] { value.GetType().FullName!, value }; return true;
+            case MaybeData maybe:
+                if (!Snapshot(maybe.Value, depth + 1, ref count, out var maybeCopy, out var maybeDescription)) return false;
+                copy = new MaybeData(maybe.Present, maybeCopy); description = new object?[] { "maybe", maybe.Present, maybeDescription }; return true;
+            case CustomData custom:
+                if (!Snapshot(custom.Arguments, depth + 1, ref count, out var arguments, out var argumentDescription)) return false;
+                copy = new CustomData(custom.Constructor, (IReadOnlyList<object>)arguments!); description = new object?[] { "custom", custom.Constructor.Package.Key, custom.Constructor.Module.Key, custom.Constructor.Local.Key, argumentDescription }; return true;
+            case IReadOnlyDictionary<string, object> record:
+                var recordCopy = new Dictionary<string, object>(); var fields = new List<object?>();
+                foreach (var field in record.OrderBy(field => field.Key, StringComparer.Ordinal))
+                {
+                    if (!Snapshot(field.Value, depth + 1, ref count, out var fieldCopy, out var fieldDescription)) return false;
+                    recordCopy[field.Key] = fieldCopy!; fields.Add(new object?[] { field.Key.Select(character => (int)character).ToArray(), fieldDescription });
+                }
+                copy = recordCopy; description = new object?[] { "record", fields }; return true;
+            case IReadOnlyList<object> list:
+                var listCopy = new List<object>(); var items = new List<object?>();
+                foreach (var item in list)
+                {
+                    if (!Snapshot(item, depth + 1, ref count, out var itemCopy, out var itemDescription)) return false;
+                    listCopy.Add(itemCopy!); items.Add(itemDescription);
+                }
+                copy = listCopy.ToArray(); description = new object?[] { "list", items }; return true;
+            default: return false;
+        }
+    }
     public static string Root
     {
         get
@@ -95,6 +149,18 @@ internal static class Support
     // Small independent interpreter used only for C#/IR behavioral cross-checks.
     public static object Evaluate(V v, IReadOnlyDictionary<string, object> vars, Library<Unit, IrType<Unit>>? library = null)
     {
+        List<string>? pending = null;
+        object Finish(object result)
+        {
+            if (pending is null || library is null) return result;
+            var count = 0;
+            if (Snapshot(result, 0, ref count, out var copy, out _) && copy is not null)
+            {
+                var cache = DataCalls.GetValue(library, static _ => new());
+                if (cache.Count < 8192) foreach (var key in pending) cache.TryAdd(key, copy);
+            }
+            return result;
+        }
         while (true)
         {
             if (v is IfValue<Unit, IrType<Unit>> decision) { v = (bool)Evaluate(decision.Condition, vars, library) ? decision.Then : decision.Else; continue; }
@@ -109,13 +175,25 @@ internal static class Support
             {
                 var arguments = new List<V>(); var root = v;
                 while (root is ApplyValue<Unit, IrType<Unit>> apply) { arguments.Insert(0, apply.Argument); root = apply.Function; }
-                if (root is ReferenceValue<Unit, IrType<Unit>> reference && reference.Name.Package.Key != Types.Sdk.Key && Lookup.Value(library, reference.Name) is { } definition && definition.Inputs.Count == arguments.Count)
+                if (root is ReferenceValue<Unit, IrType<Unit>> reference && reference.Name.Package.Key != Types.Sdk.Key && FindDefinition(library, reference.Name) is { } definition && definition.Inputs.Count == arguments.Count)
                 {
                     var evaluated = arguments.Select(a => Evaluate(a, vars, library)).ToArray();
+                    if (library.Dependencies.Count == 0 && definition.Inputs.Count == 1 && definition.Inputs[0].Type is ReferenceType<Unit> input && input.Name.Package.Key == library.Package.Key)
+                    {
+                        var count = 0;
+                        if (Snapshot(evaluated[0], 0, ref count, out _, out var description))
+                        {
+                            var key = reference.Name.Package.Key + "\u0002" + reference.Name.Module.Key + "\u0002" + reference.Name.Local.Key + "\u0003" + System.Text.Json.JsonSerializer.Serialize(description);
+                            var cache = DataCalls.GetValue(library, static _ => new());
+                            count = 0;
+                            if (cache.TryGetValue(key, out var cached) && Snapshot(cached, 0, ref count, out var copy, out _)) return Finish(copy!);
+                            (pending ??= []).Add(key);
+                        }
+                    }
                     vars = definition.Inputs.Select((input, i) => (input.Name.Key, Value: evaluated[i])).ToDictionary(pair => pair.Key, pair => pair.Value); v = definition.Body; continue;
                 }
             }
-            return v switch
+            return Finish(v switch
             {
                 ConstructorValue<Unit, IrType<Unit>> constructor when constructor.Name.Package.Key != Types.Sdk.Key => (Func<object, object>)(argument => new CustomData(constructor.Name, [argument])),
                 TupleValue<Unit, IrType<Unit>> tuple => tuple.Elements.Select(element => Evaluate(element, vars, library)).ToArray(),
@@ -138,7 +216,7 @@ internal static class Support
                 ReferenceValue<Unit, IrType<Unit>> x => Resolve(x.Name, library),
                 ApplyValue<Unit, IrType<Unit>> x => ((Func<object, object>)Evaluate(x.Function, vars, library))(Evaluate(x.Argument, vars, library)),
                 _ => throw new NotSupportedException(v.ToString())
-            };
+            });
         }
     }
     private static readonly AsyncLocal<Func<FQName, object?>?> ExternalValues = new();
@@ -193,7 +271,7 @@ internal static class Support
             return unary is not null ? unary : (Func<object, object>)(left => (Func<object, object>)(right => Binary(name.Local.Key, left, right)));
         }
         if (library is not null && name.Package.Key != library.Package.Key && ExternalValues.Value?.Invoke(name) is { } external) return external;
-        var definition = Lookup.Value(library!, name) ?? throw new InvalidOperationException($"Missing definition {name}");
+        var definition = FindDefinition(library!, name) ?? throw new InvalidOperationException($"Missing definition {name}");
         object Bind(int index, Dictionary<string, object> values) => index == definition.Inputs.Count
             ? Evaluate(definition.Body, values, library)
             : (Func<object, object>)(argument => Bind(index + 1, new(values) { [definition.Inputs[index].Name.Key] = argument }));

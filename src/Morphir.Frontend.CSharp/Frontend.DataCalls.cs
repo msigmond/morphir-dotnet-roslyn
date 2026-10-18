@@ -13,8 +13,8 @@ public static partial class Frontend
         private readonly HashSet<string> activeDataCalls = [];
         private IMethodSymbol? DataCallTarget(IOperation operation) => operation switch
         {
-            IInvocationOperation invocation when sourceMethods.ContainsKey(SymbolId(invocation.TargetMethod)) && DataReferenceResult(invocation.TargetMethod.ReturnType) => invocation.TargetMethod,
-            IPropertyReferenceOperation property when DataGetter(property) && DataReferenceResult(property.Property.Type) => property.Property.GetMethod,
+            IInvocationOperation invocation when sourceMethods.ContainsKey(SymbolId(invocation.TargetMethod)) && !InterfaceDispatchMethod(invocation.TargetMethod) && DataReferenceResult(invocation.TargetMethod.ReturnType) => invocation.TargetMethod,
+            IPropertyReferenceOperation property when DataGetter(property) && !InterfaceDispatchMethod(property.Property.GetMethod!) && DataReferenceResult(property.Property.Type) => property.Property.GetMethod,
             _ => DataOperator(operation) is { } method && DataReferenceResult(method.ReturnType) ? method : null
         };
         private TypedValue? DataCallExpression(IOperation operation, BindingEnvironment environment, Func<TypedValue, BindingEnvironment, TypedValue> continuation)
@@ -37,28 +37,42 @@ public static partial class Frontend
                 }
                 var parameter = method.Parameters[index]; var saved = bindings; bindings = state; TypedValue value;
                 try { value = DataArgument(values[index], location); } finally { bindings = saved; }
-                return BindValue(parameter, parameter.Type, value, state, next => Bind(index + 1, next), location);
+                return BindValue(parameter.OriginalDefinition, parameter.Type, value, state, next => Bind(index + 1, next), location);
             }
             TypedValue Evaluate(int index, BindingEnvironment state) => index == arguments.Length ? Bind(0, state) : Expression(arguments[index].Value, state, (value, next) => { values[arguments[index].Ordinal] = value; return Evaluate(index + 1, next); });
             return instance is null ? Evaluate(0, environment) : Expression(instance, environment, (value, state) => { receiver = value; return Evaluate(0, state); });
         }
         private TypedValue RunDataCallable(IMethodSymbol method, TypedValue? receiver, BindingEnvironment environment, Func<TypedValue, BindingEnvironment, TypedValue> continuation)
         {
-            var key = SymbolId(method); if (!activeDataCalls.Add(key)) return Fail<TypedValue>("MCS2203", "Recursive data calls require D14.", Location(method));
+            if (AutomaticGetter(method))
+            {
+                var saved = bindings; bindings = environment;
+                try { return continuation(ReadAutomaticGetter(method, receiver!, Location(method)!), environment); } finally { bindings = saved; }
+            }
+            var key = InterfaceDispatchMethod(method) ? InterfaceDefaultKey(method) : SymbolId(method); if (!activeDataCalls.Add(key)) return Fail<TypedValue>("MCS2203", "Recursive data calls require D14.", Location(method));
             var syntax = method.DeclaringSyntaxReferences.Single().GetSyntax(); var root = CallableOperation(Semantic(syntax.SyntaxTree), syntax);
             var body = root switch { IMethodBodyOperation callable => callable.BlockBody ?? callable.ExpressionBody!, IBlockOperation block => block, ILocalFunctionOperation local => local.Body!, _ => Fail<IBlockOperation>("MCS3001", "Source data call requires a validated body.", syntax.GetLocation()) };
+            var callerScope = CaptureGenericScope(); var callOutput = InterfaceDispatchMethod(method) ? InterfaceDefaultOutput(method, syntax.GetLocation()) : CallableOutput(method, syntax.GetLocation());
+            var previousDispatches = genericDispatchValues; var previousAbsences = genericAbsenceValues; var previousNews = genericNewValues; var previousDefaults = genericDefaultValues; var requiredDefaults = GenericDefaults(method); var defaultArguments = DefaultWitnessArguments(method, syntax.GetLocation());
+            genericDefaultValues = new(previousDefaults, SymbolEqualityComparer.Default); foreach (var pair in requiredDefaults.Zip(defaultArguments)) genericDefaultValues[pair.First] = pair.Second;
+            genericNewValues = new(previousNews, SymbolEqualityComparer.Default); foreach (var pair in GenericNews(method).Zip(defaultArguments.Skip(requiredDefaults.Length))) genericNewValues[pair.First] = pair.Second;
+            genericAbsenceValues = new(previousAbsences, SymbolEqualityComparer.Default); foreach (var pair in GenericAbsences(method).Zip(defaultArguments.Skip(requiredDefaults.Length + GenericNews(method).Length))) genericAbsenceValues[pair.First] = pair.Second;
+            genericDispatchValues = new(previousDispatches); foreach (var pair in GenericDispatches(method).Zip(defaultArguments.Skip(requiredDefaults.Length + GenericNews(method).Length + GenericAbsences(method).Length))) genericDispatchValues[GenericDispatchKey(pair.First)] = pair.Second;
+            genericFactoryValues = FactoryWitnessBindings(method, defaultArguments);
+            var previousScopes = activeGenericScopes; var previousGenerics = activeGenericTypes; activeGenericTypes = GenericContext(method, callerScope);
             var previousReceiver = currentReceiver; var previousOrigin = currentDataConstructionOrigin; var previousVoidReturn = currentVoidReturn; var previousReturn = currentDataReturn; var previousMethod = currentMethod; var previousBindings = bindings; var previousSlot = currentReturnSlot; var previousOperands = operandValues;
-            currentReceiver = receiver; currentDataConstructionOrigin = null; currentVoidReturn = null; currentMethod = key; bindings = environment; currentReturnSlot = CallableOutput(method, syntax.GetLocation()); operandValues = [];
+            currentReceiver = receiver; currentDataConstructionOrigin = null; currentVoidReturn = null; currentMethod = key; bindings = environment; currentReturnSlot = callOutput; operandValues = [];
             TypedValue Finish(TypedValue value, BindingEnvironment state)
             {
+                var activeFactories = genericFactoryValues; var activeDispatches = genericDispatchValues; var activeAbsences = genericAbsenceValues; var activeNews = genericNewValues; var activeDefaults = genericDefaultValues; var activeScopes = activeGenericScopes; var activeGenerics = activeGenericTypes;
                 var activeReceiver = currentReceiver; var activeOrigin = currentDataConstructionOrigin; var activeVoidReturn = currentVoidReturn; var activeReturn = currentDataReturn; var activeMethod = currentMethod; var activeBindings = bindings; var activeSlot = currentReturnSlot; var activeOperands = operandValues;
-                currentReceiver = previousReceiver; currentDataConstructionOrigin = previousOrigin; currentVoidReturn = previousVoidReturn; currentDataReturn = previousReturn; currentMethod = previousMethod; bindings = previousBindings; currentReturnSlot = previousSlot; operandValues = previousOperands; activeDataCalls.Remove(key);
+                genericFactoryValues = callerScope.Factories; genericDispatchValues = previousDispatches; genericAbsenceValues = previousAbsences; genericNewValues = previousNews; genericDefaultValues = previousDefaults; activeGenericScopes = previousScopes; activeGenericTypes = previousGenerics; currentReceiver = previousReceiver; currentDataConstructionOrigin = previousOrigin; currentVoidReturn = previousVoidReturn; currentDataReturn = previousReturn; currentMethod = previousMethod; bindings = previousBindings; currentReturnSlot = previousSlot; operandValues = previousOperands; activeDataCalls.Remove(key);
                 try { return continuation(value, state); }
-                finally { activeDataCalls.Add(key); currentReceiver = activeReceiver; currentDataConstructionOrigin = activeOrigin; currentVoidReturn = activeVoidReturn; currentDataReturn = activeReturn; currentMethod = activeMethod; bindings = activeBindings; currentReturnSlot = activeSlot; operandValues = activeOperands; }
+                finally { activeDataCalls.Add(key); genericFactoryValues = activeFactories; genericDispatchValues = activeDispatches; genericAbsenceValues = activeAbsences; genericNewValues = activeNews; genericDefaultValues = activeDefaults; activeGenericScopes = activeScopes; activeGenericTypes = activeGenerics; currentReceiver = activeReceiver; currentDataConstructionOrigin = activeOrigin; currentVoidReturn = activeVoidReturn; currentDataReturn = activeReturn; currentMethod = activeMethod; bindings = activeBindings; currentReturnSlot = activeSlot; operandValues = activeOperands; }
             }
             currentDataReturn = Finish;
             try { return Statements(body.Operations, 0, environment, _ => Fail<TypedValue>("MCS2402", "Source data call has an unproved return path.", syntax.GetLocation())); }
-            finally { activeDataCalls.Remove(key); currentReceiver = previousReceiver; currentDataConstructionOrigin = previousOrigin; currentVoidReturn = previousVoidReturn; currentDataReturn = previousReturn; currentMethod = previousMethod; bindings = previousBindings; currentReturnSlot = previousSlot; operandValues = previousOperands; }
+            finally { activeDataCalls.Remove(key); genericFactoryValues = callerScope.Factories; genericDispatchValues = previousDispatches; genericAbsenceValues = previousAbsences; genericNewValues = previousNews; genericDefaultValues = previousDefaults; activeGenericScopes = previousScopes; activeGenericTypes = previousGenerics; currentReceiver = previousReceiver; currentDataConstructionOrigin = previousOrigin; currentVoidReturn = previousVoidReturn; currentDataReturn = previousReturn; currentMethod = previousMethod; bindings = previousBindings; currentReturnSlot = previousSlot; operandValues = previousOperands; }
         }
     }
 }

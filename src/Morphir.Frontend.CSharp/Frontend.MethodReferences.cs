@@ -57,8 +57,11 @@ public static partial class Frontend
         private TypedValue MethodReference(IMethodReferenceOperation reference, INamedTypeSymbol delegateType)
         {
             var target = reference.Method; var location = reference.Syntax.GetLocation();
-            if (ReceiverRequired(target) && DataType(target.ContainingType) && target.ContainingType.IsReferenceType) return Fail<TypedValue>("MCS2802", "Mutable reference receiver captures require their D13 live-reference/capture mapping; a readonly value snapshot cannot replace them.", location);
-            bool mapped = DecimalMethod(target) || FloatingPredicateMethod(target);
+            if (reference.ConstrainedToType is { } staticReceiver && target.IsStatic && ValueInterfaceType(target.ContainingType)) return StaticDispatchReference(staticReceiver, target, location);
+            if (ReceiverRequired(target) && !ValueInterfaceType(target.ContainingType) && DataReferenceResult(target.ContainingType)) return Fail<TypedValue>("MCS2802", "Reference-bearing receiver captures require the D13 live-reference/capture mapping.", location);
+            if (ReceiverRequired(target) && ValueInterfaceType(target.ContainingType) && ValueAlternatives(target.ContainingType).Any(alternative => DataReferenceResult(alternative))) return Fail<TypedValue>("MCS2802", "Reference-bearing interface receiver captures require the D13 live-reference mapping.", location);
+            bool numericFactory = NumericFactoryRequirement(target) is not null;
+            bool mapped = numericFactory || DecimalMethod(target) || FloatingPredicateMethod(target);
             FQName? fq = null;
             if (!mapped)
             {
@@ -66,18 +69,22 @@ public static partial class Frontend
                 else if (!identities.TryGetValue(SymbolId(target), out fq)) return Fail<TypedValue>("MCS2202", "Method reference has no validated selected definition or explicit external contract.", location);
             }
             var output = mapped ? Type(target.ReturnType, location) : CallableOutput(target, location);
-            if (target.Arity != 0 || target.Parameters.Any(parameter => parameter.RefKind != RefKind.None)) return Fail<TypedValue>("MCS2803", "Method references require resolved non-generic by-value signatures.", location);
+            if (target.Arity != 0 && !sourceMethods.ContainsKey(SymbolId(target)) && !numericFactory || target.Parameters.Any(parameter => parameter.RefKind != RefKind.None)) return Fail<TypedValue>("MCS2803", "Method references require resolved selected generic or catalog by-value signatures.", location);
             calls[currentMethod].Add((SymbolId(target), location));
             var signature = FunctionSignature(delegateType, location);
             IrType<Unit> targetSignature = output; foreach (var parameter in target.Parameters.Reverse()) targetSignature = Types.Function(Type(parameter.Type, location), targetSignature);
             TypedValue? receiver = null; Name? receiverName = null; TypedValue? receiverVariable = null;
             if (ReceiverRequired(target))
             {
-                receiver = DemandPresent(Lower(reference.Instance!), location);
+                receiver = ValueInterfaceType(target.ContainingType) ? InterfaceReceiverValue(reference.Instance!, target.ContainingType, location) : DemandPresent(Lower(reference.Instance!), location);
                 receiverName = Fresh("methodReceiver"); receiverVariable = new VariableValue<Unit, IrType<Unit>>(receiver.Attributes, receiverName);
                 targetSignature = Types.Function(receiver.Attributes, targetSignature);
             }
+            var defaults = mapped ? [] : DefaultWitnessArguments(target, location);
+            provedFactoryAdapters.Add(reference);
+            foreach (var witness in defaults.Reverse()) targetSignature = Types.Function(witness.Attributes, targetSignature);
             TypedValue? body = mapped ? null : new ReferenceValue<Unit, IrType<Unit>>(targetSignature, fq!);
+            foreach (var witness in defaults) body = new ApplyValue<Unit, IrType<Unit>>(((FunctionType<Unit>)body!.Attributes).Result, body, witness);
             if (!mapped && receiverVariable is not null) body = new ApplyValue<Unit, IrType<Unit>>(((FunctionType<Unit>)body!.Attributes).Result, body, receiverVariable);
             var parameters = new List<(Name Name, IrType<Unit> Type)>(); var invoke = delegateType.DelegateInvokeMethod!; var arguments = new List<TypedValue>();
             foreach (var parameter in invoke.Parameters)
@@ -87,7 +94,8 @@ public static partial class Frontend
             }
             if (mapped)
             {
-                if (DecimalMethod(target)) { if (receiverVariable is not null) arguments.Insert(0, receiverVariable); body = DecimalMethodValue(target, arguments, location); }
+                if (numericFactory) { body = NumericFactoryValue(target, arguments[0], location); provedNumericFactories.Add(reference); }
+                else if (DecimalMethod(target)) { if (receiverVariable is not null) arguments.Insert(0, receiverVariable); body = DecimalMethodValue(target, arguments, location); }
                 else
                 {
                     var argument = arguments[0]; var name = target.Name;

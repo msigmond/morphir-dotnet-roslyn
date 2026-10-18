@@ -16,7 +16,7 @@ public static partial class Frontend
         {
             foreach (var type in selected.Where(type => type.TypeKind is TypeKind.Class or TypeKind.Struct))
                 foreach (var field in type.GetMembers().OfType<IFieldSymbol>().Where(field => !field.IsImplicitlyDeclared && field.IsConst))
-                { AddSymbol(field, type.ToDisplayString(), field.Name); dataConstants[SymbolId(field)] = field; }
+                { AddSymbol(field, SourceOwnerName(type), field.Name); dataConstants[SymbolId(field)] = field; }
         }
         private void ValidateSourceDataMembers(IOperation root)
         {
