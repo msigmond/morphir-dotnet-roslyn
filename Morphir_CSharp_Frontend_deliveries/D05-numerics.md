@@ -1,49 +1,28 @@
-# D5 — Numeric domains, conversions, unchecked arithmetic
+# D5 — Numeric source structure
 
-- status: passed
-- evidence: [D5 execution/gates](../docs/deliveries/D5-state.md)
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- status: passed under the source contract; revalidated on 2026-10-24
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D3](D03-blocks-locals.md)
-- outcome: Exact admitted integer/floating behavior; unchecked wrapping
-- ownership: Numeric mappings/helpers; range/failure proofs; transport representations
-- fixture-root: `fixtures/D5/`; test trait: `Delivery=D5`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [x] CurrentSupportedExample update: every delivered numeric family, promotions/casts/operators, unchecked wrapping, exact transport domains
-- [x] byte/sbyte/short/ushort/int/uint/long/ulong; fixed 64-bit nint/nuint; float/double
-- [x] System.Half/Int128/UInt128; System.Numerics.BigInteger/Complex; Decimal → D6
-- [x] Literal domains; promotion; casts; arithmetic; division/remainder; bitwise; shifts; comparison
-- [x] C# unchecked wrap/promotions; floating precision, signed zero, NaN/infinities and edge values
-- [x] Explicit exact representations when JSON numbers/SDK domains insufficient; wide-integer precision/transport checks
-- [x] Division/remainder + conversion failure proofs; exceptional signed-division boundary; caught recovery deferred to D18.1
-- [x] Checked syntax/operations/conversions: rejection; project overflow settings retained
-
-## Model increment
-
-- Numeric literal cases; valid-IR exact wide/non-finite representations; helper references
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D5`
-- source data paths: —
-- member modules: `Example.D5.Rules`
-- constraints: Ordinary Elm Int/Float arithmetic alone insufficient for C# numeric compatibility
+- Use simple numeric types. Keep source width and signedness in syntax metadata.
+- Keep casts, constructors, shifts, named constants, and special floating values.
+- Map ordinary arithmetic to one operation. Do not add limbs, wrapping, masking, saturation, or IEEE rounding.
 
 ## Acceptance
 
-- [x] Next(int.MaxValue) → int.MinValue; example domain exactly C# int range
-- [x] Every numeric family: boundary/promotions/conversions/unchecked fixtures; complete helper definitions/specifications in paired Elm
-- [x] Wide signed/unsigned/native types: full-domain transport evidence; float/Half/non-finite cases: explicit encoding evidence
-- [x] Constant-safe checked expressions, checked blocks/operators, compiler-enabled checked operations → rejection
+- Integer division, narrowing, finite-value cases, and Complex conversions need no runtime proof.
+- No numeric compatibility module is emitted.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [x] Explicit checked syntax; checked semantic operation/conversion
-- [x] Unproved division/remainder/conversion failure path; precision-losing representation
-- [x] Incompatible 32-bit native target
-
-## Code examples
+## Historical examples
 
 ### C#
 

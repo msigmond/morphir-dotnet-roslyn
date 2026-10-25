@@ -1,0 +1,38 @@
+# D6 — exact Decimal mapping and safety
+
+The fixed baseline is C#14, .NET10.0.0 x64 and Roslyn5.0.0. [Execution evidence](../deliveries/D6-state.md) distinguishes development checks from the delivery gate.
+
+## Representation and construction
+
+`Compat.Decimal.Decimal` retains an unsigned 96-bit coefficient, scale0..28, a sign bit including negative zero, and the corresponding exact `Morphir.SDK.Decimal.Decimal` value. The coefficient uses the canonical D5 base65536 integer representation. Scale and sign are observable and never inferred from a normalized SDK string.
+
+Constants construct the SDK value with `Decimal.fromString` on compiler-known invariant decimal text. The grammar and <=28 fractional digits establish `Just`; the emitted match contains only that proved constructor, without `Nothing` substitution or a default. Generic helpers reconstruct the SDK value from exact small limbs and a proved exact epsilon1e-28. No binary-floating intermediate constructs Decimal. Default, integral constructors/conversions and the five-part constructor retain CLR coefficient/sign/scale; the parts scale requires proof of0..28. Binary-floating constructors/casts reject with MCS2704, including constant inputs.
+
+The pinned SDK wraps normalized arbitrary precision with a different division domain, drops trailing-zero scale, and has floating intermediates in some convenience constructors. Its general arithmetic is therefore not substituted for CLR Decimal arithmetic. Original pure Elm helpers implement exact coefficient alignment, 96-bit fitting, one-shot ties-to-even rounding, long division, remainder, and all five rounding modes. Successful outputs retain exact SDK values alongside CLR metadata. The standalone native/Elm checker validates coefficient, scale, sign and SDK rational value independently of frontend evaluation.
+
+## Operations and failure proofs
+
+| Source operation | Mapping / precondition |
+| --- | --- |
+| Arithmetic / comparison / unary signs | Original complete valid-IR helpers; exact comparison ignores representation differences; unary minus preserves scale and flips zero sign |
+| Add/subtract/multiply | Rational interval bounds must establish representable output; helpers preserve CLR rounding and scale |
+| Divide | Proved nonzero divisor and representable quotient magnitude; nonzero alone supplies no business bound |
+| Remainder | Proved nonzero divisor; magnitude cannot increase; zero stays possible |
+| Integral casts, including128/BigInteger | Truncation toward zero followed by target-range proof; incoming arbitrary/wide values need coefficient bounds |
+| Double/Single/Half/Complex output | Pinned runtime conversion order, separately rounded low64/high32 and decimal power table; Single then Half where applicable; signed zero retained |
+| Round/Floor/Ceiling/Truncate | Default ties-to-even or the exact directed helper mode; digits proved0..28; enum overloads depend on D8 |
+| Scale, Sign, IsNegative, Abs, Equals, CompareTo | Exact resolved members, including zero sign and trailing-zero scale |
+| Max / Min | Equal values retain first / second operand respectively, preserving its representation |
+| Nullable slots and operators | Existing M1 Maybe representation, lifted comparisons/equality/arithmetic/signs, defaults and guarded extraction; no invented fallback |
+
+Proof facts come only from constants, validated numeric bounds and dominating source comparisons. They follow immutable local snapshots, branch returns and already-validated source-call output summaries. Reassignments create new snapshots; stale range/nonzero facts cannot authorize a later failure. Unknown/full input domains remain full. Unvisited Decimal operations still undergo conservative safety validation. Checked syntax always rejects. Compilation-enabled checked numeric arithmetic/conversions reject, including Int32-to-Decimal and Decimal-to-Int32 conversions when Roslyn marks them checked; intrinsic Decimal arithmetic is governed by these mandatory D3 proofs rather than a blanket checked-flag rejection. Pre-D18.1 catch syntax cannot bypass the safety policy.
+
+MCS2701 identifies a missing nonzero proof, MCS2702 representability, MCS2703 integral conversion bounds, MCS2704 excluded floating construction, MCS2705 an unmapped Decimal form, and MCS2706 member preconditions. Failure is source-located and rejects the complete conversion. Ordinary business return types remain Decimal; no error wrapper, saturation, assumed business bound or hidden default is introduced.
+
+## References and scope
+
+[Decimal.cs](https://github.com/dotnet/runtime/blob/v10.0.0/src/libraries/System.Private.CoreLib/src/System/Decimal.cs) and [Decimal.DecCalc.cs](https://github.com/dotnet/runtime/blob/v10.0.0/src/libraries/System.Private.CoreLib/src/System/Decimal.DecCalc.cs) establish the pinned runtime behavior. Compatibility algorithms are original; no upstream implementation text is copied. Production and independent reference sources have separate generation scripts and frozen hashes. Validation never regenerates them.
+
+`fixtures/D6` contains the ordinary complete helper compilation, independently authored complete source/cumulative codec distributions, and the independent model-only `DecimalLiteral` codec distribution. Its model payload is an exact decimal string, even though source literals use proved construction calls. All D1–D5 references remain frozen.
+
+The [131-declaration public member inventory](../catalogs/decimal-members.json) records every pinned Decimal public declaration. Delivered language/representation operations do not implicitly admit other API overloads. Enum/generic/array/object/update forms retain D8/D10/D11/D17/D15 prerequisites; remaining pure API closure remains explicit under D18.4. No fixed final-scope member is removed.

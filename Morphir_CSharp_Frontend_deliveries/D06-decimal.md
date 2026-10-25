@@ -1,48 +1,28 @@
-# D6 — Exact Decimal construction and safety
+# D6 — Decimal source structure
 
-- status: passed
-- evidence: [implementation and gates](../docs/deliveries/D6-state.md)
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- status: passed under the source contract; revalidated on 2026-10-24
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D4](D04-maybe.md), [D5](D05-numerics.md)
-- outcome: Exact 0.1m + C#-compatible proven-safe calculations
-- ownership: Decimal mappings/helpers; D3 safety proofs; Decimal codec
-- fixture-root: `fixtures/D6/`; test trait: `Delivery=D6`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [x] CurrentSupportedExample update: exact construction, guarded arithmetic/conversions, rounding/scale within proven-safe domains
-- [x] Exact decimal construction; no binary-float intermediate; construction dependencies recorded
-- [x] SDK fromString → Maybe Decimal; constant validity + M1 extraction proof; no fallback default
-- [x] Arithmetic/comparison/casts/rounding/observable scale/range; SDK semantics verified or compatibility helpers
-- [x] Failure proof: overflow, zero division, conversions, supported-member preconditions; nonzero divisor alone insufficient
-- [x] Proof propagation through branches/local updates/calls; constants + validated bounds + dominating guards
-- [x] Business return types retained; no Result/Maybe error wrapper, saturation, invented defaults or differing arithmetic adoption
-
-## Model increment
-
-- DecimalLiteral serialization; Decimal construction/helper references
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D6`
-- source data paths: —
-- member modules: `Example.D6.Rules`
-- constraints: Policy D3 ≠ delivery D3; selected policy remains mandatory after D18.1
+- Use SDK Decimal type and direct decimal literals.
+- Map add, subtract, and multiply to direct SDK references. Keep other operations as source operations.
+- Keep explicit construction, conversions, scale, rounding arguments, and named members.
 
 ## Acceptance
 
-- [x] 3 units → exact 0.3; sample result domain 0..100; tenth 1 construction exact
-- [x] Constants + guarded bounds → success; full-distribution parity with identical construction/arithmetic
-- [x] C# rounding/conversion/scale boundaries → behavior evidence
-- [x] Zero divisor, possible overflow, unproved safety → rejection, including within catch
-- [x] Decimal literal codec: independent Elm fixture even when source literals lowered to calls
+- Unguarded decimal multiplication and division are accepted.
+- No coefficient records, epsilon arguments, parsing, range proofs, or Decimal helper modules appear.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [x] Unproved Decimal failure safety; undocumented business bounds
-- [x] Checked syntax; binary-floating construction; error-wrapper substitution
-
-## Code examples
+## Historical examples
 
 ### C#
 

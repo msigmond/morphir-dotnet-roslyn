@@ -1,43 +1,28 @@
-# D18.3 — Statically resolved pure dynamic operations
+# D18.3 — Dynamic syntax
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D18.2](D18_2-lazy-iterators.md), [D7](D07-calls.md), [D10](D10-generics-dispatch.md), [D17](D17-type-closure.md)
-- outcome: Known pure runtime targets with C# binding semantics
-- ownership: Dynamic target-set analysis; closed dispatch; binding proofs
-- fixture-root: `fixtures/D18.3/`; test trait: `Delivery=D18.3`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: known pure dynamic members/operators/conversions, closed targets and preserved binding order
-- [ ] Admitted runtime alternatives; dynamic members/operators/conversions
-- [ ] Resolved target/overload/conversion behavior; evaluation order
-- [ ] Canonical symbol naming + explicit dispatch + purity/failure analyses
-- [ ] Unknown target set/impurity/unproved binding failure → diagnostic
-
-## Model increment
-
-- Resolved calls/dispatch; existing tagged/generic representations
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D18_3`
-- source data paths: `Example.D18_3.MinimumAge`
-- member modules: `Example.D18_3.MinimumAge`, `Example.D18_3.Rules`
-- constraints: Member name similarity not proof of target identity/purity
+- Keep dynamic declarations, operations, and written calls with compiler binding facts where available.
+- Define an explicit source node for deferred binding.
+- Do not infer runtime target sets, execute a binder, or generate dispatch.
 
 ## Acceptance
 
-- [ ] Locally constructed MinimumAge(18): Rules.adult → MinimumAge.allows; 17 → false; 18 → true
-- [ ] Type Example.D18_3.MinimumAge in namespace module; member function in Example.D18_3.MinimumAge
-- [ ] Known target + closed alternatives → full parity + behavior
-- [ ] Unknown receiver/target; impure target; binding-failure uncertainty → rejection
+- Unresolved runtime dispatch is representable as explicit dynamic source structure.
+- Invalid C# still rejects.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Unknown runtime binding; open target set; impure target; unproved binding failure
-
-## Code examples
+## Historical examples
 
 ### C#
 

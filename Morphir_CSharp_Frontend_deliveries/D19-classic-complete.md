@@ -1,59 +1,29 @@
-# D19 — Complete v3 Classic model and serializer
+# D19 — Complete models and codecs
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D18.4](D18_4-feature-closure.md)
-- outcome: Every v3 distribution-reachable model/codec case
-- ownership: Classic/Json completeness inventory; independent codec host fixtures
-- fixture-root: `fixtures/D19/`; test trait: `Delivery=D19`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: phase marker/coverage refresh + full cumulative verification; no new business-source feature from model-only nodes
-- [ ] Complete every remaining Classic algebra case; generic type/value attributes; typed aliases
-- [ ] Explicit codecs for tags/dictionaries/scalars/unit/visibility/docs/dependencies
-- [ ] Independent Elm IR/codec output for source-inexpressible cases; full versioned distribution comparisons
-- [ ] Host sample: ExtensibleRecord(row) with Unit value field; ModelFixture owner in both languages
-- [ ] Replace sample JsonArray construction with actual Classic-node construction in implementation tests; no invented API implied
-- [ ] Host JSON/codec APIs outside admitted business-source catalog; no frontend translation of host fixture
-
-## Model increment
-
-- Full inventory below, including cases not emitted by admitted source subset
-
-| Model family | Required cases |
-| --- | --- |
-| Identity and wrappers | Name, Path, FQName, access control, documentation, unit attributes, versioned distribution |
-| Distribution | Library, dependency package specifications, package definition |
-| Packages and modules | Definitions and specifications; their type/value maps, docs and visibility |
-| Type expressions | Variable, Reference, Tuple, Record, ExtensibleRecord, Function, Unit |
-| Type definitions | TypeAliasDefinition, CustomTypeDefinition; constructors and named arguments |
-| Type specifications | TypeAliasSpecification, OpaqueTypeSpecification, CustomTypeSpecification, DerivedTypeSpecification and its details |
-| Literals | BoolLiteral, CharLiteral, StringLiteral, WholeNumberLiteral, FloatLiteral, DecimalLiteral |
-| Value expressions | Literal, Constructor, Tuple, List, Record, Variable, Reference, Field, FieldFunction, Apply, Lambda, LetDefinition, LetRecursion, Destructure, IfThenElse, PatternMatch, UpdateRecord, Unit |
-| Patterns | WildcardPattern, AsPattern, TuplePattern, ConstructorPattern, EmptyListPattern, HeadTailPattern, LiteralPattern, UnitPattern |
-| Values | Specifications, definitions, named inputs, output types, body and attributes |
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D19`
-- source data paths: —
-- member modules: `Example.D19.ModelFixture`
-- constraints: Original host C# snippet: wire-shape specification only; production test must exercise Classic model
-- fixture role: host serializer/codec; excluded from business frontend
+- Complete the source-operation schema and its explicit codecs.
+- Complete the separately identified pinned Classic algebra/codec inventory.
+- Validate source v1 and Classic v3 as different wire contracts.
+- Add explicit format/schema migration rules. Do not label source extension tags as standard Classic v3.
 
 ## Acceptance
 
-- [ ] Expected host JSON: exact structure below; model serializer vs independent Elm codec
-- [ ] Every inventory case: C# representation + codec fixture + complete-distribution inclusion
-- [ ] No model-only case enables excluded source feature; no normalization/metadata loss
+- Independent complete references cover each schema and source operation.
+- No automatic reference refresh occurs during validation.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Missing reachable algebra/codec case; speculative model API dependency; host fixture passed to business frontend
-- [ ] Default dictionary JSON serialization; dropped tags/access/docs/attributes
-
-## Code examples
+## Historical examples
 
 ### C# — host serializer fixture
 

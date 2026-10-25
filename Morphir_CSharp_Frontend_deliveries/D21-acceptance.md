@@ -1,47 +1,28 @@
-# D21 — Complete frontend acceptance
+# D21 — Complete acceptance
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D20](D20-msbuild.md)
-- outcome: Complete agreed frontend as reproducible packages/tools
-- ownership: Combined fixtures; release artifacts/docs; clean-checkout verification
-- fixture-root: `fixtures/D21/`; test trait: `Delivery=D21`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] Combined data/collections/polymorphism/Maybe/Decimal/unchecked numerics/control flow
-- [ ] Independent recursion/exception/iterator/dynamic fixtures + combined required interactions
-- [ ] Checked rejection through CLI/MSBuild; fixed-version language/framework/model catalog reconciliation
-- [ ] Clean checkout reproducibility; pinned dependencies; parity + behavior evidence
-- [ ] Release artifacts + support contract/examples/diagnostics/mapping catalog/upgrade procedure
-- [ ] CurrentSupportedExample: complete supported-language coverage; zero unmapped forms; cumulative CLI/MSBuild parity/behavior; final README/AGENTS and pointer/license audit
-- [ ] External publication: separate later action; additional execution environments: separate later plan
-
-## Model increment
-
-- Every model case + frontend-emitted combinations validated
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D21`
-- source data paths: `Example.D21.Order`
-- member modules: `Example.D21.Rules`
-- constraints: Single combined seed not replacement for complete feature/interaction suite
+- Run the full source-structure suite from a clean checkout.
+- Close all fixed catalogs, schema references, packages, samples, and documentation.
+- Validate all 62 approved audit cases and future-delivery cases.
 
 ## Acceptance
 
-- [ ] Total: null → 0; eligible order units 3 → exact 0.3
-- [ ] Missing units/ineligible/invalid counts → 0 contribution; first 10 orders only; units admitted 0..10; total ≤10 exact tenths
-- [ ] D3 Decimal safety proof without error wrapper; all source type/member paths retained
-- [ ] All master final gates + D1–D20 regression evidence; no pending admitted catalog/model case
-- [ ] Clean CLI/MSBuild reproduction + packages/docs; example alone insufficient for full acceptance
-- [ ] Root LICENSE/NOTICE provenance + release attribution intact; README/AGENTS commands reproducible; CLAUDE exact pointer-only body
+- No pending admitted source mapping remains.
+- The release states source v1 compatibility and the limits of execution semantics.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Any unresolved required scope/model/catalog entry; silent selected-code loss; failed parity/behavior gate
-
-## Code examples
+## Historical examples
 
 ### C#
 

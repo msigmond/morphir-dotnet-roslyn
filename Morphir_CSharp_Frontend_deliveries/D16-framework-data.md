@@ -1,45 +1,28 @@
-# D16 — Dates, times, durations, identifiers
+# D16 — Framework data structure
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D6](D06-decimal.md), [D11](D11-collections.md)
-- outcome: Deterministic rules across accepted framework data families
-- ownership: Framework mappings/helpers; culture/offset/precision contracts
-- fixture-root: `fixtures/D16/`; test trait: `Delivery=D16`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: deterministic dates/times/durations/Guid operations with delivered culture/offset/precision contracts
-- [ ] System.DateOnly/TimeOnly/DateTime/DateTimeOffset/TimeSpan/Guid
-- [ ] Complete fields/domains; offsets; precision; comparison; parsing/formatting/culture; supported pure members
-- [ ] SDK semantic validation; compatibility representation where required
-- [ ] No clock/randomness/machine-zone lookup/resources; further wrappers only via explicit catalog change
-
-## Model increment
-
-- SDK types only with verified equivalence; otherwise complete custom data/helpers
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D16`
-- source data paths: —
-- member modules: `Example.D16.Rules`
-- constraints: Value representation support ≠ every member pure; DateTime.Now excluded
+- Represent the fixed date, time, duration, and Guid types.
+- Keep constructors, casts, literals where available, properties, and named member calls.
+- Do not simulate calendars, offsets, cultures, tick ranges, or parsing.
 
 ## Acceptance
 
-- [ ] Rules functions retained in Example.D16.Rules; framework representations under Example.Compat.DotNetData
-- [ ] fractionTicks: 100 ns fraction; DateTime kind retained; offsetMinutes retained
-- [ ] TickBits: four 16-bit words, signed 64-bit tick pattern; Guid: exactly 16 bytes + documented byte order
-- [ ] At least one fixture per family; precision/offset/range/culture boundaries; parsing/formatting failure contracts
-- [ ] Sample encodings illustrative complete-field forms for shown operations; final public mapping API recorded with evidence
+- Framework values have named types and source operations.
+- Source checks remain visible; no hidden runtime validation is added.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Clock/randomness/machine-zone/resource reads; unsupported culture semantics; unsafe parse/conversion
-- [ ] Unselected additional framework family
-
-## Code examples
+## Historical examples
 
 ### C#
 

@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup />
   <ItemGroup>
+    <!-- Frozen historical references; the source converter does not use runtime compatibility factories. -->
+    <Compile Remove="Compatibility/*.cs" />
     <ProjectReference Include="../Morphir.IR.Classic/Morphir.IR.Classic.csproj" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
   </ItemGroup>

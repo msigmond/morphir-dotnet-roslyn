@@ -1,40 +1,28 @@
-# D3 — Blocks, locals, decisions
+# D3 — Blocks, locals, and statements
 
-- status: passed
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- status: passed under the source contract; revalidated on 2026-10-24
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D2](D02-project-inputs.md)
-- outcome: Business rule with intermediate state and multiple returns
-- ownership: Operation/CFG lowering; local state; branch fixtures
-- fixture-root: `fixtures/D3/`; test trait: `Delivery=D3`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [x] CurrentSupportedExample update: blocks, locals/constants, reassignment, branches/conditional expressions, returns
-- [x] Block bodies; locals/constants; allowed reassignment; returns; conditional expressions; if/else
-- [x] Boolean/short-circuit lowering; numeric operations restricted to delivered contracts
-- [x] IOperation + control-flow analysis; scopes, evaluation order, definite assignment
-
-## Model increment
-
-- LetDefinition; IfThenElse; additional required bindings
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D3`
-- source data paths: —
-- member modules: `Example.D3.Rules`
-- constraints: Later numeric support additive; no premature generic arithmetic claim
+- Keep blocks, declarations without initializers, assignments, empty statements, and returns.
+- Keep if/else branches, including constant and unreachable branches.
+- Keep short-circuit operators. Do not copy following statements into branches.
 
 ## Acceptance
 
-- [x] Category: inactive → 0; active age <18 → 1; active adult → 2
-- [x] Branch coverage + locals/reassignment parity; operand/branch changes reflected in IR
+- A written assignment has one Assignment node.
+- No SSA versions, discard bindings, or constant folding enter the output.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [x] Unproved numeric semantics; unassigned read; input/external mutation; effects
-
-## Code examples
+## Historical examples
 
 ### C#
 

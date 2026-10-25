@@ -1,44 +1,28 @@
-# D17 — Object boxing and type-catalog closure
+# D17 — Object and remaining type forms
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D8](D08-enums-tuples.md), [D9](D09-user-data.md), [D10](D10-generics-dispatch.md), [D11](D11-collections.md), [D12](D12-patterns.md), [D13](D13-closures.md), [D14](D14-recursion.md), [D15](D15-loops-local-state.md), [D16](D16-framework-data.md)
-- outcome: Working construction/use for every accepted type entry
-- ownership: Tagged object data; remaining type catalog support/fixtures
-- fixture-root: `fixtures/D17/`; test trait: `Delivery=D17`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: boxing/type tests/casts + remaining admitted type forms; complete current type coverage
-- [ ] object boxing/heterogeneous values; pure type tests/casts; complete admitted tagged variants
-- [ ] Remaining language/user-defined/catalog types, delegates, object/dynamic data and finite acyclic recursive values
-- [ ] Dynamic invocation deferred to D18.3; no reference identity/cyclic graphs
-- [ ] Per-entry actual frontend lowering + paired runnable fixtures; no placeholder-only completion
-- [ ] Pointer/ref-like declaration/use rejection; runtime-handle families outside catalog
-
-## Model increment
-
-- Tagged data for complete admitted runtime type set; finite recursive data
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D17`
-- source data paths: —
-- member modules: `Example.D17.Rules`
-- constraints: Type closure separate from remaining function-form closure D18.4
+- Represent object, boxing/unboxing syntax, conversions, and the remaining fixed type catalog.
+- Retain declared source type identity and resolved member targets.
+- Do not enumerate runtime alternatives or simulate identity, storage, or boxing allocation.
 
 ## Acceptance
 
-- [ ] AgeOrZero: boxed 18 → 18; boxed false/null → 0
-- [ ] Displayed BoxedInt/BoxedBool representation extended to full admitted set
-- [ ] Every accepted fixed-version type catalog entry: passing construction/use fixture; no pending type entry
+- Explicit casts remain casts. Implicit conversions add no execution steps.
+- No value-domain or runtime-type proof is required.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Pointer/ref-like data; identity; cyclic graph; implicit inclusion of runtime handles
-- [ ] Opaque placeholder/catalog row as substitute for working support
-
-## Code examples
+## Historical examples
 
 ### C#
 

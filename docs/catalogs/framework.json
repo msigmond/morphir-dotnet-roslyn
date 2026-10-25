@@ -1,52 +1,42 @@
 {
   "referencePack": "Microsoft.NETCore.App.Ref/10.0.0",
-  "catalogPolicy": "Full master fixed families and primitives; generic/user language data forms are in forms.json. Subsets are explicit in framework.md and mappings. Pending representation/member/proof/fixture work blocks final acceptance. No runtime-driven additions.",
+  "catalogPolicy": "Fixed source type inventory. Type/member source mappings and later delivery gaps are explicit. No runtime-safety or purity contract.",
   "types": [
     {
       "type": "System.Boolean",
       "version": "10.0.0",
       "owner": "D1",
       "state": "supported",
-      "representation": "SDK Basics.Bool",
-      "pureMembers": "Built-in Boolean conditional operations",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "SDK Bool.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "D1/eligibility",
-        "D1/sample"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "D2/external-call",
-        "D1/unsupported-types"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "D1/short-circuit"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
-      "memberOwner": "D18.4"
+      "memberOwner": "D18.4",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Char",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Char and CharLiteral.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -55,25 +45,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.String",
       "version": "10.0.0",
       "owner": "D4",
       "state": "supported",
-      "representation": "Maybe SDK String.String in reference slots, including annotated inputs/default fields; proved-present results remain String.String.",
-      "pureMembers": "D4 exact System.String.Length getter after M1 proof (UTF-16 code units); full pure-member inventory/closure remains pending and includes later Char/array/delegate/object dependent overloads.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "SDK String; Maybe only for explicit nullable types.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D4/expected/maybe.json",
-        "fixtures/D4/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "PresenceTests.MissingProofAndUnsupportedEffectsFailWholeConversion"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "PresenceTests.DefaultsGuardsConstructionCopiesAndConditionalAccess: null/empty/surrogate pair"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -81,16 +70,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Object",
       "version": "10.0.0",
       "owner": "D17",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -100,16 +89,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "dynamic",
       "version": "C#14",
       "owner": "D18.3",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -119,26 +108,24 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Decimal",
       "version": "10.0.0",
       "owner": "D6",
       "state": "supported",
-      "representation": "Compat.Decimal.Decimal: exact 96-bit coefficient, scale0..28, sign including negative zero, and exact SDK Decimal value.",
-      "pureMembers": "Exact 131 public declared symbol inventory in decimal-members.json; listed operators/constructions/Scale/rounding/arithmetical members; later API prerequisites explicit.",
-      "boundaries": "D3 range/nonzero/conversion/member proof; binary-floating construction rejects. No fallback/error wrapper/saturation.",
+      "representation": "SDK Decimal and DecimalLiteral; no CLR coefficient/helper records.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D6/expected/decimal.json",
-        "fixtures/D6/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "DecimalTests",
-        "eng/check-decimal-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -146,31 +133,24 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Byte",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -179,31 +159,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.SByte",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -212,31 +185,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Int16",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -245,31 +211,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.UInt16",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -278,31 +237,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Int32",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -311,31 +263,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.UInt32",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Basics.Int, exact full fixed source range and width/promotion/wrap helpers.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -344,31 +289,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Int64",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -377,31 +315,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.UInt64",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -410,31 +341,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.IntPtr",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -443,31 +367,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.UIntPtr",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -476,31 +393,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Single",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Basics.Float with explicit binary32/binary16 rounding and computed nonfinite/signed-zero helpers.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Float; source precision and literal spelling remain in metadata.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -509,31 +419,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Double",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Basics.Float with explicit binary32/binary16 rounding and computed nonfinite/signed-zero helpers.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Float; source precision and literal spelling remain in metadata.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -542,31 +445,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Half",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Basics.Float with explicit binary32/binary16 rounding and computed nonfinite/signed-zero helpers.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Float; source precision and literal spelling remain in metadata.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -575,31 +471,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Int128",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -608,31 +497,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.UInt128",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -641,31 +523,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Numerics.BigInteger",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "Canonical signed-magnitude base-65536 limb alias Compat.Integers.Integer.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -674,31 +549,24 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Numerics.Complex",
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "Compat.Floating.Complex alias of two binary64 values.",
-      "pureMembers": "Exact 10.0.0 declared public overload inventory in numeric-members.json. D5 numeric constructors/operators/conversions/constants/properties and IEEE predicates are classified individually; remaining pure API closure/dependent forms stay pending, never inferred from type support.",
-      "boundaries": "docs/mappings/D5.md: canonical transport, fixed x64, source-domain invariants, dominating division/range/finiteness proofs, M1 and checked rejection.",
+      "representation": "Named intrinsic source type; source constructors/operators/members.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/D5/expected/numeric.json",
-        "fixtures/D5/expected/sample.json"
+        "fixtures/source-structure/contract.json"
       ],
       "negativeFixtures": [
-        "NumericSafetyTests",
-        "NullableNumericTests"
+        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
       ],
       "boundaryFixtures": [
-        "NumericTests",
-        "FloatingTests",
-        "ComplexTests",
-        "NumericFixtureTests",
-        "NumericConversionTests",
-        "eng/check-numeric-compat.mjs"
+        "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
@@ -707,16 +575,16 @@
         "negative",
         "boundary"
       ],
-      "memberInventory": "numeric-members.json"
+      "memberInventory": "numeric-members.json",
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.DateOnly",
       "version": "10.0.0",
       "owner": "D16",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -726,16 +594,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.TimeOnly",
       "version": "10.0.0",
       "owner": "D16",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -745,16 +613,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.DateTime",
       "version": "10.0.0",
       "owner": "D16",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -764,16 +632,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.DateTimeOffset",
       "version": "10.0.0",
       "owner": "D16",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -783,16 +651,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.TimeSpan",
       "version": "10.0.0",
       "owner": "D16",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -802,16 +670,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Guid",
       "version": "10.0.0",
       "owner": "D16",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -821,16 +689,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.List`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -840,16 +708,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.Dictionary`2",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -859,16 +727,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.HashSet`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -878,16 +746,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.Queue`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -897,16 +765,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.Stack`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -916,16 +784,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.IEnumerable`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -935,16 +803,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.ICollection`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -954,16 +822,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.IList`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -973,16 +841,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.IDictionary`2",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -992,16 +860,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.ISet`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1011,16 +879,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.IReadOnlyCollection`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1030,16 +898,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.IReadOnlyList`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1049,16 +917,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.IReadOnlyDictionary`2",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1068,16 +936,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Generic.IReadOnlySet`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1087,16 +955,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.ObjectModel.ReadOnlyCollection`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1106,16 +974,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.ObjectModel.ReadOnlyDictionary`2",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1125,16 +993,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Immutable.ImmutableArray`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1144,16 +1012,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Immutable.ImmutableList`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1163,16 +1031,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Immutable.ImmutableDictionary`2",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1182,16 +1050,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Immutable.ImmutableHashSet`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1201,16 +1069,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Immutable.ImmutableQueue`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1220,16 +1088,16 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     },
     {
       "type": "System.Collections.Immutable.ImmutableStack`1",
       "version": "10.0.0",
       "owner": "D11",
       "state": "pending",
-      "representation": "Pending owning-delivery mapping; D1 Int32 and literal-only String subsets retained.",
-      "pureMembers": "Pending exact member/overload inventory; no inference from type admission.",
-      "boundaries": "Master fixed data/purity/ownership/safety contract",
+      "representation": "Pending named source type mapping; see owning delivery.",
+      "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
       "negativeFixtures": [],
       "boundaryFixtures": [],
@@ -1239,7 +1107,8 @@
         "positive",
         "negative",
         "boundary"
-      ]
+      ],
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
     }
   ]
 }

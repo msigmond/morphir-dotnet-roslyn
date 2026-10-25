@@ -1,3 +1,5 @@
+> Historical runtime-contract evidence. Current acceptance: [source migration](source-structure-state.md).
+
 # D8 — execution evidence
 
 - Status: passed. Prerequisites D5 and D7 passed; D7 be0b46c5e5115f44e78289f1ae0e890d4f287d8f and D6 c22ec6f are pushed and verified. Publication verified: f604f6a1ce840e63781b3975ab980b6b6cac6ea8 is on origin/main, confirmed through authenticated gh. D9 is now active.

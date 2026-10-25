@@ -1,0 +1,342 @@
+{
+  "contract": "Historical D1\u2013D9 runtime snapshot before the approved source migration.",
+  "base": "e083653",
+  "files": [
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Blocks.cs",
+      "sha256": "fa8e9c21506a1871640529dd62096356d4a34ddbd1c2c9e3637a9d263b0e9a96"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Callables.cs",
+      "sha256": "d4304c95e6ad3e4958679a19b6a754ecb10fb9182b8a9afffb1b3979890f4667"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Data.cs",
+      "sha256": "cfbe7c9ac087e31f045107dc476e1dae20e5f757fff8895b0716e7e26002ddcf"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataCalls.cs",
+      "sha256": "4d1690a4ce6da4ac2cd4ef60a4744f93ec41a801f04229f59b574ddfad8c9bd3"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataConstants.cs",
+      "sha256": "95082703b8ae22757ab1ab87aad7b8967fc1d9d998a7cb0afefbd796f25c0790"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataConstructors.cs",
+      "sha256": "7677048d860ac46fb4e24db7953553d7113ae979eaf858d79f3de21ad6660167"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataEquality.cs",
+      "sha256": "017811282e2314437f027452a2e5ae729a3f819e1730a5a2df69438b0b0539f4"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataGraphs.cs",
+      "sha256": "bc75836a017357d3a50aafa77ca0a9a780e502c67b0831fd22c6d96f07fbe2d6"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataInitializers.cs",
+      "sha256": "ce6225026724e0b33e0e80d471c5e76c7b2d85dce9a8d4d3548f2541a57ad6f5"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataLocations.cs",
+      "sha256": "b21b22eb5750dd91857d5db480b40531d0a58c3b7d48ebf100d5f0757e7ac937"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataObjectInitializers.cs",
+      "sha256": "5918dde54959adb05bda5600639cfe02f07e820b21303ff96aacf970d7be2734"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataOperators.cs",
+      "sha256": "cb38f998e3499fbc8a8bdf52a2f3cab50538a4ae8ebec9a07c2934093614bee8"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataPrimary.cs",
+      "sha256": "d64a5bf5b3f05a1878c5b4df071bc8e0309a9af10173376ad336dc6fbcec6e8f"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataProperties.cs",
+      "sha256": "e76b1836f08b7044612900fd1ea3ff9b671306d28788afc3f9f8a604465f7d66"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataRecords.cs",
+      "sha256": "2834cffbc5d88ca15f9a889fddfc9bf950a6290da78273138ff1e10ab485a049"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DataSetters.cs",
+      "sha256": "340d199cb9315a93a20c108ff4e2b20d3b7d9faef34bc8580c4131cb0fd57e77"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Decimal.cs",
+      "sha256": "022af4bf8d9cd1d8f376ba17b003ae89f102c3ae9e2ba48c42d514137914a720"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DecimalMembers.cs",
+      "sha256": "9cd738f6f8e3581eb518f88c15d2f7dad8a6dfc5066b5b4c78313b3be1eca451"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.DecimalProofs.cs",
+      "sha256": "a293fa689bb7a71e85cd1cf7d9fcf54a964d4809bb6d8f9ca5419f3334760cbe"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Enums.cs",
+      "sha256": "7ee048eb773ea51380ce6280fa69e7cefe0cbba1bb42bf46477c0332393b4e16"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Expressions.cs",
+      "sha256": "1c2f9e74d6f32e623f27391f67ab3863e118242467d7e46f65881706e2dc5d00"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.External.cs",
+      "sha256": "a1f4ab2515becd8355bcea315e34f93b074eb23bb37029a1c5d6466752bbaf90"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Floating.cs",
+      "sha256": "0906f2bc212eb9c3d725300c67f10877aa45ff883d3cf13b5ecb6951bde4378c"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.FloatingProofs.cs",
+      "sha256": "72fc8b72bc207d776cf33b00dc683c787fff0e8523c55291f6d9c73a79c708e0"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.MethodReferences.cs",
+      "sha256": "587bacf6d39a6405321e5c41a6f47bb554f750cc79ace2ea29c1af48a23e8cb5"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.NumericConversions.cs",
+      "sha256": "56cdbdf856484484ffba0623bc7c268557fa75a4de13e3f93ae4d9545cda8073"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.NumericProofs.cs",
+      "sha256": "80ebaddf0d37c443148f06be0d2931c9ecdc39ee38f2e85348658abe6d479bd6"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Numerics.cs",
+      "sha256": "28cdd0ea07db120f752c7f0bbc6b76e8e60c35c35e880e7a3f3beba1b72fbe1a"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Params.cs",
+      "sha256": "2695b2aa1fa68f193bc3c8613055abe84fd5d35bc3db9b5c4ecca6c581dec25f"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Presence.cs",
+      "sha256": "35c263a65be4a9312515b69f6aeeeb53a83b2e7d2b6f67c1fc2e89fa216e40fe"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.Tuples.cs",
+      "sha256": "726c3c1018bbb3a0a4c2b7164e9be7e722ab136f0e182685f9dc940259ba964e"
+    },
+    {
+      "path": "docs/history/runtime-contract/frontend/Frontend.cs",
+      "sha256": "7d0146617cb918bb22c44e2a7099214ff58a08316c8bfccfbe0b1b9169b6052a"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/BlockTests.cs",
+      "sha256": "76386ec71f367145965e98a2b7e07f7f7d4861e6bcf74d6dfb23b0423855154b"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/CallTests.cs",
+      "sha256": "f035106ea1268276a81eb1374f608d164f33519b0395c3574519145fd37ed142"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/ComplexTests.cs",
+      "sha256": "18a9fef83cad9c756a91e497b288fa794b8aced7866c69647dd4ac06331d6e7e"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/DataTests.cs",
+      "sha256": "127950da4ebb3d7e9b4b022eec1dc23e507aa6d4ea08eefab4bfaf519cd55578"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/DecimalTests.cs",
+      "sha256": "37f75860f972d53d4650523a6515fb22872a007f006a18d0f80a77f61857d5b3"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/EnumTupleTests.cs",
+      "sha256": "6c0b810c26f05bd81ef5515afecb8c26710b290469a746ad944c246c43c38e1e"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/ExternalCallTests.cs",
+      "sha256": "31cd39de15398858e6faeb621da5dfe4b58d7f1c77bcd8a7913eabf0be8e1716"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/FloatingTests.cs",
+      "sha256": "2e3b52e27181ead79e413ee78306c72895cb4c6f108cebc62e5dc6733da146b4"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/IntegrationTests.cs",
+      "sha256": "d5bd41d6e1590185928ffd69dcb46cad337975ef97db4ea8053210ff6b24d4f6"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/NullableNumericTests.cs",
+      "sha256": "20c1c18a3e90e73df813b438e8490ba63c2e42b8b2df0b9db3a3cba899206795"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/NumericCatalogTests.cs",
+      "sha256": "0926a599e1859205e4fc238904bd713b76e4b4cddfde35d1f433862af0656633"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/NumericConversionTests.cs",
+      "sha256": "396a840f07bf98123afd8754cdcb4b1bc8c34b432eacf2a3bec83a11d001d91d"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/NumericFixtureTests.cs",
+      "sha256": "6df6c5c55e1ff0a89586596fd4046901131c546de82c868a1f5fbbfe50fb3abc"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/NumericSafetyTests.cs",
+      "sha256": "0fd87307f46548341d98f0cb41418d9102b115fc88ccdea41ba3aa9a47adbb31"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/NumericTests.cs",
+      "sha256": "7e4422443a9531bb15b6d72dd0fb703e61035e426e92505950d7b54a40ff3e8a"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/PresenceTests.cs",
+      "sha256": "6d6480da89d8db299bb05cd233c7588e66f34eaa9c371fa30624c95f72df6ea8"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.IntegrationTests/ProjectTests.cs",
+      "sha256": "02d3493feca17957778f38ae60f7364a17f0ce2a824103862c60b7a64ac52d41"
+    },
+    {
+      "path": "docs/history/runtime-contract/tests/Morphir.Frontend.CSharp.Tests/FrontendTests.cs",
+      "sha256": "79301c478c73dcf16c775bc18082338d95127df8f0529c60818a430796002d70"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D01-cli-record.md.txt",
+      "sha256": "82c7e4a07cc60079fea7073f32124680136a5f0a698850222b89ee6c642b36e5"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D02-project-inputs.md.txt",
+      "sha256": "e320ed79cae09668ea1d87caa8b92b8dd493ab0b97f1c52f605e791be6aac1a1"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D03-blocks-locals.md.txt",
+      "sha256": "66c951c4746748cc57ec1e8e22b7d29086e1618825938aae3ac9b284bf54434b"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D04-maybe.md.txt",
+      "sha256": "e450e73edb3bdbd0bc040536b05717595408c360d11a7e5b225cd1c668a6f48a"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D05-numerics.md.txt",
+      "sha256": "5c3c59f9255bbcc6c8f162537e62463cd4dd173b830eed2b772b1fb3f431a20e"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D06-decimal.md.txt",
+      "sha256": "defcd3e7243be9b7b6e74d3380314f925ed776b096f25c4082db57ec81042a34"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D07-calls.md.txt",
+      "sha256": "85f5bebdc792701f3df2bdf9e06f0a92533aa273c6fcec0768a1f05232582bd5"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D08-enums-tuples.md.txt",
+      "sha256": "4faf3860de942289bf866efbba370698d5d2ea5355dbf37e049fc332432c2f49"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D09-user-data.md.txt",
+      "sha256": "fb95acf84044b3dcca374f7d8fdfc96cb20a5a84fe5e446a7040eaf635331911"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D10-generics-dispatch.md.txt",
+      "sha256": "d383c00e44caf08d85092dc27dc39e4955b60405d9211d2985bb7c7c614976e9"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D11-collections.md.txt",
+      "sha256": "d3be00467b8cb6aa015a7b6f58f79d7de2b6490201c9de2afcc22a12368088ce"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D12-patterns.md.txt",
+      "sha256": "54b3965ef6dab6e691e579c01d7ad9fa755350152bfad710d619d38452d88915"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D13-closures.md.txt",
+      "sha256": "ee2c6352661d655cb103ca1c0001a874cb3555385c1c817801c0be3d5088b306"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D14-recursion.md.txt",
+      "sha256": "98e74136a1d183b729ddf127dc35d705f9d77763d147c7a30dc16af1d8ddb7d7"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D15-loops-local-state.md.txt",
+      "sha256": "7e38fd1525daf0f2f12d40c64d868e98983beccab168e930d8cb793d3cfda8d0"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D16-framework-data.md.txt",
+      "sha256": "8c07a0ea1252afffd680485b2aed6bb6c00cdb0b752cda9cfaf783b5fd16ecc9"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D17-type-closure.md.txt",
+      "sha256": "c3582941d5a809447800e465e89c83e82de04ad6ae15fc3d14e813dbf273caa5"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D18_1-caught-failures.md.txt",
+      "sha256": "623200a6b0ace668e5d3655b08dabf50f90e19c59a9e834bc9903c1de839d867"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D18_2-lazy-iterators.md.txt",
+      "sha256": "420275348e41a4e37ae3e1b8957fd907f33d8cccdbb0c13e3b5025312754a5cc"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D18_3-dynamic.md.txt",
+      "sha256": "2e381dcca35908f6c187fa9ecac184fc25ac662f3f087238541871db5089800a"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D18_4-feature-closure.md.txt",
+      "sha256": "0697d982b4bca99de75037978f759aea284a06c2369d9c81eeb8e9f4663e08f9"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D19-classic-complete.md.txt",
+      "sha256": "53c8c84e2781c9fc26015f54ad5a01cbf7eb0c460937aa7750f941017a0d1b2e"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D20-msbuild.md.txt",
+      "sha256": "8287bbdb805b9dd7cad68473c23e91f7f55de5cf81c181a6947fff5803fc712a"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/D21-acceptance.md.txt",
+      "sha256": "2c6208d847aaa5bf9c81065ef7b450d088823b81c5877c27b36eb40e5572607e"
+    },
+    {
+      "path": "docs/history/runtime-contract/plans/Morphir_CSharp_Frontend_delivery_plan.md.txt",
+      "sha256": "51a16990ea5a1e875e5a220ec3ead747bc7beda51ad571503977a2afe7cbcd27"
+    },
+    {
+      "path": "docs/history/runtime-contract/mappings/D1.md.txt",
+      "sha256": "6a02b13e4d91c2f7657c98c6f6d958acd4c0b72f4610dcf2f479cc762afab630"
+    },
+    {
+      "path": "docs/history/runtime-contract/mappings/D2.md.txt",
+      "sha256": "da7cbd20e06aa604ed430a0668be21c9f875dc03243b76e469646b736da5a807"
+    },
+    {
+      "path": "docs/history/runtime-contract/mappings/D3.md.txt",
+      "sha256": "a81931823d006a0c8ee8399c22dbfad27b87e43d2eaa07d6fba01392f4a0b833"
+    },
+    {
+      "path": "docs/history/runtime-contract/mappings/D4.md.txt",
+      "sha256": "fa5e6f25bb7d098d9e0f6195f410cd23dd6792db34a7674203599c5226aacf06"
+    },
+    {
+      "path": "docs/history/runtime-contract/mappings/D5.md.txt",
+      "sha256": "824ef1fffe7dfdb7d27785918f534db95d640a6064f600f7b1e58c9b0d58b0ac"
+    },
+    {
+      "path": "docs/history/runtime-contract/mappings/D6.md.txt",
+      "sha256": "b9957ffa893e1a84639c53eb4955aa8dc6cec235b4fb475175a2ec3e61ba9888"
+    },
+    {
+      "path": "docs/history/runtime-contract/mappings/D7.md.txt",
+      "sha256": "2d370c1f4aea3b940a1eae09ce3331f61f2ab50595cefec9736230e104bd1c4c"
+    },
+    {
+      "path": "docs/history/runtime-contract/mappings/D8.md.txt",
+      "sha256": "ef72ceed111fd86a4d2268ff48c4918a4055321e4a9f3bab0c8881eb91a28ebf"
+    },
+    {
+      "path": "docs/history/runtime-contract/mappings/D9.md.txt",
+      "sha256": "e3cdbf293ab7b585c2b6540b70895fdd2145599d84443e445c424869433cc731"
+    }
+  ]
+}

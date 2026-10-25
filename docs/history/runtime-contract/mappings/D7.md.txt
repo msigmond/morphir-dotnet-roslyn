@@ -1,0 +1,33 @@
+# D7 — resolved pure calls
+
+Status and command evidence are in [D7 state](../deliveries/D7-state.md). Baseline: C#14, Roslyn5.0.0, .NET10.0.0 x64. Later data/closure/dispatch/recursion domains remain gated.
+
+## Identity, arguments and receivers
+
+Source symbols determine targets. Overloaded definitions retain the established suffix `__{generic arity}__{ref kind}_{canonical parameter type}...`; primitive/non-generic names retain their existing global-qualified type spelling. Array descriptors additionally encode rank/vector kind/element type; generic descriptors encode metadata arity and canonical arguments. Normalization uses the pinned Morphir Name/Path behavior. Remaining collisions diagnose both declarations. Owners remain source owners: data in the namespace/enclosing-type module, members in the type module; a suffix never replaces the owner.
+
+Calls apply arguments in resolved parameter ordinal order. Roslyn argument operations supply declaration/metadata defaults. Evaluation follows source receiver/argument/initializer order through immutable source-binding snapshots, including assignments in named arguments and params elements. No argument is dropped or evaluated against a later binding version. Exact optional Decimal/null defaults use the already-delivered representations.
+
+Readonly record-struct instance methods receive explicit receiver data as their first input. Receiver names avoid parameter collisions. Reads use the delivered record mapping; input/member mutation and unsupported constructors/getters/operators remain rejected. Broader class/struct/interface/dispatch data remains D9/D10.
+
+## Params and callable values
+
+D7 initializes explicit/expanded one-dimensional params vectors as present SDK Lists with full M1 element slots. The array slot remains Maybe despite annotations; explicit null differs from an empty pack. Length and bounds-proved reads are supported in this scoped domain. Indexing requires a present array and a proved nonnegative index below the minimum length. `List.drop`/`head` extraction has a Just-only proof, without a fallback. Rebinding invalidates old presence/length facts. General array construction/parameters/returns and dependent params collection types remain D11; no general array support is inferred from packing.
+
+Noncapturing local functions become complete private definitions under their containing callable and lexical scope. Their names include the canonical signature. Nested/scoped definitions and unused helpers are retained and validated. Captures require D13; call cycles still require D14.
+
+Resolved standard Func method groups become typed lambda adapters; zero-argument functions use a Unit argument. A bound value receiver is evaluated and snapshotted when the reference is created. Local delegate slots use Maybe; construction supplies the extraction proof. The source/cumulative references cover Unit type/value/pattern and Lambda codecs in full distributions. This model increment does not admit source lambda expressions or general delegate/capture data ahead of D13.
+
+Only a known pure source definition, an exact supported catalog mapping, or an explicit external contract authorizes a method reference. Unknown delegate invocation fails even after a null guard: presence does not prove effects. Source callbacks can be passed/returned under the current representation, but opaque callable input effects are not guessed. Existing M1, numeric and Decimal safety remains mandatory for generated adapters.
+
+## External contract and purity
+
+`FrontendSettings.Dependencies` accepts complete `ExternalDependencyContract` specifications with exact `ExternalFunctionContract` metadata symbols. The caller must explicitly assert purity and total behavior over the complete mapped CLR input domain, and provide reviewed semantics. Partial-domain or unknown contracts reject. No DLL body is translated or inferred pure. The method must be non-generic, static and by value, and the complete input/output ABI must match the declared dependency value. Packages/targets/declarations must be valid and unambiguous. A contract cannot override a source body or bypass source selection.
+
+The complete unmodified specification is retained in Library dependencies. Defaults still come from the actual bound CLR declaration. The CLI has no implicit external mapping; this is an explicit typed core API. Contract behavior is an assertion supplied by its reviewer, rather than a frontend proof of opaque implementation code. The test fixture links a separately compiled reviewed implementation only in its behavior environment.
+
+All selected source bodies and dependencies are validated, including private/unused helpers and noncapturing local bodies. Known positional construction and field reads have explicit purity mappings. Hidden/unknown getters, operators, constructors, external state and unmapped calls reject the entire conversion; an apparently pure caller cannot hide them. Numeric/presence/range summaries from prerequisite deliveries remain active. Failure creates no partial success artifact.
+
+## Independent evidence
+
+`fixtures/D7` contains ordinary Elm canonical overload output plus independently authored complete Elm codec distributions for all call forms, the cumulative sample and the external specification. Exact sources/toolchain/modes/hashes are frozen in its provenance manifest. Prior references remain unchanged. CallTests and ExternalCallTests compare emitted C#/IR behavior, argument order, receiver snapshots, defaults, presence/bounds/effect failures and complete parsed distributions. Reference generation is a separate reviewed operation; validation never rewrites golden files.

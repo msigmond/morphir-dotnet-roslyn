@@ -1,3 +1,5 @@
+> Historical runtime-contract evidence. Current acceptance: [source migration](source-structure-state.md).
+
 # D6 — execution evidence
 
 - Status: passed. Prerequisites D4 (239ad6a) and D5 (e6fa7203b943b06236b4eb7b47c652e3de3774bc) passed and pushed. D7 is the next delivery after the authorized commit/push.

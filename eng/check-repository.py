@@ -44,6 +44,10 @@ for compat_manifest in sorted((root/'docs/references').glob('*-compat-provenance
     items=[{'path':compat['output'],'sha256':compat['sha256']},compat['generated'],*compat['sources']]
     for item in items:
         check(hashlib.sha256((root/item['path']).read_bytes()).hexdigest()==item['sha256'],f"Compatibility source/output hash differs: {item['path']}")
+archive_manifest = root/'docs/history/runtime-contract/manifest.json'
+if archive_manifest.exists():
+    for item in json.loads(archive_manifest.read_text())['files']:
+        check(hashlib.sha256((root/item['path']).read_bytes()).hexdigest() == item['sha256'], f"Historical runtime snapshot changed: {item['path']}")
 for name, digest in [('LICENSE','b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1'),('NOTICE','24564967220aaade6950d5442cdab8d48033abde6c7906285a03a8b98a45542a')]:
     check(hashlib.sha256((root/name).read_bytes()).hexdigest() == digest, f'Protected bytes changed: {name}')
 check((root/'CLAUDE.md').read_bytes() == b'@AGENTS.md\n', 'CLAUDE.md must remain pointer-only')

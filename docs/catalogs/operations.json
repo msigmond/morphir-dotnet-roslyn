@@ -1,828 +1,924 @@
 {
   "roslyn": "5.0.0",
   "language": "C#14",
-  "inventory": "All named Roslyn OperationKind members, including obsolete aliases and non-C# markers; metadata/plumbing entries do not authorize business forms.",
+  "inventory": "Exact Roslyn 5.0.0 names. Bound operations identify symbols; source syntax controls emitted structure.",
   "operations": [
     {
       "operation": "None",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Invalid/incomplete operations cannot produce a distribution."
+      "domain": "Invalid compiler binding fails conversion without partial output.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Invalid",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Invalid/incomplete operations cannot produce a distribution."
+      "domain": "Invalid compiler binding fails conversion without partial output.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Block",
       "owner": "D3",
       "state": "supported",
-      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "VariableDeclarationGroup",
       "owner": "D3",
       "state": "supported",
-      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Switch",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Loop",
       "owner": "D15",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Labeled",
       "owner": "D15",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Branch",
       "owner": "D15",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Empty",
       "owner": "D3",
       "state": "supported",
-      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Return",
       "owner": "D3",
       "state": "supported",
-      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "YieldBreak",
       "owner": "D18.2",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Lock",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Try",
       "owner": "D18.1",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Using",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "YieldReturn",
       "owner": "D18.2",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ExpressionStatement",
       "owner": "D15",
       "state": "pending",
-      "domain": "D3 admitted local assignments and pure discarded calls/constructions retained as bindings; complete local-state forms pending D15."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "LocalFunction",
       "owner": "D7",
       "state": "supported",
-      "domain": "D7 noncapturing local callables, resolved standard Func method groups and explicit readonly-record receivers only; general captures/delegates/classes remain gated.",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Stop",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "End",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "RaiseEvent",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Literal",
       "owner": "D1",
       "state": "supported",
-      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Conversion",
       "owner": "D5",
       "state": "supported",
-      "domain": "D5 fixed numeric domains: resolved promotions/conversions, unary/binary arithmetic, comparison, bitwise/shift, exact wide/IEEE transport and failure proofs. Checked semantics reject. Later source-defined operators/generics remain owned by their deliveries."
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Invocation",
       "owner": "D2",
       "state": "supported",
-      "domain": "D7 resolved named/optional/params calls, explicit receivers, noncapturing local functions and known-pure delegate invocation; unknown effects reject; generic/dispatch/capture/recursion prerequisites retained.",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "domain": "Actual source/project/reference/generator acquisition and atomic source output.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "ArrayElementReference",
       "owner": "D11",
       "state": "pending",
-      "domain": "D7 has initialized params-vector packs and presence/bounds-proved reads in that scoped domain; general array data/construction/indexing remains D11."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "LocalReference",
       "owner": "D3",
       "state": "supported",
-      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "ParameterReference",
       "owner": "D1",
       "state": "supported",
-      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "FieldReference",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "MethodReference",
       "owner": "D7",
       "state": "supported",
-      "domain": "D7 noncapturing local callables, resolved standard Func method groups and explicit readonly-record receivers only; general captures/delegates/classes remain gated.",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "PropertyReference",
       "owner": "D1",
       "state": "supported",
-      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "EventReference",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Unary",
       "owner": "D5",
       "state": "supported",
-      "domain": "D5 fixed numeric domains: resolved promotions/conversions, unary/binary arithmetic, comparison, bitwise/shift, exact wide/IEEE transport and failure proofs. Checked semantics reject. Later source-defined operators/generics remain owned by their deliveries."
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "UnaryOperator",
       "owner": "D5",
       "state": "supported",
-      "domain": "D5 fixed numeric domains: resolved promotions/conversions, unary/binary arithmetic, comparison, bitwise/shift, exact wide/IEEE transport and failure proofs. Checked semantics reject. Later source-defined operators/generics remain owned by their deliveries."
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Binary",
       "owner": "D5",
       "state": "supported",
-      "domain": "D5 fixed numeric domains: resolved promotions/conversions, unary/binary arithmetic, comparison, bitwise/shift, exact wide/IEEE transport and failure proofs. Checked semantics reject. Later source-defined operators/generics remain owned by their deliveries."
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "BinaryOperator",
       "owner": "D5",
       "state": "supported",
-      "domain": "D5 fixed numeric domains: resolved promotions/conversions, unary/binary arithmetic, comparison, bitwise/shift, exact wide/IEEE transport and failure proofs. Checked semantics reject. Later source-defined operators/generics remain owned by their deliveries."
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Conditional",
       "owner": "D3",
       "state": "supported",
-      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Coalesce",
       "owner": "D4",
       "state": "supported",
-      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "AnonymousFunction",
       "owner": "D13",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ObjectCreation",
       "owner": "D1",
       "state": "supported",
-      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "TypeParameterObjectCreation",
       "owner": "D10",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ArrayCreation",
       "owner": "D11",
       "state": "pending",
-      "domain": "D7 has initialized params-vector packs and presence/bounds-proved reads in that scoped domain; general array data/construction/indexing remains D11."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "InstanceReference",
       "owner": "D7",
       "state": "supported",
-      "domain": "D7 noncapturing local callables, resolved standard Func method groups and explicit readonly-record receivers only; general captures/delegates/classes remain gated.",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "IsType",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Await",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "SimpleAssignment",
       "owner": "D15",
       "state": "pending",
-      "domain": "D3 simple local/by-value parameter rebinding and nested assignment expressions supported with immutable snapshots; full owned aliases/member/ref state remains pending D15."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "CompoundAssignment",
       "owner": "D15",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Parenthesized",
       "owner": "D1",
       "state": "supported",
-      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "EventAssignment",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ConditionalAccess",
       "owner": "D4",
       "state": "supported",
-      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "ConditionalAccessInstance",
       "owner": "D4",
       "state": "supported",
-      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "InterpolatedString",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "AnonymousObjectCreation",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ObjectOrCollectionInitializer",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "MemberInitializer",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "CollectionElementInitializer",
       "owner": "D11",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "NameOf",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Tuple",
       "owner": "D8",
       "state": "supported",
-      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
-      "evidence": [
-        "EnumTupleTests",
-        "fixtures/D8/expected/provenance.json"
-      ]
+      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "DynamicObjectCreation",
       "owner": "D18.3",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "DynamicMemberReference",
       "owner": "D18.3",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "DynamicInvocation",
       "owner": "D18.3",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "DynamicIndexerAccess",
       "owner": "D18.3",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "TranslatedQuery",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "DelegateCreation",
       "owner": "D7",
       "state": "supported",
-      "domain": "D7 noncapturing local callables, resolved standard Func method groups and explicit readonly-record receivers only; general captures/delegates/classes remain gated.",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "DefaultValue",
       "owner": "D4",
       "state": "supported",
-      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "TypeOf",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "SizeOf",
       "owner": "D5",
       "state": "supported",
-      "domain": "D5 sizeof fixed unmanaged numeric/Boolean domains under x64; wider user-layout/generic closure remains D18.4."
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "AddressOf",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "IsPattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Increment",
       "owner": "D15",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Throw",
       "owner": "D18.1",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Decrement",
       "owner": "D15",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "DeconstructionAssignment",
       "owner": "D8",
       "state": "supported",
-      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
-      "evidence": [
-        "EnumTupleTests",
-        "fixtures/D8/expected/provenance.json"
-      ]
+      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "DeclarationExpression",
       "owner": "D8",
       "state": "supported",
-      "domain": "D8 nested tuple deconstruction targets and discards; pattern/general declarations remain assigned to their later owners.",
-      "evidence": [
-        "EnumTupleTests"
-      ]
+      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "OmittedArgument",
       "owner": "D7",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "FieldInitializer",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "VariableInitializer",
       "owner": "D3",
       "state": "supported",
-      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "PropertyInitializer",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "ParameterInitializer",
       "owner": "D7",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ArrayInitializer",
       "owner": "D11",
       "state": "pending",
-      "domain": "D7 has initialized params-vector packs and presence/bounds-proved reads in that scoped domain; general array data/construction/indexing remains D11."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "VariableDeclarator",
       "owner": "D3",
       "state": "supported",
-      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "VariableDeclaration",
       "owner": "D3",
       "state": "supported",
-      "domain": "D3 structured blocks, locals/constants, simple local/by-value parameter rebinding, decisions and returns; definite assignment/CFG verified. Unsupported effects, alias updates and unproved numeric forms fail."
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Argument",
       "owner": "D1",
       "state": "supported",
-      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "CatchClause",
       "owner": "D18.1",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "SwitchCase",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "CaseClause",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "InterpolatedStringText",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Interpolation",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ConstantPattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "DeclarationPattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "TupleBinary",
       "owner": "D8",
       "state": "supported",
-      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
-      "evidence": [
-        "EnumTupleTests",
-        "fixtures/D8/expected/provenance.json"
-      ]
+      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "TupleBinaryOperator",
       "owner": "D8",
       "state": "supported",
-      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
-      "evidence": [
-        "EnumTupleTests",
-        "fixtures/D8/expected/provenance.json"
-      ]
+      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "MethodBody",
       "owner": "D1",
       "state": "supported",
-      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "MethodBodyOperation",
       "owner": "D1",
       "state": "supported",
-      "domain": "D1 exact int/bool positional-record / literal / typed expression wrapper subset; all extended domains remain owned by later form entries."
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "ConstructorBody",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "ConstructorBodyOperation",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Discard",
       "owner": "D8",
       "state": "supported",
-      "domain": "D8 nested tuple deconstruction targets and discards; pattern/general declarations remain assigned to their later owners.",
-      "evidence": [
-        "EnumTupleTests"
-      ]
+      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "FlowCapture",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "FlowCaptureReference",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "IsNull",
       "owner": "D4",
       "state": "supported",
-      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "CaughtException",
       "owner": "D18.1",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "StaticLocalInitializationSemaphore",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "FlowAnonymousFunction",
       "owner": "D13",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "CoalesceAssignment",
       "owner": "D4",
       "state": "supported",
-      "domain": "D4 null/default/nullable-reference slots and nullable values in delivered data domain; exact M1 proof, coalescing assignment to locals/by-value parameters, conditional access and explicit fallback. IsNull is CFG plumbing for null guards; general patterns remain D12."
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "Range",
       "owner": "D11",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ReDim",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ReDimClause",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "RecursivePattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "DiscardPattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "SwitchExpression",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "SwitchExpressionArm",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "PropertySubpattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "UsingDeclaration",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "NegatedPattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "BinaryPattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "TypePattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "RelationalPattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "With",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
     },
     {
       "operation": "InterpolatedStringHandlerCreation",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "InterpolatedStringAddition",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "InterpolatedStringAppendLiteral",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "InterpolatedStringAppendFormatted",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "InterpolatedStringAppendInvalid",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "InterpolatedStringHandlerArgumentPlaceholder",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "FunctionPointerInvocation",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ListPattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "SlicePattern",
       "owner": "D12",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "ImplicitIndexerReference",
       "owner": "D11",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Utf8String",
       "owner": "D18.4",
       "state": "required-rejection",
-      "domain": "Non-C# operation, excluded effect/ref-like/query/reflection/resource form, or compiler-only marker; no new source API."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Attribute",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "InlineArrayAccess",
       "owner": "D18.4",
       "state": "pending",
-      "domain": "Closure audit required: pure local data/compiler plumbing where consistent with master; effects/resources/reflection outside fixed catalog rejected. No blanket new exclusion is inferred."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "CollectionExpression",
       "owner": "D11",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     },
     {
       "operation": "Spread",
       "owner": "D11",
       "state": "pending",
-      "domain": "Complete pure admitted domain; current unsupported forms fail explicitly until owner gates pass."
+      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
+      "evidence": "Source delivery gate remains explicit."
     }
   ]
 }

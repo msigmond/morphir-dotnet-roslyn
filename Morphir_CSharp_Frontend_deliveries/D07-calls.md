@@ -1,44 +1,29 @@
-# D7 — Resolved calls, overloads, parameters
+# D7 — Calls, references, and arguments
 
-- status: passed
-- evidence: [implementation and gates](../docs/deliveries/D7-state.md)
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- status: passed under the source contract; revalidated on 2026-10-24
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D2](D02-project-inputs.md), [D3](D03-blocks-locals.md), [D4](D04-maybe.md), [D5](D05-numerics.md), [D6](D06-decimal.md)
-- outcome: Pure composition with resolved overloads and source argument semantics
-- ownership: Call graph; symbol naming; invocation lowering; purity summaries
-- fixture-root: `fixtures/D7/`; test trait: `Delivery=D7`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [x] CurrentSupportedExample update: static/instance calls, overloads, named/optional/params arguments, local functions, method references
-- [x] Static + pure instance calls; explicit receiver; overloads; optional/named arguments; params; local functions; method references
-- [x] Resolved symbols; source argument evaluation order; optional defaults from bound declaration
-- [x] Canonical callable signature suffix: generic arity, parameter/ref kinds; nested declarations; collision diagnostics
-- [x] Purity across reachable constructors/getters/operators/helpers; explicit external mapping contract
-
-## Model increment
-
-- Apply/Reference/Function; named inputs; helper definitions
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D7`
-- source data paths: —
-- member modules: `Example.D7.Rules`
-- constraints: Overload suffixes: disambiguation within member module; no substitute for owner identity
+- Keep resolved targets, receivers, written argument names and order, and declaration defaults.
+- Keep expanded params arguments as written. Keep explicit array syntax only when the source contains it.
+- Keep local functions in scope, captures, delegate calls, and recursive references.
+- Keep external calls without pure/total assertions. Validate configured target identities and signatures.
 
 ## Acceptance
 
-- [x] Named arguments → intended parameters and evaluation order; declaration-derived optional default
-- [x] Rules overloads: distinct private definitions; private dependencies retained
-- [x] Illustrative meetsBool/meetsIntInt suffixes → final canonical signature-derived names in paired fixtures
-- [x] Instance receiver type paths + helper calls resolve intended owner; normalized collision diagnostics include both locations
+- A call stays a call. No callee body, receiver snapshot, lambda adapter, omitted default, or params allocation is inserted.
+- Params reads and delegate invocation need no bounds, presence, or effect proof.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [x] Unknown purity/external contract; unresolved/colliding target; hidden impure getter/operator/constructor
-
-## Code examples
+## Historical examples
 
 ### C#
 

@@ -1,0 +1,15 @@
+{
+  "contract": "Morphir.CSharp.Source/1",
+  "mode": "independent-structural-assertions",
+  "provenance": "Authored from the approved source audit. No converter output was adopted.",
+  "source": "samples/CurrentSupportedExample/SourceStructure.cs",
+  "requiredValues": ["MarketValue", "SimpleProduct", "UnguardedDivision", "FloatingDecimal", "DirectNullableRead", "ExplicitStatements"],
+  "products": [
+    {"name": "MarketValue", "module": "Decimal", "operation": "mul", "fields": ["Quantity", "Price"]},
+    {"name": "SimpleProduct", "module": "Basics", "operation": "multiply", "fields": ["IntOne", "IntTwo"]}
+  ],
+  "nonnullField": {"type": "SampleLoan", "name": "SecurityId", "target": "String"},
+  "forbiddenModules": ["Compat.Integers", "Compat.Floating", "Compat.Decimal"],
+  "auditTest": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+  "syntaxParity": "Every selected declaration and token, including unused code and explicit branches, is compared to the source syntax."
+}

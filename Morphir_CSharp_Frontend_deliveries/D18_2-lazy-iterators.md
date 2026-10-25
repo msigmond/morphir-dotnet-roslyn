@@ -1,47 +1,28 @@
-# D18.2 — Pure lazy iterators
+# D18.2 — Iterator syntax
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D18.1](D18_1-caught-failures.md), [D11](D11-collections.md), [D12](D12-patterns.md), [D13](D13-closures.md), [D14](D14-recursion.md), [D15](D15-loops-local-state.md)
-- outcome: Lazy yields + early consumer termination
-- ownership: Functional iterator state/step/disposal; deferred failure/ownership
-- fixture-root: `fixtures/D18.2/`; test trait: `Delivery=D18.2`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: yield/break, deferred/repeated/nested consumption, early disposal/finally and handled deferred failures
-- [ ] yield return/yield break; argument evaluation; captured/local state; deferred execution; element order
-- [ ] Repeated/nested enumeration; early stop/disposal; finally cleanup
-- [ ] Failure handling at actual execution/consumption point; no moved handlers
-- [ ] Alias/ownership tracking across iterator production/consumption; no external effects or async enumeration
-- [ ] Valid nonrecursive generic state encoding; sample Sequence/Step extended for disposal/failure semantics
-
-## Model increment
-
-- Functional state + deferred step; explicit disposal transition as required
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D18_2`
-- source data paths: —
-- member modules: `Example.D18_2.Rules`
-- constraints: Simple sample has no cleanup; general fixtures require explicit disposal transition
+- Keep iterator declarations, yield return, yield break, and source control flow.
+- Keep written enumeration calls.
+- Do not create lazy state machines, materialize results, or prove enumeration effects.
 
 ## Acceptance
 
-- [ ] First(5) → 0 without producing later elements; First(0) → -1
-- [ ] Step only on consumer request; returned state used by next step; each enumeration starts fresh
-- [ ] Sample bounds: ≤10 elements; arithmetic safe; Rules.upTo/first retained; generated Iterator state separate
-- [ ] Deferred execution/repeated enumeration/nesting/early disposal/finally fixtures → parity + C# behavior
-- [ ] Failure before later yield: correct handler at consumption or rejection if escape possible
-- [ ] Eager-list replacement fails acceptance
+- Iterator structure is independent of runtime enumeration.
+- No hidden allocation, state transition, or disposal sequence appears.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Asynchronous iteration; external effects; unhandled deferred failure
-- [ ] Eager materialization or omitted disposal/cleanup
-
-## Code examples
+## Historical examples
 
 ### C#
 

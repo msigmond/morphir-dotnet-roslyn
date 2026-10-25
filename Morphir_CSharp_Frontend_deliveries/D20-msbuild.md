@@ -1,45 +1,28 @@
 # D20 — MSBuild adapter
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D19](D19-classic-complete.md), [D2](D02-project-inputs.md)
-- outcome: Normal project build → same distribution as CLI
-- ownership: MSBuild task/package/targets; shared project inputs; build fixtures
-- fixture-root: `fixtures/D20/`; test trait: `Delivery=D20`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: same cumulative source through CLI + normal MSBuild generation; phase marker/coverage refresh; README/AGENTS build commands
-- [ ] Task/package/targets; shared frontend + serializer + ProjectSystem input contract
-- [ ] Generation after actual inputs/configured generator outputs available; no assumed live compiler Compilation
-- [ ] Task-owned equivalent compilation/generator pass absent supported live handoff
-- [ ] Export settings, selected framework/reference versions/helper dependencies
-- [ ] Configuration/target-framework-separated outputs; atomic success; failed-conversion stale-output invalidation
-- [ ] Incremental inputs/outputs; clean/removal behavior; diagnostic errors fail required generation
-
-## Model increment
-
-- No alternate model or language mapping
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D20`
-- source data paths: `Example.D20.Customer`
-- member modules: `Example.D20.Rules`
-- constraints: CLI remains first execution environment; no additional environment selected
+- Add the MSBuild task, package, targets, and generated-input handoff.
+- Use the same structure converter as the CLI.
+- Keep project settings and failures without adding execution semantics.
 
 ## Acceptance
 
-- [ ] Same compilation/settings: CLI JSON == MSBuild JSON
-- [ ] Clean/no-change/changed source/changed reference/removed declaration/generator change/failure cases
-- [ ] Consuming project normal build without manual generation; sample x64/net10.0/C#14/nullable/unchecked settings
-- [ ] Package/target/export public names: implementation choice recorded; no second transpiler
+- CLI and MSBuild agree on declarations, operations, source metadata, and diagnostics.
+- Failed conversion preserves existing output.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Assumed live Compilation; incomplete generators; success artifact on failure; stale output treated as current
-
-## Code examples
+## Historical examples
 
 ### C#
 

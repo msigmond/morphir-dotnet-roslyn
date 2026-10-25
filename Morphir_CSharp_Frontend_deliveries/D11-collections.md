@@ -1,52 +1,28 @@
-# D11 — Arrays and collection data
+# D11 — Arrays and collection structure
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D4](D04-maybe.md), [D10](D10-generics-dispatch.md)
-- outcome: Pure collection rules without LINQ
-- ownership: Collection catalog; shape/comparer/order mappings; ownership/enumeration
-- fixture-root: `fixtures/D11/`; test trait: `Delivery=D11`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: arrays/ranks + every accepted collection family/interface/wrapper, pure reads and owned updates; no LINQ
-- [ ] Arrays: ranks/shape, construction and element access; accepted lists/dictionaries/sets/queues/stacks
-- [ ] Generic mutable: List<T>, Dictionary<TKey,TValue>, HashSet<T>, Queue<T>, Stack<T>
-- [ ] Generic interfaces: IEnumerable<T>, ICollection<T>, IList<T>, IDictionary<TKey,TValue>, ISet<T>
-- [ ] Read-only interfaces: IReadOnlyCollection<T>, IReadOnlyList<T>, IReadOnlyDictionary<TKey,TValue>, IReadOnlySet<T>
-- [ ] ObjectModel wrappers: ReadOnlyCollection<T>, ReadOnlyDictionary<TKey,TValue>
-- [ ] Immutable: ImmutableArray/List/Dictionary/HashSet/Queue/Stack; exact System.Collections.Immutable version
-- [ ] Construction/reads/enumeration/equality/order/duplicates/comparers/bounds; per-entry mapping and member coverage
-- [ ] Bounds/key/construction failure proof; explicit source recovery after D18.1; lazy source production after D18.2
-- [ ] Locally owned collection mutation + aliases/enumeration → functional state; input/global/captured mutation rejection
-- [ ] Array reference probe: pinned default + fallback modes; core Array mapping absence vs external Morphir dependency distinguished; persist reproducer/evidence
-
-## Model increment
-
-- List/Record expressions; collection SDK/compatibility references
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D11`
-- source data paths: —
-- member modules: `Example.D11.Rules`
-- constraints: Array1 example: supported record/list compatibility representation; other ranks/catalog members require independent complete mappings
+- Keep collection types, element types, rank, initializers, indexing, and named members.
+- Keep explicit collection updates and collection expressions.
+- Do not build persistent-state algorithms, null defaults, bounds guards, enumeration machinery, or backing storage.
 
 ## Acceptance
 
-- [ ] Displayed array: zero-based rank 1; Array1.length == List.length items invariant by construction
-- [ ] Null/empty array → 0; nonempty → first; null list → 0; nonnull list → count
-- [ ] Every rank/catalog entry: own parity fixtures; ordering/comparer/duplicate/missing-key/indexing boundaries
-- [ ] Local aliases + mutation during enumeration → source behavior or required proven-safe rejection; no default invented for failed access
-- [ ] Elm Core Array: no built-in mapping in checked 2.100.0; morphir.json dependencies = Morphir IR files, not Elm package coordinates
-- [ ] Alternative Array dependency: verified contract/IR/runtime evidence before adoption; Array1 not an intrinsic IR requirement
+- Array and collection calls remain written operations.
+- No nonzero-length, index-range, ownership, or immutable-backing proof is required.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] LINQ calls/query syntax; unsupported noncatalog family
-- [ ] Unproved bounds/missing-key/construction safety before handlers; input/external mutation
-
-## Code examples
+## Historical examples
 
 ### C#
 

@@ -1,29 +1,25 @@
 # Agent instructions
 
-- authority: user instructions → [master](Morphir_CSharp_Frontend_delivery_plan.md) → active delivery
-- state: D1–D9 passed; D10–D21 pending; [D9 evidence](docs/deliveries/D9-state.md); [D8 evidence](docs/deliveries/D8-state.md); [D7 evidence](docs/deliveries/D7-state.md); [D6 evidence](docs/deliveries/D6-state.md); [D5 evidence](docs/deliveries/D5-state.md); [D4 evidence](docs/deliveries/D4-state.md); [D3 evidence](docs/deliveries/D3-state.md); [D2 evidence](docs/deliveries/D2-state.md); [D1 evidence](docs/deliveries/D1-state.md)
-- active context: master + selected child + prerequisite evidence + affected code/catalogs
-- workflow: one delivery; prerequisite gates; incremental working feature; full structural parity; required behavior/rejection checks
-- baseline: SDK 10.0.100; C#14; reference pack 10.0.0; Roslyn 5.0.0; explicit x64 CLI; no silent type/member loss or version/scope upgrades
-- layout: Morphir.CSharp.slnx; src/{Classic,Json,core,CLI} projects (full names in master); tests; fixtures/<ID>; samples/CurrentSupportedExample; eng; docs
+- authority: user instructions → [approved source audit](docs/reviews/source-structure-audit.md) → [master](Morphir_CSharp_Frontend_delivery_plan.md) → selected delivery
+- state: D1–D9 passed under the source contract; current [validation evidence](docs/deliveries/source-structure-state.md); D10–D21 planned; old D1–D9 state files are historical runtime evidence
+- workflow: one delivery unless the user authorizes a contract migration; prerequisite gates; incremental structure; independent source assertions; explicit rejection for unmapped forms
+- baseline: SDK 10.0.100; C#14; reference pack 10.0.0; Roslyn 5.0.0; x64 CLI input; no silent scope/version change
+- contract: [source structure](docs/source-structure.md); emit Morphir.CSharp.Source v1, not standard Classic v3; the separate plain Classic codec remains v3
+- semantics: represent declarations and written operations; explicit nullable types alone use Maybe; declared return types; source owners and Public/Private projection; source metadata preserves names, modifiers, labels, source types, locations, and order
+- no runtime emulation: no presence/range/nonzero/finite/ownership/purity/termination proof; no numeric helper modules, hidden initialization, SSA state, inlined bodies, synthetic equality, or simulated heap
+- preserve source: guards, branches including constant/unreachable branches, casts, defaults, constructor/accessor bodies, argument names/order, aliases, writes, identity, and cycles
+- scope: delivered D1–D9 source forms; generic/interface/inheritance, general collections, full patterns, anonymous functions, loops/ref, later framework/object, exceptions/iterators/dynamic retain explicit structural delivery gaps
+- inputs: core accepts Compilation + settings; adapters own project/source/reference/generator acquisition and serialization; valid compiler binding, selectors, collisions, and source-located all-or-nothing failure remain required
+- layout: Morphir.CSharp.slnx; src Classic/Json/core/ProjectSystem/CLI projects; tests; fixtures; samples/CurrentSupportedExample; eng; docs
 - restore: `dotnet restore Morphir.CSharp.slnx --packages .packages --locked-mode`
 - build: `dotnet build Morphir.CSharp.slnx --no-restore -m:1`
-- tests/parity/behavior: `dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1 --filter 'Delivery=D1|Delivery=D2|Delivery=D3|Delivery=D4|Delivery=D5|Delivery=D6|Delivery=D7|Delivery=D8|Delivery=D9'`; VSTest needs a local host socket
-- repository checks: `python3 eng/check-repository.py`; all 24 plans, Markdown links/fences, unchanged embedded paired code, reference hashes, protected license bytes, whitespace incl. `git diff --cached --check`
-- CLI/sample: verified invocation in [README](README.md); core accepts Compilation + settings; adapters own acquisition/serialization
-- semantics: source owner paths; Public/Private; explicit checked syntax/semantic rejection; source-located failure; no partial success artifact
-- D1–D4 domain: positional readonly int/bool record structs, static expression bodies, known-present string literal, comparison/short circuit, safe addition; exact nonrecursive selected static positional calls; actual project/source-generator graphs; structured blocks/locals/constants, simple local/by-value rebindings, decisions/returns, Boolean operations; nullable/reference Maybe slots, guarded extraction/defaults/coalescing/conditional access/lifted operators; extended forms pending
-- D5 increment: all primitive/Char/native64/128/BigInteger/Complex numeric domains, exact limb/IEEE helpers, unchecked operators/promotions/casts, numeric/finite/zero proofs; sizeof fixed unmanaged numbers; complete API closure/dependent forms explicit in numeric-members catalog
-- D6 increment: exact Decimal coefficient/scale/sign/SDK value; exact construction, guarded arithmetic/casts/members, rounding/Scale and nullable forms; source bounds/nonzero/call summaries; binary-floating construction excluded; intrinsic Decimal arithmetic keeps D3 safety while checked numeric conversions reject
-- D7 increment: canonical resolved named/optional/params calls; explicit readonly-record receivers; noncapturing local definitions; standard Func references with immutable receiver snapshots; M1 callable/params slots and length/bounds/effects proofs; explicit exact pure/total external specification contracts; general arrays/captures/dispatch remain gated
-- D8 increment: selected numeric enum custom domains/constants/aliases/flags/unnamed values; scoped value/reference tuples, M1 slots, labels/conversions/deconstruction/local value copies and exact delivered element equality; current gates in D8-state
-- D9 passed increment: UpdateRecord; owned class alias versions and struct copies; default/field/auto-property initialization, explicit constructor bodies/chains, recursive data wrappers/cycle rejection, pure nonvirtual instance calls, getters/setters/init, six data forms/with, exact equality/operators and mixed locations; final200 tests passed; exact gates/domain in docs/deliveries/D9-state.md
-- safety: Maybe M1; Decimal D3; local ownership; aliases/effects; no invented defaults/error wrappers; no unstated business bounds
-- fixtures: independent source/complete Elm codec references; Morphir Elm 2.100.0/source 71ca7ee385273b0af6f8db66582c26e9b410cbf2; exact mode/provenance; no golden refresh during validation
-- reference generation: separate explicit reviewed operation: `npm ci --prefix eng --ignore-scripts --no-audit --no-fund`, then `node eng/generate-references.mjs --write`; never use to fix parity by adopting frontend output
-- maintenance: CurrentSupportedExample + language/framework/model catalogs + mapping + README + this file every delivery
-- CLAUDE.md: `@AGENTS.md` + newline only; no duplicated instructions
-- historical documents: context only; old versions/commands not current execution instructions
-- evidence: commands/results, catalog/mapping updates, remaining work; no completion claim on failed gate
-- licensing: preserve root LICENSE/NOTICE bytes; bootstrap NOTICE mismatch reconciled by complete upstream supplemental notice; provenance in [LICENSING](docs/references/LICENSING.md)
-- commit/push: user explicitly authorized automatic commit/push after each passed delivery D2–D10 on 2026-10-16; no automatic commits of failed/incomplete deliveries
+- tests: `dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1`; VSTest needs a local host socket; project loading needs local MSBuild
+- checks: `python3 eng/check-catalogs.py`; `python3 eng/check-repository.py`; 24 plans, historical paired code, Markdown links/fences, frozen hashes, license bytes, tracked/new/staged whitespace
+- fixtures: source v1 uses independent structural assertions and complete selected syntax parity; preserve historical Elm 2.100.0/source 71ca7ee385273b0af6f8db66582c26e9b410cbf2 references and compatibility provenance
+- reference generation: separate explicit reviewed operation; `npm ci --prefix eng --ignore-scripts --no-audit --no-fund`, then `node eng/generate-references.mjs --write`; never repair parity by adopting converter output
+- maintenance: cumulative sample, language/framework/model catalogs, mapping, README, this file, schema, and delivery evidence every delivery
+- historical evidence: [archive](docs/history/runtime-contract/README.md); old runtime instructions, tests, commands, and Elm lowering examples do not control source v1 acceptance
+- CLAUDE.md: `@AGENTS.md` plus newline only
+- evidence: exact commands/results and remaining work; no completion claim on failed gate; no unsupported-form acceptance from raw syntax capture alone
+- licensing: preserve root LICENSE/NOTICE bytes and [provenance](docs/references/LICENSING.md)
+- commit/push: user authorized automatic commit/push after each passed delivery D2–D10 on 2026-10-16; no automatic commits of incomplete work

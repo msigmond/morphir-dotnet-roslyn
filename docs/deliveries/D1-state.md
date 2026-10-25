@@ -1,3 +1,5 @@
+> Historical runtime-contract evidence. Current acceptance: [source migration](source-structure-state.md).
+
 # D1 — execution evidence
 
 - Status: passed; every D1 acceptance/rejection gate satisfied under the recorded D1 safety boundary and root-byte preservation instruction.

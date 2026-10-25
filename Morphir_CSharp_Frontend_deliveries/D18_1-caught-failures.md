@@ -1,45 +1,28 @@
-# D18.1 — Caught failures and exception flow
+# D18.1 — Exception syntax
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D3](D03-blocks-locals.md), [D4](D04-maybe.md), [D5](D05-numerics.md), [D6](D06-decimal.md), [D7](D07-calls.md), [D8](D08-enums-tuples.md), [D9](D09-user-data.md), [D10](D10-generics-dispatch.md), [D11](D11-collections.md), [D12](D12-patterns.md), [D13](D13-closures.md), [D14](D14-recursion.md), [D15](D15-loops-local-state.md), [D16](D16-framework-data.md), [D17](D17-type-closure.md)
-- outcome: Source-defined recovery with ordinary business return type
-- ownership: Failure summaries; throw/handler/filter/rethrow/finally lowering
-- fixture-root: `fixtures/D18.1/`; test trait: `Delivery=D18.1`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: throw/try/catch/filter/rethrow/finally, explicit recovery, interprocedural handling; M1/D3 unchanged
-- [ ] Pure throw/try/catch/filter/rethrow/finally; handler type/order; nested handling; local updates
-- [ ] Interprocedural failure propagation; helper failure to proven handler; exposed public API nonfailure proof
-- [ ] Finally on normal/early return/failure; source evaluation order
-- [ ] Caught collection/parse/cast/match failures; no M1/Decimal/checked bypass
-- [ ] Complete paired reference distribution including internal failure helpers; sample branch form only semantic seed
-
-## Model increment
-
-- Private failure/control-flow data and helpers; preserved access wrappers
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D18_1`
-- source data paths: —
-- member modules: `Example.D18_1.Rules`
-- constraints: General lowering includes explicit failure/control-flow state; displayed branch-only reference not full general implementation
+- Keep try/catch/finally, filters, throw, and rethrow in source order.
+- Keep explicit exception type and binding information.
+- Do not convert failures into Result, Maybe, hidden defaults, or simulated exception flow.
 
 ## Acceptance
 
-- [ ] DivideOrZero: 7/2 → 3; -7/2 → -3; divisor 0 → 0; int.MinValue/-1 → 0
-- [ ] Throw/rethrow; filter selection/order; nested handlers; finally-on-return/failure
-- [ ] Private helper failure caught by caller → success; public selected failing function without own handler → rejection despite caller catch
-- [ ] Normal + handled failure paths → parity and C# behavior; removed handlers → rejection unless proven safe
+- Caught and uncaught failure syntax stays visible.
+- Throwing behavior is not an admission gate.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Possible failure escaping public business function; impure handler
-- [ ] Unsafe M1 access/Decimal operation/checked syntax even within catch
-
-## Code examples
+## Historical examples
 
 ### C#
 

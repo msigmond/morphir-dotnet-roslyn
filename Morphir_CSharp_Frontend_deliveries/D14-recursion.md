@@ -1,43 +1,28 @@
-# D14 — Self and mutual recursion
+# D14 — Recursive binding coverage
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D7](D07-calls.md), [D13](D13-closures.md)
-- outcome: Self/mutually recursive pure business functions
-- ownership: Call SCCs; recursive references/local bindings; reference-mode handling
-- fixture-root: `fixtures/D14/`; test trait: `Delivery=D14`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: self/mutual/local recursion; recorded reference mode or complete independent codec policy
-- [ ] Strongly connected call groups; dependency closure
-- [ ] Local recursion → LetRecursion; top-level recursion → correct owner references
-- [ ] No termination-proof requirement; no artificial recursion/iteration limit
-- [ ] All-public sample reference: make --fallback-cli; default 2.100.0 ValueCycleDetected limitation recorded
-- [ ] Combined/private recursive fixtures: independent complete Elm IR/codec reference where source modes cannot preserve contract
-
-## Model increment
-
-- LetRecursion; recursive top-level Reference
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D14`
-- source data paths: —
-- member modules: `Example.D14.Rules`
-- constraints: Only displayed all-public fixture uses fallback; ordinary/private fixtures retain default or independent codec policy
+- Extend delivered direct recursive references to all scoped generic/local/closure combinations.
+- Keep self and mutual call targets without expanding bodies.
+- Validate symbol identity and nesting, not termination or runtime SCC closure.
 
 ## Acceptance
 
-- [ ] Even(4) → true; Odd(4) → false; nonpositive base cases source-defined
-- [ ] Self-recursion + mutual recursion + recursive locals: full parity; bounded runtime cases
-- [ ] Fallback provenance recorded; no fallback private-helper Public promotion or JSON patch
+- Recursive declarations and calls round-trip through source metadata.
+- No recursive helper is generated to emulate runtime behavior.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Unresolved recursive reference; arbitrary recursion cutoff; loss of private metadata
-
-## Code examples
+## Historical examples
 
 ### C#
 

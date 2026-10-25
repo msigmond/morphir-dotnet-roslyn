@@ -1,1 +1,1 @@
-{"delivery":"D9","expected":"fixtures/D9/expected/sample.json"}
+{"delivery":"D9","contract":"Morphir.CSharp.Source/1","expected":"fixtures/source-structure/contract.json","mode":"independent-structural-assertions","historicalClassicReference":"fixtures/D9/expected/sample.json"}

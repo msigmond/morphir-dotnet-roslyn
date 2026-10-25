@@ -1,3 +1,5 @@
+> Historical runtime-contract evidence. Current acceptance: [source migration](source-structure-state.md).
+
 # D9 — development history
 
 - Status: active, not passed. Prerequisites D7 and D8 passed, committed and pushed. D8 f604f6a1ce840e63781b3975ab980b6b6cac6ea8 was verified with authenticated gh; all162 D1–D8 tests and required independent/sample/CLI/catalog/documentation gates passed. Working tree was clean before D9.

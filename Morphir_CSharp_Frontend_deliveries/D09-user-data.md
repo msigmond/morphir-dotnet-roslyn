@@ -1,46 +1,28 @@
-# D9 — Classes, structs, records, nested data
+# D9 — Data declarations, members, and state
 
-- status: passed
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- status: passed under the source contract; revalidated on 2026-10-24
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D7](D07-calls.md), [D8](D08-enums-tuples.md)
-- outcome: User-defined data forms as values; local alias-preserving updates
-- ownership: Data layout/construction/update; alias/ownership tracking; equality
-- fixture-root: `fixtures/D9/`; test trait: `Delivery=D9`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [x] CurrentSupportedExample update: class/struct/record/nested data, constructors/properties/operators/value equality, owned alias updates
-- [x] Classes/structs/record classes/record structs; nested types including private; fields/properties; constructors/initializers; record updates
-- [x] Custom value equality/conversions/operators via resolved pure implementations
-- [x] Value-data identity policy; recursive declarations + finite acyclic values; cyclic graph rejection
-- [x] Local owned object updates reflected through all local aliases; input reachability retained through new wrappers
-- [x] Initialization/getter/constructor purity; hidden effects rejected
-
-## Model increment
-
-- UpdateRecord; remaining required type definitions/specifications
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D9`
-- source data paths: `Example.D9.Counter`
-- member modules: `Example.D9.Rules`
-- constraints: Mutable declaration alone admissible; operation/ownership contract decisive
+- Keep all six data forms, primary parameters, source fields/properties, and explicit constructors/accessors.
+- Keep new, object initializers, member paths, assignments, with, operators, and equality.
+- Keep aliases and recursive references. Do not simulate ownership, copies, object graphs, constructor execution, or synthesized equality.
 
 ## Acceptance
 
-- [x] Counter build/local alias update → 2 through either alias
-- [x] Each data form: construction/read/local update/value-equality fixture
-- [x] Nested private type: enclosing-type module + correct local name/Private wrapper
-- [x] Input mutation via alias/new wrapper/helper → rejection; identity observations/cyclic graphs → rejection
-- [x] Recursive type declaration + finite acyclic value → success
+- Input mutation, identity observations, cycles, and recursive calls need no runtime proof.
+- No hidden primary fields, generated defaults, compatibility equality helpers, or inlined bodies appear.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [x] ReferenceEquals/reference-identity equality; cyclic graph
-- [x] Input/global/external mutation; impure initialization/getter/operator
-
-## Code examples
+## Historical examples
 
 ### C#
 

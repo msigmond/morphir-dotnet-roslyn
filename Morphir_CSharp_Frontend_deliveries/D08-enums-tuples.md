@@ -1,42 +1,28 @@
-# D8 — Enums and tuples
+# D8 — Enum and tuple source structure
 
-- status: passed
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- status: passed under the source contract; revalidated on 2026-10-24
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D5](D05-numerics.md), [D7](D07-calls.md)
-- outcome: Flags/numeric enum values + multiple business results
-- ownership: Enum/tuple mappings; named enum values; deconstruction
-- fixture-root: `fixtures/D8/`; test trait: `Delivery=D8`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [x] CurrentSupportedExample update: enum domains/aliases/flags/conversions, named constants, tuple forms/deconstruction
-- [x] Explicit enum underlying values; aliases; flags; conversions; unnamed values
-- [x] Enum data type in namespace/enclosing-type module; named values in enum member module
-- [x] Value/reference tuples; element names; deconstruction; respective null/value contracts
-- [x] Flags operations reuse delivered numeric semantics
-
-## Model increment
-
-- Tuple types/values/patterns; required custom definitions/specifications
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D8`
-- source data paths: `Example.D8.Access`
-- member modules: `Example.D8.Access`, `Example.D8.Rules`
-- constraints: Enum named constants retained as emitted declarations despite source constant folding
+- Keep enum member initializer expressions, aliases, flags operations, and underlying type metadata.
+- Keep tuple family, labels, casts, member reads, factory calls, equality, deconstruction, and writes.
+- Do not add enum wrappers, tuple extraction matches, hidden Rest creation, or element equality algorithms.
 
 ## Acceptance
 
-- [x] Example.D8.Access type in Example.D8; Access.Read → Example.D8.Access.read; no extra Access segment
-- [x] Read → (1,true); All → (3,false); unnamed 8 → (8,false)
-- [x] Underlying-domain boundaries; aliases/flags/conversions; tuple result/deconstruction parity
+- Tuple and enum operators remain single source operations.
+- Explicit nullable reference tuples alone receive Maybe.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [x] Closed-named-case assumption dropping unnamed values; wrong numeric domain; unsafe tuple dereference
-
-## Code examples
+## Historical examples
 
 ### C#
 

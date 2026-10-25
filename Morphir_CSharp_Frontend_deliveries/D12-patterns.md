@@ -1,41 +1,28 @@
-# D12 — Complete pattern matching
+# D12 — Patterns and switches
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D8](D08-enums-tuples.md), [D9](D09-user-data.md), [D10](D10-generics-dispatch.md), [D11](D11-collections.md)
-- outcome: Ordered pattern decisions over business data
-- ownership: Pattern/guard lowering; exhaustiveness/failure analysis
-- fixture-root: `fixtures/D12/`; test trait: `Delivery=D12`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: all admitted switch/pattern/guard forms, ordered matching, safe exhaustive domains
-- [ ] Switch statements/expressions; guards; constant/type/property/positional/relational/logical/list patterns
-- [ ] Remaining admitted C# 14 pattern forms from catalog
-- [ ] First-match + guard evaluation order; nonexhaustive failure contract
-
-## Model increment
-
-- All pattern cases; Destructure; PatternMatch
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D12`
-- source data paths: —
-- member modules: `Example.D12.Rules`
-- constraints: Exhaustiveness proof tied to admitted runtime domain
+- Keep switch statements/expressions, arms, guards, patterns, and source order.
+- Keep binding variables and explicit exhaustiveness/default syntax.
+- Do not expand patterns into runtime field tests or generated decision trees.
 
 ## Acceptance
 
-- [ ] Category: 17 → 0; 18 → 1; 65 → 2
-- [ ] Nested data/list patterns; guard order; unmatched input; complete distribution parity
-- [ ] Potentially unmatched switch: proven exhaustive admitted domain or explicit handled failure after D18.1
+- Every written pattern and branch is present.
+- Compiler binding errors reject; runtime match-success proofs are not required.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Unproved unhandled match failure; reordered guards/side effects; unsafe dereference
-
-## Code examples
+## Historical examples
 
 ### C#
 

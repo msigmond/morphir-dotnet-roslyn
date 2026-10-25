@@ -1,46 +1,28 @@
-# D10 — Generics, interfaces, inheritance
+# D10 — Generics, interfaces, and inheritance
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D9](D09-user-data.md)
-- outcome: Generic business values + closed pure polymorphic dispatch
-- ownership: Generic representations; closure analysis; dispatch/cast lowering
-- fixture-root: `fixtures/D10/`; test trait: `Delivery=D10`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: generic constraints/variance, interfaces/base/override dispatch, casts/type tests, closed runtime alternatives
-- [ ] Generic types/methods; constraints; variance; interfaces; abstract/base types; inheritance/overrides
-- [ ] Ordinary generic parameters → IR variables; closed runtime variants → constructors + explicit dispatch
-- [ ] Resolved specialization only where required; unclosed runtime implementation sets rejected
-- [ ] Casts/type tests/dispatch: resolved implementations + representation; closure completeness diagnostics
-- [ ] Generic slots retain argument representation, including Maybe where absence possible
-
-## Model increment
-
-- Type variables; custom constructors; remaining required specifications
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D10`
-- source data paths: `Example.D10.Box`, `Example.D10.IRule`, `Example.D10.MaximumAge`, `Example.D10.MinimumAge`
-- member modules: `Example.D10.IRule`, `Example.D10.MaximumAge`, `Example.D10.MinimumAge`, `Example.D10.Rules`
-- constraints: Data module and same-named member module distinct; receiver references namespace-defined type
+- Represent type parameters, arguments, constraints, variance, base lists, and interface members.
+- Keep abstract, virtual, override, base access, casts, and type tests.
+- Keep the resolved declared call. Do not enumerate runtime alternatives or generate dispatch bodies.
 
 ## Acceptance
 
-- [ ] Box<T> → Box t; type paths Example.D10.Box/IRule/MinimumAge/MaximumAge
-- [ ] MinimumAge/MaximumAge data in Example.D10; allows functions in separate corresponding member modules
-- [ ] IRule representation: MinimumAgeRule | MaximumAgeRule; IRule.allows dispatch in Example.D10.IRule
-- [ ] Sample admitted implementation set: MinimumAge + MaximumAge; nullable rule → explicit Maybe
-- [ ] Generic wrapper + constrained function + interface/base dispatch → parity and behavior
-- [ ] Unknown implementation set, ambiguous/incomplete closure → rejection
+- Open interfaces and generic declarations preserve structure without runtime closure proof.
+- All source definitions retain their owners and declaration metadata.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Open/unknown runtime implementation set; impure target; unsafe cast/dereference
-
-## Code examples
+## Historical examples
 
 ### C#
 

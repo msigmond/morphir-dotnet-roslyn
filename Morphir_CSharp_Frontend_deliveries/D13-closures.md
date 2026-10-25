@@ -1,41 +1,28 @@
-# D13 — Lambdas, delegates, captures
+# D13 — Anonymous functions and delegates
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D7](D07-calls.md), [D10](D10-generics-dispatch.md)
-- outcome: Pure higher-order function + immutable capture
-- ownership: Higher-order lowering; closure representation/effects
-- fixture-root: `fixtures/D13/`; test trait: `Delivery=D13`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: lambdas/anonymous methods, delegate data/method groups/invocation, immutable capture
-- [ ] Lambdas/anonymous methods; delegate data; method groups; invocation; captured immutable values
-- [ ] Capture lifetime + evaluation behavior; locally owned effects only with proof
-- [ ] Captured external mutation/persistent externally visible closure state → purity rejection
-
-## Model increment
-
-- Lambda; Function types; valid-IR closure representation
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D13`
-- source data paths: —
-- member modules: `Example.D13.Rules`
-- constraints: Immutable captured values admitted
+- Keep lambda and anonymous-method parameters, bodies, captures, and lexical scopes.
+- Keep delegate construction, combination, invocation, and explicit assignments where admitted.
+- Do not create capture classes, receiver snapshots, or hidden lifetime state.
 
 ## Acceptance
 
-- [ ] AtLeast(18): returned function rejects 17, accepts 18
-- [ ] Function parameter + returned closure + invocation fixtures; captured value lifetime; parity
-- [ ] External captured mutation → rejection; wholly local effects → ownership evidence
+- Mutable captures remain source references.
+- No purity, effect, lifetime, or capture-ownership proof is required.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] External captured mutation; observable persistent closure state; unknown delegate purity
-
-## Code examples
+## Historical examples
 
 ### C#
 

@@ -1,3 +1,5 @@
+> Historical runtime-contract evidence. Current acceptance: [source migration](source-structure-state.md).
+
 # D2 — execution evidence
 
 - Status: passed; prerequisite D1 passed at commit bd4c33f.

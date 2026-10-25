@@ -1,48 +1,28 @@
-# D4 — Missing values and M1 presence proofs
+# D4 — Explicit nullability and nullable syntax
 
-- status: passed
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- status: passed under the source contract; revalidated on 2026-10-24
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D3](D03-blocks-locals.md)
-- outcome: Nullable fields, explicit defaults, proven-safe extraction
-- ownership: Null representation; flow facts; Maybe lowering; safety diagnostics
-- fixture-root: `fixtures/D4/`; test trait: `Delivery=D4`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [x] CurrentSupportedExample update: nullable data, null tests/coalescing/conditional access/lifted forms, guarded extraction
-- [x] Nullable values + reference slots → Maybe; reference fields/array elements/default initialization included
-- [x] Null literals/tests; conditional access; coalescing; lifted-operation C# semantics
-- [x] Construction/domain/flow invariants for absent cases; annotations alone insufficient
-- [x] Presence proof at every .Value/dereference; invalidation after relevant assignment, alias update, call
-- [x] Null-forgiving !: no added proof; no invented defaults, Nothing substitution, error wrappers or hidden exception fallback
-
-D4 supplies the null-slot/proof foundation for later D9 reference data and D11 array elements/default slots. String M1/Length is delivered here; pure member families depending on later types remain explicitly tracked through D18.4, with no scope exclusions.
-
-## Model increment
-
-- Constructors; constructor patterns; PatternMatch; Maybe references
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D4`
-- source data paths: `Example.D4.Customer`
-- member modules: `Example.D4.Rules`
-- constraints: M1 safety mandatory; no exception-based bypass
+- Map an explicit nullable type to Maybe, including nested slots and nullable analysis disabled.
+- Keep null, !, nullable casts, .Value, HasValue, ??, ??=, and ?. as written.
+- Use declared return types. Do not infer nullable types from values.
 
 ## Acceptance
 
-- [x] Customer type → Example.D4.Customer; no repeated type-name segment
-- [x] Missing age → false; missing region → explicit "unknown" source default
-- [x] Guarded HasValue/.Value → success; null propagation + explicit fallback → paired Maybe parity
-- [x] Invalidated guard after reassignment/call/alias write → rejection
-- [x] Non-nullable annotated slot with possible default null → Maybe; invariant-proven present slot → permitted extraction
+- Nonnullable string and Loan inputs do not become Maybe.
+- No presence proof, extracted-value match, or invented fallback is required.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [x] Unguarded .Value; possible null dereference; annotation/! without proof
-- [x] Unsafe missing access even inside catch
-
-## Code examples
+## Historical examples
 
 ### C#
 

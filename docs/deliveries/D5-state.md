@@ -1,3 +1,5 @@
+> Historical runtime-contract evidence. Current acceptance: [source migration](source-structure-state.md).
+
 # D5 — execution evidence
 
 - Status: passed. Prerequisites D1–D4 passed and pushed; delivery parent is D4 239ad6af3a19fa9a8c9d7f6ba43eece67d403cdb. D5 completion follows every gate below; D6 begins only after D5 publication.

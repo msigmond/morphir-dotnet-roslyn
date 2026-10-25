@@ -1,43 +1,28 @@
-# D15 — Loops, local mutation, ref/out/in
+# D15 — Loops, compound updates, and references
 
 - status: planned
-- required-context: [master](../Morphir_CSharp_Frontend_delivery_plan.md) + this file + prerequisite evidence
+- contract: [source structure](../docs/source-structure.md)
 - prerequisites: [D11](D11-collections.md), [D14](D14-recursion.md)
-- outcome: Imperative pure calculations → functional state transitions
-- ownership: Loop/CFG state lowering; alias-sensitive ref calls
-- fixture-root: `fixtures/D15/`; test trait: `Delivery=D15`
+- evidence: [migration state](../docs/deliveries/source-structure-state.md)
 
-## Implementation
+## Work
 
-- [ ] CurrentSupportedExample update: loop forms, break/continue/early return, local mutation, owned ref/out/in operations
-- [ ] for/foreach/while/do; break/continue; assignments/increments; early returns; nested loops
-- [ ] Evaluation/iteration order; functional state + recursion; local aliases
-- [ ] Ordinary ref/out/in parameters; locally owned writes; explicit functional return/state representation
-- [ ] Writes through input/external references → rejection
-
-## Model increment
-
-- Functional bindings/recursion; explicit state tuples; Unit
-
-## Fixture contract
-
-- package: `Example`; namespace: `Example.D15`
-- source data paths: —
-- member modules: `Example.D15.Rules`
-- constraints: Ordinary ref/out/in support separate from ref-like data exclusion
+- Keep loop kind, initializer, condition, iterator, body, labels, and branches.
+- Keep increment, compound assignment, ref/out/in, ref locals, and ref returns.
+- Do not convert loops to recursion or simulate aliases, snapshots, state tuples, or iteration.
 
 ## Acceptance
 
-- [ ] CountUpTo: 4 → 4; 100 → 10; negative → 0
-- [ ] FlipTwice → false; private Rules.toggle → (Unit, updated Bool); public return Bool
-- [ ] Accumulation/early exit/nested loops; out/in/ref alias-sensitive operations; parity + C# boundaries
-- [ ] Input/external write via ref/helper/new wrapper → rejection
+- Every written update and control-flow boundary remains visible.
+- No ownership, termination, or runtime bounds proof is required.
+- Add independent source/IR assertions and cumulative sample coverage.
+- Run affected delivery tests, catalog checks, and repository checks.
+- Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
-## Rejections
+The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
+They are historical context and are not the expected source v1 output.
 
-- [ ] Input/global/captured mutation; ref-like data forms; alias behavior loss
-
-## Code examples
+## Historical examples
 
 ### C#
 

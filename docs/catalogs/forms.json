@@ -4,619 +4,801 @@
     {
       "form": "readonly-positional-record-int-bool",
       "owner": "D1",
-      "state": "supported"
+      "state": "supported",
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "static-expression-method",
       "owner": "D1",
-      "state": "supported"
+      "state": "supported",
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "int-bool-literals",
       "owner": "D1",
-      "state": "supported"
+      "state": "supported",
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "known-present-string-literal",
+      "form": "string-literal-source",
       "owner": "D1",
-      "state": "supported"
+      "state": "supported",
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "record-construction-and-reads",
       "owner": "D1",
-      "state": "supported"
+      "state": "supported",
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "int-comparisons-short-circuit",
       "owner": "D1",
-      "state": "supported"
+      "state": "supported",
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "constant-safe-or-zero-int-addition",
+      "form": "simple-integer-addition",
       "owner": "D1",
-      "state": "supported"
+      "state": "supported",
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "source-owner-paths-access-overload-identity",
       "owner": "D1",
-      "state": "supported"
+      "state": "supported",
+      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "project-framework-configuration-options",
       "owner": "D2",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Actual source/project/reference/generator acquisition and atomic source output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "project-source-reference-graph",
       "owner": "D2",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Actual source/project/reference/generator acquisition and atomic source output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "generated-partial-declarations",
       "owner": "D2",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Actual source/project/reference/generator acquisition and atomic source output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "additional-files-analyzer-config",
       "owner": "D2",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Actual source/project/reference/generator acquisition and atomic source output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "private-inclusive-qualified-static-calls",
       "owner": "D2",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Actual source/project/reference/generator acquisition and atomic source output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "segment-descendant-namespace-selection",
       "owner": "D2",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Actual source/project/reference/generator acquisition and atomic source output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "block-scope",
       "owner": "D3",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "local-bindings",
       "owner": "D3",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "if-else",
       "owner": "D3",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "conditional-expression",
       "owner": "D3",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "early-return",
       "owner": "D3",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "boolean-control-flow",
       "owner": "D3",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "nullable-values-references",
+      "form": "explicit-nullable-values-references",
       "owner": "D4",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "null-literal-and-default",
       "owner": "D4",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "coalesce-and-conditional-access",
       "owner": "D4",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "lifted-nullable-operators",
       "owner": "D4",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "hasvalue-and-null-tests",
       "owner": "D4",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "dominating-present-value-proofs",
+      "form": "nullable-access-without-presence-proof",
       "owner": "D4",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "assignment-alias-call-proof-invalidation",
+      "form": "declared-nullability-independent-of-flow",
       "owner": "D4",
-      "state": "supported"
+      "state": "supported",
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "all-integer-widths-signedness-native64",
       "owner": "D5",
       "state": "supported",
-      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata."
     },
     {
       "form": "float-double-half",
       "owner": "D5",
       "state": "supported",
-      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata."
     },
     {
       "form": "int128-uint128-bigint-complex",
       "owner": "D5",
       "state": "supported",
-      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata."
     },
     {
       "form": "numeric-conversions-and-promotions",
       "owner": "D5",
       "state": "supported",
-      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata."
     },
     {
-      "form": "unchecked-wrap-arithmetic",
+      "form": "source-arithmetic-without-wrap",
       "owner": "D5",
       "state": "supported",
-      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata."
     },
     {
-      "form": "division-remainder-and-cast-safety",
+      "form": "division-remainder-and-cast-structure",
       "owner": "D5",
       "state": "supported",
-      "evidence": "Numeric.cs; fixtures/D5 complete numeric/sample parity; NumericTests/FloatingTests/ComplexTests/NullableNumericTests/NumericConversionTests/NumericSafetyTests"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata."
     },
     {
-      "form": "decimal-exact-constant-construction",
+      "form": "decimal-literal-and-constructor-structure",
       "owner": "D6",
       "state": "supported",
-      "evidence": "samples/CurrentSupportedExample/Decimal.cs; fixtures/D6 complete source/sample/model codec parity; DecimalTests and compiled Elm/CLR compatibility checks"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "SDK Decimal literals and simple operations; explicit decimal construction, casts, and member calls."
     },
     {
-      "form": "decimal-rounding-scale-range",
+      "form": "decimal-rounding-and-scale-source",
       "owner": "D6",
       "state": "supported",
-      "evidence": "samples/CurrentSupportedExample/Decimal.cs; fixtures/D6 complete source/sample/model codec parity; DecimalTests and compiled Elm/CLR compatibility checks"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "SDK Decimal literals and simple operations; explicit decimal construction, casts, and member calls."
     },
     {
       "form": "decimal-conversion-and-member-domain",
       "owner": "D6",
       "state": "supported",
-      "evidence": "samples/CurrentSupportedExample/Decimal.cs; fixtures/D6 complete source/sample/model codec parity; DecimalTests and compiled Elm/CLR compatibility checks"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "SDK Decimal literals and simple operations; explicit decimal construction, casts, and member calls."
     },
     {
-      "form": "decimal-overflow-division-proof",
+      "form": "decimal-operations-without-runtime-proof",
       "owner": "D6",
       "state": "supported",
-      "evidence": "samples/CurrentSupportedExample/Decimal.cs; fixtures/D6 complete source/sample/model codec parity; DecimalTests and compiled Elm/CLR compatibility checks"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "SDK Decimal literals and simple operations; explicit decimal construction, casts, and member calls."
     },
     {
-      "form": "decimal-helper-m1-extraction",
+      "form": "decimal-source-without-helper-extraction",
       "owner": "D6",
       "state": "supported",
-      "evidence": "samples/CurrentSupportedExample/Decimal.cs; fixtures/D6 complete source/sample/model codec parity; DecimalTests and compiled Elm/CLR compatibility checks"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "SDK Decimal literals and simple operations; explicit decimal construction, casts, and member calls."
     },
     {
       "form": "resolved-overload-calls",
       "owner": "D7",
       "state": "supported",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures."
     },
     {
       "form": "named-optional-params-arguments",
       "owner": "D7",
       "state": "supported",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures."
     },
     {
-      "form": "cross-function-evaluation-order",
+      "form": "written-call-argument-order",
       "owner": "D7",
       "state": "supported",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures."
     },
     {
-      "form": "catalog-or-morphir-dependency-calls",
+      "form": "resolved-metadata-and-dependency-calls",
       "owner": "D7",
       "state": "supported",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures."
     },
     {
-      "form": "interprocedural-domain-effect-proof",
+      "form": "calls-without-effect-or-domain-proof",
       "owner": "D7",
       "state": "supported",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures."
     },
     {
       "form": "enum-types-values-members",
       "owner": "D8",
       "state": "supported",
-      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
-      "evidence": [
-        "EnumTupleTests",
-        "fixtures/D8/expected/provenance.json"
-      ]
+      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "value-and-reference-tuples",
       "owner": "D8",
       "state": "supported",
-      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
-      "evidence": [
-        "EnumTupleTests",
-        "fixtures/D8/expected/provenance.json"
-      ]
+      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "tuple-labels-deconstruction",
       "owner": "D8",
       "state": "supported",
-      "domain": "docs/mappings/D8.md: complete selected enum underlying domains/constants/aliases/flags and scoped value/reference tuples, M1, labels, conversions, deconstruction, local value copies/updates and exact delivered element equality; later effects/identity/user data remain gated.",
-      "evidence": [
-        "EnumTupleTests",
-        "fixtures/D8/expected/provenance.json"
-      ]
+      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "classes-structs-record-classes-record-structs",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "nested-and-recursive-acyclic-data",
+      "form": "nested-and-recursive-source-data",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "constructors-fields-properties",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "instance-receiver-input",
       "owner": "D7",
       "state": "supported",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs",
-      "domain": "Explicit receiver for already-delivered readonly record structs; later class/data/dispatch domains keep D9/D10 prerequisites."
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs",
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures."
     },
     {
-      "form": "value-equality-owned-object-initialization",
+      "form": "source-equality-and-object-initialization",
       "owner": "D9",
       "state": "supported",
-      "domain": "docs/mappings/D9.md: complete owned/pure source data increment; higher-feature prerequisites and identity/effect rejections remain explicit.",
-      "evidence": "docs/deliveries/D9-state.md; fixtures/D9/expected/{counter,data-forms,constants,sample}.json; DataTests; complete cumulative project/generator/CLI gates"
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "generic-types-functions-constraints",
       "owner": "D10",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "interfaces-inheritance",
       "owner": "D10",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "closed-virtual-interface-dispatch",
+      "form": "declared-virtual-interface-calls",
       "owner": "D10",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "generic-owner-arity-specialization",
+      "form": "generic-owner-and-arity-identity",
       "owner": "D10",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "arrays-and-indexing-default-slots",
+      "form": "array-declarations-initializers-and-indexing",
       "owner": "D11",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "generic-collections-and-interfaces",
       "owner": "D11",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "read-only-wrappers-and-interfaces",
       "owner": "D11",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "immutable-collections",
       "owner": "D11",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "collection-construction-and-pure-members",
+      "form": "collection-construction-and-member-source",
       "owner": "D11",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "ownership-backing-data-proof",
+      "form": "collection-backing-type-source",
       "owner": "D11",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "constant-type-declaration-patterns",
       "owner": "D12",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "recursive-property-positional-patterns",
       "owner": "D12",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "relational-logical-list-slice-patterns",
       "owner": "D12",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "switch-statements-expressions-exhaustiveness",
+      "form": "switch-statements-expressions-and-arms",
       "owner": "D12",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "lambdas-and-local-functions",
+      "form": "anonymous-functions-and-extended-local-syntax",
       "owner": "D13",
       "state": "pending",
-      "domain": "D7 delivers noncapturing local definitions and resolved pure standard Func method references; general lambda/delegate/capture forms remain D13."
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "delegates-and-method-groups",
+      "form": "delegate-combination-and-extended-lambda-conversions",
       "owner": "D13",
       "state": "pending",
-      "domain": "D7 delivers noncapturing local definitions and resolved pure standard Func method references; general lambda/delegate/capture forms remain D13."
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "immutable-and-wholly-local-captures",
+      "form": "anonymous-function-capture-references",
       "owner": "D13",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "capture-alias-effect-proof",
+      "form": "anonymous-function-capture-scopes",
       "owner": "D13",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "self-recursion",
+      "form": "generic-and-closure-self-recursion-coverage",
       "owner": "D14",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "mutual-recursion",
+      "form": "generic-and-closure-mutual-recursion-coverage",
       "owner": "D14",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "finite-domain-and-failure-proof",
+      "form": "recursive-source-binding-coverage",
       "owner": "D14",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "loops-and-branch-state",
       "owner": "D15",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "local-reassignment-and-counters",
+      "form": "increment-and-compound-update-statements",
       "owner": "D15",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "owned-object-collection-mutation",
+      "form": "object-collection-update-source",
       "owner": "D15",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "shared-local-alias-observations",
+      "form": "ref-local-and-ref-return-binding",
       "owner": "D15",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "ordinary-ref-out-in",
       "owner": "D15",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "escape-and-input-global-capture-ownership",
+      "form": "source-reference-location-syntax",
       "owner": "D15",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "dateonly-timeonly",
       "owner": "D16",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "datetime-datetimeoffset",
       "owner": "D16",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "timespan",
       "owner": "D16",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "guid",
       "owner": "D16",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "framework-pure-members-success-semantics",
+      "form": "framework-member-source",
       "owner": "D16",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "object-boxing-unboxing",
       "owner": "D17",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "closed-runtime-type-checks",
+      "form": "source-type-tests",
       "owner": "D17",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "complete-language-framework-type-catalog-closure",
       "owner": "D17",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "throw-try-catch-filter-rethrow-finally",
       "owner": "D18.1",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "handler-selection-order",
+      "form": "handler-source-order",
       "owner": "D18.1",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "state-and-finally-all-exit-paths",
+      "form": "finally-source-structure",
       "owner": "D18.1",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "private-failure-helpers-public-totality",
+      "form": "explicit-throw-source",
       "owner": "D18.1",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "yield-return-break-lazy-steps",
+      "form": "yield-return-and-yield-break-source",
       "owner": "D18.2",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "deferred-capture-arguments-state",
+      "form": "iterator-source-captures-and-arguments",
       "owner": "D18.2",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "fresh-repeated-nested-enumeration",
+      "form": "enumeration-call-source",
       "owner": "D18.2",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "early-disposal-finally-timing",
+      "form": "explicit-iterator-finally-source",
       "owner": "D18.2",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "closed-dynamic-binding-members-operators-conversions",
+      "form": "dynamic-source-members-operators-conversions",
       "owner": "D18.3",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "dynamic-purity-evaluation-order-failure-proof",
+      "form": "dynamic-source-binding-metadata",
       "owner": "D18.3",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "remaining-pure-feature-closure",
+      "form": "remaining-source-feature-closure",
       "owner": "D18.4",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "string-interpolation-compiler-plumbing-audit",
       "owner": "D18.4",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "anonymous-data-event-local-disposal-closure-audit",
       "owner": "D18.4",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "complete-fixed-catalog-proof",
+      "form": "complete-fixed-source-catalog",
       "owner": "D18.4",
-      "state": "pending"
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "checked-syntax-and-semantic-overflow",
-      "owner": "D18.4",
-      "state": "required-rejection"
+      "owner": "D5",
+      "state": "supported",
+      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
       "form": "async-await-async-iteration",
       "owner": "D18.4",
-      "state": "required-rejection"
+      "state": "required-rejection",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
     },
     {
       "form": "pointers-stackalloc-function-pointers",
       "owner": "D18.4",
-      "state": "required-rejection"
+      "state": "required-rejection",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
     },
     {
       "form": "ref-like-types-spans-ref-structs",
       "owner": "D18.4",
-      "state": "required-rejection"
+      "state": "required-rejection",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
     },
     {
-      "form": "linq-query-and-linq-calls",
+      "form": "linq-query-syntax",
       "owner": "D18.4",
-      "state": "required-rejection"
+      "state": "required-rejection",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
     },
     {
       "form": "reference-identity",
-      "owner": "D18.4",
-      "state": "required-rejection"
+      "owner": "D9",
+      "state": "supported",
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "cyclic-object-graphs",
-      "owner": "D18.4",
-      "state": "required-rejection"
+      "form": "cyclic-source-member-assignments",
+      "owner": "D9",
+      "state": "supported",
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "input-global-external-capture-mutation",
-      "owner": "D18.4",
-      "state": "required-rejection"
+      "form": "explicit-input-global-member-writes",
+      "owner": "D9",
+      "state": "supported",
+      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "clock-random-io-resources-effects",
-      "owner": "D18.4",
-      "state": "required-rejection"
+      "form": "scalar-external-effectful-call-source",
+      "owner": "D7",
+      "state": "supported",
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "unproved-m1-decimal-other-failure",
-      "owner": "D18.4",
-      "state": "required-rejection"
+      "form": "no-runtime-safety-proof",
+      "owner": "D4",
+      "state": "supported",
+      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "unhandled-public-failure",
-      "owner": "D18.4",
-      "state": "required-rejection"
+      "form": "explicit-uncaught-throw",
+      "owner": "D18.1",
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
       "form": "unknown-dynamic-target",
-      "owner": "D18.4",
-      "state": "required-rejection"
+      "owner": "D18.3",
+      "state": "pending",
+      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
+      "evidence": "Owning source-structure delivery remains planned."
     },
     {
-      "form": "noncapturing-local-callables",
+      "form": "scoped-local-callables-and-captures",
       "owner": "D7",
       "state": "supported",
-      "domain": "Canonical containing-callable/scope owner; all definitions including unused/private retained; source captures require D13.",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     },
     {
-      "form": "resolved-pure-method-references",
+      "form": "resolved-source-method-references",
       "owner": "D7",
       "state": "supported",
-      "domain": "Standard Func values, unit thunks, immutable value receiver snapshots, exact source/catalog/explicit pure-total metadata contracts; unknown delegate effects reject.",
-      "evidence": "CallTests/ExternalCallTests; fixtures/D7 ordinary/full/source/sample/external parity; CurrentSupportedExample/Calls.cs"
+      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
     }
-  ]
+  ],
+  "contract": "Morphir.CSharp.Source/1; syntax and declared types, without runtime proofs."
 }
