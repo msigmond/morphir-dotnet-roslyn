@@ -1,4 +1,5 @@
 {
+  "outputScope": "Rows describe explicit source-mode coverage. Default Classic v3 uses the narrower mappings in docs/classic-output.md; unmapped forms fail with MCS4001.",
   "baseline": ".NET10.0.0/C#14",
   "forms": [
     {

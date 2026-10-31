@@ -1,11 +1,13 @@
-# Source structure contract
+# C# source extension contract
 
 Approved change: [audit](reviews/source-structure-audit.md). Validation: [state](deliveries/source-structure-state.md).
 This contract replaces runtime equivalence, presence proofs, range proofs, and ownership simulation.
 
 ## Output
 
-The CLI emits `Morphir.CSharp.Source` version 1.
+Standard Classic v3 is now the default; see the [Classic contract](classic-output.md).
+The CLI emits this C# extension only with `--format source`. The API uses `FrontendOutputFormat.Source`.
+The extension format is `Morphir.CSharp.Source` version 1.
 The envelope contains `format`, `formatVersion`, `classicModelVersion`, `distribution`, and `source`.
 `classicModelVersion` is 3. It identifies the reused Classic algebra, not wire compatibility.
 Source v1 is an explicit extension. A standard Classic v3 consumer cannot read its source-operation tags.

@@ -4,7 +4,8 @@
 - contract changed: 2026-10-24; [approved audit](docs/reviews/source-structure-audit.md)
 - D1–D9 passed under the source contract on 2026-10-24. D10–D21 remain planned.
 - former runtime evidence: [archive](docs/history/runtime-contract/README.md)
-- current contract: [source schema and mappings](docs/source-structure.md)
+- default output: standard Classic v3; explicit `--format source` retains the C# extension; [current correction](docs/deliveries/classic-output-state.md)
+- current source-mode contract: [source schema and mappings](docs/source-structure.md)
 
 ## Contract
 
@@ -13,7 +14,8 @@ Use Maybe only for an explicit nullable type. Use declared method result types.
 Keep explicit checks, defaults, casts, calls, assignments, branches, and source order.
 Do not add safety proofs, hidden initialization, numeric emulation, ownership state, or synthesized bodies.
 Preserve source type distinctions, spelling, modifiers, labels, and locations in source metadata.
-The source envelope is `Morphir.CSharp.Source` version 1. Its projection reuses Classic model nodes.
+Default output uses the [documented Classic mappings](docs/classic-output.md).
+Source mode preserves the complete syntax contract below. Its envelope is `Morphir.CSharp.Source` version 1.
 Source-operation tags are extensions. They are not standard Classic v3 JSON.
 The separate plain Classic model codec retains format version 3.
 
@@ -22,6 +24,8 @@ The separate plain Classic model codec retains format version 3.
 Work on one delivery unless the user authorizes a contract migration across deliveries.
 Check prerequisite evidence. A planned delivery is not implemented by documentation alone.
 For each change: update mapping, implement structure, add independent assertions, run checks, update evidence.
+Record coverage for both output modes. Source-mode coverage alone does not establish Classic support.
+For each planned form, specify a Classic mapping or an explicit Classic rejection before implementation.
 No behavior or safety proof is a substitute for a source mapping.
 No selected unsupported declaration may be silently omitted.
 Compiler errors, required unselected source, identity collisions, and unmapped forms fail with source locations.

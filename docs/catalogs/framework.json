@@ -1,4 +1,5 @@
 {
+  "outputScope": "Rows describe explicit source-mode coverage. Default Classic v3 uses the narrower mappings in docs/classic-output.md; unmapped forms fail with MCS4001.",
   "referencePack": "Microsoft.NETCore.App.Ref/10.0.0",
   "catalogPolicy": "Fixed source type inventory. Type/member source mappings and later delivery gaps are explicit. No runtime-safety or purity contract.",
   "types": [

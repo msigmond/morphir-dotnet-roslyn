@@ -161,7 +161,7 @@ public class SourceStructureTests
     public void SourceEnvelopeIsVersionedAndKeepsExactSelectedSyntax()
     {
         const string code = "namespace Example.Structure; public readonly record struct Data(int Value); public static class Rules{public static int F(int @value)=>checked((int)(@value+1));}";
-        var compilation = Support.Compile(code); var lib = Support.Success(Frontend.Convert(compilation, new("Example", ["Example.Structure"])));
+        var compilation = Support.Compile(code); var lib = Support.Success(Frontend.Convert(compilation, new("Example", ["Example.Structure"], OutputFormat: FrontendOutputFormat.Source)));
         var expected = compilation.SyntaxTrees.Single().GetRoot().DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.BaseTypeDeclarationSyntax>().Where(t => t.Parent is Microsoft.CodeAnalysis.CSharp.Syntax.BaseNamespaceDeclarationSyntax).ToArray();
         Assert.Equal(expected.Length, lib.Source!.Declarations.Count);
         for (int i = 0; i < expected.Length; i++) Assert.Equal(expected[i].DescendantTokens().Select(t => (t.Kind().ToString(), t.Text)), Syntax(lib.Source.Declarations[i]).Where(n => n.Token is not null).Select(n => (n.Kind, n.Token!)));

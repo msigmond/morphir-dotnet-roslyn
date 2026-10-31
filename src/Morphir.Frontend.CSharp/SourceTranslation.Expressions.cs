@@ -14,7 +14,9 @@ internal sealed partial class SourceTranslation
     private ITypeSymbol? ExpressionSymbolType(ExpressionSyntax syntax)
     {
         var model = Semantic(syntax); var symbol = model.GetSymbolInfo(syntax).Symbol;
-        return symbol switch { IFieldSymbol field => field.Type, IPropertySymbol property => property.Type, IParameterSymbol parameter => parameter.Type, ILocalSymbol local => local.Type, IMethodSymbol method => method.ReturnType, _ => model.GetTypeInfo(syntax).Type ?? model.GetTypeInfo(syntax).ConvertedType };
+        return symbol switch { IFieldSymbol field => field.Type, IPropertySymbol property => property.Type, IParameterSymbol parameter => parameter.Type, ILocalSymbol local => local.Type,
+            IMethodSymbol { MethodKind: MethodKind.Constructor } constructor => constructor.ContainingType,
+            IMethodSymbol method => method.ReturnType, _ => model.GetTypeInfo(syntax).Type ?? model.GetTypeInfo(syntax).ConvertedType };
     }
     private IrType<Unit> ExpressionType(ExpressionSyntax syntax)
     {

@@ -195,7 +195,7 @@ These input and output rules do not require a change for the four reported cases
 
 ## Approved implementation choices
 
-1. Use an explicit source v1 extension for source forms absent from Classic. Keep simple Classic/SDK operations where suitable.
+1. Use standard Classic v3 by default for mapped forms, per the 2026-10-31 correction. Select the source v1 extension explicitly for the full syntax contract.
 2. Retain data forms, widths, labels, modifiers, names, grouping, and declaration order in source metadata.
 3. Keep explicit null as a typed Source Null operation. Do not widen a nonnullable declaration.
 4. Use one Source operation when no suitable SDK mapping exists. Do not emit runtime helper algorithms.

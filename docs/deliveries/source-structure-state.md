@@ -1,3 +1,5 @@
+> Historical validation for source mode. The default changed to Classic v3 on 2026-10-31; see [current correction](classic-output-state.md).
+
 # Source structure migration evidence
 
 - status: passed, 2026-10-24

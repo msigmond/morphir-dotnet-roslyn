@@ -16,7 +16,8 @@ namespace Morphir.Frontend.CSharp.IntegrationTests;
 public class StructureIntegrationTests
 {
     public static IEnumerable<object[]> Fixtures() => Directory.GetFiles(System.IO.Path.Combine(Support.Root, "fixtures"), "*.cs", SearchOption.AllDirectories)
-        .Where(p => p.Contains(System.IO.Path.DirectorySeparatorChar + "csharp" + System.IO.Path.DirectorySeparatorChar, StringComparison.Ordinal) && !p.EndsWith("D7/csharp/External.cs", StringComparison.Ordinal))
+        .Where(p => p.Contains(System.IO.Path.DirectorySeparatorChar + "csharp" + System.IO.Path.DirectorySeparatorChar, StringComparison.Ordinal) && !p.EndsWith("D7/csharp/External.cs", StringComparison.Ordinal)
+            && !p.Contains(System.IO.Path.DirectorySeparatorChar + "classic-business-logic" + System.IO.Path.DirectorySeparatorChar, StringComparison.Ordinal)) // This multi-file fixture is compiled together in ClassicFrontendTests.
         .Select(p => new object[] { System.IO.Path.GetRelativePath(Support.Root, p) });
     [Theory]
     [MemberData(nameof(Fixtures))]
@@ -25,13 +26,13 @@ public class StructureIntegrationTests
         var compilation = SourceCompilation.Create([(file, Support.Read(file))]);
         var namespaces = file.EndsWith("D1/csharp/Selection.cs", StringComparison.Ordinal) ? ["Sample.Business"]
             : compilation.SyntaxTrees.Single().GetRoot().DescendantNodes().OfType<BaseNamespaceDeclarationSyntax>().Select(n => n.Name.ToString()).Distinct().ToArray();
-        var lib = Support.Success(Frontend.Convert(compilation, new("Example", namespaces)));
+        var lib = Support.Success(Frontend.Convert(compilation, new("Example", namespaces, OutputFormat: FrontendOutputFormat.Source)));
         var expected = compilation.SyntaxTrees.Single().GetRoot().DescendantNodes().OfType<BaseTypeDeclarationSyntax>().Where(t => !t.Ancestors().OfType<BaseTypeDeclarationSyntax>().Any()
             && compilation.GetSemanticModel(t.SyntaxTree).GetDeclaredSymbol(t) is INamedTypeSymbol type && namespaces.Any(ns => type.ContainingNamespace.ToDisplayString() == ns || type.ContainingNamespace.ToDisplayString().StartsWith(ns + ".", StringComparison.Ordinal))).ToArray();
         Assert.Equal(expected.Length, lib.Source!.Declarations.Count);
         for (int i = 0; i < expected.Length; i++) Assert.Equal(expected[i].DescendantTokens().Select(t => t.Text), Syntax(lib.Source.Declarations[i]).Where(n => n.Token is not null).Select(n => n.Token!));
         Assert.DoesNotContain(lib.Definition.Modules, m => m.Key.Key.Contains("compat", StringComparison.Ordinal));
-        Assert.Equal(Codec.Encode(lib), Codec.Encode(Support.Success(Frontend.Convert(compilation, new("Example", namespaces)))));
+        Assert.Equal(Codec.Encode(lib), Codec.Encode(Support.Success(Frontend.Convert(compilation, new("Example", namespaces, OutputFormat: FrontendOutputFormat.Source)))));
     }
     [Fact]
     public void MetadataCallsNeedNoPurityContractButConfiguredMappingsNeedExactAbi()
@@ -41,12 +42,12 @@ public class StructureIntegrationTests
         var package = IrPath.From("MathSpec"); var module = IrPath.From("Rules"); var name = Name.From("Abs");
         var spec = new PackageSpecification<Unit>([new(module,new([], [new(name,new("",new([new(Name.From("x"),Types.Int)],Types.Int)))]))]);
         var contract = new ExternalFunctionContract(method,new(package,module,name),false,false,"");
-        var lib = Support.Success(Frontend.Convert(compilation,new("Example",["Example.Structure"],[new(package,spec,[contract])])));
+        var lib = Support.Success(Frontend.Convert(compilation,new("Example",["Example.Structure"],[new(package,spec,[contract])],FrontendOutputFormat.Source)));
         Assert.Single(lib.Dependencies);
         var nodes = lib.Definition.Modules.SelectMany(m => m.Value.Value.Values).SelectMany(v => Values(v.Value.Value.Value.Body));
         Assert.Contains(nodes, v => v is ReferenceValue<Unit,IrType<Unit>> r && r.Name.Package.Key == package.Key && r.Name.Local.Key == name.Key);
         var bad = new PackageSpecification<Unit>([new(module,new([], [new(name,new("",new([new(Name.From("x"),Types.Bool)],Types.Int)))]))]);
-        var failure = Frontend.Convert(compilation,new("Example",["Example.Structure"],[new(package,bad,[contract])]));
+        var failure = Frontend.Convert(compilation,new("Example",["Example.Structure"],[new(package,bad,[contract])],FrontendOutputFormat.Source));
         Assert.Null(failure.Distribution); Assert.Contains(failure.Diagnostics,d=>d.Code=="MCS2809");
     }
     [Fact]
@@ -55,7 +56,7 @@ public class StructureIntegrationTests
         var trusted=SourceCompilation.Create([("Trusted.cs",Support.Read("fixtures/D7/external/Trusted.cs"))]).WithAssemblyName("Trusted");
         using var bytes=new MemoryStream();var emitted=trusted.Emit(bytes);Assert.True(emitted.Success,string.Join("\n",emitted.Diagnostics));
         var compilation=SourceCompilation.Create([("External.cs",Support.Read("fixtures/D7/csharp/External.cs"))]).AddReferences(MetadataReference.CreateFromImage(bytes.ToArray()));
-        var lib=Support.Success(Frontend.Convert(compilation,new("Example",["Example.D7"])));
+        var lib=Support.Success(Frontend.Convert(compilation,new("Example",["Example.D7"], OutputFormat: FrontendOutputFormat.Source)));
         var method=lib.Definition.Modules.SelectMany(m=>m.Value.Value.Values).Single(v=>v.Key.Key==Name.From("DefaultEligible").Key).Value.Value.Value;
         var call=Assert.IsType<SourceValue<Unit,IrType<Unit>>>(method.Body);
         Assert.Equal("Invocation",call.Kind);Assert.Equal(2,call.Children.Count); // Target and the one written argument; no omitted default.
@@ -70,9 +71,9 @@ public class StructureIntegrationTests
         Assert.Contains(loaded.Inputs.SelectMany(i=>i.Sources),s=>s.Generated&&s.Path.EndsWith("Rules.Generated.cs",StringComparison.Ordinal));
         Assert.Contains(loaded.Inputs.SelectMany(i=>i.AdditionalFiles),s=>s.Path.EndsWith("threshold.txt",StringComparison.Ordinal));
         Assert.NotEmpty(loaded.Inputs.SelectMany(i=>i.AnalyzerConfigs));
-        var lib=Support.Success(Frontend.Convert(loaded.Compilation!,new("Example",["Example.CurrentSupported"]),loaded.SourceProjects));
+        var lib=Support.Success(Frontend.Convert(loaded.Compilation!,new("Example",["Example.CurrentSupported"], OutputFormat: FrontendOutputFormat.Source),loaded.SourceProjects));
         using var contract=JsonDocument.Parse(Support.Read("fixtures/source-structure/contract.json"));
-        var values=lib.Definition.Modules.SelectMany(m=>m.Value.Value.Values).ToArray();
+        var values=lib.Definition.Modules.Single(m=>m.Key.Key==IrPath.From("CurrentSupported.CurrentSupportedExample").Key).Value.Value.Values.ToArray();
         foreach(var name in contract.RootElement.GetProperty("requiredValues").EnumerateArray()) Assert.Contains(values,v=>v.Key.Key==Name.From(name.GetString()!).Key);
         foreach(var product in contract.RootElement.GetProperty("products").EnumerateArray())
         {
@@ -90,7 +91,7 @@ public class StructureIntegrationTests
         for(int i=0;i<expected.Length;i++) Assert.Equal(expected[i].DescendantTokens().Select(t=>t.Text),Syntax(lib.Source.Declarations[i]).Where(n=>n.Token is not null).Select(n=>n.Token!));
         var folder=System.IO.Path.Combine(Support.Root,"artifacts","source-cli-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(folder);
         var output=System.IO.Path.Combine(folder,"ir.json");
-        var args=new[]{"--project",project,"--framework","net10.0","--package","Example","--namespace","Example.CurrentSupported","--output",output};
+        var args=new[]{"--format","source","--project",project,"--framework","net10.0","--package","Example","--namespace","Example.CurrentSupported","--output",output};
         Assert.Equal(0,(await Cli(args)).Exit);
         Assert.Null(StructuralComparison.Compare(Codec.Encode(lib),File.ReadAllText(output)));
     }
@@ -99,7 +100,7 @@ public class StructureIntegrationTests
     {
         var folder=System.IO.Path.Combine(Support.Root,"artifacts","source-cli-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(folder);
         var input=System.IO.Path.Combine(folder,"Input.cs");var output=System.IO.Path.Combine(folder,"ir.json");
-        var args=new[]{"--source",input,"--package","Example","--namespace","Example.Structure","--output",output};
+        var args=new[]{"--format","source","--source",input,"--package","Example","--namespace","Example.Structure","--output",output};
         File.WriteAllText(input,"namespace Example.Structure;public static class Rules{public static int F(int a,int b)=>a/b;}");
         Assert.Equal(0,(await Cli(args)).Exit);var bytes=File.ReadAllBytes(output);
         foreach(var source in new[]{"invalid C#","namespace Example.Structure;public class Data<T>{}"})
@@ -108,6 +109,24 @@ public class StructureIntegrationTests
         }
         var fresh=System.IO.Path.Combine(folder,"fresh.json");args[^1]=fresh;Assert.Equal(1,(await Cli(args)).Exit);Assert.False(File.Exists(fresh));
         Assert.Equal(2,(await Cli(["--bad","x"])).Exit);
+    }
+    [Fact]
+    public async Task DefaultCliEmitsClassicBusinessIrAndRejectsUnmappedFormsAtomically()
+    {
+        var folder=System.IO.Path.Combine(Support.Root,"artifacts","classic-cli-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(folder);
+        var output=System.IO.Path.Combine(folder,"morphir-ir.json");
+        var args=new List<string>{"--package","Sigmond.Buslog","--namespace","Sigmond.Buslog.Model","--namespace","Sigmond.Buslog.Algo","--output",output};
+        foreach(var file in Directory.GetFiles(System.IO.Path.Combine(Support.Root,"fixtures/classic-business-logic/csharp"),"*.cs").Order(StringComparer.Ordinal)){args.Add("--source");args.Add(file);}
+        var result=await Cli(args.ToArray());Assert.True(result.Exit==0,result.Text);
+        var json=File.ReadAllText(output);using var document=JsonDocument.Parse(json);
+        Assert.Equal(3,document.RootElement.GetProperty("formatVersion").GetInt32());Assert.False(document.RootElement.TryGetProperty("source",out _));
+        Assert.Null(ClassicParity.Compare(Support.Read("fixtures/classic-business-logic/expected/elm.json"),json,true));
+        var previous=File.ReadAllBytes(output);var bad=System.IO.Path.Combine(folder,"Unmapped.cs");
+        File.WriteAllText(bad,"namespace Sigmond.Buslog.Algo;public static class Rules{public static int F(int a){a=2;return a;}}");
+        var failure=await Cli(["--package","Sigmond.Buslog","--namespace","Sigmond.Buslog.Algo","--source",bad,"--output",output]);
+        Assert.Equal(1,failure.Exit);Assert.Contains("MCS4001",failure.Text);Assert.Equal(previous,File.ReadAllBytes(output));
+        var help=await Cli(["--help"]);Assert.Equal(0,help.Exit);Assert.Contains("Classic v3",help.Text);
+        Assert.Equal(2,(await Cli(["--format","unknown"])).Exit);
     }
     private static IEnumerable<SourceSyntax> Syntax(SourceSyntax source)=>source.Children.SelectMany(Syntax).Prepend(source);
     private static IEnumerable<V> Values(V value)

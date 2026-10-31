@@ -4,6 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../TestSupport.cs" Link="TestSupport.cs" />
+    <Compile Include="../ClassicParity.cs" Link="ClassicParity.cs" />
     <ProjectReference Include="../../src/Morphir.IR.Classic/Morphir.IR.Classic.csproj" />
     <ProjectReference Include="../../src/Morphir.IR.Json/Morphir.IR.Json.csproj" />
     <ProjectReference Include="../../src/Morphir.Frontend.CSharp/Morphir.Frontend.CSharp.csproj" />

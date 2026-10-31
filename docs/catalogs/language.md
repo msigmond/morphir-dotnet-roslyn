@@ -1,6 +1,6 @@
 # Source language coverage
 
-Contract: [source v1](../source-structure.md). Current evidence: [migration](../deliveries/source-structure-state.md).
+Default: [Classic subset](../classic-output.md). Explicit source-mode contract: [source v1](../source-structure.md). Current evidence: [migration](../deliveries/source-structure-state.md).
 The cumulative sample contains all prior delivered feature sections plus SourceStructure.cs.
 The approved [62-case matrix](../../tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs) is checked against the audit IDs.
 
@@ -23,3 +23,6 @@ No runtime guard, proof, helper library, ownership condition, or termination rul
 The [forms](forms.json), [Roslyn operation inventory](operations.json), and rewritten delivery plans retain later mapping gaps.
 General source syntax capture does not authorize an unsupported form.
 D10–D21 remain pending. Historical behavior/parity references are frozen context, not current frontend output.
+
+ClassicLoan.cs adds the complete loan calculation example for the default Classic mode.
+ClassicFrontendTests compares the full distribution with the independently supplied Elm reference.

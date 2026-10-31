@@ -128,7 +128,9 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
                 if (Semantic(node).GetDeclaredSymbol(node) is INamedTypeSymbol type && Selected(type)) Attempt(() => syntax.Add(Syntax(node)));
         if (diagnostics.Count != 0) return Failure();
         var definitions = modules.Values.OrderBy(m => m.Path, IdentityOrder.Paths).Select(m => new Entry<IrPath, AccessControlled<ModuleDefinition<Unit, IrType<Unit>>>>(m.Path, new(m.Access, new(m.Types.OrderBy(t => t.Key.Key, StringComparer.Ordinal).ToArray(), m.Values.OrderBy(v => v.Key.Key, StringComparer.Ordinal).ToArray())))).ToArray();
-        return new(new(package, (settings.Dependencies ?? []).Select(d => new Entry<IrPath, PackageSpecification<Unit>>(d.Package, d.Specification)).ToArray(), new(definitions)) { Source = new(syntax) }, []);
+        var library = new Library<Unit, IrType<Unit>>(package, (settings.Dependencies ?? []).Select(d => new Entry<IrPath, PackageSpecification<Unit>>(d.Package, d.Specification)).ToArray(), new(definitions)) { Source = new(syntax) };
+        if (settings.OutputFormat == FrontendOutputFormat.Classic) Attempt(() => library = ProjectClassic(library));
+        return diagnostics.Count != 0 ? Failure() : new(library, []);
     }
     private void Validate(INamedTypeSymbol type)
     {

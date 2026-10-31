@@ -2,7 +2,8 @@
 
 The Classic algebra and standard v3 codec remain available and Roslyn-free.
 Independent model/codec fixtures remain frozen and active.
-The C# frontend now adds the explicit [Morphir.CSharp.Source v1 contract](../source-structure.md).
+The C# frontend defaults to standard Classic v3 for the [mapped subset](../classic-output.md).
+It also offers the explicit [Morphir.CSharp.Source v1 contract](../source-structure.md).
 It is not standard Classic v3 output.
 
 | Model | Coverage |
@@ -21,3 +22,6 @@ No mutable runtime store, compatibility algorithm, or synthesized body is added.
 
 D19 retains complete model/codec closure. Current source support does not claim the full upstream v3 algebra.
 Source v1 consumers must check the format before reading the extended distribution.
+
+Classic conversion removes source tags rather than relabelling the extended envelope.
+Constructor applications and LetDefinition/Apply nodes match the independent loan fixture.

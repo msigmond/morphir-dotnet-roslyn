@@ -9,7 +9,7 @@
 
 - Keep selected namespace and enclosing-type owners, access, and documentation.
 - Keep literals, fields, ordinary arithmetic, and explicit source syntax.
-- Emit the explicit source v1 envelope. Keep plain Classic model serialization unchanged.
+- Emit standard Classic v3 by default for mapped forms. Select the source v1 extension explicitly. Keep the schemas separate.
 
 ## Acceptance
 

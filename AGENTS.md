@@ -1,13 +1,13 @@
 # Agent instructions
 
 - authority: user instructions → [approved source audit](docs/reviews/source-structure-audit.md) → [master](Morphir_CSharp_Frontend_delivery_plan.md) → selected delivery
-- state: D1–D9 passed under the source contract; current [validation evidence](docs/deliveries/source-structure-state.md); D10–D21 planned; old D1–D9 state files are historical runtime evidence
+- state: D1–D9 passed under the source contract; source [validation evidence](docs/deliveries/source-structure-state.md), current [Classic correction](docs/deliveries/classic-output-state.md); D10–D21 planned; old D1–D9 state files are historical runtime evidence
 - workflow: one delivery unless the user authorizes a contract migration; prerequisite gates; incremental structure; independent source assertions; explicit rejection for unmapped forms
 - baseline: SDK 10.0.100; C#14; reference pack 10.0.0; Roslyn 5.0.0; x64 CLI input; no silent scope/version change
-- contract: [source structure](docs/source-structure.md); emit Morphir.CSharp.Source v1, not standard Classic v3; the separate plain Classic codec remains v3
+- contract: [source structure](docs/source-structure.md); standard Classic v3 is the default; `--format source` / FrontendOutputFormat.Source selects the C# syntax extension; see [Classic mapping scope](docs/classic-output.md); no silent fallback or mixed schemas
 - semantics: represent declarations and written operations; explicit nullable types alone use Maybe; declared return types; source owners and Public/Private projection; source metadata preserves names, modifiers, labels, source types, locations, and order
 - no runtime emulation: no presence/range/nonzero/finite/ownership/purity/termination proof; no numeric helper modules, hidden initialization, SSA state, inlined bodies, synthetic equality, or simulated heap
-- preserve source: guards, branches including constant/unreachable branches, casts, defaults, constructor/accessor bodies, argument names/order, aliases, writes, identity, and cycles
+- preserve source in explicit source mode; use documented Classic mappings for default output: guards, branches including constant/unreachable branches, casts, defaults, constructor/accessor bodies, argument names/order, aliases, writes, identity, and cycles
 - scope: delivered D1–D9 source forms; generic/interface/inheritance, general collections, full patterns, anonymous functions, loops/ref, later framework/object, exceptions/iterators/dynamic retain explicit structural delivery gaps
 - inputs: core accepts Compilation + settings; adapters own project/source/reference/generator acquisition and serialization; valid compiler binding, selectors, collisions, and source-located all-or-nothing failure remain required
 - layout: Morphir.CSharp.slnx; src Classic/Json/core/ProjectSystem/CLI projects; tests; fixtures; samples/CurrentSupportedExample; eng; docs
@@ -15,7 +15,7 @@
 - build: `dotnet build Morphir.CSharp.slnx --no-restore -m:1`
 - tests: `dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1`; VSTest needs a local host socket; project loading needs local MSBuild
 - checks: `python3 eng/check-catalogs.py`; `python3 eng/check-repository.py`; 24 plans, historical paired code, Markdown links/fences, frozen hashes, license bytes, tracked/new/staged whitespace
-- fixtures: source v1 uses independent structural assertions and complete selected syntax parity; preserve historical Elm 2.100.0/source 71ca7ee385273b0af6f8db66582c26e9b410cbf2 references and compatibility provenance
+- fixtures: independent Elm Classic comparison covers the complete business distribution with documented package/local-type/name alignment; source mode uses independent structural assertions and complete selected syntax parity; preserve historical Elm 2.100.0/source 71ca7ee385273b0af6f8db66582c26e9b410cbf2 references and compatibility provenance
 - reference generation: separate explicit reviewed operation; `npm ci --prefix eng --ignore-scripts --no-audit --no-fund`, then `node eng/generate-references.mjs --write`; never repair parity by adopting converter output
 - maintenance: cumulative sample, language/framework/model catalogs, mapping, README, this file, schema, and delivery evidence every delivery
 - historical evidence: [archive](docs/history/runtime-contract/README.md); old runtime instructions, tests, commands, and Elm lowering examples do not control source v1 acceptance

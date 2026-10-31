@@ -5,7 +5,9 @@ using IrPath = Morphir.IR.Classic.Path;
 
 namespace Morphir.Frontend.CSharp;
 
-public sealed record FrontendSettings(string Package, IReadOnlyList<string> Namespaces, IReadOnlyList<ExternalDependencyContract>? Dependencies = null);
+public enum FrontendOutputFormat { Classic, Source }
+public sealed record FrontendSettings(string Package, IReadOnlyList<string> Namespaces, IReadOnlyList<ExternalDependencyContract>? Dependencies = null,
+    FrontendOutputFormat OutputFormat = FrontendOutputFormat.Classic);
 public sealed record FrontendDiagnostic(string Code, string Message, string File, int Line, int Column)
 {
     public override string ToString() => $"{File}({Line},{Column}): {Code}: {Message}";

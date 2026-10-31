@@ -1,6 +1,6 @@
 # Framework source coverage
 
-Use [source v1](../source-structure.md). The reference pack remains 10.0.0 and Roslyn remains 5.0.0.
+Use the [Classic mappings](../classic-output.md) by default; [source mode](../source-structure.md) retains the broader syntax domain. The reference pack remains 10.0.0 and Roslyn remains 5.0.0.
 [framework.json](framework.json) retains every fixed type family.
 [numeric-members.json](numeric-members.json) and [decimal-members.json](decimal-members.json) retain the exact pinned public declaration inventories.
 Inventory presence does not imply complete dependent-signature support.

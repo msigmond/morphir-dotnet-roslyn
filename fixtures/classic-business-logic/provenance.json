@@ -1,0 +1,36 @@
+{
+  "origin": "User-supplied C# and independently compiled Elm project, after the public/Int/local-name corrections on 2026-10-31. No C# converter output was used as expected JSON.",
+  "comparison": "Align package/module boundary and alpha-rename local bindings; resolve Elm local declaration type variables from typed initializer attributes. Compare the complete remaining Classic distribution.",
+  "files": [
+    {
+      "path": "fixtures/classic-business-logic/csharp/Loan.cs",
+      "sha256": "33590dd2791174059a0216a8cf9ee2164f986b4e9473ee0a281a6bb6391a0576"
+    },
+    {
+      "path": "fixtures/classic-business-logic/csharp/LoanCalculations.cs",
+      "sha256": "646defa214b9ca4d46abe9ae1c27ee5b4c419a2d3ea9a2a844e398c65fed9dfd"
+    },
+    {
+      "path": "fixtures/classic-business-logic/csharp/LoanFee.cs",
+      "sha256": "661e041cf2fd6ffa6358f864b0adc5d659c4c3238d4db0a44e0cf791bac76870"
+    },
+    {
+      "path": "fixtures/classic-business-logic/elm/morphir.json",
+      "sha256": "9ea5e3c7ea12ed26ba2b8612dfa3fd9d0a90b83eaaff60cabdf8e67c336c8b5a"
+    },
+    {
+      "path": "fixtures/classic-business-logic/elm/src/Sigmond/Buslog/Algo/LoanCalculations.elm",
+      "sha256": "b2e6c2762d2f44754c972260f8ec8faf45ed6d1de4929d2a51c662ef59fefd4b"
+    },
+    {
+      "path": "fixtures/classic-business-logic/elm/src/Sigmond/Buslog/Model.elm",
+      "sha256": "2b3f42b989767b8093948471f1a2e40cc860fc639fec1b389013f310c53404e1"
+    },
+    {
+      "path": "fixtures/classic-business-logic/expected/elm.json",
+      "sha256": "c75f406b05c0734af5124e45a9efa769027ea15974b2a32f246221e5e13e0834"
+    }
+  ],
+  "sourceCopyNormalization": "Trailing whitespace removed from the copied Elm source only. Expected compiler JSON is unchanged.",
+  "originalElmCalculationsSha256": "f6c604545f2315f42d6fd2c5c549edb3975ef5a23edf74983028d3d5d0df8643"
+}

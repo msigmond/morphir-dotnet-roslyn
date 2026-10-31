@@ -100,7 +100,7 @@ public class AuditMatrixTests
     {
         Assert.NotEmpty(id);
         var compilation = Support.Compile(code);
-        var lib = Support.Success(Frontend.Convert(compilation, new("Example", ["Example.Audit"])));
+        var lib = Support.Success(Frontend.Convert(compilation, new("Example", ["Example.Audit"], OutputFormat: FrontendOutputFormat.Source)));
         var syntax = lib.Source!.Declarations.SelectMany(Syntax).ToArray();
         Assert.Contains(syntax, n => n.Kind == syntaxKind);
         var roots = compilation.SyntaxTrees.Single().GetRoot().DescendantNodes().OfType<BaseTypeDeclarationSyntax>().Where(n => n.Parent is BaseNamespaceDeclarationSyntax).ToArray();
