@@ -1,26 +1,31 @@
 # D21 — Complete acceptance
 
 - status: planned
-- contract: [source structure](../docs/source-structure.md)
+- contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D20](D20-msbuild.md)
-- evidence: [migration state](../docs/deliveries/source-structure-state.md)
+- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
 
 ## Work
 
-- Run the full source-structure suite from a clean checkout.
+Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
+No Source v1 tag or metadata envelope can satisfy this delivery.
+
+- Run the complete exact Elm parity suite from a clean checkout.
 - Close all fixed catalogs, schema references, packages, samples, and documentation.
 - Validate all 62 approved audit cases and future-delivery cases.
 
 ## Acceptance
 
 - No pending admitted source mapping remains.
-- The release states source v1 compatibility and the limits of execution semantics.
-- Add independent source/IR assertions and cumulative sample coverage.
+- The release reports standard Morphir compatibility and exact-parity coverage for every feature.
+- Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
+- Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
+- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
 - Run affected delivery tests, catalog checks, and repository checks.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context and are not the expected source v1 output.
+They are historical context. New acceptance references must come from `morphir-elm make`.
 
 ## Historical examples
 

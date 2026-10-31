@@ -1,7 +1,9 @@
-# C# source extension contract
+> Source v1 was never requested. This document records legacy code, not the delivery contract. Use [exact Elm parity](elm-parity.md). Do not extend this format.
 
-Approved change: [audit](reviews/source-structure-audit.md). Validation: [state](deliveries/source-structure-state.md).
-This contract replaces runtime equivalence, presence proofs, range proofs, and ownership simulation.
+# Unrequested Source v1 implementation
+
+Source-structure audit: [audit](reviews/source-structure-audit.md). Validation: [state](deliveries/source-structure-state.md).
+The audit approved source-structure rules. It did not request this custom output format.
 
 ## Output
 

@@ -1,13 +1,16 @@
 # D5 — Numeric source structure
 
-- status: passed under the source contract; revalidated on 2026-10-24
-- contract: [source structure](../docs/source-structure.md)
+- status: exact Elm parity revalidation required; historical Source-mode pass on 2026-10-24
+- contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D3](D03-blocks-locals.md)
-- evidence: [migration state](../docs/deliveries/source-structure-state.md)
+- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
 
 ## Work
 
-- Use simple numeric types. Keep source width and signedness in syntax metadata.
+Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
+No Source v1 tag or metadata envelope can satisfy this delivery.
+
+- Use the numeric types emitted by the paired Elm project. Do not add source metadata to the output.
 - Keep casts, constructors, shifts, named constants, and special floating values.
 - Map ordinary arithmetic to one operation. Do not add limbs, wrapping, masking, saturation, or IEEE rounding.
 
@@ -15,12 +18,14 @@
 
 - Integer division, narrowing, finite-value cases, and Complex conversions need no runtime proof.
 - No numeric compatibility module is emitted.
-- Add independent source/IR assertions and cumulative sample coverage.
+- Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
+- Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
+- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
 - Run affected delivery tests, catalog checks, and repository checks.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context and are not the expected source v1 output.
+They are historical context. New acceptance references must come from `morphir-elm make`.
 
 ## Historical examples
 

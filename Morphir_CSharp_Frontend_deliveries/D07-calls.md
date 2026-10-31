@@ -1,11 +1,14 @@
 # D7 — Calls, references, and arguments
 
-- status: passed under the source contract; revalidated on 2026-10-24
-- contract: [source structure](../docs/source-structure.md)
+- status: exact Elm parity revalidation required; historical Source-mode pass on 2026-10-24
+- contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D2](D02-project-inputs.md), [D3](D03-blocks-locals.md), [D4](D04-maybe.md), [D5](D05-numerics.md), [D6](D06-decimal.md)
-- evidence: [migration state](../docs/deliveries/source-structure-state.md)
+- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
 
 ## Work
+
+Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
+No Source v1 tag or metadata envelope can satisfy this delivery.
 
 - Keep resolved targets, receivers, written argument names and order, and declaration defaults.
 - Keep expanded params arguments as written. Keep explicit array syntax only when the source contains it.
@@ -16,12 +19,14 @@
 
 - A call stays a call. No callee body, receiver snapshot, lambda adapter, omitted default, or params allocation is inserted.
 - Params reads and delegate invocation need no bounds, presence, or effect proof.
-- Add independent source/IR assertions and cumulative sample coverage.
+- Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
+- Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
+- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
 - Run affected delivery tests, catalog checks, and repository checks.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context and are not the expected source v1 output.
+They are historical context. New acceptance references must come from `morphir-elm make`.
 
 ## Historical examples
 

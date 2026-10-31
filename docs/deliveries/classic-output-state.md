@@ -1,3 +1,5 @@
+> Historical result under earlier checks. It does not establish acceptance under the current [exact Elm parity contract](../elm-parity.md). D1–D9 need revalidation.
+
 # Classic output correction
 
 - status: passed on 2026-10-31

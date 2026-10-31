@@ -1,3 +1,5 @@
+> Current acceptance: [exact Elm parity](../elm-parity.md) for every feature. The inventory below includes unrequested Source-mode work and does not establish current acceptance.
+
 # Models and codecs
 
 The Classic algebra and standard v3 codec remain available and Roslyn-free.

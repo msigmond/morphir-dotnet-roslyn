@@ -1,7 +1,8 @@
 # Classic output
 
 Standard Morphir Classic v3 is the CLI and core API default, as requested on 2026-10-31.
-Use `--format source` or `FrontendOutputFormat.Source` for the separate C# syntax extension.
+The [exact Elm parity contract](elm-parity.md) controls acceptance.
+The existing Source v1 mode was unrequested work. It is not an alternative delivery target.
 No command silently switches formats or mixes Source nodes into Classic JSON.
 
 The default file has only `formatVersion: 3` and `distribution`.
@@ -27,26 +28,29 @@ Classic mode has an explicit mapping subset. Assignment, statement branches, opt
 nullable operations, implicit conversions between different IR types, instance initializers, recursive aliases,
 intrinsic C# types, and other unmapped forms report `MCS4001` at the source definition.
 No output is produced on failure; an existing output file remains unchanged.
-Source mode retains their previously delivered syntax support. D10–D21 retain their planned scope.
+Legacy Source-mode support does not establish delivery acceptance. D10–D21 remain planned.
 These are representation gaps, not runtime safety restrictions. No presence, range, nonzero, purity, or ownership proof is required.
 
-## Independent Elm comparison
+## Existing supplemental comparison
+
+This normalized comparison predates the exact-parity rule. It does not pass that gate.
+New feature tests must compare complete compiler JSON without these normalizations.
 
 The [business fixture](../fixtures/classic-business-logic/provenance.json) preserves the supplied C# files and corrected Elm project/output.
 Expected JSON came from the Elm compiler, not the C# frontend.
-Validation compares the complete distributions after three explicit equivalences:
+The legacy test helper compares the complete distributions after three explicit equivalences:
 
 1. Place package and module segments at the requested package boundary.
 2. Rename local binding variables consistently by lexical binding position.
-3. Resolve generalized Elm local declaration output types from their typed initializer attributes.
+3. Resolve retained Elm local inference variables from their typed initializer attributes.
 
 No module, type, function, input, output, field, access flag, operator, literal, or call is discarded by the comparison.
 Negative checks prove that changed operators and visibility still fail.
 The C# names `marketValue` and `dailyFee` remain in actual output.
 The Elm local names `marketVal` and `dailyF` remain in the frozen reference.
 
-The supplied Elm configuration uses package `Sigmond`; its module is `Buslog.Model`.
-The supplied C# command selects package `Sigmond.Buslog`; its module is `Model`.
+The frozen fixture Elm configuration uses package `Sigmond`; its module is `Buslog.Model`.
+The original C# command selects package `Sigmond.Buslog`; its module is `Model`.
 Both display `Sigmond.Buslog.Model.Loan`, but their encoded package/module split differs.
 Use `--package Sigmond` for the same package split as that Elm file.
 The original `--package Sigmond.Buslog` command remains valid and retains that requested package.
@@ -59,5 +63,5 @@ After build, from the repository root:
 dotnet run --project src/Morphir.Frontend.CSharp.Cli --no-build -- --package Example --namespace Example.CurrentSupported --source samples/CurrentSupportedExample/ClassicLoan.cs --output artifacts/classic-loan.json
 ```
 
-The full cumulative sample includes unmapped Classic forms. Select `--format source` for that complete project.
+The full cumulative sample includes unmapped Classic forms and is not an accepted Classic delivery.
 See [validation evidence](deliveries/classic-output-state.md).

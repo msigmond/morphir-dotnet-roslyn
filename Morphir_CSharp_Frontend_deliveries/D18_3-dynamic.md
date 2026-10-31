@@ -1,26 +1,31 @@
 # D18.3 — Dynamic syntax
 
 - status: planned
-- contract: [source structure](../docs/source-structure.md)
+- contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D18.2](D18_2-lazy-iterators.md), [D7](D07-calls.md), [D10](D10-generics-dispatch.md), [D17](D17-type-closure.md)
-- evidence: [migration state](../docs/deliveries/source-structure-state.md)
+- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
 
 ## Work
 
+Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
+No Source v1 tag or metadata envelope can satisfy this delivery.
+
 - Keep dynamic declarations, operations, and written calls with compiler binding facts where available.
-- Define an explicit source node for deferred binding.
+- Ask for the intended Elm counterpart for deferred binding before implementation.
 - Do not infer runtime target sets, execute a binder, or generate dispatch.
 
 ## Acceptance
 
-- Unresolved runtime dispatch is representable as explicit dynamic source structure.
+- An agreed standard Elm mapping and exact-parity test are required before support.
 - Invalid C# still rejects.
-- Add independent source/IR assertions and cumulative sample coverage.
+- Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
+- Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
+- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
 - Run affected delivery tests, catalog checks, and repository checks.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context and are not the expected source v1 output.
+They are historical context. New acceptance references must come from `morphir-elm make`.
 
 ## Historical examples
 

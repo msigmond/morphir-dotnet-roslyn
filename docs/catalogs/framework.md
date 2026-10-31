@@ -1,3 +1,5 @@
+> Current acceptance: [exact Elm parity](../elm-parity.md) for every feature. The inventory below includes unrequested Source-mode work and does not establish current acceptance.
+
 # Framework source coverage
 
 Use the [Classic mappings](../classic-output.md) by default; [source mode](../source-structure.md) retains the broader syntax domain. The reference pack remains 10.0.0 and Roslyn remains 5.0.0.

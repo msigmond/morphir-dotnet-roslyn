@@ -14,6 +14,12 @@ def check(condition, message):
 
 plans = root / 'Morphir_CSharp_Frontend_deliveries'
 check(len(list(plans.glob('*.md'))) == 24, 'Expected all 24 child plans')
+for file in plans.glob('*.md'):
+    content = file.read_text()
+    check('[exact Elm parity](../docs/elm-parity.md)' in content, f'Missing Elm parity contract: {file.name}')
+    check('Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.' in content,
+          f'Missing per-feature Elm compiler parity gate: {file.name}')
+    check('No package, name, type, or operation normalization.' in content, f'Missing exact comparison rule: {file.name}')
 for file in [root/'Morphir_CSharp_Frontend_delivery_plan.md', *plans.glob('*.md')]:
     original = subprocess.check_output(['git', 'show', f'HEAD:{file.relative_to(root)}'], cwd=root).decode()
     check(re.findall(r'```(?:csharp|elm)\n(.*?)```', file.read_text(), re.S) == re.findall(r'```(?:csharp|elm)\n(.*?)```', original, re.S), f'Embedded paired code changed: {file}')
@@ -64,4 +70,4 @@ for name in files:
         check(result.returncode in (0, 1) and not result.stdout and not result.stderr, f'New-file whitespace check failed: {name}: {result.stdout}{result.stderr}')
 if errors:
     raise SystemExit('\n'.join(errors))
-print('Repository contracts passed: 24 plans, paired code, Markdown links/fences, frozen references, licenses, CLAUDE, tracked/new/staged whitespace.')
+print('Repository contracts passed: 24 plans with exact Elm parity gates, paired code, Markdown links/fences, frozen references, licenses, CLAUDE, tracked/new/staged whitespace.')

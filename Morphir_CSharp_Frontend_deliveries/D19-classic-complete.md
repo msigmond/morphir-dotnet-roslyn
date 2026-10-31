@@ -1,27 +1,31 @@
 # D19 — Complete models and codecs
 
 - status: planned
-- contract: [source structure](../docs/source-structure.md)
+- contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D18.4](D18_4-feature-closure.md)
-- evidence: [migration state](../docs/deliveries/source-structure-state.md)
+- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
 
 ## Work
 
-- Complete the source-operation schema and its explicit codecs.
-- Complete the separately identified pinned Classic algebra/codec inventory.
-- Validate source v1 and Classic v3 as different wire contracts.
-- Add explicit format/schema migration rules. Do not label source extension tags as standard Classic v3.
+Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
+No Source v1 tag or metadata envelope can satisfy this delivery.
+
+- Complete the pinned Classic algebra/codec inventory required by the frontend.
+- Emit only the requested standard Morphir IR contract.
+- Remove unrequested public Source v1 output; do not develop a second schema.
 
 ## Acceptance
 
-- Independent complete references cover each schema and source operation.
+- Frontend feature references come from `morphir-elm make`; codec tests are supplemental.
 - No automatic reference refresh occurs during validation.
-- Add independent source/IR assertions and cumulative sample coverage.
+- Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
+- Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
+- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
 - Run affected delivery tests, catalog checks, and repository checks.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context and are not the expected source v1 output.
+They are historical context. New acceptance references must come from `morphir-elm make`.
 
 ## Historical examples
 

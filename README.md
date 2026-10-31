@@ -1,39 +1,21 @@
-# Morphir C# source frontend
+# Morphir C# frontend
 
-Convert selected C# source structure to typed Morphir-based IR.
-The frontend represents declarations and written operations. It does not simulate CLR execution.
-
-The default output is **standard Morphir Classic v3**, compatible with the Elm IR format.
-Use `--format source` for the separate C# syntax extension.
-The two formats have explicit mapping scopes; unsupported Classic forms fail with `MCS4001` and do not switch formats.
-See the [Classic contract](docs/classic-output.md) and the [source extension](docs/source-structure.md).
+Generate standard Morphir IR from C# with output identical to `morphir-elm make` for equivalent Elm inputs.
+Represent written operations without hidden CLR simulation or runtime safety proofs.
+The [exact Elm parity contract](docs/elm-parity.md) controls all remaining work.
+Source v1 was never requested and is not an accepted delivery target.
 
 ## Current scope
 
-Classic mode supports the documented business-data subset: records, arithmetic, field reads, initialized locals, returns, and positional calls.
-The broader D1–D9 syntax coverage below is retained through explicit source mode.
+The current Classic implementation covers records, arithmetic, field reads, initialized locals, returns, and positional calls.
+Its mappings and gaps are in [Classic output](docs/classic-output.md).
+D1–D9 require exact Elm parity revalidation. Their earlier Source-mode passes do not establish completion.
+The existing normalized business comparison is supplemental evidence, not an exact-parity test.
+D10–D21 remain planned in the [delivery plan](Morphir_CSharp_Frontend_delivery_plan.md).
 
-D1–D9 passed the source contract; [validation state](docs/deliveries/source-structure-state.md).
-D10–D21 remain planned in the [rewritten delivery plan](Morphir_CSharp_Frontend_delivery_plan.md).
-
-- Source records, classes, structs, fields, properties, constructors, accessors, and operators.
-- Blocks, locals, assignments, returns, decisions, constants, and explicit checked/unchecked context.
-- Explicit nullability, null/default, nullable access, coalescing, and nullable operators.
-- Primitive numeric, Decimal, Half, 128-bit, BigInteger, and Complex source operations.
-- Resolved source and metadata calls, written named/optional/params arguments, method references, and scoped local functions.
-- Enum initializer expressions, flags operations, tuple labels, deconstruction, and source member updates.
-- Actual project references, generators, configuration, additional files, and source locations.
-
-Only explicit nullable types receive Maybe. Nonnullable `string` remains String.
-An unguarded `loan.Quantity * loan.Price` becomes two field reads and one Decimal multiplication.
-An integer product becomes two field reads and one Basics multiplication.
-No null/range/ownership/purity/termination proof or numeric compatibility library is required.
-Calls, constructors, accessors, equality, aliases, and cyclic assignments are not executed during translation.
-
-Generics/interfaces/inheritance, general collections, full patterns, anonymous functions, loops/ref forms,
-framework data families, object operations, exceptions, iterators, and dynamic retain their delivery gaps.
-Unsupported forms, invalid C#, required unselected source, and name collisions fail with source locations.
-No partial success artifact is produced.
+Every feature needs paired C#/Elm inputs and full JSON equality against the pinned `morphir-elm make` output.
+Ignore only whitespace and JSON object-key order. Do not normalize names, packages, types, arrays, or operations.
+If a mapping is unclear, ask the user before implementation. Do not add another output format.
 
 ## Prerequisites and checks
 
@@ -49,7 +31,8 @@ python3 eng/check-repository.py
 ```
 
 VSTest needs a local host socket. Project loading needs the local MSBuild host.
-The suite checks the 62 audit cases, source syntax parity, typed products, catalogs, project/generator inputs, and atomic output.
+The existing suite includes legacy Source assertions, typed products, project inputs, normalized comparisons, and atomic output.
+These checks do not replace the required exact-parity test for every feature.
 Frozen historical reference hashes, independent Classic codec fixtures, and protected license bytes remain checked.
 The former runtime implementation/tests are [archived](docs/history/runtime-contract/README.md).
 
@@ -62,7 +45,7 @@ dotnet run --project src/Morphir.Frontend.CSharp.Cli --no-build -- --package Exa
 ```
 
 Use one or more `--source File.cs` options, or `--project App.csproj --framework net10.0`.
-The complete cumulative project needs `--format source` because it includes forms outside the current Classic subset.
+The complete cumulative project includes forms outside the current Classic subset. It is not an accepted Classic delivery.
 Repeat `--namespace` to select additional source namespaces.
 Selectors include descendants, unused/private declarations, and selected generated source.
 Required outside source must be selected explicitly. Project reference alone does not select a namespace.
@@ -75,14 +58,13 @@ pure/total assertions are not required.
 ## Samples and catalogs
 
 [ClassicLoan](samples/CurrentSupportedExample/ClassicLoan.cs) demonstrates default Classic data/call/local mappings.
-[SourceStructure](samples/CurrentSupportedExample/SourceStructure.cs) includes the earlier syntax cases for source mode.
-Its [independent source contract](fixtures/source-structure/contract.json) records expected structure without adopting converter output.
-All earlier sample source remains present. Historical Elm references remain frozen and are not source v1 goldens.
+Earlier source samples and assertions remain historical implementation evidence.
+They do not establish exact Elm parity. Frozen historical references remain unchanged.
 
 - [Language coverage](docs/catalogs/language.md)
 - [Framework coverage](docs/catalogs/framework.md)
 - [Model and codec coverage](docs/catalogs/model-codec.md)
-- [Source contract](docs/source-structure.md)
+- [Exact Elm parity contract](docs/elm-parity.md)
 - [Source migration evidence](docs/deliveries/source-structure-state.md)
 - [Classic correction evidence](docs/deliveries/classic-output-state.md)
 
@@ -93,7 +75,7 @@ npm ci --prefix eng --ignore-scripts --no-audit --no-fund
 node eng/generate-references.mjs --write
 ```
 
-Those commands generate historical Classic references. They do not define source v1 expected output.
+Those commands generate historical Classic references. Every new feature also needs its own reproducible Elm compiler reference.
 Never refresh reference files to conceal a failing check.
 
 ## License

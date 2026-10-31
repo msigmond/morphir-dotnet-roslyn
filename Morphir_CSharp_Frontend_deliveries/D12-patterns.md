@@ -1,11 +1,14 @@
 # D12 — Patterns and switches
 
 - status: planned
-- contract: [source structure](../docs/source-structure.md)
+- contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D8](D08-enums-tuples.md), [D9](D09-user-data.md), [D10](D10-generics-dispatch.md), [D11](D11-collections.md)
-- evidence: [migration state](../docs/deliveries/source-structure-state.md)
+- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
 
 ## Work
+
+Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
+No Source v1 tag or metadata envelope can satisfy this delivery.
 
 - Keep switch statements/expressions, arms, guards, patterns, and source order.
 - Keep binding variables and explicit exhaustiveness/default syntax.
@@ -15,12 +18,14 @@
 
 - Every written pattern and branch is present.
 - Compiler binding errors reject; runtime match-success proofs are not required.
-- Add independent source/IR assertions and cumulative sample coverage.
+- Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
+- Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
+- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
 - Run affected delivery tests, catalog checks, and repository checks.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context and are not the expected source v1 output.
+They are historical context. New acceptance references must come from `morphir-elm make`.
 
 ## Historical examples
 

@@ -1,3 +1,5 @@
+> Current acceptance: [exact Elm parity](../elm-parity.md) for every feature. The inventory below includes unrequested Source-mode work and does not establish current acceptance.
+
 # Source language coverage
 
 Default: [Classic subset](../classic-output.md). Explicit source-mode contract: [source v1](../source-structure.md). Current evidence: [migration](../deliveries/source-structure-state.md).

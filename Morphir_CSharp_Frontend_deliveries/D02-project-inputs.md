@@ -1,11 +1,14 @@
 # D2 — Project and generated source inputs
 
-- status: passed under the source contract; revalidated on 2026-10-24
-- contract: [source structure](../docs/source-structure.md)
+- status: exact Elm parity revalidation required; historical Source-mode pass on 2026-10-24
+- contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D1](D01-cli-record.md)
-- evidence: [migration state](../docs/deliveries/source-structure-state.md)
+- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
 
 ## Work
+
+Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
+No Source v1 tag or metadata envelope can satisfy this delivery.
 
 - Keep actual project references, compilation settings, AdditionalFiles, analyzer configuration, and generated syntax.
 - Combine partial declarations by symbol. Retain source order and each declaration location.
@@ -15,12 +18,14 @@
 
 - Project and source-file CLI modes emit the same selected structure.
 - Compiler and generator failures preserve any existing output.
-- Add independent source/IR assertions and cumulative sample coverage.
+- Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
+- Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
+- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
 - Run affected delivery tests, catalog checks, and repository checks.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context and are not the expected source v1 output.
+They are historical context. New acceptance references must come from `morphir-elm make`.
 
 ## Historical examples
 

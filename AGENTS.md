@@ -1,24 +1,24 @@
 # Agent instructions
 
-- authority: user instructions → [approved source audit](docs/reviews/source-structure-audit.md) → [master](Morphir_CSharp_Frontend_delivery_plan.md) → selected delivery
-- state: D1–D9 passed under the source contract; source [validation evidence](docs/deliveries/source-structure-state.md), current [Classic correction](docs/deliveries/classic-output-state.md); D10–D21 planned; old D1–D9 state files are historical runtime evidence
-- workflow: one delivery unless the user authorizes a contract migration; prerequisite gates; incremental structure; independent source assertions; explicit rejection for unmapped forms
+- authority: user instructions → [exact Elm parity contract](docs/elm-parity.md) → approved source-structure rules → [master](Morphir_CSharp_Frontend_delivery_plan.md) → selected delivery
+- state: D1–D9 need exact Elm parity revalidation; earlier Source-mode passes and normalized Classic comparisons are historical/supplemental evidence, not current acceptance; D10–D21 planned
+- workflow: one requested delivery; prerequisite gates; paired C#/Elm inputs; complete JSON equality against pinned `morphir-elm make` output for every feature; ask when the Elm counterpart is unclear; no unrequested scope
 - baseline: SDK 10.0.100; C#14; reference pack 10.0.0; Roslyn 5.0.0; x64 CLI input; no silent scope/version change
-- contract: [source structure](docs/source-structure.md); standard Classic v3 is the default; `--format source` / FrontendOutputFormat.Source selects the C# syntax extension; see [Classic mapping scope](docs/classic-output.md); no silent fallback or mixed schemas
-- semantics: represent declarations and written operations; explicit nullable types alone use Maybe; declared return types; source owners and Public/Private projection; source metadata preserves names, modifiers, labels, source types, locations, and order
+- contract: standard Morphir Classic v3 matching `morphir-elm make`; Source v1 was never requested and is not a delivery target; do not extend it or introduce another format; existing public Source mode remains corrective cleanup
+- semantics: represent declarations and written operations through the agreed Elm mapping; explicit nullable types alone use Maybe; preserve declared types, names, source owners, and Public/Private projection
 - no runtime emulation: no presence/range/nonzero/finite/ownership/purity/termination proof; no numeric helper modules, hidden initialization, SSA state, inlined bodies, synthetic equality, or simulated heap
-- preserve source in explicit source mode; use documented Classic mappings for default output: guards, branches including constant/unreachable branches, casts, defaults, constructor/accessor bodies, argument names/order, aliases, writes, identity, and cycles
-- scope: delivered D1–D9 source forms; generic/interface/inheritance, general collections, full patterns, anonymous functions, loops/ref, later framework/object, exceptions/iterators/dynamic retain explicit structural delivery gaps
+- acceptance: compare full parsed JSON; ignore only whitespace/object-key order; no package/name/type normalization, sorting, filtering, or omitted fields; explained differences and raw syntax capture do not pass the feature gate
+- scope: [Classic implementation subset](docs/classic-output.md); D1–D9 exact parity is not complete; later language/framework forms retain explicit mapping gaps; no source-only completion claims
 - inputs: core accepts Compilation + settings; adapters own project/source/reference/generator acquisition and serialization; valid compiler binding, selectors, collisions, and source-located all-or-nothing failure remain required
 - layout: Morphir.CSharp.slnx; src Classic/Json/core/ProjectSystem/CLI projects; tests; fixtures; samples/CurrentSupportedExample; eng; docs
 - restore: `dotnet restore Morphir.CSharp.slnx --packages .packages --locked-mode`
 - build: `dotnet build Morphir.CSharp.slnx --no-restore -m:1`
 - tests: `dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1`; VSTest needs a local host socket; project loading needs local MSBuild
-- checks: `python3 eng/check-catalogs.py`; `python3 eng/check-repository.py`; 24 plans, historical paired code, Markdown links/fences, frozen hashes, license bytes, tracked/new/staged whitespace
-- fixtures: independent Elm Classic comparison covers the complete business distribution with documented package/local-type/name alignment; source mode uses independent structural assertions and complete selected syntax parity; preserve historical Elm 2.100.0/source 71ca7ee385273b0af6f8db66582c26e9b410cbf2 references and compatibility provenance
+- checks: `python3 eng/check-catalogs.py`; `python3 eng/check-repository.py`; 24 plans with exact Elm parity gates, historical paired code, Markdown links/fences, frozen hashes, license bytes, tracked/new/staged whitespace
+- fixtures: every feature needs equivalent paired C#/Elm inputs and expected complete JSON from pinned `morphir-elm make`; retain command/version/hashes; frozen references can support regression tests; no C#-generated or codec-only golden for frontend acceptance
 - reference generation: separate explicit reviewed operation; `npm ci --prefix eng --ignore-scripts --no-audit --no-fund`, then `node eng/generate-references.mjs --write`; never repair parity by adopting converter output
 - maintenance: cumulative sample, language/framework/model catalogs, mapping, README, this file, schema, and delivery evidence every delivery
-- historical evidence: [archive](docs/history/runtime-contract/README.md); old runtime instructions, tests, commands, and Elm lowering examples do not control source v1 acceptance
+- historical evidence: [runtime archive](docs/history/runtime-contract/README.md), Source-mode tests, and normalized comparisons do not establish exact Elm parity; preserve frozen bytes and provenance
 - CLAUDE.md: `@AGENTS.md` plus newline only
 - evidence: exact commands/results and remaining work; no completion claim on failed gate; no unsupported-form acceptance from raw syntax capture alone
 - licensing: preserve root LICENSE/NOTICE bytes and [provenance](docs/references/LICENSING.md)

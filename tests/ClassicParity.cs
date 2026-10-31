@@ -4,7 +4,7 @@ using Morphir.IR.Json;
 
 namespace Morphir.Tests;
 
-/// <summary>Explicit equivalences between compiler outputs. No definitions or operations are discarded.</summary>
+/// <summary>Legacy normalized comparison; supplemental evidence only. Feature acceptance requires complete JSON equality (docs/elm-parity.md).</summary>
 internal static class ClassicParity
 {
     public static JsonDifference? Compare(string expected, string actual, bool alignPackage)
@@ -62,7 +62,7 @@ internal static class ClassicParity
                             var name=Key(array[2]!);var binding=new JsonArray("binding",(next++).ToString());
                             var definition=array[3]!;
                             Body(definition["body"]!,scope);
-                            // Morphir Elm leaves inferred local declaration types generalized even when the initializer is typed.
+                            // Morphir Elm retains inference variables in some local signatures even when the initializer is typed.
                             if (definition["inputTypes"]!.AsArray().Count==0 && definition["outputType"]![0]!.GetValue<string>()=="Variable") definition["outputType"]=definition["body"]![1]!.DeepClone();
                             array[2]=binding;
                             Body(array[4]!,new(scope){[name]=binding});

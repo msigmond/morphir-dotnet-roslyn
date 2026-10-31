@@ -1,7 +1,9 @@
 # C# source structure: change review
 
 Status: approved on 2026-10-24. Base: `e083653`. Scope: the former D1–D9 runtime contract.
-This audit is the approved change request. See [implementation and validation](../deliveries/source-structure-state.md).
+The source-structure rules were approved; Source v1 was never requested.
+The [exact Elm parity contract](../elm-parity.md) overrides output-format and acceptance choices below.
+Earlier [implementation evidence](../deliveries/source-structure-state.md) does not establish exact parity.
 
 ## Proposed rule
 
@@ -186,14 +188,16 @@ Sources: [external rules](../history/runtime-contract/frontend/Frontend.External
 | G2 | Purity and effects | Rejects unknown/effectful members, mutable global storage, and unsupported call bodies. Safety checks also inspect unused and unreachable code. | Keep written operations when their structure is supported. Require no purity or runtime safety proof. |
 | G3 | Pending language forms | Generics, inheritance, dispatch, general collections, closures, loops, ref forms, exceptions, async, and other forms remain restricted. | Define structural nodes or mappings before support. Removing proofs alone does not implement these forms. |
 | G4 | Compatibility modules | Numeric or decimal use inserts complete helper modules, including definitions unrelated to the written operation. | Emit source definitions and required type/operation references. Do not insert CLR simulation libraries. |
-| G5 | Classic representation limits | The current model has no direct assignment, return, cast, index, constructor-call, or nullable-access node. | Select a model extension or a documented minimal mapping. Do not hide source loss in runtime expansion. |
+| G5 | Classic representation limits | The current model has no direct assignment, return, cast, index, constructor-call, or nullable-access node. | Use a confirmed standard Elm mapping. Ask the user if none is clear. Do not add a model extension or runtime simulation. |
 
 Keep compiler syntax and binding checks. Keep source locations, namespace selection, symbol resolution, and collision checks.
 Keep source project and generator acquisition. Generated source is an explicit input; CLR-synthesized runtime machinery is different.
 Keep complete output checks and atomic writes. The codec adds no runtime behavior.
 These input and output rules do not require a change for the four reported cases.
 
-## Approved implementation choices
+## Superseded Source v1 implementation choices
+
+The choices below describe unrequested implementation work. They are not current authorization or acceptance criteria.
 
 1. Use standard Classic v3 by default for mapped forms, per the 2026-10-31 correction. Select the source v1 extension explicitly for the full syntax contract.
 2. Retain data forms, widths, labels, modifiers, names, grouping, and declaration order in source metadata.
@@ -209,6 +213,7 @@ Reviewed all frontend partial files, input adapters, model/codec paths, compatib
 Cross-checked the D1–D9 mappings, coverage catalogs, and integration checks.
 The original audit was static. Implementation and final validation are recorded in [migration evidence](../deliveries/source-structure-state.md).
 
-The master, all 24 delivery plans, catalogs, mappings, sample, README, AGENTS, and tests now use the source contract.
+The earlier migration changed the master, all 24 plans, catalogs, mappings, sample, README, AGENTS, and tests to a Source contract.
+That result is historical. Current acceptance requires exact Elm parity for every feature.
 All four reported cases and every case ID are checked. Historical references remain frozen.
 New references remain separate reviewed artifacts; validation does not refresh them.

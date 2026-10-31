@@ -1,3 +1,5 @@
+> Historical result under earlier checks. It does not establish acceptance under the current [exact Elm parity contract](../elm-parity.md). D1–D9 need revalidation.
+
 > Historical validation for source mode. The default changed to Classic v3 on 2026-10-31; see [current correction](classic-output-state.md).
 
 # Source structure migration evidence

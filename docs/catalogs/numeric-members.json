@@ -1,5 +1,5 @@
 {
-  "outputScope": "Rows describe explicit source-mode coverage. Default Classic v3 uses the narrower mappings in docs/classic-output.md; unmapped forms fail with MCS4001.",
+  "outputScope": "Rows record historical source implementation/inventory. They do not establish feature acceptance. Every feature needs exact JSON parity with morphir-elm make under docs/elm-parity.md.",
   "referencePack": "Microsoft.NETCore.App.Ref/10.0.0",
   "roslyn": "5.0.0",
   "policy": "Exact pinned declaration inventory retained. Supported entries use source operations. Pending entries retain signature/type/syntax closure work, not runtime proof work.",

@@ -1,26 +1,31 @@
 # D6 — Decimal source structure
 
-- status: passed under the source contract; revalidated on 2026-10-24
-- contract: [source structure](../docs/source-structure.md)
+- status: exact Elm parity revalidation required; historical Source-mode pass on 2026-10-24
+- contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D4](D04-maybe.md), [D5](D05-numerics.md)
-- evidence: [migration state](../docs/deliveries/source-structure-state.md)
+- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
 
 ## Work
 
+Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
+No Source v1 tag or metadata envelope can satisfy this delivery.
+
 - Use SDK Decimal type and direct decimal literals.
-- Map add, subtract, and multiply to direct SDK references. Keep other operations as source operations.
+- Map add, subtract, and multiply to direct SDK references. Confirm an Elm mapping for each other operation.
 - Keep explicit construction, conversions, scale, rounding arguments, and named members.
 
 ## Acceptance
 
 - Unguarded decimal multiplication and division are accepted.
 - No coefficient records, epsilon arguments, parsing, range proofs, or Decimal helper modules appear.
-- Add independent source/IR assertions and cumulative sample coverage.
+- Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
+- Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
+- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
 - Run affected delivery tests, catalog checks, and repository checks.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context and are not the expected source v1 output.
+They are historical context. New acceptance references must come from `morphir-elm make`.
 
 ## Historical examples
 
