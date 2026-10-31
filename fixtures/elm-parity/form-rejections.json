@@ -1,0 +1,155 @@
+{
+  "origin": "Explicit source boundaries retained by the approved Elm mapping contract.",
+  "cases": [
+    {
+      "id": "sizeof",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static int F()=>sizeof(int);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "integer-shift",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static int F(int a,int b)=>a>>b;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "complex",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static Complex F(Complex value)=>value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-precision",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static decimal F(decimal value,int digits)=>decimal.Round(value,digits);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-scale",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static byte F(decimal value)=>value.Scale;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "nullable-value",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static int F(int? value)=>value.Value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "nullable-flattening",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public record Leaf(int Value);public record Node(Leaf? Child);public static class Rules{public static int? F(Node? node)=>node?.Child?.Value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "nullable-fallback",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static int? F(int? a,int? b)=>a??b;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "object-initializer",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public class Cell{public int X;public int Y;public Cell(int x,int y){X=x;Y=y;}}public static class Rules{public static Cell F(int x)=>new Cell(x,x){X=x,Y=x};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "missing-field",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public class Cell{public int X;public int Y;public Cell(int x){X=x;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "constructor-side-effect",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public class Cell{public int X;public Cell(int x){X=x;Console.WriteLine(x);}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "constructor-chaining",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public class Cell{public int X;public Cell():this(1){}public Cell(int x){X=x;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "constructor-other-write",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public class Cell{public int X;public Cell(Cell other){other.X=2;X=1;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "mutation",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static int F(int x){x=1;return x;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "identity",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public class Cell{}public static class Rules{public static bool F(Cell a,Cell b)=>object.ReferenceEquals(a,b);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "cycle",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public class Node{public Node? Next;}public static class Rules{public static Node F(Node node){node.Next=node;return node;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "input-write",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public class Cell{public int X;}public static class Rules{public static int F(Cell cell){cell.X=2;return cell.X;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "global-write",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static int Storage=0;public static int F(){Storage=2;return Storage;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "params-index",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static int F(params int[] items)=>items[0];}",
+      "compilerBinding": false
+    },
+    {
+      "id": "large-tuple-access",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static int F((int,int,int) value)=>value.Item3;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "instance-initializer",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public class Cell{public int X=2;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "property-initializer",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public record Cell{public int X{get;init;}=2;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "scalar-implicit-conversion",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static decimal F(int value)=>value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "after-return",
+      "source": "using System;using System.Numerics;namespace Example.Rejections;public static class Rules{public static int F(){return 1;int other=2;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "coalesce-write",
+      "source": "using System;namespace Example.Rejections;public static class Rules{public static int? F(int? x){x??=2;return x;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "nested-member-initializer",
+      "source": "using System;namespace Example.Rejections;public class Leaf{public int X;}public class Cell{public Leaf Inner;public Cell(Leaf inner){Inner=inner;}}public static class Rules{public static Cell F(Leaf inner,int x)=>new Cell(inner){Inner={X=x}};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "single-clr-tuple",
+      "source": "using System;namespace Example.Rejections;public static class Rules{public static Tuple<int> F(Tuple<int> value)=>value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "empty-clr-tuple",
+      "source": "using System;namespace Example.Rejections;public static class Rules{public static ValueTuple F(ValueTuple value)=>value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-rounding-mode",
+      "source": "using System;namespace Example.Rejections;public static class Rules{public static decimal F(decimal value)=>decimal.Round(value,MidpointRounding.ToEven);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-precision-mode",
+      "source": "using System;namespace Example.Rejections;public static class Rules{public static decimal F(decimal value)=>decimal.Round(value,2,MidpointRounding.ToEven);}",
+      "compilerBinding": false
+    }
+  ]
+}

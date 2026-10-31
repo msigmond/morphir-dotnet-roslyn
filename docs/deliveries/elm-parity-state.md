@@ -1,28 +1,40 @@
-# Exact Elm parity correction
+# D1–D9 exact Elm acceptance
 
-- status: passed for the supported subset on 2026-10-31
-- contract: [exact Elm parity](../elm-parity.md)
-- scope: remove unrequested Source v1 output; enforce complete JSON equality for the supported Classic subset
-- policy commit: `503aa14`, pushed before code changes
-- user decisions: reject unmapped forms until a specific mapping is approved; map decimal literals to Elm Decimal constructor calls
+- Date: 2026-10-31.
+- Status: passed under the approved Elm profile.
+- Contract: [exact Elm parity](../elm-parity.md).
+- Decisions: all six [mappings](../reviews/d1-d9-elm-mapping-decisions.md) are approved.
+- Output: standard Classic v3 only. Source v1 is removed.
 
-## Changes
+## Scope and evidence
 
-Removed the public format switch, Source settings, source envelope, syntax metadata, and Source model/codec types.
-C# operation staging is internal and cannot be emitted by the standard codec.
-Removed the normalized comparison helper and replaced Source-mode success tests with exact parity or explicit rejection checks.
-Added 49 C# cases, 31 independent Elm projects, version/command/hash provenance, and fresh compiler integration checks.
-The current sample now compiles as the supported Classic subset and has an independent complete Elm reference.
-Historical examples and frozen references remain unchanged.
+The [registry](../../fixtures/elm-parity/cases.json) has 73 C# cases and 55 independent Elm projects.
+Each positive case compares the complete JSON. Integration tests run pinned `morphir-elm make` again.
+There is no package, name, type, array, or operation normalization.
 
-Fixed Half arithmetic mapping and floating literal parsing without CLR Single quantization.
-Removed obsolete intrinsic type markers that wrongly reserved the user package name Morphir.CSharp.
-Decimal literals map to `Decimal.fromFloat`; Decimal unary negation maps to `Decimal.negate`.
-Isolated UTF-16 surrogates, unapproved constructor/accessor/operator forms, enum declarations, and overloaded names fail explicitly.
-Every supported catalog entry names its exact-parity cases. Unsupported earlier Source claims are pending.
-The catalog checker rejects supported entries without valid case IDs and verifies dependency inputs against their compiled Elm provider.
+| Delivery | Exact-tested scope |
+| --- | --- |
+| D1 | Source/CLI, owners, selection, access, names, literals, records, overload suffixes |
+| D2 | Project/reference/generated inputs, additional files, options, atomic failures |
+| D3 | Locals, scope, returned branches, early returns, constant/unreachable branches |
+| D4 | Maybe/default operations, nullable references, delegates, inferred locals, presence tests |
+| D5 | Scalar operations/conversions, written literals, numeric member grid |
+| D6 | Decimal construction/members, direct nullable-result division, member grid |
+| D7 | Parameter order/defaults/params, references/delegates, lexical binding graphs, recursion, configured metadata |
+| D8 | Enum aliases/constants, value/reference tuples, projections, deconstruction |
+| D9 | Data aliases, primary/explicit constructor functions, getters/operators, record equality/updates |
 
-## Validation
+The grids contain 320 admitted member inputs. Division has separate nullable-context cases.
+There are 243 executable member/form rejections, plus the audit and compiler/selection tests.
+Two native unsigned operator forms fail C#14 binding; those compiler errors remain unchanged.
+The audit now requires either its recorded positive result or its recorded rejection.
+Raw syntax capture cannot pass either gate.
+
+The sample includes the approved forms and has its own independent Elm project.
+Historical reference bytes, SDK/reference/Roslyn pins, and LICENSE/NOTICE bytes remain unchanged.
+Historical runtime/Source state files do not control current acceptance.
+
+## Commands
 
 From the repository root:
 
@@ -30,35 +42,31 @@ From the repository root:
 node eng/generate-exact-references.mjs --write
 dotnet restore Morphir.CSharp.slnx --packages .packages --locked-mode
 dotnet build Morphir.CSharp.slnx --no-restore -m:1
-dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1 --logger 'trx;LogFilePrefix=exact-accepted'
+dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1
+python3 eng/check-catalogs.py --deliveries D1 D2 D3 D4 D5 D6 D7 D8 D9
 python3 eng/check-catalogs.py
 python3 eng/check-repository.py
 ```
 
-Reference generation is explicit and separate from tests. Expected JSON comes only from `morphir-elm make`.
-Tests copy Elm inputs to artifacts, run the pinned compiler, compare fresh output to frozen output,
-and compare each C# result to that complete fresh distribution. They do not normalize semantic content.
-The dependency provider is also compiled with `make`; the CLI uses its supported data-URL dependency input.
-The package versions, baseline, root licenses, and frozen historical outputs are unchanged.
+Reference generation is separate from validation. Expected JSON comes only from Elm make.
+The member audit records source inputs and diagnostics; it never supplies reference IR.
+Project tests disable MSBuild node reuse and bound output reads to prevent orphan pipe waits.
 
-Results:
+## Results
 
-- Locked restore passed. Build passed with zero warnings and errors.
-- All 181 tests passed: 148 frontend, 8 integration, 4 model, 21 JSON codec.
-- Fresh `morphir-elm make` output matched all 49 C# cases across 31 Elm projects.
-- Catalog checks passed: 2,077 entries; 1,680 future acceptance obligations remain.
-- Repository checks passed: all plans, paired examples, links, hashes, licenses, and whitespace.
-- The documented current-sample CLI command passed and matched the complete independent Elm JSON.
-- The real SomeBusinessLogic project also matched the complete typed Elm business reference and its existing generated IR. External project/output files were not changed.
-- A final provenance refresh changed no bytes in any of the 31 expected Elm outputs.
+Locked restore passed. Build passed with zero warnings/errors.
+The final complete run passed 450 tests: 415 frontend, 10 integration, 4 model, and 21 codec.
+All 73 C# cases matched fresh output from the 55 Elm projects, including nullable Decimal.Divide.
+The documented project-mode sample CLI command also passed and matched the complete independent Elm output.
+The D1–D9 catalog gate has zero pending entries. The global gate retains 1,190 later-delivery obligations.
+Repository checks passed: all plans, paired historical code, links, hashes, licenses, and whitespace.
 
-After the final diagnostic-text correction, build passed again and all 9 affected compiler/selection/rejection tests passed.
+Logs: `/tmp/d1d9-closed-restore.log`, `/tmp/d1d9-final-release-build.log`,
+`/tmp/d1d9-final-release-references.log`, `/tmp/d1d9-final-tests.log`, `/tmp/d1d9-final-sample.log`.
 
-Logs: `/tmp/exact-accepted-restore.log`, `/tmp/exact-accepted-build.log`, `/tmp/exact-accepted-tests.log`.
-TRX reports use prefix `exact-accepted` in each test project's `TestResults` folder.
+## Boundary
 
-## Remaining scope
-
-This correction completes neither the full D1–D9 inventory nor D10–D21.
-It establishes exact parity for the supported cases and rejects forms without an approved standard mapping.
-Catalog pending entries remain visible; earlier Source-mode success is not accepted feature evidence.
+Approved mappings and required rejections complete this profile; they do not claim all C# forms.
+Mutation, identity/cycles, recursive aliases, incomplete construction, unapproved numeric APIs,
+nullable extraction/flattening, and later forms remain rejected. See [limits](../classic-output.md).
+D10–D21 remain planned. Passed deliveries follow the authorized commit/push workflow.

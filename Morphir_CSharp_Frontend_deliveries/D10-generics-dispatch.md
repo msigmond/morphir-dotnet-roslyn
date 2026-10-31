@@ -5,6 +5,11 @@
 - prerequisites: [D9](D09-user-data.md)
 - evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
 
+## Prerequisite profile
+
+Use the [D1–D9 Elm profile](../docs/deliveries/elm-parity-state.md) and all earlier exact-parity gates.
+Each new mapping needs independent Elm input and complete JSON equality. Historical Source-mode passes do not count.
+
 ## Work
 
 Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.

@@ -131,9 +131,13 @@
     {
       "operation": "LocalFunction",
       "owner": "D7",
-      "state": "pending",
-      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Named lexical definitions with written parameter lambdas; recursive groups use standard LetRecursion.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d7-callables",
+        "d7-local-scope"
+      ]
     },
     {
       "operation": "Stop",
@@ -169,9 +173,13 @@
     {
       "operation": "Conversion",
       "owner": "D5",
-      "state": "pending",
-      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Explicit mapped casts; same-carrier width changes preserve the value.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d5-explicit-casts",
+        "d5-remainder-char"
+      ]
     },
     {
       "operation": "Invocation",
@@ -313,9 +321,12 @@
     {
       "operation": "Coalesce",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Approved standard Elm mapping demonstrated by complete paired compiler output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d4-approved-maybe"
+      ]
     },
     {
       "operation": "AnonymousFunction",
@@ -407,16 +418,22 @@
     {
       "operation": "ConditionalAccess",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Approved standard Elm mapping demonstrated by complete paired compiler output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d4-approved-maybe"
+      ]
     },
     {
       "operation": "ConditionalAccessInstance",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Approved standard Elm mapping demonstrated by complete paired compiler output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d4-approved-maybe"
+      ]
     },
     {
       "operation": "InterpolatedString",
@@ -435,16 +452,22 @@
     {
       "operation": "ObjectOrCollectionInitializer",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "required-rejection",
+      "domain": "Unmapped form remains explicitly rejected.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs",
+      "rejectionCases": [
+        "form:object-initializer"
+      ]
     },
     {
       "operation": "MemberInitializer",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "required-rejection",
+      "domain": "Unmapped form remains explicitly rejected.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs",
+      "rejectionCases": [
+        "form:nested-member-initializer"
+      ]
     },
     {
       "operation": "CollectionElementInitializer",
@@ -508,16 +531,24 @@
     {
       "operation": "DelegateCreation",
       "owner": "D7",
-      "state": "pending",
-      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Direct method references, explicit Func construction and inferred method-group delegates.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d7-callables",
+        "d7-bound-references",
+        "d7-local-scope"
+      ]
     },
     {
       "operation": "DefaultValue",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Approved standard Elm mapping demonstrated by complete paired compiler output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d4-approved-maybe"
+      ]
     },
     {
       "operation": "TypeOf",
@@ -529,9 +560,12 @@
     {
       "operation": "SizeOf",
       "owner": "D5",
-      "state": "pending",
-      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "required-rejection",
+      "domain": "Unmapped form remains explicitly rejected.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs",
+      "rejectionCases": [
+        "form:sizeof"
+      ]
     },
     {
       "operation": "AddressOf",
@@ -571,23 +605,32 @@
     {
       "operation": "DeconstructionAssignment",
       "owner": "D8",
-      "state": "pending",
-      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Written declaration deconstruction uses standard Destructure; mutation remains rejected.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d8-tuple-reads"
+      ]
     },
     {
       "operation": "DeclarationExpression",
       "owner": "D8",
-      "state": "pending",
-      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Tuple declaration patterns and binding names.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d8-tuple-reads"
+      ]
     },
     {
       "operation": "OmittedArgument",
       "owner": "D7",
-      "state": "pending",
-      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Approved standard Elm mapping demonstrated by complete paired compiler output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d7-approved-calls"
+      ]
     },
     {
       "operation": "FieldInitializer",
@@ -612,16 +655,22 @@
     {
       "operation": "PropertyInitializer",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "required-rejection",
+      "domain": "Unmapped form remains explicitly rejected.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs",
+      "rejectionCases": [
+        "form:property-initializer"
+      ]
     },
     {
       "operation": "ParameterInitializer",
       "owner": "D7",
-      "state": "pending",
-      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Approved standard Elm mapping demonstrated by complete paired compiler output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d7-approved-calls"
+      ]
     },
     {
       "operation": "ArrayInitializer",
@@ -713,16 +762,22 @@
     {
       "operation": "TupleBinary",
       "owner": "D8",
-      "state": "pending",
-      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Tuple equality with matching tuple types.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d9-value-operations"
+      ]
     },
     {
       "operation": "TupleBinaryOperator",
       "owner": "D8",
-      "state": "pending",
-      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Tuple equality with matching tuple types.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d9-value-operations"
+      ]
     },
     {
       "operation": "MethodBody",
@@ -747,23 +802,32 @@
     {
       "operation": "ConstructorBody",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Approved standard Elm mapping demonstrated by complete paired compiler output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d9-approved-data"
+      ]
     },
     {
       "operation": "ConstructorBodyOperation",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Approved standard Elm mapping demonstrated by complete paired compiler output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d9-approved-data"
+      ]
     },
     {
       "operation": "Discard",
       "owner": "D8",
-      "state": "pending",
-      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Wildcard in a tuple declaration pattern.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d8-tuple-reads"
+      ]
     },
     {
       "operation": "FlowCapture",
@@ -782,9 +846,12 @@
     {
       "operation": "IsNull",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Approved standard Elm mapping demonstrated by complete paired compiler output.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d4-approved-maybe"
+      ]
     },
     {
       "operation": "CaughtException",
@@ -810,9 +877,12 @@
     {
       "operation": "CoalesceAssignment",
       "owner": "D4",
-      "state": "pending",
-      "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "required-rejection",
+      "domain": "Unmapped form remains explicitly rejected.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs",
+      "rejectionCases": [
+        "form:coalesce-write"
+      ]
     },
     {
       "operation": "Range",
@@ -908,9 +978,12 @@
     {
       "operation": "With",
       "owner": "D9",
-      "state": "pending",
-      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "state": "supported",
+      "domain": "Written record updates as standard UpdateRecord.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d9-value-operations"
+      ]
     },
     {
       "operation": "InterpolatedStringHandlerCreation",

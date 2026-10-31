@@ -1,0 +1,9 @@
+{
+  "name": "Example",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "Completion",
+    "Completion.Rules",
+    "Completion.Data"
+  ]
+}

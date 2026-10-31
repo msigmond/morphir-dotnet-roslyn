@@ -1,31 +1,29 @@
-# D9 — Data declarations, members, and state
+# D9 — Pure data and member functions
 
-- status: partial exact parity; remaining mappings pending; historical Source-mode pass is not acceptance
+- status: passed under the approved Elm profile
 - contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D7](D07-calls.md), [D8](D08-enums-tuples.md)
-- evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
+- evidence: [current gates](../docs/deliveries/elm-parity-state.md); [approved mappings](../docs/reviews/d1-d9-elm-mapping-decisions.md)
 
-## Work
+## Approved scope
 
-Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
-No Source v1 tag or metadata envelope can satisfy this delivery.
+Class/struct/record data use record aliases. Primary parameters become same-named fields. Constructors that assign every stored field once become record-building functions. Getters/operators become named functions called at use sites. Record equality and with-updates use standard operations.
 
-- Keep all six data forms, primary parameters, source fields/properties, and explicit constructors/accessors.
-- Keep new, object initializers, member paths, assignments, with, operators, and equality.
-- Keep aliases and recursive references. Do not simulate ownership, copies, object graphs, constructor execution, or synthesized equality.
+## Boundary
+
+Mutation, identity/cycles, recursive aliases, constructor chaining, extra constructor statements, reads of incomplete this, implicit field defaults, setters, and general object/member initializers remain rejected.
+Unmapped forms fail at the source. They produce no partial output.
+No Source v1 output or custom source tag is accepted.
 
 ## Acceptance
 
-- Input mutation, identity observations, cycles, and recursive calls need no runtime proof.
-- No hidden primary fields, generated defaults, compatibility equality helpers, or inlined bodies appear.
 - Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
 - Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
-- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
-- Run affected delivery tests, catalog checks, and repository checks.
-- Keep toolchain pins, selected-source errors, source locations, and atomic output.
+- Keep the fixed SDK/reference/Roslyn versions, declared types, namespace selection, and atomic output.
+- Run restore, build, the full suite, the D1–D9 catalog gate, and repository checks.
+- Use the [case registry](../fixtures/elm-parity/cases.json) and executable rejection inputs.
 
-The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context. New acceptance references must come from `morphir-elm make`.
+The examples below are historical. They do not replace current compiler parity evidence.
 
 ## Historical examples
 

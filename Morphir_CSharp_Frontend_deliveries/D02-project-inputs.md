@@ -1,31 +1,29 @@
-# D2 — Project and generated source inputs
+# D2 — Project and generated inputs
 
-- status: partial exact parity; remaining mappings pending; historical Source-mode pass is not acceptance
+- status: passed under the approved Elm profile
 - contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D1](D01-cli-record.md)
-- evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
+- evidence: [current gates](../docs/deliveries/elm-parity-state.md); [approved mappings](../docs/reviews/d1-d9-elm-mapping-decisions.md)
 
-## Work
+## Approved scope
 
-Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
-No Source v1 tag or metadata envelope can satisfy this delivery.
+Actual project/reference graphs, generated partial source, AdditionalFiles, analyzer settings, Debug/Release symbols, overflow options, and x64 input.
 
-- Keep actual project references, compilation settings, AdditionalFiles, analyzer configuration, and generated syntax.
-- Combine partial declarations by symbol. Retain source order and each declaration location.
-- Keep checked compiler settings as input facts. Do not insert overflow operations.
+## Boundary
+
+Compiler/generator failures and an invalid framework leave prior output unchanged.
+Unmapped forms fail at the source. They produce no partial output.
+No Source v1 output or custom source tag is accepted.
 
 ## Acceptance
 
-- Project and source-file CLI modes emit the same selected structure.
-- Compiler and generator failures preserve any existing output.
 - Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
 - Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
-- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
-- Run affected delivery tests, catalog checks, and repository checks.
-- Keep toolchain pins, selected-source errors, source locations, and atomic output.
+- Keep the fixed SDK/reference/Roslyn versions, declared types, namespace selection, and atomic output.
+- Run restore, build, the full suite, the D1–D9 catalog gate, and repository checks.
+- Use the [case registry](../fixtures/elm-parity/cases.json) and executable rejection inputs.
 
-The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context. New acceptance references must come from `morphir-elm make`.
+The examples below are historical. They do not replace current compiler parity evidence.
 
 ## Historical examples
 

@@ -9,18 +9,18 @@ Source v1 was never requested. Its public CLI/API/model/codec paths are removed.
 The frontend represents written operations without CLR simulation or runtime safety proofs.
 Unmapped forms fail with source locations and leave existing output unchanged.
 
-## Current subset
+## D1–D9 profile
 
-Exact references cover records/classes/structs, stored fields/properties, positional record constructors,
-primitive types, integer/Float/Decimal operations, literals, nullable type annotations, tuples,
-initialized locals, conditional expressions, visibility, documentation, calls, recursion, and dependency contracts.
-Project tests cover references, generators, additional files, configuration, and CLI output.
-The [case registry](fixtures/elm-parity/cases.json) defines the tested subset.
-Every supported catalog entry names its exact-parity cases.
+Approved mappings cover source/project inputs, data aliases and pure member functions,
+scalar arithmetic and casts, nullable operations, branches/locals, normalized calls/defaults/params,
+method references/delegates, lexical functions/recursion, enums, tuples, and record updates/equality.
+The [case registry](fixtures/elm-parity/cases.json) has 73 C# cases and 55 independent Elm projects.
+Member grids cover 320 admitted forms; 243 source cases test required rejections.
 
-D1–D9 retain gaps outside this subset. D10–D21 remain planned.
-Mutation, identity/cycles, general construction, explicit accessors/operators, overload naming,
-nullable value operations, and other unmapped forms remain rejected until their mapping is approved.
+Unmapped forms retain explicit rejection. This includes mutation, identity/cycles, incomplete construction,
+unlisted numeric APIs, nullable extraction without a fallback, and later delivery forms.
+See [approved mappings and limits](docs/classic-output.md).
+D10–D21 remain planned. The historical Source-mode scope is not an acceptance claim.
 
 ## Build and test
 
@@ -33,6 +33,7 @@ dotnet restore Morphir.CSharp.slnx --packages .packages --locked-mode
 dotnet build Morphir.CSharp.slnx --no-restore -m:1
 dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1
 python3 eng/check-catalogs.py
+python3 eng/check-catalogs.py --deliveries D1 D2 D3 D4 D5 D6 D7 D8 D9
 python3 eng/check-repository.py
 ```
 
@@ -57,7 +58,8 @@ Repeat `--namespace` for selectors. Selectors include descendants, private code,
 Required outside source must be selected explicitly. `--configuration` applies to project mode.
 The core accepts Compilation plus settings; adapters acquire inputs and serialize output.
 
-The current sample includes the supported Loan example and generated source.
+The sample includes the Loan example, nullable operations/division, defaults/params/overloads,
+enums, reference tuples, primary data, record updates, deconstruction, local captures, and generated source.
 Earlier source files remain historical inputs and are excluded from that project.
 Historical Elm/codec references remain frozen and do not replace current frontend parity.
 See [Classic mappings](docs/classic-output.md), [language](docs/catalogs/language.md),

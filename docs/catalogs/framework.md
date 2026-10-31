@@ -1,14 +1,27 @@
 # Framework coverage
 
-The reference pack remains 10.0.0; Roslyn remains 5.0.0.
-Acceptance requires [exact Elm parity](../elm-parity.md) for every supported feature.
+Keep reference pack 10.0.0 and Roslyn 5.0.0.
+Every supported mapping requires [complete Elm compiler parity](../elm-parity.md).
 
-Primitive type mappings and listed arithmetic/comparison operators have paired compiler references.
-Decimal literals use the approved `Decimal.fromFloat` mapping. Decimal add/subtract/multiply/negation use SDK operations.
-Complex, unlisted conversions/members, collections, dates/time/Guid, object/boxing, and other unapproved mappings remain pending.
-Metadata calls require an exact configured target and signature; a real Elm dependency fixture verifies the complete output.
+Delivered scalar carriers use direct SDK operations. Decimal literals use fromFloat;
+scalar construction uses fromInt/fromFloat. Listed arithmetic, comparisons, conversions,
+constants, string conversions, and methods have independent Elm inputs.
+Decimal division requires a nullable Decimal result and uses Decimal.div.
+Configured metadata calls/getters need an exact target and signature; pure/total flags do not gate them.
 
-[framework.json](framework.json) records type-family coverage.
-[numeric-members.json](numeric-members.json) and [decimal-members.json](decimal-members.json) retain the full pinned inventories.
-Only entries with exact case evidence are supported. Inventory presence alone is not support.
-No CLR proof or compatibility algorithm is an acceptance condition.
+The [numeric](numeric-members.json) and [Decimal](decimal-members.json) inventories retain their pinned declarations.
+The D1–D9 gate has no pending type/member entries: each is mapped and exact-tested, or explicitly rejected.
+Unlisted precision/scale signatures, Complex, unsupported constants/constructors/conversions,
+and methods with no approved SDK counterpart remain rejected.
+Later owner entries and full framework closure remain planned.
+
+Input maintenance is separate from validation:
+
+```bash
+sh eng/audit-member-inputs.sh --write
+python3 eng/generate-member-parity-inputs.py --audit artifacts/d1d9-inventory/results.json --write
+node eng/generate-exact-references.mjs --write
+```
+
+The audit records source expressions and diagnostics. It does not supply expected IR.
+Expected JSON comes only from the independent Elm compiler.

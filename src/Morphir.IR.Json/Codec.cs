@@ -80,6 +80,8 @@ public static class Codec
             UpdateRecordValue<TA, VA> x => Arr("UpdateRecord", a, V(x.Subject), Entries(x.Fields, Name, V)),
             RecordValue<TA, VA> x => Arr("Record", a, Entries(x.Fields, Name, V)),
             LetValue<TA, VA> x => Arr("LetDefinition", a, Name(x.Name), Definition(x.Definition, ta, va), V(x.Body)),
+            LetRecursionValue<TA, VA> x => Arr("LetRecursion", a, Entries(x.Definitions, Name, d => Definition(d, ta, va)), V(x.Body)),
+            DestructureValue<TA, VA> x => Arr("Destructure", a, Pattern(x.Pattern, va), V(x.Subject), V(x.Body)),
             IfValue<TA, VA> x => Arr("IfThenElse", a, V(x.Condition), V(x.Then), V(x.Else)),
             _ => throw new NotSupportedException(v.GetType().Name)
         };

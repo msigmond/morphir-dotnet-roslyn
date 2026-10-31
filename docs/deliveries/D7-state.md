@@ -1,4 +1,4 @@
-> Historical runtime-contract evidence. Current acceptance: [source migration](source-structure-state.md).
+> Historical runtime evidence. Current acceptance: [exact Elm parity](elm-parity-state.md).
 
 # D7 — execution evidence
 

@@ -43,9 +43,9 @@ public class ClassicFrontendTests
     }
     [Theory]
     [InlineData("public static int F(int a){a=2;return a;}")]
-    [InlineData("public static int F(bool b){if(b)return 1;return 2;}")]
     [InlineData("public static int F(){int a;a=2;return a;}")]
     [InlineData("public static int F(int? a)=>a.Value;")]
+    [InlineData("public static int F(int x){int Local(int x)=>x+1;return Local(x);}")]
     [InlineData("public static int F(){int foo_bar=1;int fooBar=2;return foo_bar;}")]
     [InlineData("public static decimal F(int a)=>a;")]
     [InlineData("public static decimal F(int a){decimal x=a;return x;}")]
@@ -60,16 +60,16 @@ public class ClassicFrontendTests
     public void CapturedPrimaryStateIsNotEmittedAsAnUnboundClassicVariable()
     {
         var result=Convert("public class Cell(int value){public int Read()=>value;}");
-        Assert.Null(result.Distribution);Assert.Contains(result.Diagnostics,d=>d.Code=="MCS4001");
+        Assert.IsType<FieldValue<Unit,IrType<Unit>>>(Body(Support.Success(result),"Read"));
     }
     [Theory]
     [InlineData("public class Cell{public int X=2;}")]
     [InlineData("public record Cell{public int X{get;init;}=2;}")]
     [InlineData("public class Node{public Node? Next;}")]
-    [InlineData("public class Cell(int value){}")]
-    [InlineData("public enum State{Active}")]
-    [InlineData("public class Cell{public int Value=>1;}")]
-    [InlineData("public static class Rules{public static int F(int a)=>a;public static long F(long a)=>a;}")]
+    [InlineData("public class Cell(int value){public int X;}")]
+    [InlineData("public enum State:ulong{Huge=18446744073709551615UL}")]
+    [InlineData("public class Cell{public int Value{get=>1;set{}}}")]
+    [InlineData("public class Cell{public int Value;public Cell(int value){Value=value;System.Console.WriteLine(value);}}") ]
     public void UnmappedDataCannotBeSilentlyDroppedFromClassic(string code)
     {
         var result=Convert(code);Assert.Null(result.Distribution);Assert.Contains(result.Diagnostics,d=>d.Code=="MCS4001");
@@ -88,7 +88,7 @@ public class ClassicFrontendTests
     {
         var compilation=SourceCompilation.Create([("ClassicLoan.cs",Support.Read("samples/CurrentSupportedExample/ClassicLoan.cs"))]);
         var lib=Support.Success(Frontend.Convert(compilation,new("Example",["Example.CurrentSupported"])));
-        Assert.Equal(2,lib.Definition.Modules.Count);
+        Assert.Equal(4,lib.Definition.Modules.Count);
         Assert.IsType<LetValue<Unit,IrType<Unit>>>(Body(lib,"Calculate"));
         Assert.IsType<ApplyValue<Unit,IrType<Unit>>>(Body(lib,"MarketValue"));
     }

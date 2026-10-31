@@ -8,9 +8,20 @@ import base64
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--require-complete', action='store_true')
+parser.add_argument('--deliveries', nargs='+', help='Require complete acceptance for only these delivery owners.')
 args = parser.parse_args()
 root = Path(__file__).resolve().parent.parent
 parity = json.loads((root/'fixtures/elm-parity/cases.json').read_text())
+selected = set(args.deliveries or [])
+if any(not re.fullmatch(r'D(?:[1-9]|1[0-7]|18\.[1-4])', owner) for owner in selected):
+    raise SystemExit('Invalid selected delivery owner')
+rejection_ids = set()
+for file, prefix in [('member-rejections.json','member:'),('form-rejections.json','form:')]:
+    for case in json.loads((root/'fixtures/elm-parity'/file).read_text())['cases']:
+        key = prefix + case['id']
+        if key in rejection_ids or not case.get('source'):
+            raise SystemExit(f'Invalid rejection source case: {key}')
+        rejection_ids.add(key)
 parity_cases = {case['id']: case for case in parity['cases']}
 if len(parity_cases) != len(parity['cases']):
     raise SystemExit('Duplicate exact-parity case ID')
@@ -45,14 +56,24 @@ for file, collection, identity in [('forms.json','forms','form'),('operations.js
             raise SystemExit(f'Invalid support state: {key}')
         if row['state'] == 'supported' and (not row.get('parityCases') or any(case not in parity_cases for case in row['parityCases'])):
             raise SystemExit(f'Supported feature lacks exact Elm parity cases: {file}: {key}')
-        incomplete = row['state'] == 'pending' or row.get('memberState') == 'pending'
-        if row['state'] == 'required-rejection' and not row.get('evidence'):
+        relevant = not selected or row['owner'] in selected
+        member_relevant = not selected or row.get('memberOwner', row['owner']) in selected
+        if row['state'] == 'required-rejection' and relevant and (args.require_complete or selected or row['owner'] in {f'D{i}' for i in range(1,10)}) and (not row.get('rejectionCases') or any(case not in rejection_ids for case in row['rejectionCases'])):
+            raise SystemExit(f'Required rejection lacks executable source cases: {file}: {key}')
+        if any(case not in rejection_ids for case in row.get('rejectionCases', [])):
+            raise SystemExit(f'Invalid rejection case ID: {file}: {key}')
+        for case in row.get('parityCases', []):
+            members = parity_cases[case].get('members')
+            if collection == 'members' and members is not None and key not in members:
+                raise SystemExit(f'Member missing from paired source grid: {key}')
+        incomplete = relevant and row['state'] == 'pending' or member_relevant and row.get('memberState') == 'pending'
+        if relevant and row['state'] == 'required-rejection' and not row.get('evidence'):
             incomplete = True
-        if collection == 'types' and any(not row.get(kind) for kind in ('positiveFixtures','negativeFixtures','boundaryFixtures')):
+        if relevant and collection == 'types' and row['state'] == 'supported' and any(not row.get(kind) for kind in ('positiveFixtures','negativeFixtures','boundaryFixtures')):
             incomplete = True
         if incomplete:
             pending.append(f'{row["owner"]}: {key}')
         count += 1
-if args.require_complete and pending:
+if (args.require_complete or selected) and pending:
     raise SystemExit(f'Final acceptance blocked: {len(pending)} catalog obligations remain.\n' + '\n'.join(pending))
-print(f'Catalog ownership/states valid: {count} entries; {len(pending)} outstanding final-acceptance obligations retained.')
+print(f'Catalog ownership/states valid: {count} entries; {len(pending)} outstanding obligations in ' + (', '.join(sorted(selected)) if selected else 'all deliveries') + '.')

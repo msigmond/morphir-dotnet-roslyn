@@ -2,7 +2,7 @@
 
 This archive preserves the D1–D9 implementation, frontend tests, mappings, and plans before 2026-10-24.
 The [approved audit](../../reviews/source-structure-audit.md) replaces that runtime-equivalence contract.
-The current [source contract](../../source-structure.md) and [migration evidence](../../deliveries/source-structure-state.md) control acceptance.
+The current [exact Elm contract](../../elm-parity.md) and [validation evidence](../../deliveries/elm-parity-state.md) control acceptance.
 
 `frontend/` preserves removed execution/proof lowering code.
 `tests/` preserves superseded CLR behavior, helper parity, and safety-rejection tests outside active test projects.

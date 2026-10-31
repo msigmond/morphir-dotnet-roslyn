@@ -1,0 +1,1283 @@
+{
+  "origin": "Pinned metadata declarations; source input only. No C# IR is used as an Elm reference.",
+  "cases": [
+    {
+      "id": "numeric-members:char.Char()",
+      "member": "char.Char()",
+      "source": "namespace Example.Inventory;public static class Rules{public static char F()=>new char();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:char.MaxValue",
+      "member": "char.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static char F()=>char.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:char.MinValue",
+      "member": "char.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static char F()=>char.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:byte.Byte()",
+      "member": "byte.Byte()",
+      "source": "namespace Example.Inventory;public static class Rules{public static byte F()=>new byte();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:byte.MaxValue",
+      "member": "byte.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static byte F()=>byte.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:byte.MinValue",
+      "member": "byte.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static byte F()=>byte.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:sbyte.MaxValue",
+      "member": "sbyte.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static sbyte F()=>sbyte.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:sbyte.MinValue",
+      "member": "sbyte.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static sbyte F()=>sbyte.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:sbyte.SByte()",
+      "member": "sbyte.SByte()",
+      "source": "namespace Example.Inventory;public static class Rules{public static sbyte F()=>new sbyte();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:short.Int16()",
+      "member": "short.Int16()",
+      "source": "namespace Example.Inventory;public static class Rules{public static short F()=>new short();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:short.MaxValue",
+      "member": "short.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static short F()=>short.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:short.MinValue",
+      "member": "short.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static short F()=>short.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ushort.MaxValue",
+      "member": "ushort.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static ushort F()=>ushort.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ushort.MinValue",
+      "member": "ushort.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static ushort F()=>ushort.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ushort.UInt16()",
+      "member": "ushort.UInt16()",
+      "source": "namespace Example.Inventory;public static class Rules{public static ushort F()=>new ushort();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:int.Int32()",
+      "member": "int.Int32()",
+      "source": "namespace Example.Inventory;public static class Rules{public static int F()=>new int();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:int.MaxValue",
+      "member": "int.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static int F()=>int.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:int.MinValue",
+      "member": "int.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static int F()=>int.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:uint.MaxValue",
+      "member": "uint.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static uint F()=>uint.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:uint.MinValue",
+      "member": "uint.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static uint F()=>uint.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:uint.UInt32()",
+      "member": "uint.UInt32()",
+      "source": "namespace Example.Inventory;public static class Rules{public static uint F()=>new uint();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:long.Int64()",
+      "member": "long.Int64()",
+      "source": "namespace Example.Inventory;public static class Rules{public static long F()=>new long();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:long.MaxValue",
+      "member": "long.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static long F()=>long.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:long.MinValue",
+      "member": "long.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static long F()=>long.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ulong.MaxValue",
+      "member": "ulong.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static ulong F()=>ulong.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ulong.MinValue",
+      "member": "ulong.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static ulong F()=>ulong.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ulong.UInt64()",
+      "member": "ulong.UInt64()",
+      "source": "namespace Example.Inventory;public static class Rules{public static ulong F()=>new ulong();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nint.IntPtr()",
+      "member": "nint.IntPtr()",
+      "source": "namespace Example.Inventory;public static class Rules{public static nint F()=>new nint();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nint.MaxValue",
+      "member": "nint.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static nint F()=>nint.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nint.MinValue",
+      "member": "nint.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static nint F()=>nint.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nint.Size",
+      "member": "nint.Size",
+      "source": "namespace Example.Inventory;public static class Rules{public static int F()=>nint.Size;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nint.Zero",
+      "member": "nint.Zero",
+      "source": "namespace Example.Inventory;public static class Rules{public static nint F()=>nint.Zero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nuint.MaxValue",
+      "member": "nuint.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static nuint F()=>nuint.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nuint.MinValue",
+      "member": "nuint.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static nuint F()=>nuint.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nuint.Size",
+      "member": "nuint.Size",
+      "source": "namespace Example.Inventory;public static class Rules{public static int F()=>nuint.Size;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nuint.UIntPtr()",
+      "member": "nuint.UIntPtr()",
+      "source": "namespace Example.Inventory;public static class Rules{public static nuint F()=>new nuint();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nuint.Zero",
+      "member": "nuint.Zero",
+      "source": "namespace Example.Inventory;public static class Rules{public static nuint F()=>nuint.Zero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nuint.operator +(nuint, int)",
+      "member": "nuint.operator +(nuint, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static nuint F(nuint p0,int p1)=>p0 + p1;}",
+      "compilerBinding": true
+    },
+    {
+      "id": "numeric-members:nuint.operator -(nuint, int)",
+      "member": "nuint.operator -(nuint, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static nuint F(nuint p0,int p1)=>p0 - p1;}",
+      "compilerBinding": true
+    },
+    {
+      "id": "numeric-members:float.E",
+      "member": "float.E",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>float.E;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.Epsilon",
+      "member": "float.Epsilon",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>float.Epsilon;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.IsFinite(float)",
+      "member": "float.IsFinite(float)",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(float p0)=>float.IsFinite(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.MaxValue",
+      "member": "float.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>float.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.MinValue",
+      "member": "float.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>float.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.NaN",
+      "member": "float.NaN",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>float.NaN;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.NegativeInfinity",
+      "member": "float.NegativeInfinity",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>float.NegativeInfinity;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.NegativeZero",
+      "member": "float.NegativeZero",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>float.NegativeZero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.Pi",
+      "member": "float.Pi",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>float.Pi;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.PositiveInfinity",
+      "member": "float.PositiveInfinity",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>float.PositiveInfinity;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.Single()",
+      "member": "float.Single()",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>new float();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.Tau",
+      "member": "float.Tau",
+      "source": "namespace Example.Inventory;public static class Rules{public static float F()=>float.Tau;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.Double()",
+      "member": "double.Double()",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>new double();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.E",
+      "member": "double.E",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>double.E;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.Epsilon",
+      "member": "double.Epsilon",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>double.Epsilon;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.IsFinite(double)",
+      "member": "double.IsFinite(double)",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(double p0)=>double.IsFinite(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.MaxValue",
+      "member": "double.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>double.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.MinValue",
+      "member": "double.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>double.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.NaN",
+      "member": "double.NaN",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>double.NaN;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.NegativeInfinity",
+      "member": "double.NegativeInfinity",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>double.NegativeInfinity;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.NegativeZero",
+      "member": "double.NegativeZero",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>double.NegativeZero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.Pi",
+      "member": "double.Pi",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>double.Pi;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.PositiveInfinity",
+      "member": "double.PositiveInfinity",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>double.PositiveInfinity;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.Tau",
+      "member": "double.Tau",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F()=>double.Tau;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.E",
+      "member": "System.Half.E",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.E;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.Epsilon",
+      "member": "System.Half.Epsilon",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.Epsilon;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.Half()",
+      "member": "System.Half.Half()",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>new global::System.Half();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.IsFinite(System.Half)",
+      "member": "System.Half.IsFinite(System.Half)",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(global::System.Half p0)=>global::System.Half.IsFinite(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.IsInfinity(System.Half)",
+      "member": "System.Half.IsInfinity(System.Half)",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(global::System.Half p0)=>global::System.Half.IsInfinity(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.IsNaN(System.Half)",
+      "member": "System.Half.IsNaN(System.Half)",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(global::System.Half p0)=>global::System.Half.IsNaN(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.MaxValue",
+      "member": "System.Half.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.MinValue",
+      "member": "System.Half.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.MultiplicativeIdentity",
+      "member": "System.Half.MultiplicativeIdentity",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.MultiplicativeIdentity;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.NaN",
+      "member": "System.Half.NaN",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.NaN;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.NegativeInfinity",
+      "member": "System.Half.NegativeInfinity",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.NegativeInfinity;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.NegativeOne",
+      "member": "System.Half.NegativeOne",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.NegativeOne;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.NegativeZero",
+      "member": "System.Half.NegativeZero",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.NegativeZero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.One",
+      "member": "System.Half.One",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.One;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.Pi",
+      "member": "System.Half.Pi",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.Pi;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.PositiveInfinity",
+      "member": "System.Half.PositiveInfinity",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.PositiveInfinity;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.Tau",
+      "member": "System.Half.Tau",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.Tau;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.Zero",
+      "member": "System.Half.Zero",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F()=>global::System.Half.Zero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.explicit operator System.Half(char)",
+      "member": "System.Half.explicit operator System.Half(char)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F(char p0)=>(global::System.Half)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.explicit operator char(System.Half)",
+      "member": "System.Half.explicit operator char(System.Half)",
+      "source": "namespace Example.Inventory;public static class Rules{public static char F(global::System.Half p0)=>(char)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.explicit operator checked char(System.Half)",
+      "member": "System.Half.explicit operator checked char(System.Half)",
+      "source": "namespace Example.Inventory;public static class Rules{public static char F(global::System.Half p0)=>checked((char)p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.operator %(System.Half, System.Half)",
+      "member": "System.Half.operator %(System.Half, System.Half)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Half F(global::System.Half p0,global::System.Half p1)=>p0 % p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.Int128()",
+      "member": "System.Int128.Int128()",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F()=>new global::System.Int128();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.Int128(ulong, ulong)",
+      "member": "System.Int128.Int128(ulong, ulong)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(ulong p0,ulong p1)=>new global::System.Int128(p0,p1);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.MaxValue",
+      "member": "System.Int128.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F()=>global::System.Int128.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.MinValue",
+      "member": "System.Int128.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F()=>global::System.Int128.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.NegativeOne",
+      "member": "System.Int128.NegativeOne",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F()=>global::System.Int128.NegativeOne;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.One",
+      "member": "System.Int128.One",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F()=>global::System.Int128.One;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.Zero",
+      "member": "System.Int128.Zero",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F()=>global::System.Int128.Zero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.explicit operator System.Int128(decimal)",
+      "member": "System.Int128.explicit operator System.Int128(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(decimal p0)=>(global::System.Int128)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.operator &(System.Int128, System.Int128)",
+      "member": "System.Int128.operator &(System.Int128, System.Int128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(global::System.Int128 p0,global::System.Int128 p1)=>p0 & p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.operator <<(System.Int128, int)",
+      "member": "System.Int128.operator <<(System.Int128, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(global::System.Int128 p0,int p1)=>p0 << p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.operator >>(System.Int128, int)",
+      "member": "System.Int128.operator >>(System.Int128, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(global::System.Int128 p0,int p1)=>p0 >> p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.operator >>>(System.Int128, int)",
+      "member": "System.Int128.operator >>>(System.Int128, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(global::System.Int128 p0,int p1)=>p0 >>> p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.operator ^(System.Int128, System.Int128)",
+      "member": "System.Int128.operator ^(System.Int128, System.Int128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(global::System.Int128 p0,global::System.Int128 p1)=>p0 ^ p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.operator checked ++(System.Int128)",
+      "member": "System.Int128.operator checked ++(System.Int128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(global::System.Int128 p0)=>checked(++p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.operator checked --(System.Int128)",
+      "member": "System.Int128.operator checked --(System.Int128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(global::System.Int128 p0)=>checked(--p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.operator |(System.Int128, System.Int128)",
+      "member": "System.Int128.operator |(System.Int128, System.Int128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(global::System.Int128 p0,global::System.Int128 p1)=>p0 | p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.operator ~(System.Int128)",
+      "member": "System.Int128.operator ~(System.Int128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Int128 F(global::System.Int128 p0)=>~p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.MaxValue",
+      "member": "System.UInt128.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F()=>global::System.UInt128.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.MinValue",
+      "member": "System.UInt128.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F()=>global::System.UInt128.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.One",
+      "member": "System.UInt128.One",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F()=>global::System.UInt128.One;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.UInt128()",
+      "member": "System.UInt128.UInt128()",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F()=>new global::System.UInt128();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.UInt128(ulong, ulong)",
+      "member": "System.UInt128.UInt128(ulong, ulong)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(ulong p0,ulong p1)=>new global::System.UInt128(p0,p1);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.Zero",
+      "member": "System.UInt128.Zero",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F()=>global::System.UInt128.Zero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.explicit operator System.UInt128(decimal)",
+      "member": "System.UInt128.explicit operator System.UInt128(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(decimal p0)=>(global::System.UInt128)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.operator &(System.UInt128, System.UInt128)",
+      "member": "System.UInt128.operator &(System.UInt128, System.UInt128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(global::System.UInt128 p0,global::System.UInt128 p1)=>p0 & p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.operator <<(System.UInt128, int)",
+      "member": "System.UInt128.operator <<(System.UInt128, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(global::System.UInt128 p0,int p1)=>p0 << p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.operator >>(System.UInt128, int)",
+      "member": "System.UInt128.operator >>(System.UInt128, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(global::System.UInt128 p0,int p1)=>p0 >> p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.operator >>>(System.UInt128, int)",
+      "member": "System.UInt128.operator >>>(System.UInt128, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(global::System.UInt128 p0,int p1)=>p0 >>> p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.operator ^(System.UInt128, System.UInt128)",
+      "member": "System.UInt128.operator ^(System.UInt128, System.UInt128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(global::System.UInt128 p0,global::System.UInt128 p1)=>p0 ^ p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.operator checked ++(System.UInt128)",
+      "member": "System.UInt128.operator checked ++(System.UInt128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(global::System.UInt128 p0)=>checked(++p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.operator checked --(System.UInt128)",
+      "member": "System.UInt128.operator checked --(System.UInt128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(global::System.UInt128 p0)=>checked(--p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.operator |(System.UInt128, System.UInt128)",
+      "member": "System.UInt128.operator |(System.UInt128, System.UInt128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(global::System.UInt128 p0,global::System.UInt128 p1)=>p0 | p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.operator ~(System.UInt128)",
+      "member": "System.UInt128.operator ~(System.UInt128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.UInt128 F(global::System.UInt128 p0)=>~p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.BigInteger()",
+      "member": "System.Numerics.BigInteger.BigInteger()",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F()=>new global::System.Numerics.BigInteger();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.BigInteger(decimal)",
+      "member": "System.Numerics.BigInteger.BigInteger(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(decimal p0)=>new global::System.Numerics.BigInteger(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.BigInteger(double)",
+      "member": "System.Numerics.BigInteger.BigInteger(double)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(double p0)=>new global::System.Numerics.BigInteger(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.BigInteger(float)",
+      "member": "System.Numerics.BigInteger.BigInteger(float)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(float p0)=>new global::System.Numerics.BigInteger(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.BigInteger(int)",
+      "member": "System.Numerics.BigInteger.BigInteger(int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(int p0)=>new global::System.Numerics.BigInteger(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.BigInteger(long)",
+      "member": "System.Numerics.BigInteger.BigInteger(long)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(long p0)=>new global::System.Numerics.BigInteger(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.BigInteger(uint)",
+      "member": "System.Numerics.BigInteger.BigInteger(uint)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(uint p0)=>new global::System.Numerics.BigInteger(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.BigInteger(ulong)",
+      "member": "System.Numerics.BigInteger.BigInteger(ulong)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(ulong p0)=>new global::System.Numerics.BigInteger(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.IsEven",
+      "member": "System.Numerics.BigInteger.IsEven",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(global::System.Numerics.BigInteger receiver)=>receiver.IsEven;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.IsOne",
+      "member": "System.Numerics.BigInteger.IsOne",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(global::System.Numerics.BigInteger receiver)=>receiver.IsOne;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.IsZero",
+      "member": "System.Numerics.BigInteger.IsZero",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(global::System.Numerics.BigInteger receiver)=>receiver.IsZero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.MinusOne",
+      "member": "System.Numerics.BigInteger.MinusOne",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F()=>global::System.Numerics.BigInteger.MinusOne;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.One",
+      "member": "System.Numerics.BigInteger.One",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F()=>global::System.Numerics.BigInteger.One;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.Sign",
+      "member": "System.Numerics.BigInteger.Sign",
+      "source": "namespace Example.Inventory;public static class Rules{public static int F(global::System.Numerics.BigInteger receiver)=>receiver.Sign;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.Zero",
+      "member": "System.Numerics.BigInteger.Zero",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F()=>global::System.Numerics.BigInteger.Zero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.explicit operator System.Numerics.BigInteger(System.Numerics.Complex)",
+      "member": "System.Numerics.BigInteger.explicit operator System.Numerics.BigInteger(System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(global::System.Numerics.Complex p0)=>(global::System.Numerics.BigInteger)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.explicit operator System.Numerics.BigInteger(decimal)",
+      "member": "System.Numerics.BigInteger.explicit operator System.Numerics.BigInteger(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(decimal p0)=>(global::System.Numerics.BigInteger)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.operator &(System.Numerics.BigInteger, System.Numerics.BigInteger)",
+      "member": "System.Numerics.BigInteger.operator &(System.Numerics.BigInteger, System.Numerics.BigInteger)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(global::System.Numerics.BigInteger p0,global::System.Numerics.BigInteger p1)=>p0 & p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.operator <<(System.Numerics.BigInteger, int)",
+      "member": "System.Numerics.BigInteger.operator <<(System.Numerics.BigInteger, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(global::System.Numerics.BigInteger p0,int p1)=>p0 << p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.operator >>(System.Numerics.BigInteger, int)",
+      "member": "System.Numerics.BigInteger.operator >>(System.Numerics.BigInteger, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(global::System.Numerics.BigInteger p0,int p1)=>p0 >> p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.operator >>>(System.Numerics.BigInteger, int)",
+      "member": "System.Numerics.BigInteger.operator >>>(System.Numerics.BigInteger, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(global::System.Numerics.BigInteger p0,int p1)=>p0 >>> p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.operator ^(System.Numerics.BigInteger, System.Numerics.BigInteger)",
+      "member": "System.Numerics.BigInteger.operator ^(System.Numerics.BigInteger, System.Numerics.BigInteger)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(global::System.Numerics.BigInteger p0,global::System.Numerics.BigInteger p1)=>p0 ^ p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.operator |(System.Numerics.BigInteger, System.Numerics.BigInteger)",
+      "member": "System.Numerics.BigInteger.operator |(System.Numerics.BigInteger, System.Numerics.BigInteger)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(global::System.Numerics.BigInteger p0,global::System.Numerics.BigInteger p1)=>p0 | p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.operator ~(System.Numerics.BigInteger)",
+      "member": "System.Numerics.BigInteger.operator ~(System.Numerics.BigInteger)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.BigInteger F(global::System.Numerics.BigInteger p0)=>~p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.Complex()",
+      "member": "System.Numerics.Complex.Complex()",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F()=>new global::System.Numerics.Complex();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.Complex(double, double)",
+      "member": "System.Numerics.Complex.Complex(double, double)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(double p0,double p1)=>new global::System.Numerics.Complex(p0,p1);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.Imaginary",
+      "member": "System.Numerics.Complex.Imaginary",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F(global::System.Numerics.Complex receiver)=>receiver.Imaginary;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.ImaginaryOne",
+      "member": "System.Numerics.Complex.ImaginaryOne",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F()=>global::System.Numerics.Complex.ImaginaryOne;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.Infinity",
+      "member": "System.Numerics.Complex.Infinity",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F()=>global::System.Numerics.Complex.Infinity;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.NaN",
+      "member": "System.Numerics.Complex.NaN",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F()=>global::System.Numerics.Complex.NaN;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.One",
+      "member": "System.Numerics.Complex.One",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F()=>global::System.Numerics.Complex.One;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.Real",
+      "member": "System.Numerics.Complex.Real",
+      "source": "namespace Example.Inventory;public static class Rules{public static double F(global::System.Numerics.Complex receiver)=>receiver.Real;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.Zero",
+      "member": "System.Numerics.Complex.Zero",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F()=>global::System.Numerics.Complex.Zero;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.explicit operator System.Numerics.Complex(System.Int128)",
+      "member": "System.Numerics.Complex.explicit operator System.Numerics.Complex(System.Int128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Int128 p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.explicit operator System.Numerics.Complex(System.Numerics.BigInteger)",
+      "member": "System.Numerics.Complex.explicit operator System.Numerics.Complex(System.Numerics.BigInteger)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.BigInteger p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.explicit operator System.Numerics.Complex(System.UInt128)",
+      "member": "System.Numerics.Complex.explicit operator System.Numerics.Complex(System.UInt128)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.UInt128 p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.explicit operator System.Numerics.Complex(decimal)",
+      "member": "System.Numerics.Complex.explicit operator System.Numerics.Complex(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(decimal p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(System.Half)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(System.Half)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Half p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(byte)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(byte)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(byte p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(char)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(char)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(char p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(double)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(double)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(double p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(float)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(float)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(float p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(int)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(int p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(long)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(long)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(long p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(nint)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(nint)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(nint p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(nuint)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(nuint)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(nuint p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(sbyte)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(sbyte)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(sbyte p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(short)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(short)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(short p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(uint)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(uint)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(uint p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(ulong)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(ulong)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(ulong p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.implicit operator System.Numerics.Complex(ushort)",
+      "member": "System.Numerics.Complex.implicit operator System.Numerics.Complex(ushort)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(ushort p0)=>(global::System.Numerics.Complex)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator !=(System.Numerics.Complex, System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator !=(System.Numerics.Complex, System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(global::System.Numerics.Complex p0,global::System.Numerics.Complex p1)=>p0 != p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator *(System.Numerics.Complex, System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator *(System.Numerics.Complex, System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.Complex p0,global::System.Numerics.Complex p1)=>p0 * p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator *(System.Numerics.Complex, double)",
+      "member": "System.Numerics.Complex.operator *(System.Numerics.Complex, double)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.Complex p0,double p1)=>p0 * p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator *(double, System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator *(double, System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(double p0,global::System.Numerics.Complex p1)=>p0 * p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator +(System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator +(System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.Complex p0)=>+p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator +(System.Numerics.Complex, System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator +(System.Numerics.Complex, System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.Complex p0,global::System.Numerics.Complex p1)=>p0 + p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator +(System.Numerics.Complex, double)",
+      "member": "System.Numerics.Complex.operator +(System.Numerics.Complex, double)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.Complex p0,double p1)=>p0 + p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator +(double, System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator +(double, System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(double p0,global::System.Numerics.Complex p1)=>p0 + p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator -(System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator -(System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.Complex p0)=>-p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator -(System.Numerics.Complex, System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator -(System.Numerics.Complex, System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.Complex p0,global::System.Numerics.Complex p1)=>p0 - p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator -(System.Numerics.Complex, double)",
+      "member": "System.Numerics.Complex.operator -(System.Numerics.Complex, double)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.Complex p0,double p1)=>p0 - p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator -(double, System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator -(double, System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(double p0,global::System.Numerics.Complex p1)=>p0 - p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator /(System.Numerics.Complex, System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator /(System.Numerics.Complex, System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.Complex p0,global::System.Numerics.Complex p1)=>p0 / p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator /(System.Numerics.Complex, double)",
+      "member": "System.Numerics.Complex.operator /(System.Numerics.Complex, double)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(global::System.Numerics.Complex p0,double p1)=>p0 / p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator /(double, System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator /(double, System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static global::System.Numerics.Complex F(double p0,global::System.Numerics.Complex p1)=>p0 / p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.operator ==(System.Numerics.Complex, System.Numerics.Complex)",
+      "member": "System.Numerics.Complex.operator ==(System.Numerics.Complex, System.Numerics.Complex)",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(global::System.Numerics.Complex p0,global::System.Numerics.Complex p1)=>p0 == p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Ceiling(decimal)",
+      "member": "decimal.Ceiling(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(decimal p0)=>decimal.Ceiling(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Compare(decimal, decimal)",
+      "member": "decimal.Compare(decimal, decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static int F(decimal p0,decimal p1)=>decimal.Compare(p0,p1);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.CompareTo(decimal)",
+      "member": "decimal.CompareTo(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static int F(decimal receiver,decimal p0)=>receiver.CompareTo(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Decimal()",
+      "member": "decimal.Decimal()",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F()=>new decimal();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Decimal(int, int, int, bool, byte)",
+      "member": "decimal.Decimal(int, int, int, bool, byte)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(int p0,int p1,int p2,bool p3,byte p4)=>new decimal(p0,p1,p2,p3,p4);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Divide(decimal, decimal)",
+      "member": "decimal.Divide(decimal, decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(decimal p0,decimal p1)=>decimal.Divide(p0,p1);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Floor(decimal)",
+      "member": "decimal.Floor(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(decimal p0)=>decimal.Floor(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.IsNegative(decimal)",
+      "member": "decimal.IsNegative(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static bool F(decimal p0)=>decimal.IsNegative(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Max(decimal, decimal)",
+      "member": "decimal.Max(decimal, decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(decimal p0,decimal p1)=>decimal.Max(p0,p1);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.MaxValue",
+      "member": "decimal.MaxValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F()=>decimal.MaxValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Min(decimal, decimal)",
+      "member": "decimal.Min(decimal, decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(decimal p0,decimal p1)=>decimal.Min(p0,p1);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.MinValue",
+      "member": "decimal.MinValue",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F()=>decimal.MinValue;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Remainder(decimal, decimal)",
+      "member": "decimal.Remainder(decimal, decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(decimal p0,decimal p1)=>decimal.Remainder(p0,p1);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Round(decimal, int)",
+      "member": "decimal.Round(decimal, int)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(decimal p0,int p1)=>decimal.Round(p0,p1);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Scale",
+      "member": "decimal.Scale",
+      "source": "namespace Example.Inventory;public static class Rules{public static byte F(decimal receiver)=>receiver.Scale;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Sign(decimal)",
+      "member": "decimal.Sign(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static int F(decimal p0)=>decimal.Sign(p0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.explicit operator byte(decimal)",
+      "member": "decimal.explicit operator byte(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static byte F(decimal p0)=>(byte)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.explicit operator char(decimal)",
+      "member": "decimal.explicit operator char(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static char F(decimal p0)=>(char)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.explicit operator int(decimal)",
+      "member": "decimal.explicit operator int(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static int F(decimal p0)=>(int)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.explicit operator long(decimal)",
+      "member": "decimal.explicit operator long(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static long F(decimal p0)=>(long)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.explicit operator sbyte(decimal)",
+      "member": "decimal.explicit operator sbyte(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static sbyte F(decimal p0)=>(sbyte)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.explicit operator short(decimal)",
+      "member": "decimal.explicit operator short(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static short F(decimal p0)=>(short)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.explicit operator uint(decimal)",
+      "member": "decimal.explicit operator uint(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static uint F(decimal p0)=>(uint)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.explicit operator ulong(decimal)",
+      "member": "decimal.explicit operator ulong(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static ulong F(decimal p0)=>(ulong)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.explicit operator ushort(decimal)",
+      "member": "decimal.explicit operator ushort(decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static ushort F(decimal p0)=>(ushort)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.implicit operator decimal(char)",
+      "member": "decimal.implicit operator decimal(char)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(char p0)=>(decimal)p0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.operator %(decimal, decimal)",
+      "member": "decimal.operator %(decimal, decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(decimal p0,decimal p1)=>p0 % p1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.operator /(decimal, decimal)",
+      "member": "decimal.operator /(decimal, decimal)",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(decimal p0,decimal p1)=>p0 / p1;}",
+      "compilerBinding": false
+    }
+  ]
+}

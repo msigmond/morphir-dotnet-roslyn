@@ -1,49 +1,50 @@
 # Classic output
 
-The CLI and core API return standard Morphir Classic v3 only.
-Source v1 and its public CLI/API/model/codec paths are removed.
-The [exact Elm parity contract](elm-parity.md) controls acceptance.
+The CLI and core API emit standard Morphir Classic v3 only.
+The envelope has `formatVersion: 3` and `distribution`.
+Source v1, custom source tags, and CLR helper libraries are not output formats.
+The [exact Elm contract](elm-parity.md) controls acceptance.
 
-The JSON envelope contains only `formatVersion: 3` and `distribution`.
-There is no source envelope, syntax tree, custom Source tag, or CLR compatibility library.
-Internal C# staging nodes must be mapped or rejected before the frontend returns a library.
-
-## Tested mappings
-
-| C# input | Standard Morphir output |
+| C# form | Approved Elm/Morphir form |
 | --- | --- |
-| Supported record/class/struct data and stored fields/properties | Record aliases and Field reads |
-| Positional record construction | Alias Constructor and ordered Apply nodes |
-| Initialized locals and final returns | Nested LetDefinition and the return expression |
-| Complete positional source calls and approved dependency calls | Reference and ordered Apply nodes |
-| Integer/Float arithmetic, comparisons, Boolean operations, and negation | Direct SDK operations |
-| Decimal add/subtract/multiply and negation | Direct Decimal SDK operations |
-| Decimal literals | User-approved `Decimal.fromFloat` constructor calls |
-| Explicit nullable type annotations | Maybe types; plain reference types remain plain |
-| Value tuples and conditional expressions | Tuple and IfThenElse nodes |
-| Parentheses, null-forgiving, checked/unchecked expression context | The enclosed mapped expression |
+| Data fields and stored properties | Record aliases and Field reads |
+| Positional record construction | Alias Constructor and Apply |
+| Primary parameters; explicit all-field constructors | Same-named fields; record-building functions |
+| Getter/operator bodies | Named functions and calls |
+| Locals, returned branches, and conditionals | LetDefinition and IfThenElse |
+| Local functions and immutable captures | Parameter lambdas; LetDefinition or LetRecursion |
+| Method references, bound receivers, Func/Action | Function types, direct references, partial application, Apply |
+| Named/optional/params calls | Parameter order, declared defaults, List packs |
+| Explicit nullable declarations | Maybe; plain references stay plain |
+| Null, nullable conversion, scalar default | Nothing, Just, corresponding constant |
+| Coalesce, conditional access, lifted arithmetic | Maybe.withDefault, map, map2 |
+| Presence/null tests | Comparison with Nothing |
+| Integer/Float arithmetic and mapped casts | Direct SDK operations; no wrapping or range helpers |
+| Decimal literals | Decimal.fromFloat |
+| Nullable-result Decimal division | Decimal.div; no fallback |
+| Enums | Named Int aliases and constant values |
+| Value/reference tuples and written deconstruction | Tuple, Tuple.first/second, Destructure |
+| Record equality and with-updates | Basics equality and UpdateRecord |
 
-C# floating literals use the written numeric value, without Single runtime quantization.
-The paired Elm Decimal inputs use explicit Float tokens, including `.0` for integral values.
-This avoids the Elm whole-number parser's precision loss before `fromFloat` type inference.
-No output JSON is rewritten to remove this difference.
+Declared types stay in definitions. Inferred locals use the written initializer type.
+Maybe contexts can wrap a plain value in Just without changing its declaration.
+No nullable flow, range, ownership, purity, or termination proof is required.
+Zero-parameter Func/Action use the result type. No Unit argument or lambda adapter is inserted.
+Floating literals use their written value without CLR Single quantization.
+Paired Elm Decimal inputs use Float tokens, including `.0` for integral values.
 
-The [case registry](../fixtures/elm-parity/cases.json) identifies the exact supported cases.
-Each case compares the complete JSON to independently generated `morphir-elm make` output.
-Integration tests run the pinned compiler again and compare its fresh output directly.
-Names, package boundaries, visibility, types, literals, definitions, and array order are all compared.
-Elm local annotations are written in the paired source input. Tests do not substitute type variables.
+Every admitted feature has paired C#/Elm input and complete compiler JSON equality.
+The [registry](../fixtures/elm-parity/cases.json) retains names, access flags, types, definitions, literals, and array order.
+Only whitespace and object-key order are ignored. Tests recompile the Elm projects with the pinned compiler.
 
-## Unmapped forms
+Unmapped forms fail at the source and leave existing output unchanged.
+The [rejection inputs](../fixtures/elm-parity/form-rejections.json) cover mutation, identity/cycles,
+recursive aliases, incomplete/default construction, general initializers, Nullable.Value without a fallback,
+nullable flattening/fallbacks, unlisted numeric forms, and larger tuple projections.
+The [member cases](../fixtures/elm-parity/member-rejections.json) retain all unapproved D5/D6 signatures.
+Two native unsigned operator forms fail C#14 binding. The frontend retains those compiler errors.
+Elm name shadowing and normalized identity collisions remain errors.
+Later generic, collection, pattern, anonymous-function, loop/ref, exception, and framework forms keep their delivery gates.
 
-Unmapped forms fail with a source-located diagnostic and no partial output.
-An existing output file remains unchanged. There is no alternative output mode.
-
-These forms retain explicit gaps: assignments/mutation, statement branches, object identity/cycles,
-non-record primary constructors, explicit constructors/accessors/operators, overloaded method naming,
-nullable value operations, general construction/initialization, enums, and later delivery forms.
-Named/omitted/expanded arguments, captures/delegates, and conversions between different IR types also need approved mappings.
-No runtime presence, range, ownership, effect, or termination proof is required for mapped operations.
-
-D1–D9 have an exact-tested subset; their complete historical Source-mode scope is not accepted.
-D10–D21 remain planned. See [current evidence](deliveries/elm-parity-state.md).
+D1–D9 implement the [approved profile](reviews/d1-d9-elm-mapping-decisions.md).
+D10–D21 remain planned. See [validation](deliveries/elm-parity-state.md).

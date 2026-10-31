@@ -1,31 +1,29 @@
-# D5 — Numeric source structure
+# D5 — Numeric types and written operations
 
-- status: partial exact parity; remaining mappings pending; historical Source-mode pass is not acceptance
+- status: passed under the approved Elm profile
 - contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D3](D03-blocks-locals.md)
-- evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
+- evidence: [current gates](../docs/deliveries/elm-parity-state.md); [approved mappings](../docs/reviews/d1-d9-elm-mapping-decisions.md)
 
-## Work
+## Approved scope
 
-Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
-No Source v1 tag or metadata envelope can satisfy this delivery.
+Int carriers for delivered integer widths, Float carriers for Half/Single/Double, direct arithmetic/comparisons, written mapped casts, integer remainder, and listed SDK members/constants.
 
-- Use the numeric types emitted by the paired Elm project. Do not add source metadata to the output.
-- Keep casts, constructors, shifts, named constants, and special floating values.
-- Map ordinary arithmetic to one operation. Do not add limbs, wrapping, masking, saturation, or IEEE rounding.
+## Boundary
+
+Complex, unlisted constants/constructors/conversions, and bit operations without SDK mappings remain rejected. No wrap, range, finite-value, or overflow emulation is added.
+Unmapped forms fail at the source. They produce no partial output.
+No Source v1 output or custom source tag is accepted.
 
 ## Acceptance
 
-- Integer division, narrowing, finite-value cases, and Complex conversions need no runtime proof.
-- No numeric compatibility module is emitted.
 - Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
 - Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
-- Ask the user if the Elm counterpart is unclear. No unrequested output or feature is permitted.
-- Run affected delivery tests, catalog checks, and repository checks.
-- Keep toolchain pins, selected-source errors, source locations, and atomic output.
+- Keep the fixed SDK/reference/Roslyn versions, declared types, namespace selection, and atomic output.
+- Run restore, build, the full suite, the D1–D9 catalog gate, and repository checks.
+- Use the [case registry](../fixtures/elm-parity/cases.json) and executable rejection inputs.
 
-The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context. New acceptance references must come from `morphir-elm make`.
+The examples below are historical. They do not replace current compiler parity evidence.
 
 ## Historical examples
 

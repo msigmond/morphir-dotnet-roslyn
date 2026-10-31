@@ -1,22 +1,23 @@
 # Language coverage
 
-The [exact Elm parity contract](../elm-parity.md) controls acceptance.
-The [case registry](../../fixtures/elm-parity/cases.json) records paired inputs and feature coverage.
-Every `supported` catalog entry names its exact-parity case IDs.
-Source v1 success and normalized comparisons do not count as acceptance.
+The [exact Elm contract](../elm-parity.md) controls acceptance.
+Each supported catalog entry names complete paired compiler tests.
+Each rejected D1–D9 entry names executable source rejection tests.
 
-| Area | Exact-tested subset |
+| Delivery | Approved profile |
 | --- | --- |
-| D1 | Literals, records, names, visibility, documentation, fields, simple operations |
-| D2 | Project/source inputs, project references, generated partial source, additional files, configuration |
-| D3 | Initialized locals, returns, empty statements, conditional expressions, Boolean operations |
-| D4 | Explicit nullable types, reference types without implicit Maybe, null-forgiving context |
-| D5 | Integer widths, Single/Double/Half operations, written float literals, comparisons, unary operations |
-| D6 | Decimal arithmetic, negation, and approved literal constructor mapping |
-| D7 | Complete positional calls, instance receivers, recursion, exact metadata/dependency contracts |
-| D8 | Value tuple types and construction |
-| D9 | Record/class/struct aliases, stored properties/fields, positional record constructors |
+| D1 | Source inputs, records, names, owners, access flags, literals, fields, overload suffixes |
+| D2 | Project graphs, generators, additional inputs, Debug/Release options, atomic failures |
+| D3 | Locals, scope, returned branches, early returns, written unreachable branches |
+| D4 | Nullable types, constructors/defaults, map/map2/withDefault, presence tests, inferred locals |
+| D5 | Scalar carriers, arithmetic, comparisons, mapped casts, remainder, listed SDK members |
+| D6 | Decimal construction, operations/members, nullable-result division |
+| D7 | Normalized calls/defaults/params, references/delegates, captures, local binding graphs, recursion, configured metadata |
+| D8 | Enum aliases/constants, value/reference tuples, projections and written deconstruction |
+| D9 | Data aliases, pure constructor/member functions, record equality/updates |
 
-These are subsets. The machine catalogs retain all remaining mapping gaps.
-Mutation, identity/cycles, general construction, nullable value operations, and other unmapped forms fail explicitly.
-D10–D21 remain planned. See [current evidence](../deliveries/elm-parity-state.md).
+Unmapped forms retain explicit rejection. See [mappings and limits](../classic-output.md).
+The [registry](../../fixtures/elm-parity/cases.json) has 73 C# cases and 55 independent Elm projects.
+The member grids cover 320 admitted input forms. Separate nullable division tests cover both spellings.
+There are 243 executable member/form rejections.
+D10–D21 remain planned. Source v1 and normalized comparisons do not establish acceptance.

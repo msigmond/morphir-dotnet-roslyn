@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><EnableDefaultCompileItems>false</EnableDefaultCompileItems><Threshold>18</Threshold><AssemblyName>D2Options</AssemblyName><PackageId>D2Options</PackageId><PlatformTarget>x64</PlatformTarget><CheckForOverflowUnderflow Condition="'$(Configuration)'=='Debug'">true</CheckForOverflowUnderflow></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="csharp/Input.cs" />
+    <ProjectReference Include="Shared/D2OptionsShared.csproj" />
+    <ProjectReference Include="../../../samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <AdditionalFiles Include="threshold.txt" />
+    <CompilerVisibleProperty Include="Threshold" />
+  </ItemGroup>
+</Project>

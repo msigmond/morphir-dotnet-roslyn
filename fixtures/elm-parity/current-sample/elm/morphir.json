@@ -4,6 +4,8 @@
   "exposedModules": [
     "CurrentSupported",
     "CurrentSupported.ClassicLoanCalculations",
-    "CurrentSupported.CurrentSupportedExample"
+    "CurrentSupported.CurrentSupportedExample",
+    "CurrentSupported.ClassicState",
+    "CurrentSupported.ClassicValue"
   ]
 }

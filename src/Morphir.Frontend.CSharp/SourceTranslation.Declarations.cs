@@ -31,6 +31,13 @@ internal sealed partial class SourceTranslation
                         Error("MCS1004", $"Data member names collide: {slot.Name} and {prior.Name}.", Location(slot));
                     fields.Add(new(Name.From(slot.Name), Type(t, DeclaredType(slot), Location(slot))));
                 }
+                if (!type.IsRecord)
+                    foreach(var parameter in type.InstanceConstructors.Where(c=>c.DeclaringSyntaxReferences.Any(r=>r.GetSyntax() is TypeDeclarationSyntax)).SelectMany(c=>c.Parameters))
+                    {
+                        var name=Name.From(parameter.Name);
+                        if(fields.Any(f=>f.Key.Key==name.Key))Fail<object>("MCS1004","A primary field collides after normalization.",Location(parameter));
+                        fields.Add(new(name,Type(parameter.Type,DeclaredType(parameter),Location(parameter))));
+                    }
                 representation = new RecordType<Unit>(default, fields);
             }
             owner.Types.Add(new(identity.Local, new(Visibility(type), new(Documentation(type), new AliasDefinition<Unit>([], representation)))));
@@ -59,7 +66,7 @@ internal sealed partial class SourceTranslation
         var syntax = field.DeclaringSyntaxReferences.Single().GetSyntax();
         var initializer = syntax switch { VariableDeclaratorSyntax variable => variable.Initializer?.Value, EnumMemberDeclarationSyntax member => member.EqualsValue?.Value, _ => null };
         var type = Type(field.Type, DeclaredType(field), Location(field));
-        V body = initializer is null ? Source(type, field.ContainingType.TypeKind == TypeKind.Enum ? "EnumMember" : "Storage", [], ("name", field.Name)) : Expression(initializer);
+        V body = field.ContainingType.TypeKind == TypeKind.Enum ? DefaultConstant(field.ConstantValue, type) : initializer is null ? Source(type, field.ContainingType.TypeKind == TypeKind.Enum ? "EnumMember" : "Storage", [], ("name", field.Name)) : Expression(initializer);
         module.Values.Add(new(identities[Id(field)].Local, new(Visibility(field), new(Documentation(field), new([], type, body)))));
     }
     private void EmitMethod(IMethodSymbol method, Module module)
@@ -75,6 +82,7 @@ internal sealed partial class SourceTranslation
         CheckArray(method.ReturnType, method);
         var output = method.MethodKind == MethodKind.Constructor ? Type(method.ContainingType) : Type(method.ReturnType, method.MethodKind == MethodKind.PropertyGet ? DeclaredType(method.AssociatedSymbol!) : DeclaredType(method), Location(method));
         currentOutput = output;
+        inferredLocalTypes.Clear();
         currentReceiver = Receiver(method);
         var inputs = method.Parameters.Select(p => new Input<Unit, IrType<Unit>>(Name.From(p.Name), Type(p.Type, DeclaredType(p), Location(p)), Type(p.Type, DeclaredType(p), Location(p)))).ToList();
         if (!method.IsStatic && method.MethodKind != MethodKind.Constructor)
@@ -120,8 +128,10 @@ internal sealed partial class SourceTranslation
         {
             var symbol = Semantic(variable).GetDeclaredSymbol(variable) as ILocalSymbol;
             if (symbol is not null && ContainsArray(symbol.Type) && !paramsArrays.Contains(symbol.Type)) Fail<object>("MCS3101", "General array locals require D11.", variable.GetLocation());
-            var type = symbol is null ? Types.Unit : Type(symbol.Type, syntax.Type, variable.GetLocation());
-            return Source(type, "VariableDeclaration", variable.Initializer is null ? [] : [Expression(variable.Initializer.Value)], ("name", variable.Identifier.Text), ("type", syntax.Type.ToString()));
+            var initializer=variable.Initializer is null?null:Expression(variable.Initializer.Value);
+            var type = syntax.Type.IsVar && initializer is not null ? initializer.Attributes : symbol is null ? Types.Unit : Type(symbol.Type, syntax.Type, variable.GetLocation());
+            if(symbol is not null)inferredLocalTypes[symbol]=type;
+            return Source(type, "VariableDeclaration", initializer is null ? [] : [initializer], ("name", variable.Identifier.Text), ("type", syntax.Type.ToString()));
         }).ToArray();
         return Source(Types.Unit, "Variables", values);
     }
@@ -135,6 +145,7 @@ internal sealed partial class SourceTranslation
             {
                 var symbol = (IParameterSymbol)Semantic(p).GetDeclaredSymbol(p)!;
                 CheckArray(symbol.Type, symbol);
+                if(symbol.IsParams && symbol.Type is IArrayTypeSymbol)paramsArrays.Add(symbol.Type);
                 return Source(Type(symbol.Type, p.Type), "Parameter", p.Default is null ? [] : [Expression(p.Default.Value)], ("name", p.Identifier.Text), ("modifiers", p.Modifiers.ToString()));
             }).ToList();
             parameters.Add(syntax.Body is not null ? Statement(syntax.Body) : syntax.ExpressionBody is not null ? Expression(syntax.ExpressionBody.Expression) : Source(currentOutput, "Declaration", []));

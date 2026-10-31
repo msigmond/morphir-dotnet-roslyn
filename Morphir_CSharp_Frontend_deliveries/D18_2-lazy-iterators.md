@@ -5,6 +5,11 @@
 - prerequisites: [D18.1](D18_1-caught-failures.md), [D11](D11-collections.md), [D12](D12-patterns.md), [D13](D13-closures.md), [D14](D14-recursion.md), [D15](D15-loops-local-state.md)
 - evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
 
+## Prerequisite profile
+
+Use the [D1–D9 Elm profile](../docs/deliveries/elm-parity-state.md) and all earlier exact-parity gates.
+Each new mapping needs independent Elm input and complete JSON equality. Historical Source-mode passes do not count.
+
 ## Work
 
 Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.

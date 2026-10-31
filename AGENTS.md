@@ -1,11 +1,11 @@
 # Agent instructions
 
 - authority: user instructions → [exact Elm parity contract](docs/elm-parity.md) → approved source-structure rules → [master](Morphir_CSharp_Frontend_delivery_plan.md) → selected delivery
-- state: D1–D9 have an [exact-tested subset](docs/deliveries/elm-parity-state.md); unmapped forms are rejected pending approved mappings; complete inventory acceptance remains pending; D10–D21 planned
+- state: D1–D9 mappings and explicit rejections are passed under the approved Elm profile; [evidence](docs/deliveries/elm-parity-state.md); D10–D21 planned
 - workflow: one requested delivery; prerequisite gates; paired C#/Elm inputs; complete JSON equality against pinned `morphir-elm make` output for every feature; ask when the Elm counterpart is unclear; no unrequested scope
 - baseline: SDK 10.0.100; C#14; reference pack 10.0.0; Roslyn 5.0.0; x64 CLI input; no silent scope/version change
 - contract: standard Morphir Classic v3 matching `morphir-elm make`; Source v1 was never requested and is not a delivery target; do not extend it or introduce another format; public Source v1 CLI/API/model/codec paths are removed; internal staging must be mapped or rejected
-- semantics: represent declarations and written operations through the agreed Elm mapping; explicit nullable types alone use Maybe; preserve declared types, names, source owners, and Public/Private projection
+- semantics: represent declarations and written operations through the agreed Elm mapping; keep declared plain references plain; approved nullable operations use Maybe constructors/calls; preserve declared types, names, source owners, and Public/Private projection
 - no runtime emulation: no presence/range/nonzero/finite/ownership/purity/termination proof; no numeric helper modules, hidden initialization, SSA state, inlined bodies, synthetic equality, or simulated heap
 - acceptance: compare full parsed JSON; ignore only whitespace/object-key order; no package/name/type normalization, sorting, filtering, or omitted fields; explained differences and raw syntax capture do not pass the feature gate
 - scope: [Classic implementation subset](docs/classic-output.md) and [exact case registry](fixtures/elm-parity/cases.json); later forms and unapproved mappings retain explicit failures; no unsupported completion claims

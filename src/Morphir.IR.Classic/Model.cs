@@ -56,6 +56,8 @@ public sealed record UpdateRecordValue<TA, VA>(VA Attributes, Value<TA, VA> Subj
 public sealed record RecordValue<TA, VA>(VA Attributes, IReadOnlyList<Entry<Name, Value<TA, VA>>> Fields) : Value<TA, VA>(Attributes);
 public sealed record IfValue<TA, VA>(VA Attributes, Value<TA, VA> Condition, Value<TA, VA> Then, Value<TA, VA> Else) : Value<TA, VA>(Attributes);
 public sealed record LetValue<TA, VA>(VA Attributes, Name Name, ValueDefinition<TA, VA> Definition, Value<TA, VA> Body) : Value<TA, VA>(Attributes);
+public sealed record LetRecursionValue<TA, VA>(VA Attributes, IReadOnlyList<Entry<Name, ValueDefinition<TA, VA>>> Definitions, Value<TA, VA> Body) : Value<TA, VA>(Attributes);
+public sealed record DestructureValue<TA, VA>(VA Attributes, Pattern<VA> Pattern, Value<TA, VA> Subject, Value<TA, VA> Body) : Value<TA, VA>(Attributes);
 public sealed record ConstructorValue<TA, VA>(VA Attributes, FQName Name) : Value<TA, VA>(Attributes);
 public abstract record Pattern<VA>(VA Attributes);
 public sealed record TuplePattern<VA>(VA Attributes, IReadOnlyList<Pattern<VA>> Elements) : Pattern<VA>(Attributes);

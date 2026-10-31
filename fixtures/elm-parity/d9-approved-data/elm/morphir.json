@@ -1,0 +1,11 @@
+{
+  "name": "Example",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "Completion",
+    "Completion.Primary",
+    "Completion.Cell",
+    "Completion.Amount",
+    "Completion.Rules"
+  ]
+}

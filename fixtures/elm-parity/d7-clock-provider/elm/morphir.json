@@ -1,0 +1,7 @@
+{
+  "name": "ClockSpec",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "Rules"
+  ]
+}

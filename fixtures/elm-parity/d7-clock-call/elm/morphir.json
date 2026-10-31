@@ -1,0 +1,10 @@
+{
+  "name": "Example",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "Parity.Rules"
+  ],
+  "dependencies": [
+    "data:application/json;base64,eyJmb3JtYXRWZXJzaW9uIjozLCJkaXN0cmlidXRpb24iOlsiTGlicmFyeSIsW1siY2xvY2siLCJzcGVjIl1dLFtdLHsibW9kdWxlcyI6W1tbWyJydWxlcyJdXSx7ImFjY2VzcyI6IlB1YmxpYyIsInZhbHVlIjp7InR5cGVzIjpbXSwidmFsdWVzIjpbW1sidGljayIsImNvdW50Il0seyJhY2Nlc3MiOiJQdWJsaWMiLCJ2YWx1ZSI6eyJkb2MiOiIiLCJ2YWx1ZSI6eyJpbnB1dFR5cGVzIjpbXSwib3V0cHV0VHlwZSI6WyJSZWZlcmVuY2UiLHt9LFtbWyJtb3JwaGlyIl0sWyJzIiwiZCIsImsiXV0sW1siYmFzaWNzIl1dLFsiaW50Il1dLFtdXSwiYm9keSI6WyJMaXRlcmFsIixbIlJlZmVyZW5jZSIse30sW1tbIm1vcnBoaXIiXSxbInMiLCJkIiwiayJdXSxbWyJiYXNpY3MiXV0sWyJpbnQiXV0sW11dLFsiV2hvbGVOdW1iZXJMaXRlcmFsIiwxXV19fX1dXSwiZG9jIjpudWxsfX1dXX1dfQ=="
+  ]
+}

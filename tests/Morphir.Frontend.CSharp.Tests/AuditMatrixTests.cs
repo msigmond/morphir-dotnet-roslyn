@@ -85,12 +85,14 @@ public class AuditMatrixTests
     {
         _ = syntaxKind; _ = projection;
         var result = Frontend.Convert(Support.Compile(code), new("Example", ["Example.Audit"]));
-        if (result.Success)
+        if (ElmParity.AuditIds.Contains(id))
         {
-            Assert.Contains(id, ElmParity.AuditIds);
+            Assert.True(result.Success,string.Join("\n",result.Diagnostics));
         }
         else
         {
+            Assert.Contains(id,ElmParity.RejectedAuditIds);
+            Assert.False(result.Success);
             Assert.Null(result.Distribution);
             Assert.NotEmpty(result.Diagnostics);
             Assert.All(result.Diagnostics, d => Assert.True(d.Line > 0 && d.Column > 0));

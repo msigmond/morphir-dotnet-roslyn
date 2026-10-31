@@ -3,6 +3,7 @@ using System.Numerics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Operations;
 using Morphir.IR.Classic;
 using IrPath = Morphir.IR.Classic.Path;
 using V = Morphir.IR.Classic.Value<Morphir.IR.Classic.Unit, Morphir.IR.Classic.IrType<Morphir.IR.Classic.Unit>>;
@@ -16,11 +17,27 @@ internal sealed partial class SourceTranslation
         var model = Semantic(syntax); var symbol = model.GetSymbolInfo(syntax).Symbol;
         return symbol switch { IFieldSymbol field => field.Type, IPropertySymbol property => property.Type, IParameterSymbol parameter => parameter.Type, ILocalSymbol local => local.Type,
             IMethodSymbol { MethodKind: MethodKind.Constructor } constructor => constructor.ContainingType,
-            IMethodSymbol method => method.ReturnType, _ => model.GetTypeInfo(syntax).Type ?? model.GetTypeInfo(syntax).ConvertedType };
+            IMethodSymbol method => syntax is InvocationExpressionSyntax ? method.ReturnType : model.GetTypeInfo(syntax).Type ?? method.ReturnType, _ => model.GetTypeInfo(syntax).Type ?? model.GetTypeInfo(syntax).ConvertedType };
     }
     private IrType<Unit> ExpressionType(ExpressionSyntax syntax)
     {
+        var symbol = Semantic(syntax).GetSymbolInfo(syntax).Symbol;
+        if(symbol is ILocalSymbol && inferredLocalTypes.TryGetValue(symbol,out var localType))return localType;
+        if(syntax is TupleExpressionSyntax tuple)return new TupleType<Unit>(default,tuple.Arguments.Select(a=>ExpressionType(a.Expression)).ToArray());
+        if(syntax is ConditionalExpressionSyntax conditional)
+        {
+            var left=ExpressionType(conditional.WhenTrue);var right=ExpressionType(conditional.WhenFalse);
+            if(MaybeElement(left) is not null)return left;
+            if(MaybeElement(right) is not null)return right;
+            if(conditional.WhenTrue.IsKind(SyntaxKind.NullLiteralExpression))return Types.Maybe(right);
+            if(conditional.WhenFalse.IsKind(SyntaxKind.NullLiteralExpression))return Types.Maybe(left);
+        }
         var type = ExpressionSymbolType(syntax);
+        if(syntax is ConditionalAccessExpressionSyntax && type is not null)
+        {
+            var result=Type(type,location:syntax.GetLocation(),annotations:false);
+            return MaybeElement(result) is not null?result:Types.Maybe(result);
+        }
         // A null token has no own source type. Do not adopt Roslyn's hidden object conversion for a null test.
         if (syntax.IsKind(SyntaxKind.NullLiteralExpression) && type?.SpecialType == SpecialType.System_Object)
         {
@@ -33,7 +50,6 @@ internal sealed partial class SourceTranslation
             };
             return context is null ? currentOutput : Type(context, location: syntax.GetLocation());
         }
-        var symbol = Semantic(syntax).GetSymbolInfo(syntax).Symbol;
         var declaredType = symbol is IFieldSymbol or IPropertySymbol or IParameterSymbol or ILocalSymbol or IMethodSymbol ? DeclaredType(symbol) : syntax is CastExpressionSyntax cast ? cast.Type : null;
         return type is null ? syntax.IsKind(SyntaxKind.NullLiteralExpression) || syntax.IsKind(SyntaxKind.DefaultLiteralExpression) ? currentOutput : Types.Unit
             : Type(type, declaredType, syntax.GetLocation(), annotations: symbol is IFieldSymbol or IPropertySymbol or IParameterSymbol or ILocalSymbol or IMethodSymbol);
@@ -84,9 +100,9 @@ internal sealed partial class SourceTranslation
             case InvocationExpressionSyntax invocation:
                 return Invocation(invocation, type, symbol as IMethodSymbol);
             case ObjectCreationExpressionSyntax creation:
-                return Source(type, "New", (creation.ArgumentList?.Arguments.Select(Argument) ?? []).Concat(creation.Initializer is null ? [] : new[] { Expression(creation.Initializer) }).ToArray(), ("type", creation.Type.ToString()), ("symbol", symbol is null ? "" : Id(symbol)));
+                return Source(type, "New", (symbol is IMethodSymbol ctor ? CallArguments(creation, ctor) : creation.ArgumentList?.Arguments.Select(Argument) ?? []).Concat(creation.Initializer is null ? [] : new[] { Expression(creation.Initializer) }).ToArray(), ("type", creation.Type.ToString()), ("symbol", symbol is null ? "" : Id(symbol)));
             case ImplicitObjectCreationExpressionSyntax creation:
-                return Source(type, "New", creation.ArgumentList.Arguments.Select(Argument).Concat(creation.Initializer is null ? [] : new[] { Expression(creation.Initializer) }).ToArray(), ("type", "inferred"), ("symbol", symbol is null ? "" : Id(symbol)));
+                return Source(type, "New", (symbol is IMethodSymbol implicitCtor ? CallArguments(creation, implicitCtor) : creation.ArgumentList.Arguments.Select(Argument)).Concat(creation.Initializer is null ? [] : new[] { Expression(creation.Initializer) }).ToArray(), ("type", "inferred"), ("symbol", symbol is null ? "" : Id(symbol)));
             case InitializerExpressionSyntax initializer:
                 return Source(type, "Initializer", initializer.Expressions.Select(Expression).ToArray(), ("kind", initializer.Kind().ToString()));
             case CastExpressionSyntax cast:
@@ -127,6 +143,8 @@ internal sealed partial class SourceTranslation
     private V Identifier(IdentifierNameSyntax syntax, ISymbol? symbol, IrType<Unit> type)
     {
         if (syntax.Identifier.ValueText == "_" && symbol is IDiscardSymbol) return Source(type, "Discard", []);
+        if(symbol is IParameterSymbol {ContainingSymbol:IMethodSymbol {MethodKind:MethodKind.Constructor} constructor} parameter && constructor.DeclaringSyntaxReferences.Any(r=>r.GetSyntax() is TypeDeclarationSyntax))
+            return new FieldValue<Unit,IrType<Unit>>(type,new VariableValue<Unit,IrType<Unit>>(Type(currentType!),currentReceiver),Name.From(parameter.Name));
         if (symbol is IFieldSymbol { IsStatic: true } or IPropertySymbol { IsStatic: true }) return NamedReference(symbol, type);
         if (symbol is IPropertySymbol property && !StoredProperty(property))
             return Source(type, "MemberAccess", [new VariableValue<Unit, IrType<Unit>>(Type(currentType!), currentReceiver)], ("member", syntax.Identifier.Text), ("symbol", Id(property)));
@@ -140,15 +158,29 @@ internal sealed partial class SourceTranslation
             return MethodReference(method, method.IsStatic ? null : Expression(syntax.Expression), syntax);
         if (symbol is { IsStatic: true }) return NamedReference(symbol, type);
         var subject = Expression(syntax.Expression);
+        if (symbol is IPropertySymbol { Name: "Length" } && ExpressionSymbolType(syntax.Expression) is IArrayTypeSymbol array && paramsArrays.Contains(array)) return Sdk("List", "length", Types.Int, subject);
+        if (symbol is IPropertySymbol && subject.Attributes is TupleType<Unit> && symbol.ContainingType?.Name == "Tuple" && symbol.Name.StartsWith("Item", StringComparison.Ordinal))
+            return Source(type, "TupleField", [subject], ("index", (int.Parse(symbol.Name[4..], CultureInfo.InvariantCulture)-1).ToString(CultureInfo.InvariantCulture)));
+        if (symbol is IPropertySymbol { Name: "Length", ContainingType.SpecialType: SpecialType.System_String } && Shape(subject.Attributes) == Shape(Types.String)) return Sdk("String", "length", Types.Int, subject);
         if (symbol is IPropertySymbol property && (!SourceSymbol(property) || !StoredProperty(property)))
             return Source(type, "MemberAccess", [subject], ("member", syntax.Name.ToString()), ("symbol", Id(property)));
         if (symbol is IFieldSymbol field && (field.ContainingType.IsTupleType || !SourceSymbol(field)))
+        {
+            if (field.ContainingType.IsTupleType)
+            {
+                var index = field.ContainingType.TupleElements.Select((f, i) => (Field: f, Index: i)).First(f => f.Field.Name == field.Name || f.Field.CorrespondingTupleField?.Name == field.Name).Index;
+                return Source(type, "TupleField", [subject], ("index", index.ToString(CultureInfo.InvariantCulture)));
+            }
             return Source(type, "MemberAccess", [subject], ("member", syntax.Name.ToString()), ("symbol", Id(field)));
+        }
         return new FieldValue<Unit, IrType<Unit>>(type, subject, Name.From(syntax.Name.Identifier.ValueText));
     }
     private V NamedReference(ISymbol symbol, IrType<Unit> type)
     {
         if (identities.TryGetValue(Id(symbol), out var identity)) return new ReferenceValue<Unit, IrType<Unit>>(type, identity);
+        if(symbol is IPropertySymbol {GetMethod:{} getter} && external.TryGetValue(Id(getter),out var contract))return new ReferenceValue<Unit,IrType<Unit>>(type,contract.Target);
+        var constant = SdkConstant(symbol);
+        if (constant is not null) return new ReferenceValue<Unit, IrType<Unit>>(type, constant);
         return Source(type, "NamedReference", [], ("name", symbol.ToDisplayString(Display)), ("symbol", Id(symbol)));
     }
     private V MethodReference(IMethodSymbol method, V? receiver, SyntaxNode syntax)
@@ -158,7 +190,8 @@ internal sealed partial class SourceTranslation
         var result = Type(method.ReturnType, location: syntax.GetLocation());
         IrType<Unit> signature = result;
         foreach (var parameter in method.Parameters.Reverse()) signature = Types.Function(Type(parameter.Type, DeclaredType(parameter), syntax.GetLocation()), signature);
-        var identity = external.TryGetValue(Id(method), out var contract) ? contract.Target : identities.GetValueOrDefault(Id(method));
+        var identity = external.TryGetValue(Id(method), out var contract) ? contract.Target : identities.GetValueOrDefault(Id(method)) ?? SdkMethod(method);
+        if (identity?.Package.Key == Types.Sdk.Key && !method.IsStatic) signature = Types.Function(Type(method.ContainingType), signature);
         V target = identity is null ? Source(signature, "NamedReference", [], ("name", method.ToDisplayString(Display)), ("symbol", Id(method))) : new ReferenceValue<Unit, IrType<Unit>>(signature, identity);
         var converted = syntax is ExpressionSyntax expression ? Semantic(syntax).GetTypeInfo(expression).ConvertedType : null;
         var referenceType = converted is { TypeKind: TypeKind.Delegate } ? Type(converted) : signature;
@@ -168,12 +201,51 @@ internal sealed partial class SourceTranslation
     {
         if (method is null) return Fail<V>("MCS2202", "The call has no resolved method symbol.", syntax.GetLocation());
         RequireSelected(method, syntax.GetLocation());
+        if (method.MethodKind == MethodKind.DelegateInvoke)
+            return Source(type, "DelegateInvocation", new[] { syntax.Expression is MemberBindingExpressionSyntax ? Source(Type(method.ContainingType),"ConditionalReceiver",[]) : Expression(syntax.Expression) }.Concat(CallArguments(syntax, method)).ToArray());
         if (method.TypeArguments.Length != 0 && !(method.ContainingType.ContainingNamespace.ToDisplayString() == "System" && method.ContainingType.Name is "Tuple" or "ValueTuple")) return Fail<V>("MCS3100", "Generic calls require D10.", syntax.GetLocation());
-        V? receiver = syntax.Expression is MemberAccessExpressionSyntax member && !method.IsStatic ? Expression(member.Expression) : null;
-        if (receiver is null && !method.IsStatic && syntax.Expression is IdentifierNameSyntax) receiver = new VariableValue<Unit, IrType<Unit>>(Type(currentType!), currentReceiver);
+        V? receiver = syntax.Expression is MemberAccessExpressionSyntax member && !method.IsStatic ? Expression(member.Expression) : syntax.Expression is MemberBindingExpressionSyntax && !method.IsStatic ? Source(Type(method.ContainingType),"ConditionalReceiver",[]) : null;
+        if (receiver is null && !method.IsStatic && method.MethodKind!=MethodKind.LocalFunction && syntax.Expression is IdentifierNameSyntax) receiver = new VariableValue<Unit, IrType<Unit>>(Type(currentType!), currentReceiver);
+        var arguments = CallArguments(syntax, method);
+        if (type is TupleType<Unit> && method.IsStatic && method.Name == "Create" && method.ContainingType.ContainingNamespace.ToDisplayString() == "System" && method.ContainingType.Name is "Tuple" or "ValueTuple")
+            return new TupleValue<Unit, IrType<Unit>>(type, arguments.Select(a => ((CSharpOperation<Unit, IrType<Unit>>)a).Children.Single()).ToArray());
         var target = MethodReference(method, receiver, syntax);
-        return Source(type, "Invocation", new[] { target }.Concat(syntax.ArgumentList.Arguments.Select(Argument)).ToArray(), ("symbol", Id(method)));
+        return Source(type, "Invocation", new[] { target }.Concat(arguments).ToArray(), ("symbol", Id(method)),("decimalDivision",method.ContainingType.SpecialType==SpecialType.System_Decimal && method.Name=="Divide" && !external.ContainsKey(Id(method))?"true":""));
     }
+    private IReadOnlyList<V> CallArguments(SyntaxNode syntax, IMethodSymbol method)
+    {
+        var operation = Semantic(syntax).GetOperation(syntax);
+        var arguments = operation switch { IInvocationOperation invocation => invocation.Arguments.ToArray(), IObjectCreationOperation creation => creation.Arguments.ToArray(), _ => null };
+        if (arguments is null) return syntax switch { ObjectCreationExpressionSyntax creation => creation.ArgumentList?.Arguments.Select(Argument).ToArray() ?? [], _ => Fail<IReadOnlyList<V>>("MCS2202", "No bound argument list.", syntax.GetLocation()) };
+        var result = new List<V>();
+        foreach (var parameter in method.Parameters)
+        {
+            var bound = arguments.Single(a => a.Parameter?.Ordinal == parameter.Ordinal);
+            V value;
+            if (bound.ArgumentKind == ArgumentKind.ParamArray && bound.Value is IArrayCreationOperation { Initializer: { } initializer })
+                value = new ListValue<Unit, IrType<Unit>>(Type(parameter.Type), initializer.ElementValues.Select(e => Expression((ExpressionSyntax)e.Syntax)).ToArray());
+            else if (bound.ArgumentKind == ArgumentKind.DefaultValue)
+            {
+                var written = parameter.DeclaringSyntaxReferences.Select(r => r.GetSyntax()).OfType<ParameterSyntax>().FirstOrDefault()?.Default?.Value;
+                value = written is not null ? Expression(written) : DefaultConstant(parameter.ExplicitDefaultValue, Type(parameter.Type));
+            }
+            else value = bound.Syntax is ArgumentSyntax argument ? Argument(argument) is CSharpOperation<Unit, IrType<Unit>> a ? a.Children.Single() : throw new InvalidOperationException() : Expression((ExpressionSyntax)bound.Value.Syntax);
+            result.Add(Source(Type(parameter.Type), "Argument", [value], ("name", "")));
+        }
+        return result;
+    }
+    private V DefaultConstant(object? value, IrType<Unit> type) => MaybeElement(type) is {} element && value is not null ? DefaultConstant(value,element) : value switch
+    {
+        null => Source(type, "Null", []),
+        bool b => new LiteralValue<Unit, IrType<Unit>>(type, new BoolLiteral(b)),
+        string s => new LiteralValue<Unit, IrType<Unit>>(type, new StringLiteral(s)),
+        char c when !char.IsSurrogate(c) => new LiteralValue<Unit, IrType<Unit>>(type, new CharLiteral(c.ToString())),
+        decimal d => new LiteralValue<Unit, IrType<Unit>>(type, new DecimalLiteral(d.ToString(CultureInfo.InvariantCulture))),
+        float or double => new LiteralValue<Unit, IrType<Unit>>(type, new FloatLiteral(Convert.ToDouble(value, CultureInfo.InvariantCulture))),
+        ulong n when n<=long.MaxValue => new LiteralValue<Unit, IrType<Unit>>(type,new IntLiteral((long)n)),
+        byte or sbyte or short or ushort or int or uint or long => new LiteralValue<Unit, IrType<Unit>>(type, new IntLiteral(Convert.ToInt64(value, CultureInfo.InvariantCulture))),
+        _ => ClassicFailure("This declared default has no scalar Elm literal mapping.")
+    };
     private V Argument(ArgumentSyntax syntax)
     {
         if (!syntax.RefKindKeyword.IsKind(SyntaxKind.None)) return Fail<V>("MCS3105", "By-reference arguments require D15.", syntax.GetLocation());

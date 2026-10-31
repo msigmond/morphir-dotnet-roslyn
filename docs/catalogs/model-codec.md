@@ -4,6 +4,7 @@ The public model and codec use standard Classic v3 only and remain Roslyn-free.
 Source v1 envelope, syntax-document, Source operation, and source-number types are removed.
 The C# frontend's staging operations are internal and must be mapped or rejected.
 Unknown model nodes fail serialization.
+Standard LetRecursion and Destructure nodes are now exercised by complete frontend-to-Elm parity cases.
 
 Frontend acceptance uses complete JSON equality against `morphir-elm make`, including all model attributes.
 Independent historical model/codec references remain frozen and active as supplemental codec tests.

@@ -126,6 +126,105 @@
     "package-name": {
       "project": "fixtures/elm-parity/package-name/elm",
       "expected": "fixtures/elm-parity/package-name/expected/elm.json"
+    },
+    "d3-return-branches": {
+      "project": "fixtures/elm-parity/d3-return-branches/elm",
+      "expected": "fixtures/elm-parity/d3-return-branches/expected/elm.json"
+    },
+    "d5-explicit-casts": {
+      "project": "fixtures/elm-parity/d5-explicit-casts/elm",
+      "expected": "fixtures/elm-parity/d5-explicit-casts/expected/elm.json"
+    },
+    "d9-value-operations": {
+      "project": "fixtures/elm-parity/d9-value-operations/elm",
+      "expected": "fixtures/elm-parity/d9-value-operations/expected/elm.json"
+    },
+    "d1-owner-selection": {
+      "project": "fixtures/elm-parity/d1-owner-selection/elm",
+      "expected": "fixtures/elm-parity/d1-owner-selection/expected/elm.json"
+    },
+    "d2-options-debug": {
+      "project": "fixtures/elm-parity/d2-options-debug/elm",
+      "expected": "fixtures/elm-parity/d2-options-debug/expected/elm.json"
+    },
+    "d2-options-release": {
+      "project": "fixtures/elm-parity/d2-options-release/elm",
+      "expected": "fixtures/elm-parity/d2-options-release/expected/elm.json"
+    },
+    "d7-callables": {
+      "project": "fixtures/elm-parity/d7-callables/elm",
+      "expected": "fixtures/elm-parity/d7-callables/expected/elm.json"
+    },
+    "d8-tuple-reads": {
+      "project": "fixtures/elm-parity/d8-tuple-reads/elm",
+      "expected": "fixtures/elm-parity/d8-tuple-reads/expected/elm.json"
+    },
+    "d6-sdk-members": {
+      "project": "fixtures/elm-parity/d6-sdk-members/elm",
+      "expected": "fixtures/elm-parity/d6-sdk-members/expected/elm.json"
+    },
+    "d5-sdk-members": {
+      "project": "fixtures/elm-parity/d5-sdk-members/elm",
+      "expected": "fixtures/elm-parity/d5-sdk-members/expected/elm.json"
+    },
+    "d5-remainder-char": {
+      "project": "fixtures/elm-parity/d5-remainder-char/elm",
+      "expected": "fixtures/elm-parity/d5-remainder-char/expected/elm.json"
+    },
+    "d6-named-constants": {
+      "project": "fixtures/elm-parity/d6-named-constants/elm",
+      "expected": "fixtures/elm-parity/d6-named-constants/expected/elm.json"
+    },
+    "d7-bound-references": {
+      "project": "fixtures/elm-parity/d7-bound-references/elm",
+      "expected": "fixtures/elm-parity/d7-bound-references/expected/elm.json"
+    },
+    "d7-local-scope": {
+      "project": "fixtures/elm-parity/d7-local-scope/elm",
+      "expected": "fixtures/elm-parity/d7-local-scope/expected/elm.json"
+    },
+    "d7-approved-calls": {
+      "project": "fixtures/elm-parity/d7-approved-calls/elm",
+      "expected": "fixtures/elm-parity/d7-approved-calls/expected/elm.json"
+    },
+    "d8-approved-tuples": {
+      "project": "fixtures/elm-parity/d8-approved-tuples/elm",
+      "expected": "fixtures/elm-parity/d8-approved-tuples/expected/elm.json"
+    },
+    "d8-approved-enums": {
+      "project": "fixtures/elm-parity/d8-approved-enums/elm",
+      "expected": "fixtures/elm-parity/d8-approved-enums/expected/elm.json"
+    },
+    "d4-approved-maybe": {
+      "project": "fixtures/elm-parity/d4-approved-maybe/elm",
+      "expected": "fixtures/elm-parity/d4-approved-maybe/expected/elm.json"
+    },
+    "d9-approved-data": {
+      "project": "fixtures/elm-parity/d9-approved-data/elm",
+      "expected": "fixtures/elm-parity/d9-approved-data/expected/elm.json"
+    },
+    "d6-approved-division": {
+      "project": "fixtures/elm-parity/d6-approved-division/elm",
+      "expected": "fixtures/elm-parity/d6-approved-division/expected/elm.json"
+    },
+    "d5-member-inventory": {
+      "project": "fixtures/elm-parity/d5-member-inventory/elm",
+      "expected": "fixtures/elm-parity/d5-member-inventory/expected/elm.json"
+    },
+    "d6-member-inventory": {
+      "project": "fixtures/elm-parity/d6-member-inventory/elm",
+      "expected": "fixtures/elm-parity/d6-member-inventory/expected/elm.json"
+    },
+    "d7-clock-provider": {
+      "project": "fixtures/elm-parity/d7-clock-provider/elm",
+      "expected": "fixtures/elm-parity/d7-clock-provider/expected/elm.json"
+    },
+    "d7-clock-call": {
+      "project": "fixtures/elm-parity/d7-clock-call/elm",
+      "expected": "fixtures/elm-parity/d7-clock-call/expected/elm.json",
+      "dependencyPackages": [
+        "d7-clock-provider"
+      ]
     }
   },
   "cases": [
@@ -873,25 +972,774 @@
         "D1.package-boundary",
         "D1.no-reserved-source-package"
       ]
+    },
+    {
+      "id": "d3-return-branches",
+      "reference": "d3-return-branches",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d3-return-branches/csharp/Input.cs"
+      ],
+      "features": [
+        "D3.if-else",
+        "D3.early-return",
+        "D3.nested-return",
+        "D3.branch-scope",
+        "D3.constant-unreachable",
+        "D3.checked-block"
+      ]
+    },
+    {
+      "id": "d5-explicit-casts",
+      "reference": "d5-explicit-casts",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d5-explicit-casts/csharp/Input.cs"
+      ],
+      "features": [
+        "D5.explicit-width-casts",
+        "D5.int-float-casts",
+        "D6.numeric-casts"
+      ]
+    },
+    {
+      "id": "d9-value-operations",
+      "reference": "d9-value-operations",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d9-value-operations/csharp/Input.cs"
+      ],
+      "features": [
+        "D9.record-equality",
+        "D9.with",
+        "D9.ordered-updates",
+        "D8.tuple-equality"
+      ]
+    },
+    {
+      "id": "d1-owner-selection",
+      "reference": "d1-owner-selection",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d1-owner-selection/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.nested-owner",
+        "D1.private-data",
+        "D1.private-functions",
+        "D1.escaped-names",
+        "D1.selector-boundaries"
+      ]
+    },
+    {
+      "id": "d2-options-debug",
+      "reference": "d2-options-debug",
+      "package": "Example",
+      "namespaces": [
+        "Example.CurrentSupported",
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d2-project-options/csharp/Input.cs",
+        "fixtures/elm-parity/d2-project-options/csharp/Shared.cs",
+        "fixtures/elm-parity/d2-project-options/csharp/Rules.Generated.cs"
+      ],
+      "symbols": [
+        "DEBUG"
+      ],
+      "checkOverflow": true,
+      "features": [
+        "D2.debug-configuration",
+        "D2.checked-option",
+        "D2.platform-options"
+      ]
+    },
+    {
+      "id": "d2-options-release",
+      "reference": "d2-options-release",
+      "package": "Example",
+      "namespaces": [
+        "Example.CurrentSupported",
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d2-project-options/csharp/Input.cs",
+        "fixtures/elm-parity/d2-project-options/csharp/Shared.cs",
+        "fixtures/elm-parity/d2-project-options/csharp/Rules.Generated.cs"
+      ],
+      "symbols": [],
+      "checkOverflow": false,
+      "features": [
+        "D2.release-configuration",
+        "D2.checked-option",
+        "D2.platform-options"
+      ]
+    },
+    {
+      "id": "d7-callables",
+      "reference": "d7-callables",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d7-callables/csharp/Input.cs"
+      ],
+      "features": [
+        "D7.method-reference",
+        "D7.delegate-invocation",
+        "D7.zero-arity-callable",
+        "D7.local-function",
+        "D7.immutable-capture",
+        "D7.local-recursion"
+      ]
+    },
+    {
+      "id": "d8-tuple-reads",
+      "reference": "d8-tuple-reads",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d8-tuple-reads/csharp/Input.cs"
+      ],
+      "features": [
+        "D8.named-tuple-read",
+        "D8.tuple-member-index",
+        "D8.deconstruction",
+        "D8.discard"
+      ]
+    },
+    {
+      "id": "d6-sdk-members",
+      "reference": "d6-sdk-members",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d6-sdk-members/csharp/Input.cs"
+      ],
+      "features": [
+        "D6.constructors",
+        "D6.round",
+        "D6.truncate",
+        "D6.abs",
+        "D6.toString",
+        "D6.comparisons"
+      ]
+    },
+    {
+      "id": "d5-sdk-members",
+      "reference": "d5-sdk-members",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d5-sdk-members/csharp/Input.cs"
+      ],
+      "features": [
+        "D5.scalar-sdk-calls",
+        "D5.classification",
+        "D5.format",
+        "D4.string-member",
+        "D7.metadata-sdk-calls"
+      ]
+    },
+    {
+      "id": "d5-remainder-char",
+      "reference": "d5-remainder-char",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d5-remainder-char/csharp/Input.cs"
+      ],
+      "features": [
+        "D5.remainder",
+        "D5.char-casts",
+        "D4.string-equality"
+      ]
+    },
+    {
+      "id": "d6-named-constants",
+      "reference": "d6-named-constants",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d6-named-constants/csharp/Input.cs"
+      ],
+      "features": [
+        "D5.named-constants",
+        "D6.named-constants"
+      ]
+    },
+    {
+      "id": "d7-bound-references",
+      "reference": "d7-bound-references",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d7-bound-references/csharp/Input.cs"
+      ],
+      "features": [
+        "D7.bound-method-reference",
+        "D7.bound-zero-reference",
+        "D7.inferred-delegate",
+        "D7.instance-call"
+      ]
+    },
+    {
+      "id": "d7-local-scope",
+      "reference": "d7-local-scope",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d7-local-scope/csharp/Input.cs"
+      ],
+      "features": [
+        "D7.forward-local-function",
+        "D7.mutual-local-functions",
+        "D7.local-dependency-order",
+        "D7.unit-action"
+      ]
+    },
+    {
+      "id": "d7-approved-calls",
+      "reference": "d7-approved-calls",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d7-approved-calls/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.overload-names",
+        "D7.named-optional-params"
+      ]
+    },
+    {
+      "id": "d8-approved-tuples",
+      "reference": "d8-approved-tuples",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d8-approved-tuples/csharp/Input.cs"
+      ],
+      "features": [
+        "D8.reference-tuple"
+      ]
+    },
+    {
+      "id": "d8-approved-enums",
+      "reference": "d8-approved-enums",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d8-approved-enums/csharp/Input.cs"
+      ],
+      "features": [
+        "D8.enum-alias-constants",
+        "D8.enum-casts-equality"
+      ]
+    },
+    {
+      "id": "d4-approved-maybe",
+      "reference": "d4-approved-maybe",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d4-approved-maybe/csharp/Input.cs"
+      ],
+      "features": [
+        "D4.null-just-default",
+        "D4.coalesce",
+        "D4.map-map2",
+        "D4.presence-tests"
+      ]
+    },
+    {
+      "id": "d9-approved-data",
+      "reference": "d9-approved-data",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d9-approved-data/csharp/Input.cs"
+      ],
+      "features": [
+        "D9.primary-data",
+        "D9.constructor-functions",
+        "D9.getter-operator-functions"
+      ]
+    },
+    {
+      "id": "d6-approved-division",
+      "reference": "d6-approved-division",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d6-approved-division/csharp/Input.cs"
+      ],
+      "features": [
+        "D6.nullable-division"
+      ]
+    },
+    {
+      "id": "d5-member-inventory",
+      "reference": "d5-member-inventory",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d5-member-inventory/csharp/Input.cs"
+      ],
+      "features": [
+        "D5.member-inventory"
+      ],
+      "members": {
+        "nint.explicit operator int(nint)": "m0",
+        "nint.explicit operator long(nint)": "m1",
+        "nint.explicit operator nint(int)": "m2",
+        "nint.explicit operator nint(long)": "m3",
+        "nint.operator !=(nint, nint)": "m4",
+        "nint.operator +(nint, int)": "m5",
+        "nint.operator -(nint, int)": "m6",
+        "nint.operator ==(nint, nint)": "m7",
+        "nuint.explicit operator nuint(uint)": "m8",
+        "nuint.explicit operator nuint(ulong)": "m9",
+        "nuint.explicit operator uint(nuint)": "m10",
+        "nuint.explicit operator ulong(nuint)": "m11",
+        "nuint.operator !=(nuint, nuint)": "m12",
+        "nuint.operator ==(nuint, nuint)": "m13",
+        "float.IsInfinity(float)": "m14",
+        "float.IsNaN(float)": "m15",
+        "float.operator !=(float, float)": "m16",
+        "float.operator <(float, float)": "m17",
+        "float.operator <=(float, float)": "m18",
+        "float.operator ==(float, float)": "m19",
+        "float.operator >(float, float)": "m20",
+        "float.operator >=(float, float)": "m21",
+        "double.IsInfinity(double)": "m22",
+        "double.IsNaN(double)": "m23",
+        "double.operator !=(double, double)": "m24",
+        "double.operator <(double, double)": "m25",
+        "double.operator <=(double, double)": "m26",
+        "double.operator ==(double, double)": "m27",
+        "double.operator >(double, double)": "m28",
+        "double.operator >=(double, double)": "m29",
+        "System.Half.explicit operator System.Half(decimal)": "m30",
+        "System.Half.explicit operator System.Half(double)": "m31",
+        "System.Half.explicit operator System.Half(float)": "m32",
+        "System.Half.explicit operator System.Half(int)": "m33",
+        "System.Half.explicit operator System.Half(long)": "m34",
+        "System.Half.explicit operator System.Half(nint)": "m35",
+        "System.Half.explicit operator System.Half(nuint)": "m36",
+        "System.Half.explicit operator System.Half(short)": "m37",
+        "System.Half.explicit operator System.Half(uint)": "m38",
+        "System.Half.explicit operator System.Half(ulong)": "m39",
+        "System.Half.explicit operator System.Half(ushort)": "m40",
+        "System.Half.explicit operator System.Int128(System.Half)": "m41",
+        "System.Half.explicit operator System.UInt128(System.Half)": "m42",
+        "System.Half.explicit operator byte(System.Half)": "m43",
+        "System.Half.explicit operator checked System.Int128(System.Half)": "m44",
+        "System.Half.explicit operator checked System.UInt128(System.Half)": "m45",
+        "System.Half.explicit operator checked byte(System.Half)": "m46",
+        "System.Half.explicit operator checked int(System.Half)": "m47",
+        "System.Half.explicit operator checked long(System.Half)": "m48",
+        "System.Half.explicit operator checked nint(System.Half)": "m49",
+        "System.Half.explicit operator checked nuint(System.Half)": "m50",
+        "System.Half.explicit operator checked sbyte(System.Half)": "m51",
+        "System.Half.explicit operator checked short(System.Half)": "m52",
+        "System.Half.explicit operator checked uint(System.Half)": "m53",
+        "System.Half.explicit operator checked ulong(System.Half)": "m54",
+        "System.Half.explicit operator checked ushort(System.Half)": "m55",
+        "System.Half.explicit operator decimal(System.Half)": "m56",
+        "System.Half.explicit operator double(System.Half)": "m57",
+        "System.Half.explicit operator float(System.Half)": "m58",
+        "System.Half.explicit operator int(System.Half)": "m59",
+        "System.Half.explicit operator long(System.Half)": "m60",
+        "System.Half.explicit operator nint(System.Half)": "m61",
+        "System.Half.explicit operator nuint(System.Half)": "m62",
+        "System.Half.explicit operator sbyte(System.Half)": "m63",
+        "System.Half.explicit operator short(System.Half)": "m64",
+        "System.Half.explicit operator uint(System.Half)": "m65",
+        "System.Half.explicit operator ulong(System.Half)": "m66",
+        "System.Half.explicit operator ushort(System.Half)": "m67",
+        "System.Half.implicit operator System.Half(byte)": "m68",
+        "System.Half.implicit operator System.Half(sbyte)": "m69",
+        "System.Half.operator !=(System.Half, System.Half)": "m70",
+        "System.Half.operator *(System.Half, System.Half)": "m71",
+        "System.Half.operator +(System.Half)": "m72",
+        "System.Half.operator +(System.Half, System.Half)": "m73",
+        "System.Half.operator -(System.Half)": "m74",
+        "System.Half.operator -(System.Half, System.Half)": "m75",
+        "System.Half.operator /(System.Half, System.Half)": "m76",
+        "System.Half.operator <(System.Half, System.Half)": "m77",
+        "System.Half.operator <=(System.Half, System.Half)": "m78",
+        "System.Half.operator ==(System.Half, System.Half)": "m79",
+        "System.Half.operator >(System.Half, System.Half)": "m80",
+        "System.Half.operator >=(System.Half, System.Half)": "m81",
+        "System.Int128.explicit operator System.Half(System.Int128)": "m82",
+        "System.Int128.explicit operator System.Int128(double)": "m83",
+        "System.Int128.explicit operator System.Int128(float)": "m84",
+        "System.Int128.explicit operator System.UInt128(System.Int128)": "m85",
+        "System.Int128.explicit operator byte(System.Int128)": "m86",
+        "System.Int128.explicit operator char(System.Int128)": "m87",
+        "System.Int128.explicit operator checked System.Int128(double)": "m88",
+        "System.Int128.explicit operator checked System.Int128(float)": "m89",
+        "System.Int128.explicit operator checked System.UInt128(System.Int128)": "m90",
+        "System.Int128.explicit operator checked byte(System.Int128)": "m91",
+        "System.Int128.explicit operator checked char(System.Int128)": "m92",
+        "System.Int128.explicit operator checked int(System.Int128)": "m93",
+        "System.Int128.explicit operator checked long(System.Int128)": "m94",
+        "System.Int128.explicit operator checked nint(System.Int128)": "m95",
+        "System.Int128.explicit operator checked nuint(System.Int128)": "m96",
+        "System.Int128.explicit operator checked sbyte(System.Int128)": "m97",
+        "System.Int128.explicit operator checked short(System.Int128)": "m98",
+        "System.Int128.explicit operator checked uint(System.Int128)": "m99",
+        "System.Int128.explicit operator checked ulong(System.Int128)": "m100",
+        "System.Int128.explicit operator checked ushort(System.Int128)": "m101",
+        "System.Int128.explicit operator decimal(System.Int128)": "m102",
+        "System.Int128.explicit operator double(System.Int128)": "m103",
+        "System.Int128.explicit operator float(System.Int128)": "m104",
+        "System.Int128.explicit operator int(System.Int128)": "m105",
+        "System.Int128.explicit operator long(System.Int128)": "m106",
+        "System.Int128.explicit operator nint(System.Int128)": "m107",
+        "System.Int128.explicit operator nuint(System.Int128)": "m108",
+        "System.Int128.explicit operator sbyte(System.Int128)": "m109",
+        "System.Int128.explicit operator short(System.Int128)": "m110",
+        "System.Int128.explicit operator uint(System.Int128)": "m111",
+        "System.Int128.explicit operator ulong(System.Int128)": "m112",
+        "System.Int128.explicit operator ushort(System.Int128)": "m113",
+        "System.Int128.implicit operator System.Int128(byte)": "m114",
+        "System.Int128.implicit operator System.Int128(char)": "m115",
+        "System.Int128.implicit operator System.Int128(int)": "m116",
+        "System.Int128.implicit operator System.Int128(long)": "m117",
+        "System.Int128.implicit operator System.Int128(nint)": "m118",
+        "System.Int128.implicit operator System.Int128(nuint)": "m119",
+        "System.Int128.implicit operator System.Int128(sbyte)": "m120",
+        "System.Int128.implicit operator System.Int128(short)": "m121",
+        "System.Int128.implicit operator System.Int128(uint)": "m122",
+        "System.Int128.implicit operator System.Int128(ulong)": "m123",
+        "System.Int128.implicit operator System.Int128(ushort)": "m124",
+        "System.Int128.operator !=(System.Int128, System.Int128)": "m125",
+        "System.Int128.operator %(System.Int128, System.Int128)": "m126",
+        "System.Int128.operator *(System.Int128, System.Int128)": "m127",
+        "System.Int128.operator +(System.Int128)": "m128",
+        "System.Int128.operator +(System.Int128, System.Int128)": "m129",
+        "System.Int128.operator -(System.Int128)": "m130",
+        "System.Int128.operator -(System.Int128, System.Int128)": "m131",
+        "System.Int128.operator /(System.Int128, System.Int128)": "m132",
+        "System.Int128.operator <(System.Int128, System.Int128)": "m133",
+        "System.Int128.operator <=(System.Int128, System.Int128)": "m134",
+        "System.Int128.operator ==(System.Int128, System.Int128)": "m135",
+        "System.Int128.operator >(System.Int128, System.Int128)": "m136",
+        "System.Int128.operator >=(System.Int128, System.Int128)": "m137",
+        "System.Int128.operator checked *(System.Int128, System.Int128)": "m138",
+        "System.Int128.operator checked +(System.Int128, System.Int128)": "m139",
+        "System.Int128.operator checked -(System.Int128)": "m140",
+        "System.Int128.operator checked -(System.Int128, System.Int128)": "m141",
+        "System.Int128.operator checked /(System.Int128, System.Int128)": "m142",
+        "System.UInt128.explicit operator System.Half(System.UInt128)": "m143",
+        "System.UInt128.explicit operator System.Int128(System.UInt128)": "m144",
+        "System.UInt128.explicit operator System.UInt128(double)": "m145",
+        "System.UInt128.explicit operator System.UInt128(float)": "m146",
+        "System.UInt128.explicit operator System.UInt128(int)": "m147",
+        "System.UInt128.explicit operator System.UInt128(long)": "m148",
+        "System.UInt128.explicit operator System.UInt128(nint)": "m149",
+        "System.UInt128.explicit operator System.UInt128(sbyte)": "m150",
+        "System.UInt128.explicit operator System.UInt128(short)": "m151",
+        "System.UInt128.explicit operator byte(System.UInt128)": "m152",
+        "System.UInt128.explicit operator char(System.UInt128)": "m153",
+        "System.UInt128.explicit operator checked System.Int128(System.UInt128)": "m154",
+        "System.UInt128.explicit operator checked System.UInt128(double)": "m155",
+        "System.UInt128.explicit operator checked System.UInt128(float)": "m156",
+        "System.UInt128.explicit operator checked System.UInt128(int)": "m157",
+        "System.UInt128.explicit operator checked System.UInt128(long)": "m158",
+        "System.UInt128.explicit operator checked System.UInt128(nint)": "m159",
+        "System.UInt128.explicit operator checked System.UInt128(sbyte)": "m160",
+        "System.UInt128.explicit operator checked System.UInt128(short)": "m161",
+        "System.UInt128.explicit operator checked byte(System.UInt128)": "m162",
+        "System.UInt128.explicit operator checked char(System.UInt128)": "m163",
+        "System.UInt128.explicit operator checked int(System.UInt128)": "m164",
+        "System.UInt128.explicit operator checked long(System.UInt128)": "m165",
+        "System.UInt128.explicit operator checked nint(System.UInt128)": "m166",
+        "System.UInt128.explicit operator checked nuint(System.UInt128)": "m167",
+        "System.UInt128.explicit operator checked sbyte(System.UInt128)": "m168",
+        "System.UInt128.explicit operator checked short(System.UInt128)": "m169",
+        "System.UInt128.explicit operator checked uint(System.UInt128)": "m170",
+        "System.UInt128.explicit operator checked ulong(System.UInt128)": "m171",
+        "System.UInt128.explicit operator checked ushort(System.UInt128)": "m172",
+        "System.UInt128.explicit operator decimal(System.UInt128)": "m173",
+        "System.UInt128.explicit operator double(System.UInt128)": "m174",
+        "System.UInt128.explicit operator float(System.UInt128)": "m175",
+        "System.UInt128.explicit operator int(System.UInt128)": "m176",
+        "System.UInt128.explicit operator long(System.UInt128)": "m177",
+        "System.UInt128.explicit operator nint(System.UInt128)": "m178",
+        "System.UInt128.explicit operator nuint(System.UInt128)": "m179",
+        "System.UInt128.explicit operator sbyte(System.UInt128)": "m180",
+        "System.UInt128.explicit operator short(System.UInt128)": "m181",
+        "System.UInt128.explicit operator uint(System.UInt128)": "m182",
+        "System.UInt128.explicit operator ulong(System.UInt128)": "m183",
+        "System.UInt128.explicit operator ushort(System.UInt128)": "m184",
+        "System.UInt128.implicit operator System.UInt128(byte)": "m185",
+        "System.UInt128.implicit operator System.UInt128(char)": "m186",
+        "System.UInt128.implicit operator System.UInt128(nuint)": "m187",
+        "System.UInt128.implicit operator System.UInt128(uint)": "m188",
+        "System.UInt128.implicit operator System.UInt128(ulong)": "m189",
+        "System.UInt128.implicit operator System.UInt128(ushort)": "m190",
+        "System.UInt128.operator !=(System.UInt128, System.UInt128)": "m191",
+        "System.UInt128.operator %(System.UInt128, System.UInt128)": "m192",
+        "System.UInt128.operator *(System.UInt128, System.UInt128)": "m193",
+        "System.UInt128.operator +(System.UInt128)": "m194",
+        "System.UInt128.operator +(System.UInt128, System.UInt128)": "m195",
+        "System.UInt128.operator -(System.UInt128)": "m196",
+        "System.UInt128.operator -(System.UInt128, System.UInt128)": "m197",
+        "System.UInt128.operator /(System.UInt128, System.UInt128)": "m198",
+        "System.UInt128.operator <(System.UInt128, System.UInt128)": "m199",
+        "System.UInt128.operator <=(System.UInt128, System.UInt128)": "m200",
+        "System.UInt128.operator ==(System.UInt128, System.UInt128)": "m201",
+        "System.UInt128.operator >(System.UInt128, System.UInt128)": "m202",
+        "System.UInt128.operator >=(System.UInt128, System.UInt128)": "m203",
+        "System.UInt128.operator checked *(System.UInt128, System.UInt128)": "m204",
+        "System.UInt128.operator checked +(System.UInt128, System.UInt128)": "m205",
+        "System.UInt128.operator checked -(System.UInt128)": "m206",
+        "System.UInt128.operator checked -(System.UInt128, System.UInt128)": "m207",
+        "System.UInt128.operator checked /(System.UInt128, System.UInt128)": "m208",
+        "System.Numerics.BigInteger.explicit operator System.Half(System.Numerics.BigInteger)": "m209",
+        "System.Numerics.BigInteger.explicit operator System.Int128(System.Numerics.BigInteger)": "m210",
+        "System.Numerics.BigInteger.explicit operator System.Numerics.BigInteger(System.Half)": "m211",
+        "System.Numerics.BigInteger.explicit operator System.Numerics.BigInteger(double)": "m212",
+        "System.Numerics.BigInteger.explicit operator System.Numerics.BigInteger(float)": "m213",
+        "System.Numerics.BigInteger.explicit operator System.UInt128(System.Numerics.BigInteger)": "m214",
+        "System.Numerics.BigInteger.explicit operator byte(System.Numerics.BigInteger)": "m215",
+        "System.Numerics.BigInteger.explicit operator char(System.Numerics.BigInteger)": "m216",
+        "System.Numerics.BigInteger.explicit operator decimal(System.Numerics.BigInteger)": "m217",
+        "System.Numerics.BigInteger.explicit operator double(System.Numerics.BigInteger)": "m218",
+        "System.Numerics.BigInteger.explicit operator float(System.Numerics.BigInteger)": "m219",
+        "System.Numerics.BigInteger.explicit operator int(System.Numerics.BigInteger)": "m220",
+        "System.Numerics.BigInteger.explicit operator long(System.Numerics.BigInteger)": "m221",
+        "System.Numerics.BigInteger.explicit operator nint(System.Numerics.BigInteger)": "m222",
+        "System.Numerics.BigInteger.explicit operator nuint(System.Numerics.BigInteger)": "m223",
+        "System.Numerics.BigInteger.explicit operator sbyte(System.Numerics.BigInteger)": "m224",
+        "System.Numerics.BigInteger.explicit operator short(System.Numerics.BigInteger)": "m225",
+        "System.Numerics.BigInteger.explicit operator uint(System.Numerics.BigInteger)": "m226",
+        "System.Numerics.BigInteger.explicit operator ulong(System.Numerics.BigInteger)": "m227",
+        "System.Numerics.BigInteger.explicit operator ushort(System.Numerics.BigInteger)": "m228",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(System.Int128)": "m229",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(System.UInt128)": "m230",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(byte)": "m231",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(char)": "m232",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(int)": "m233",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(long)": "m234",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(nint)": "m235",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(nuint)": "m236",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(sbyte)": "m237",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(short)": "m238",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(uint)": "m239",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(ulong)": "m240",
+        "System.Numerics.BigInteger.implicit operator System.Numerics.BigInteger(ushort)": "m241",
+        "System.Numerics.BigInteger.operator !=(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m242",
+        "System.Numerics.BigInteger.operator !=(System.Numerics.BigInteger, long)": "m243",
+        "System.Numerics.BigInteger.operator !=(System.Numerics.BigInteger, ulong)": "m244",
+        "System.Numerics.BigInteger.operator !=(long, System.Numerics.BigInteger)": "m245",
+        "System.Numerics.BigInteger.operator !=(ulong, System.Numerics.BigInteger)": "m246",
+        "System.Numerics.BigInteger.operator %(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m247",
+        "System.Numerics.BigInteger.operator *(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m248",
+        "System.Numerics.BigInteger.operator +(System.Numerics.BigInteger)": "m249",
+        "System.Numerics.BigInteger.operator +(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m250",
+        "System.Numerics.BigInteger.operator -(System.Numerics.BigInteger)": "m251",
+        "System.Numerics.BigInteger.operator -(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m252",
+        "System.Numerics.BigInteger.operator /(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m253",
+        "System.Numerics.BigInteger.operator <(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m254",
+        "System.Numerics.BigInteger.operator <(System.Numerics.BigInteger, long)": "m255",
+        "System.Numerics.BigInteger.operator <(System.Numerics.BigInteger, ulong)": "m256",
+        "System.Numerics.BigInteger.operator <(long, System.Numerics.BigInteger)": "m257",
+        "System.Numerics.BigInteger.operator <(ulong, System.Numerics.BigInteger)": "m258",
+        "System.Numerics.BigInteger.operator <=(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m259",
+        "System.Numerics.BigInteger.operator <=(System.Numerics.BigInteger, long)": "m260",
+        "System.Numerics.BigInteger.operator <=(System.Numerics.BigInteger, ulong)": "m261",
+        "System.Numerics.BigInteger.operator <=(long, System.Numerics.BigInteger)": "m262",
+        "System.Numerics.BigInteger.operator <=(ulong, System.Numerics.BigInteger)": "m263",
+        "System.Numerics.BigInteger.operator ==(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m264",
+        "System.Numerics.BigInteger.operator ==(System.Numerics.BigInteger, long)": "m265",
+        "System.Numerics.BigInteger.operator ==(System.Numerics.BigInteger, ulong)": "m266",
+        "System.Numerics.BigInteger.operator ==(long, System.Numerics.BigInteger)": "m267",
+        "System.Numerics.BigInteger.operator ==(ulong, System.Numerics.BigInteger)": "m268",
+        "System.Numerics.BigInteger.operator >(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m269",
+        "System.Numerics.BigInteger.operator >(System.Numerics.BigInteger, long)": "m270",
+        "System.Numerics.BigInteger.operator >(System.Numerics.BigInteger, ulong)": "m271",
+        "System.Numerics.BigInteger.operator >(long, System.Numerics.BigInteger)": "m272",
+        "System.Numerics.BigInteger.operator >(ulong, System.Numerics.BigInteger)": "m273",
+        "System.Numerics.BigInteger.operator >=(System.Numerics.BigInteger, System.Numerics.BigInteger)": "m274",
+        "System.Numerics.BigInteger.operator >=(System.Numerics.BigInteger, long)": "m275",
+        "System.Numerics.BigInteger.operator >=(System.Numerics.BigInteger, ulong)": "m276",
+        "System.Numerics.BigInteger.operator >=(long, System.Numerics.BigInteger)": "m277",
+        "System.Numerics.BigInteger.operator >=(ulong, System.Numerics.BigInteger)": "m278"
+      }
+    },
+    {
+      "id": "d6-member-inventory",
+      "reference": "d6-member-inventory",
+      "package": "Example",
+      "namespaces": [
+        "Example.Completion"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d6-member-inventory/csharp/Input.cs"
+      ],
+      "features": [
+        "D6.member-inventory"
+      ],
+      "members": {
+        "decimal.Abs(decimal)": "m0",
+        "decimal.Add(decimal, decimal)": "m1",
+        "decimal.Decimal(double)": "m2",
+        "decimal.Decimal(float)": "m3",
+        "decimal.Decimal(int)": "m4",
+        "decimal.Decimal(long)": "m5",
+        "decimal.Decimal(uint)": "m6",
+        "decimal.Decimal(ulong)": "m7",
+        "decimal.Equals(decimal)": "m8",
+        "decimal.Equals(decimal, decimal)": "m9",
+        "decimal.MinusOne": "m10",
+        "decimal.Multiply(decimal, decimal)": "m11",
+        "decimal.Negate(decimal)": "m12",
+        "decimal.One": "m13",
+        "decimal.Round(decimal)": "m14",
+        "decimal.Subtract(decimal, decimal)": "m15",
+        "decimal.Truncate(decimal)": "m16",
+        "decimal.Zero": "m17",
+        "decimal.explicit operator decimal(double)": "m18",
+        "decimal.explicit operator decimal(float)": "m19",
+        "decimal.explicit operator double(decimal)": "m20",
+        "decimal.explicit operator float(decimal)": "m21",
+        "decimal.implicit operator decimal(byte)": "m22",
+        "decimal.implicit operator decimal(int)": "m23",
+        "decimal.implicit operator decimal(long)": "m24",
+        "decimal.implicit operator decimal(sbyte)": "m25",
+        "decimal.implicit operator decimal(short)": "m26",
+        "decimal.implicit operator decimal(uint)": "m27",
+        "decimal.implicit operator decimal(ulong)": "m28",
+        "decimal.implicit operator decimal(ushort)": "m29",
+        "decimal.operator !=(decimal, decimal)": "m30",
+        "decimal.operator *(decimal, decimal)": "m31",
+        "decimal.operator +(decimal)": "m32",
+        "decimal.operator +(decimal, decimal)": "m33",
+        "decimal.operator -(decimal)": "m34",
+        "decimal.operator -(decimal, decimal)": "m35",
+        "decimal.operator <(decimal, decimal)": "m36",
+        "decimal.operator <=(decimal, decimal)": "m37",
+        "decimal.operator ==(decimal, decimal)": "m38",
+        "decimal.operator >(decimal, decimal)": "m39",
+        "decimal.operator >=(decimal, decimal)": "m40"
+      }
+    },
+    {
+      "id": "d7-clock-provider",
+      "reference": "d7-clock-provider",
+      "package": "ClockSpec",
+      "namespaces": [
+        "ClockSpec"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d7-clock-provider/csharp/Input.cs"
+      ],
+      "features": [
+        "D7.configured-effectful-metadata-property"
+      ]
+    },
+    {
+      "id": "d7-clock-call",
+      "reference": "d7-clock-call",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d7-clock-call/csharp/Input.cs"
+      ],
+      "features": [
+        "D7.configured-effectful-metadata-property"
+      ],
+      "dependency": "ClockSpec",
+      "dependencyType": "System.Environment",
+      "dependencyMember": "get_TickCount",
+      "dependencyValue": "TickCount"
     }
   ],
   "auditIds": [
-    "N1",
     "A1",
+    "A10",
     "A4",
     "A6",
     "A7",
-    "A10",
-    "D2",
-    "C9",
+    "C1",
     "C10",
-    "O1",
-    "T3",
-    "S2",
+    "C2",
+    "C4",
+    "C5",
+    "C6",
+    "C9",
+    "D1",
+    "D2",
+    "D4",
+    "D5",
     "G1",
     "G3",
     "G4",
-    "D1"
+    "N1",
+    "N2",
+    "N5",
+    "N6",
+    "N7",
+    "O1",
+    "O11",
+    "O2",
+    "O8",
+    "O9",
+    "S2",
+    "S3",
+    "S4",
+    "S6",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T6"
   ],
   "provenanceInputs": [
     "samples/CurrentSupportedExample/ClassicLoan.cs",
@@ -903,5 +1751,31 @@
     "samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj",
     "samples/CurrentSupportedGenerator/packages.lock.json",
     "eng/reference-toolchain.json"
+  ],
+  "rejectedAuditIds": [
+    "A2",
+    "A3",
+    "A5",
+    "A8",
+    "A9",
+    "C3",
+    "C7",
+    "C8",
+    "D3",
+    "D6",
+    "D7",
+    "G2",
+    "G5",
+    "N3",
+    "N4",
+    "O10",
+    "O3",
+    "O4",
+    "O5",
+    "O6",
+    "O7",
+    "S1",
+    "S5",
+    "T1"
   ]
 }

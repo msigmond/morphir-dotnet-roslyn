@@ -31,6 +31,7 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
     private INamedTypeSymbol? currentType;
     private IrType<Unit> currentOutput = Types.Unit;
     private Name currentReceiver = Name.From("this");
+    private readonly Dictionary<ISymbol,IrType<Unit>> inferredLocalTypes=new(SymbolEqualityComparer.Default);
     private static readonly SymbolDisplayFormat Display = SymbolDisplayFormat.FullyQualifiedFormat.WithMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers);
     private static string Id(ISymbol symbol) => symbol.ContainingAssembly?.Identity + "::" + (symbol.OriginalDefinition.GetDocumentationCommentId() ?? symbol.ToDisplayString(Display) + "@" + symbol.Locations.FirstOrDefault()?.SourceSpan.Start);
     private SemanticModel Semantic(SyntaxNode node) => compilations.Single(c => c.SyntaxTrees.Contains(node.SyntaxTree)).GetSemanticModel(node.SyntaxTree);
@@ -193,8 +194,9 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
         if (symbol is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T } nullableValue) return Types.Maybe(Type(nullableValue.TypeArguments[0], location: location));
         if (annotations && syntax is null && symbol.IsReferenceType && symbol.NullableAnnotation == NullableAnnotation.Annotated) return Types.Maybe(Type(symbol.WithNullableAnnotation(NullableAnnotation.NotAnnotated), location: location));
         if (symbol.IsRefLikeType || symbol is IPointerTypeSymbol or IFunctionPointerTypeSymbol) return Fail<IrType<Unit>>("MCS2003", "Ref-like and pointer types have no delivered source mapping.", location);
-        if (symbol is IArrayTypeSymbol) return Fail<IrType<Unit>>("MCS4001", "Array and params types need an approved standard Elm mapping.", location);
+        if (symbol is IArrayTypeSymbol array) return paramsArrays.Contains(array) ? Types.List(Type(array.ElementType, location: location)) : Fail<IrType<Unit>>("MCS3101", "General array types require D11.", location);
         if (symbol is ITypeParameterSymbol parameter) return new VariableType<Unit>(default, Name.From(parameter.Name));
+        if (symbol is INamedTypeSymbol { IsTupleType:true, TupleElements.Length:<2 }) return Fail<IrType<Unit>>("MCS4001","Empty and one-element CLR tuples need an approved Elm representation.",location);
         if (symbol is INamedTypeSymbol { IsTupleType: true } tuple) return new TupleType<Unit>(default, tuple.TupleElements.Select((element, i) => Type(element.Type, (syntax as TupleTypeSyntax)?.Elements[i].Type, location, annotations)).ToArray());
         if (symbol.SpecialType == SpecialType.System_Void) return Types.Unit;
         if (symbol.SpecialType == SpecialType.System_Boolean) return Types.Bool;
@@ -204,6 +206,18 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
         if (symbol.SpecialType is SpecialType.System_Single or SpecialType.System_Double || symbol.ToDisplayString() == "System.Half") return Types.Float;
         if (symbol.SpecialType is SpecialType.System_Byte or SpecialType.System_SByte or SpecialType.System_Int16 or SpecialType.System_UInt16 or SpecialType.System_Int32 or SpecialType.System_UInt32 or SpecialType.System_Int64 or SpecialType.System_UInt64 or SpecialType.System_IntPtr or SpecialType.System_UIntPtr || symbol.ToDisplayString() is "System.Int128" or "System.UInt128" or "System.Numerics.BigInteger") return Types.Int;
         if (symbol is not INamedTypeSymbol named) return Fail<IrType<Unit>>("MCS2104", $"Type {symbol} has no delivered source mapping.", location);
+        if (!SourceSymbol(named) && named.ContainingNamespace.ToDisplayString() == "System" && named.Name is "Tuple" or "ValueTuple")
+        {
+            if(named.TypeArguments.Length<2)return Fail<IrType<Unit>>("MCS4001","Empty and one-element CLR tuples need an approved Elm representation.",location);
+            return new TupleType<Unit>(default, named.TypeArguments.Select((t, i) => Type(t, GenericArguments(syntax).ElementAtOrDefault(i), location, annotations)).ToArray());
+        }
+        if (!SourceSymbol(named) && named.TypeKind == TypeKind.Delegate && named.ContainingNamespace.ToDisplayString() == "System" && named.Name is "Func" or "Action")
+        {
+            var arguments = named.TypeArguments.Select((t, i) => Type(t, GenericArguments(syntax).ElementAtOrDefault(i), location, annotations)).ToArray();
+            IrType<Unit> function = named.Name == "Func" ? arguments[^1] : Types.Unit;
+            foreach (var argument in arguments.Take(named.Name == "Func" ? arguments.Length - 1 : arguments.Length).Reverse()) function = Types.Function(argument, function);
+            return function;
+        }
         if (SourceSymbol(named!))
         {
             if (!identities.TryGetValue(Id(named.OriginalDefinition), out var identity)) return Fail<IrType<Unit>>("MCS2201", $"Required source type {symbol} in namespace {symbol.ContainingNamespace} is not selected.", location);

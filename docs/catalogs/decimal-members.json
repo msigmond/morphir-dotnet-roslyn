@@ -1,26 +1,38 @@
 {
-  "outputScope": "Only listed, exactly tested metadata operators are supported. Other historical Source-mode member claims are pending. Complete frontend parity uses morphir-elm make.",
+  "outputScope": "Approved mappings have complete Elm make parity. Unmapped D5/D6 forms have executable rejection inputs; later owner entries retain their gates.",
   "referencePack": "Microsoft.NETCore.App.Ref/10.0.0",
   "roslyn": "5.0.0",
   "policy": "Exact pinned declaration inventory retained. Supported entries use source operations. Pending entries retain signature/type/syntax closure work, not runtime proof work.",
   "members": [
     {
       "member": "decimal.Abs(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Add(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Ceiling(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Ceiling(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.Clamp(decimal, decimal, decimal)",
@@ -30,15 +42,23 @@
     },
     {
       "member": "decimal.Compare(decimal, decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Compare(decimal, decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.CompareTo(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.CompareTo(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.CompareTo(object?)",
@@ -84,9 +104,13 @@
     },
     {
       "member": "decimal.Decimal()",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Decimal()"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.Decimal(System.ReadOnlySpan<int>)",
@@ -97,29 +121,43 @@
     },
     {
       "member": "decimal.Decimal(double)",
-      "state": "required-rejection",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation.",
-      "evidence": "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d6-member-inventory"
+      ]
     },
     {
       "member": "decimal.Decimal(float)",
-      "state": "required-rejection",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation.",
-      "evidence": "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d6-member-inventory"
+      ]
     },
     {
       "member": "decimal.Decimal(int)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Decimal(int, int, int, bool, byte)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Decimal(int, int, int, bool, byte)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.Decimal(int[])",
@@ -129,39 +167,66 @@
     },
     {
       "member": "decimal.Decimal(long)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Decimal(uint)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Decimal(ulong)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Divide(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Accepted only in an explicit nullable Decimal result context, as Decimal.div. A plain Decimal result remains rejected.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Divide(decimal, decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d6-approved-division"
+      ]
     },
     {
       "member": "decimal.Equals(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Equals(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Equals(object?)",
@@ -171,9 +236,13 @@
     },
     {
       "member": "decimal.Floor(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Floor(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.FromOACurrency(long)",
@@ -226,9 +295,13 @@
     },
     {
       "member": "decimal.IsNegative(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.IsNegative(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.IsOddInteger(decimal)",
@@ -244,9 +317,13 @@
     },
     {
       "member": "decimal.Max(decimal, decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Max(decimal, decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.MaxMagnitude(decimal, decimal)",
@@ -256,15 +333,23 @@
     },
     {
       "member": "decimal.MaxValue",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.MaxValue"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.Min(decimal, decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Min(decimal, decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.MinMagnitude(decimal, decimal)",
@@ -274,33 +359,53 @@
     },
     {
       "member": "decimal.MinValue",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.MinValue"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.MinusOne",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Multiply(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Negate(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.One",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Parse(System.ReadOnlySpan<byte>, System.Globalization.NumberStyles, System.IFormatProvider?)",
@@ -356,51 +461,83 @@
     },
     {
       "member": "decimal.Remainder(decimal, decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Remainder(decimal, decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.Round(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.Round(decimal, System.MidpointRounding)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D8",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "The user approved explicit rejection of unsupported rounding-mode and precision signatures.",
+      "rejectionCases": [
+        "form:decimal-rounding-mode"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.Round(decimal, int)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Round(decimal, int)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.Round(decimal, int, System.MidpointRounding)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D8",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "The user approved explicit rejection of unsupported rounding-mode and precision signatures.",
+      "rejectionCases": [
+        "form:decimal-precision-mode"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.Scale",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Scale"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.Sign(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Sign(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.Subtract(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.ToByte(decimal)",
@@ -452,9 +589,13 @@
     },
     {
       "member": "decimal.ToString()",
-      "state": "pending",
+      "state": "supported",
       "owner": "D18.4",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Direct Decimal SDK mapping for this signature.",
+      "parityCases": [
+        "d6-sdk-members"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.ToString(System.IFormatProvider?)",
@@ -494,9 +635,13 @@
     },
     {
       "member": "decimal.Truncate(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.TryFormat(System.Span<byte>, out int, System.ReadOnlySpan<char>, System.IFormatProvider?)",
@@ -581,182 +726,283 @@
     },
     {
       "member": "decimal.Zero",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.explicit operator byte(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.explicit operator byte(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.explicit operator char(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.explicit operator char(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.explicit operator decimal(double)",
-      "state": "required-rejection",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation.",
-      "evidence": "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d6-member-inventory"
+      ]
     },
     {
       "member": "decimal.explicit operator decimal(float)",
-      "state": "required-rejection",
+      "state": "supported",
       "owner": "D6",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation.",
-      "evidence": "DecimalTests.UnprovedDecimalFailureOrInexactConstructionFailsWholeConversion"
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d6-member-inventory"
+      ]
     },
     {
       "member": "decimal.explicit operator double(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.explicit operator float(decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.explicit operator int(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.explicit operator int(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.explicit operator long(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.explicit operator long(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.explicit operator sbyte(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.explicit operator sbyte(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.explicit operator short(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.explicit operator short(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.explicit operator uint(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.explicit operator uint(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.explicit operator ulong(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.explicit operator ulong(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.explicit operator ushort(decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.explicit operator ushort(decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.implicit operator decimal(byte)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.implicit operator decimal(char)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.implicit operator decimal(char)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.implicit operator decimal(int)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.implicit operator decimal(long)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.implicit operator decimal(sbyte)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.implicit operator decimal(short)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.implicit operator decimal(uint)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.implicit operator decimal(ulong)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.implicit operator decimal(ushort)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator !=(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator %(decimal, decimal)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Unmapped source form remains rejected under the user-approved boundary. No helper or fallback is added.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.operator %(decimal, decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs"
     },
     {
       "member": "decimal.operator *(decimal, decimal)",
       "state": "supported",
       "owner": "D6",
-      "domain": "Exact whole-JSON parity for this operator and its listed operand types.",
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
       "parityCases": [
-        "decimal-operators"
-      ]
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator +(decimal)",
       "state": "supported",
       "owner": "D6",
-      "domain": "Exact whole-JSON parity for the Decimal unary operation.",
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
       "parityCases": [
-        "decimal-literals"
-      ]
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator +(decimal, decimal)",
       "state": "supported",
       "owner": "D6",
-      "domain": "Exact whole-JSON parity for this operator and its listed operand types.",
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
       "parityCases": [
-        "decimal-operators"
-      ]
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator ++(decimal)",
@@ -768,19 +1014,21 @@
       "member": "decimal.operator -(decimal)",
       "state": "supported",
       "owner": "D6",
-      "domain": "Exact whole-JSON parity for the Decimal unary operation.",
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
       "parityCases": [
-        "decimal-literals"
-      ]
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator -(decimal, decimal)",
       "state": "supported",
       "owner": "D6",
-      "domain": "Exact whole-JSON parity for this operator and its listed operand types.",
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
       "parityCases": [
-        "decimal-operators"
-      ]
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator --(decimal)",
@@ -790,39 +1038,66 @@
     },
     {
       "member": "decimal.operator /(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "Accepted only in an explicit nullable Decimal result context, as Decimal.div. A plain Decimal result remains rejected.",
+      "rejectionCases": [
+        "member:decimal-members:decimal.operator /(decimal, decimal)"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "d6-approved-division"
+      ]
     },
     {
       "member": "decimal.operator <(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator <=(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator ==(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator >(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "member": "decimal.operator >=(decimal, decimal)",
-      "state": "pending",
+      "state": "supported",
       "owner": "D6",
-      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
+      "domain": "The paired input shows the approved source spelling and direct SDK/carrier mapping for this exact member.",
+      "parityCases": [
+        "d6-member-inventory"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     }
   ]
 }

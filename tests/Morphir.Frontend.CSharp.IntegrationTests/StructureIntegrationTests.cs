@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Morphir.Frontend.CSharp.ProjectSystem;
 using Morphir.IR.Json;
 using Morphir.Tests;
@@ -66,6 +68,45 @@ public class StructureIntegrationTests
         Assert.Null(StructuralComparison.Compare(ElmParity.Expected("project-generated"),File.ReadAllText(output)));
     }
     [Fact]
+    public async Task ProjectConfigurationsPreserveBindingOptionsAndExactElmOutput()
+    {
+        var project=System.IO.Path.Combine(Support.Root,"fixtures/elm-parity/d2-project-options/D2Options.csproj");
+        foreach(var configuration in new[]{"Debug","Release"})
+        {
+            var loaded=await ProjectLoader.LoadAsync(project,new("net10.0",configuration));
+            Assert.True(loaded.Success,string.Join("\n",loaded.Diagnostics));
+            Assert.Equal(configuration=="Debug",loaded.Compilation!.Options.CheckOverflow);
+            Assert.Equal(Platform.X64,loaded.Compilation.Options.Platform);
+            Assert.All(loaded.Compilation.SyntaxTrees,t=>Assert.Equal(LanguageVersion.CSharp14,((CSharpParseOptions)t.Options).LanguageVersion));
+            var result=Frontend.Convert(loaded.Compilation,new("Example",["Example.CurrentSupported","Example.Parity"]),loaded.SourceProjects);
+            Assert.Null(StructuralComparison.Compare(ElmParity.Expected("d2-options-"+configuration.ToLowerInvariant()),Codec.Encode(Support.Success(result))));
+        }
+    }
+    [Fact]
+    public async Task CompilerAndGeneratorFailuresAreAtomicInProjectMode()
+    {
+        var source=System.IO.Path.Combine(Support.Root,"fixtures/elm-parity/d2-project-options");
+        var folder=System.IO.Path.Combine(Support.Root,"artifacts","d2-failures-"+Guid.NewGuid().ToString("N"));
+        CopyTree(source,folder);
+        var project=System.IO.Path.Combine(folder,"D2Options.csproj");
+        var xml=File.ReadAllText(project).Replace("../../../samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj",System.IO.Path.Combine(Support.Root,"samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj"),StringComparison.Ordinal);
+        File.WriteAllText(project,xml);
+        var restore=await Run("dotnet",["restore",project,"--locked-mode","--packages",System.IO.Path.Combine(Support.Root,".packages"),"-m:1","-nr:false"]);
+        Assert.True(restore.Exit==0,restore.Text);
+        var output=System.IO.Path.Combine(folder,"existing.json");var previous=System.Text.Encoding.UTF8.GetBytes("preserve this output");
+        foreach(var scenario in new[]{"diagnostic","exception","compiler"})
+        {
+            File.WriteAllBytes(output,previous);
+            File.WriteAllText(System.IO.Path.Combine(folder,"threshold.txt"),scenario=="exception"?"-1":"invalid");
+            File.WriteAllText(project,scenario=="exception"?xml.Replace("<Threshold>18</Threshold>","<Threshold>-1</Threshold>",StringComparison.Ordinal):xml);
+            if(scenario=="compiler")File.WriteAllText(System.IO.Path.Combine(folder,"csharp/Input.cs"),"invalid C#");
+            var failed=await Cli(["--project",project,"--framework","net10.0","--package","Example","--namespace","Example.CurrentSupported","--namespace","Example.Parity","--output",output]);
+            Assert.Equal(1,failed.Exit);Assert.Equal(previous,File.ReadAllBytes(output));
+            Assert.Contains(scenario=="exception"?"Generator failure fixture":scenario=="compiler"?"error":"D2GEN001",failed.Text);
+        }
+        Assert.False((await ProjectLoader.LoadAsync(project,new("net9.0"))).Success);
+    }
+    [Fact]
     public async Task ProjectLoaderStillAcquiresGeneratorsAndCompilerInputs()
     {
         var project=System.IO.Path.Combine(Support.Root,"samples/CurrentSupportedExample/CurrentSupportedExample.csproj");
@@ -81,7 +122,7 @@ public class StructureIntegrationTests
     {
         Directory.CreateDirectory(target);
         foreach(var file in Directory.GetFiles(source))File.Copy(file,System.IO.Path.Combine(target,System.IO.Path.GetFileName(file)),true);
-        foreach(var directory in Directory.GetDirectories(source))CopyTree(directory,System.IO.Path.Combine(target,System.IO.Path.GetFileName(directory)));
+        foreach(var directory in Directory.GetDirectories(source).Where(d=>System.IO.Path.GetFileName(d) is not ("bin" or "obj")))CopyTree(directory,System.IO.Path.Combine(target,System.IO.Path.GetFileName(directory)));
     }
     private static Task<(int Exit,string Text)> Cli(string[] arguments)
     {
@@ -91,11 +132,20 @@ public class StructureIntegrationTests
     private static async Task<(int Exit,string Text)> Run(string executable,string[] arguments,string? workingDirectory=null)
     {
         var start=new ProcessStartInfo(executable){RedirectStandardOutput=true,RedirectStandardError=true,WorkingDirectory=workingDirectory??Support.Root};
+        start.Environment["MSBUILDDISABLENODEREUSE"]="1";
         foreach(var arg in arguments)start.ArgumentList.Add(arg);
         using var process=Process.Start(start)!;
-        var stdout=process.StandardOutput.ReadToEndAsync();var stderr=process.StandardError.ReadToEndAsync();
         using var timeout=new CancellationTokenSource(TimeSpan.FromSeconds(90));
-        try{await process.WaitForExitAsync(timeout.Token);}catch{process.Kill(true);throw;}
-        return(process.ExitCode,await stdout+await stderr);
+        var stdout=process.StandardOutput.ReadToEndAsync(timeout.Token);var stderr=process.StandardError.ReadToEndAsync(timeout.Token);
+        try
+        {
+            await process.WaitForExitAsync(timeout.Token);
+            return(process.ExitCode,await stdout+await stderr);
+        }
+        catch
+        {
+            if(!process.HasExited)process.Kill(true);
+            throw;
+        }
     }
 }

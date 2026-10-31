@@ -13,4 +13,6 @@
   <Project Path="samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj"/>
   <Project Path="fixtures/elm-parity/project-generated/Project.csproj"/>
   <Project Path="fixtures/elm-parity/project-generated/Shared/Shared.csproj"/>
+  <Project Path="fixtures/elm-parity/d2-project-options/D2Options.csproj"/>
+  <Project Path="fixtures/elm-parity/d2-project-options/Shared/D2OptionsShared.csproj"/>
 </Solution>

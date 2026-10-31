@@ -11,10 +11,10 @@
       "representation": "SDK Bool.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -36,10 +36,10 @@
       "representation": "SDK Char and CharLiteral.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -67,10 +67,10 @@
       "representation": "SDK String; Maybe only for explicit nullable types.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -132,13 +132,13 @@
       "version": "10.0.0",
       "owner": "D6",
       "state": "supported",
-      "representation": "SDK Decimal and DecimalLiteral; no CLR coefficient/helper records.",
+      "representation": "SDK Decimal; literals use the approved Decimal.fromFloat call. No CLR coefficient/helper records.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -153,7 +153,9 @@
       "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
       "parityCases": [
         "decimal-operators",
-        "reported-products"
+        "reported-products",
+        "d6-sdk-members",
+        "d6-named-constants"
       ],
       "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
@@ -162,13 +164,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -192,13 +194,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -222,13 +224,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -252,13 +254,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -282,13 +284,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -312,13 +314,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -342,13 +344,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -372,13 +374,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -402,13 +404,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -432,13 +434,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -462,13 +464,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Float; source precision and literal spelling remain in metadata.",
+      "representation": "SDK Float; written literal values are parsed without CLR Single quantization. No source metadata envelope.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -492,13 +494,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Float; source precision and literal spelling remain in metadata.",
+      "representation": "SDK Float; written literal values are parsed without CLR Single quantization. No source metadata envelope.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -522,13 +524,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Float; source precision and literal spelling remain in metadata.",
+      "representation": "SDK Float; written literal values are parsed without CLR Single quantization. No source metadata envelope.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -552,13 +554,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -582,13 +584,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -612,13 +614,13 @@
       "version": "10.0.0",
       "owner": "D5",
       "state": "supported",
-      "representation": "SDK Int; source width/signedness/type remain in metadata. No limb or wrapping helpers.",
+      "representation": "SDK Int; width and signedness use the approved scalar carrier. No limb or wrapping helpers.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
-        "fixtures/source-structure/contract.json"
+        "fixtures/elm-parity/cases.json"
       ],
       "negativeFixtures": [
-        "tests/Morphir.Frontend.CSharp.Tests/SourceStructureTests.cs"
+        "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs"
       ],
       "boundaryFixtures": [
         "tests/Morphir.Frontend.CSharp.Tests/AuditMatrixTests.cs"
@@ -641,8 +643,8 @@
       "type": "System.Numerics.Complex",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "pending",
-      "representation": "Named intrinsic source type; source constructors/operators/members.",
+      "state": "required-rejection",
+      "representation": "No approved standard Elm representation. Explicit rejection; no compatibility type.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
         "fixtures/source-structure/contract.json"
@@ -662,7 +664,10 @@
       ],
       "memberInventory": "numeric-members.json",
       "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
-      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/MemberRejectionTests.cs",
+      "rejectionCases": [
+        "form:complex"
+      ]
     },
     {
       "type": "System.DateOnly",

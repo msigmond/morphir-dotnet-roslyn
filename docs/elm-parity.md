@@ -34,12 +34,15 @@ If the Elm counterpart or mapping is unclear, ask the user before implementation
 Unmapped forms retain an explicit source-located failure and atomic output.
 Do not implement a requested feature as a custom Source node to avoid the parity gate.
 
+## Current profile
+
+D1–D9 implement the [approved mappings](reviews/d1-d9-elm-mapping-decisions.md) with exact tests and explicit rejections.
+See [validation](deliveries/elm-parity-state.md) and [limits](classic-output.md).
+Source v1 is removed. It cannot return as an alternative output.
+Mutation, identity/cycles, side-effecting construction, and other unapproved forms remain rejected.
+D10–D21 remain planned and must use the same feature gate.
+
 ## Existing gaps
 
-D1–D9 have the [exact-tested subset](deliveries/elm-parity-state.md). Their complete inventory remains pending.
-Earlier Source-mode passes do not establish acceptance. The normalized comparison helper is removed.
-The current business fixture uses matched input names/package and explicit Elm local types; comparison changes no output.
-Historical codec and runtime references remain frozen; their existence alone does not establish frontend parity.
-Public Source v1 output is removed. It must not return as an alternative target.
-Mutation, identity/cycles, side-effecting construction, and other unmapped forms remain explicit rejections until a specific mapping is approved.
-D10–D21 remain planned and must use this gate for every feature.
+The remaining gaps belong to later deliveries or explicit rejection boundaries.
+Earlier Source-mode passes, raw syntax capture, normalized comparisons, and explained differences do not pass this gate.
