@@ -11,4 +11,6 @@
   <Project Path="tests/Morphir.Frontend.CSharp.IntegrationTests/Morphir.Frontend.CSharp.IntegrationTests.csproj"/>
   <Project Path="samples/CurrentSupportedShared/CurrentSupportedShared.csproj"/>
   <Project Path="samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj"/>
+  <Project Path="fixtures/elm-parity/project-generated/Project.csproj"/>
+  <Project Path="fixtures/elm-parity/project-generated/Shared/Shared.csproj"/>
 </Solution>

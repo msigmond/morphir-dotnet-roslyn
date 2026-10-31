@@ -1,0 +1,907 @@
+{
+  "references": {
+    "literals": {
+      "project": "fixtures/elm-parity/literals/elm",
+      "expected": "fixtures/elm-parity/literals/expected/elm.json"
+    },
+    "integer-operators": {
+      "project": "fixtures/elm-parity/integer-operators/elm",
+      "expected": "fixtures/elm-parity/integer-operators/expected/elm.json"
+    },
+    "float-operators": {
+      "project": "fixtures/elm-parity/float-operators/elm",
+      "expected": "fixtures/elm-parity/float-operators/expected/elm.json"
+    },
+    "boolean-unary": {
+      "project": "fixtures/elm-parity/boolean-unary/elm",
+      "expected": "fixtures/elm-parity/boolean-unary/expected/elm.json"
+    },
+    "conditionals": {
+      "project": "fixtures/elm-parity/conditionals/elm",
+      "expected": "fixtures/elm-parity/conditionals/expected/elm.json"
+    },
+    "locals": {
+      "project": "fixtures/elm-parity/locals/elm",
+      "expected": "fixtures/elm-parity/locals/expected/elm.json"
+    },
+    "wrappers": {
+      "project": "fixtures/elm-parity/wrappers/elm",
+      "expected": "fixtures/elm-parity/wrappers/expected/elm.json"
+    },
+    "calls": {
+      "project": "fixtures/elm-parity/calls/elm",
+      "expected": "fixtures/elm-parity/calls/expected/elm.json"
+    },
+    "nullable-types": {
+      "project": "fixtures/elm-parity/nullable-types/elm",
+      "expected": "fixtures/elm-parity/nullable-types/expected/elm.json"
+    },
+    "tuples": {
+      "project": "fixtures/elm-parity/tuples/elm",
+      "expected": "fixtures/elm-parity/tuples/expected/elm.json"
+    },
+    "decimal-operators": {
+      "project": "fixtures/elm-parity/decimal-operators/elm",
+      "expected": "fixtures/elm-parity/decimal-operators/expected/elm.json"
+    },
+    "records": {
+      "project": "fixtures/elm-parity/records/elm",
+      "expected": "fixtures/elm-parity/records/expected/elm.json"
+    },
+    "data-forms": {
+      "project": "fixtures/elm-parity/data-forms/elm",
+      "expected": "fixtures/elm-parity/data-forms/expected/elm.json"
+    },
+    "nullable-record": {
+      "project": "fixtures/elm-parity/nullable-record/elm",
+      "expected": "fixtures/elm-parity/nullable-record/expected/elm.json"
+    },
+    "visibility": {
+      "project": "fixtures/elm-parity/visibility/elm",
+      "expected": "fixtures/elm-parity/visibility/expected/elm.json"
+    },
+    "business": {
+      "project": "fixtures/elm-parity/business/elm",
+      "expected": "fixtures/elm-parity/business/expected/elm.json"
+    },
+    "instance-call": {
+      "project": "fixtures/elm-parity/instance-call/elm",
+      "expected": "fixtures/elm-parity/instance-call/expected/elm.json"
+    },
+    "constants": {
+      "project": "fixtures/elm-parity/constants/elm",
+      "expected": "fixtures/elm-parity/constants/expected/elm.json"
+    },
+    "reported-products": {
+      "project": "fixtures/elm-parity/reported-products/elm",
+      "expected": "fixtures/elm-parity/reported-products/expected/elm.json"
+    },
+    "project-generated": {
+      "project": "fixtures/elm-parity/project-generated/elm",
+      "expected": "fixtures/elm-parity/project-generated/expected/elm.json"
+    },
+    "eligibility": {
+      "project": "fixtures/elm-parity/eligibility/elm",
+      "expected": "fixtures/elm-parity/eligibility/expected/elm.json"
+    },
+    "width-promotion": {
+      "project": "fixtures/elm-parity/width-promotion/elm",
+      "expected": "fixtures/elm-parity/width-promotion/expected/elm.json"
+    },
+    "char-comparison": {
+      "project": "fixtures/elm-parity/char-comparison/elm",
+      "expected": "fixtures/elm-parity/char-comparison/expected/elm.json"
+    },
+    "external-provider": {
+      "project": "fixtures/elm-parity/external-provider/elm",
+      "expected": "fixtures/elm-parity/external-provider/expected/elm.json"
+    },
+    "external-call": {
+      "project": "fixtures/elm-parity/external-call/elm",
+      "expected": "fixtures/elm-parity/external-call/expected/elm.json",
+      "dependencyPackages": [
+        "external-provider"
+      ]
+    },
+    "unused-private": {
+      "project": "fixtures/elm-parity/unused-private/elm",
+      "expected": "fixtures/elm-parity/unused-private/expected/elm.json"
+    },
+    "decimal-literals": {
+      "project": "fixtures/elm-parity/decimal-literals/elm",
+      "expected": "fixtures/elm-parity/decimal-literals/expected/elm.json"
+    },
+    "float-literal-spelling": {
+      "project": "fixtures/elm-parity/float-literal-spelling/elm",
+      "expected": "fixtures/elm-parity/float-literal-spelling/expected/elm.json"
+    },
+    "current-sample": {
+      "project": "fixtures/elm-parity/current-sample/elm",
+      "expected": "fixtures/elm-parity/current-sample/expected/elm.json"
+    },
+    "documentation": {
+      "project": "fixtures/elm-parity/documentation/elm",
+      "expected": "fixtures/elm-parity/documentation/expected/elm.json"
+    },
+    "package-name": {
+      "project": "fixtures/elm-parity/package-name/elm",
+      "expected": "fixtures/elm-parity/package-name/expected/elm.json"
+    }
+  },
+  "cases": [
+    {
+      "id": "literals",
+      "reference": "literals",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/literals/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.literals",
+        "D5.float-literals",
+        "D5.char-literals"
+      ]
+    },
+    {
+      "id": "integer-operators",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.integer-arithmetic",
+        "D5.integer-operators",
+        "D5.comparisons"
+      ]
+    },
+    {
+      "id": "integer-Int64",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/Int64/Input.cs"
+      ],
+      "features": [
+        "D5.Int64"
+      ]
+    },
+    {
+      "id": "integer-UInt32",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/UInt32/Input.cs"
+      ],
+      "features": [
+        "D5.UInt32"
+      ]
+    },
+    {
+      "id": "integer-UInt64",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/UInt64/Input.cs"
+      ],
+      "features": [
+        "D5.UInt64"
+      ]
+    },
+    {
+      "id": "integer-IntPtr",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/IntPtr/Input.cs"
+      ],
+      "features": [
+        "D5.IntPtr"
+      ]
+    },
+    {
+      "id": "integer-UIntPtr",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/UIntPtr/Input.cs"
+      ],
+      "features": [
+        "D5.UIntPtr"
+      ]
+    },
+    {
+      "id": "integer-Int128",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/Int128/Input.cs"
+      ],
+      "features": [
+        "D5.Int128"
+      ]
+    },
+    {
+      "id": "integer-UInt128",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/UInt128/Input.cs"
+      ],
+      "features": [
+        "D5.UInt128"
+      ]
+    },
+    {
+      "id": "integer-BigInteger",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/BigInteger/Input.cs"
+      ],
+      "features": [
+        "D5.BigInteger"
+      ]
+    },
+    {
+      "id": "integer-Byte",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/Byte/Input.cs"
+      ],
+      "features": [
+        "D5.Byte"
+      ]
+    },
+    {
+      "id": "integer-SByte",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/SByte/Input.cs"
+      ],
+      "features": [
+        "D5.SByte"
+      ]
+    },
+    {
+      "id": "integer-Int16",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/Int16/Input.cs"
+      ],
+      "features": [
+        "D5.Int16"
+      ]
+    },
+    {
+      "id": "integer-UInt16",
+      "reference": "integer-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/integer-operators/variants/UInt16/Input.cs"
+      ],
+      "features": [
+        "D5.UInt16"
+      ]
+    },
+    {
+      "id": "float-operators",
+      "reference": "float-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/float-operators/csharp/Input.cs"
+      ],
+      "features": [
+        "D5.Double"
+      ]
+    },
+    {
+      "id": "float-Single",
+      "reference": "float-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/float-operators/variants/Single/Input.cs"
+      ],
+      "features": [
+        "D5.Single"
+      ]
+    },
+    {
+      "id": "float-Half",
+      "reference": "float-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/float-operators/variants/Half/Input.cs"
+      ],
+      "features": [
+        "D5.Half"
+      ]
+    },
+    {
+      "id": "boolean-unary",
+      "reference": "boolean-unary",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/boolean-unary/csharp/Input.cs"
+      ],
+      "features": [
+        "D3.short-circuit",
+        "D5.unary",
+        "D5.boolean-operators"
+      ]
+    },
+    {
+      "id": "conditionals",
+      "reference": "conditionals",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/conditionals/csharp/Input.cs"
+      ],
+      "features": [
+        "D3.conditional-expression",
+        "D3.constant-branches"
+      ]
+    },
+    {
+      "id": "locals",
+      "reference": "locals",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/locals/csharp/Input.cs"
+      ],
+      "features": [
+        "D3.locals",
+        "D3.blocks",
+        "D3.returns",
+        "D3.multiple-locals"
+      ]
+    },
+    {
+      "id": "wrappers",
+      "reference": "wrappers",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/wrappers/csharp/Input.cs"
+      ],
+      "features": [
+        "D3.grouping",
+        "D4.null-forgiving",
+        "D5.checked-context"
+      ]
+    },
+    {
+      "id": "calls",
+      "reference": "calls",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/calls/csharp/Input.cs"
+      ],
+      "features": [
+        "D7.positional-calls",
+        "D7.declaration-default",
+        "D7.recursion"
+      ]
+    },
+    {
+      "id": "nullable-types",
+      "reference": "nullable-types",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/nullable-types/csharp/Input.cs"
+      ],
+      "features": [
+        "D4.explicit-nullable",
+        "D4.nonnullable-reference"
+      ]
+    },
+    {
+      "id": "tuples",
+      "reference": "tuples",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/tuples/csharp/Input.cs"
+      ],
+      "features": [
+        "D8.value-tuples",
+        "D8.tuple-construction"
+      ]
+    },
+    {
+      "id": "decimal-operators",
+      "reference": "decimal-operators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/decimal-operators/csharp/Input.cs"
+      ],
+      "features": [
+        "D6.add",
+        "D6.subtract",
+        "D6.multiply"
+      ]
+    },
+    {
+      "id": "records",
+      "reference": "records",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/records/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.record-data",
+        "D9.alias-constructor",
+        "D9.field-reads",
+        "D9.record-struct"
+      ]
+    },
+    {
+      "id": "data-forms",
+      "reference": "data-forms",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/data-forms/csharp/Input.cs"
+      ],
+      "features": [
+        "D9.class",
+        "D9.struct",
+        "D9.record-class",
+        "D9.mutable-record",
+        "D9.readonly-struct",
+        "D9.auto-properties"
+      ]
+    },
+    {
+      "id": "nullable-record",
+      "reference": "nullable-record",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/nullable-record/csharp/Input.cs"
+      ],
+      "features": [
+        "D4.nullable-data",
+        "D4.nullable-fields"
+      ]
+    },
+    {
+      "id": "visibility",
+      "reference": "visibility",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/visibility/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.visibility"
+      ]
+    },
+    {
+      "id": "business",
+      "reference": "business",
+      "package": "Sigmond.Buslog",
+      "namespaces": [
+        "Sigmond.Buslog.Model",
+        "Sigmond.Buslog.Algo"
+      ],
+      "sources": [
+        "fixtures/elm-parity/business/csharp/Loan.cs",
+        "fixtures/elm-parity/business/csharp/LoanCalculations.cs",
+        "fixtures/elm-parity/business/csharp/LoanFee.cs"
+      ],
+      "features": [
+        "D1.loan",
+        "D3.loan-locals",
+        "D7.loan-calls",
+        "D9.loan-construction"
+      ]
+    },
+    {
+      "id": "instance-call",
+      "reference": "instance-call",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/instance-call/csharp/Input.cs"
+      ],
+      "features": [
+        "D7.instance-calls",
+        "D9.instance-methods"
+      ]
+    },
+    {
+      "id": "constants",
+      "reference": "constants",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/constants/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.constants",
+        "D3.readonly-declarations"
+      ]
+    },
+    {
+      "id": "reported-products",
+      "reference": "reported-products",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/reported-products/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.reported-products",
+        "D4.no-implicit-Maybe",
+        "D5.simple-product",
+        "D6.no-range-proof"
+      ]
+    },
+    {
+      "id": "project-generated",
+      "reference": "project-generated",
+      "package": "Example",
+      "namespaces": [
+        "Example.CurrentSupported",
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/project-generated/csharp/Input.cs",
+        "fixtures/elm-parity/project-generated/csharp/Rules.Generated.cs",
+        "fixtures/elm-parity/project-generated/csharp/Shared.cs"
+      ],
+      "features": [
+        "D2.project-input",
+        "D2.project-reference",
+        "D2.generator",
+        "D2.additional-file",
+        "D2.configuration"
+      ],
+      "project": "fixtures/elm-parity/project-generated/Project.csproj"
+    },
+    {
+      "id": "eligibility",
+      "reference": "eligibility",
+      "package": "Example",
+      "namespaces": [
+        "Example.D1"
+      ],
+      "sources": [
+        "fixtures/elm-parity/eligibility/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.record-int-bool",
+        "D1.alias-construction",
+        "D1.constant-arithmetic"
+      ]
+    },
+    {
+      "id": "width-promotion",
+      "reference": "width-promotion",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/width-promotion/csharp/Input.cs"
+      ],
+      "features": [
+        "D5.same-IR-type-promotion"
+      ]
+    },
+    {
+      "id": "char-comparison",
+      "reference": "char-comparison",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/char-comparison/csharp/Input.cs"
+      ],
+      "features": [
+        "D5.char-comparison"
+      ]
+    },
+    {
+      "id": "boolean-bitwise",
+      "reference": "boolean-unary",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/boolean-bitwise/csharp/Input.cs"
+      ],
+      "features": [
+        "D5.boolean-bitwise"
+      ]
+    },
+    {
+      "id": "nullable-disabled",
+      "reference": "nullable-types",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/nullable-disabled/csharp/Input.cs"
+      ],
+      "features": [
+        "D4.annotations-with-disabled-analysis"
+      ]
+    },
+    {
+      "id": "namespace-selection",
+      "reference": "records",
+      "package": "Example",
+      "namespaces": [
+        "Example"
+      ],
+      "sources": [
+        "fixtures/elm-parity/namespace-selection/csharp/Input.cs"
+      ],
+      "features": [
+        "D2.descendant-selection"
+      ]
+    },
+    {
+      "id": "external-provider",
+      "reference": "external-provider",
+      "package": "MathSpec",
+      "namespaces": [
+        "MathSpec"
+      ],
+      "sources": [
+        "fixtures/elm-parity/external-provider/csharp/Input.cs"
+      ],
+      "features": [
+        "D7.dependency-provider"
+      ]
+    },
+    {
+      "id": "external-call",
+      "reference": "external-call",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/external-call/csharp/Input.cs"
+      ],
+      "features": [
+        "D7.metadata-call",
+        "D7.exact-dependency-contract"
+      ],
+      "dependency": "MathSpec"
+    },
+    {
+      "id": "locals-empty",
+      "reference": "locals",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/locals-empty/csharp/Input.cs"
+      ],
+      "features": [
+        "D3.empty-statement"
+      ]
+    },
+    {
+      "id": "unused-private",
+      "reference": "unused-private",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/unused-private/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.unused-private"
+      ]
+    },
+    {
+      "id": "decimal-literals",
+      "reference": "decimal-literals",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/decimal-literals/csharp/Input.cs"
+      ],
+      "features": [
+        "D6.decimal-literal",
+        "D6.scaled-literal",
+        "D6.large-literal",
+        "D6.negation"
+      ]
+    },
+    {
+      "id": "float-literal-spelling",
+      "reference": "float-literal-spelling",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/float-literal-spelling/csharp/Input.cs"
+      ],
+      "features": [
+        "D5.float-source-literals"
+      ]
+    },
+    {
+      "id": "current-sample",
+      "reference": "current-sample",
+      "package": "Example",
+      "namespaces": [
+        "Example.CurrentSupported"
+      ],
+      "sources": [
+        "samples/CurrentSupportedExample/ClassicLoan.cs",
+        "fixtures/elm-parity/current-sample/csharp/Rules.Generated.cs"
+      ],
+      "features": [
+        "D1.cumulative-sample",
+        "D2.sample-generator",
+        "D3.sample-locals",
+        "D7.sample-calls",
+        "D9.sample-data"
+      ]
+    },
+    {
+      "id": "documentation",
+      "reference": "documentation",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/documentation/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.documentation"
+      ]
+    },
+    {
+      "id": "package-name",
+      "reference": "package-name",
+      "package": "Morphir.CSharp",
+      "namespaces": [
+        "Morphir.CSharp.Business"
+      ],
+      "sources": [
+        "fixtures/elm-parity/package-name/csharp/Input.cs"
+      ],
+      "features": [
+        "D1.package-boundary",
+        "D1.no-reserved-source-package"
+      ]
+    }
+  ],
+  "auditIds": [
+    "N1",
+    "A1",
+    "A4",
+    "A6",
+    "A7",
+    "A10",
+    "D2",
+    "C9",
+    "C10",
+    "O1",
+    "T3",
+    "S2",
+    "G1",
+    "G3",
+    "G4",
+    "D1"
+  ],
+  "provenanceInputs": [
+    "samples/CurrentSupportedExample/ClassicLoan.cs",
+    "samples/CurrentSupportedExample/CurrentSupportedExample.csproj",
+    "samples/CurrentSupportedExample/packages.lock.json",
+    "samples/CurrentSupportedExample/reference.json",
+    "samples/CurrentSupportedExample/threshold.txt",
+    "samples/CurrentSupportedGenerator/ThresholdGenerator.cs",
+    "samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj",
+    "samples/CurrentSupportedGenerator/packages.lock.json",
+    "eng/reference-toolchain.json"
+  ]
+}

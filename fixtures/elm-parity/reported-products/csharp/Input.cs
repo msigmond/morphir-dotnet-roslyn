@@ -1,0 +1,1 @@
+namespace Example.Parity;public record Loan(string SecurityId,decimal Quantity,decimal Price);public sealed class SomeObj{public int IntOne;public int IntTwo;}public static class Rules{public static decimal MarketValue(Loan loan)=>loan.Quantity*loan.Price;public static int SomeMethod(SomeObj obj)=>obj.IntOne*obj.IntTwo;}

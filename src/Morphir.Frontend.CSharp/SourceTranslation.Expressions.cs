@@ -51,10 +51,12 @@ internal sealed partial class SourceTranslation
                 if (literal.IsKind(SyntaxKind.DefaultLiteralExpression)) return Source(type, "Default", [], ("type", "inferred"));
                 Literal value = literal.Token.Value switch
                 {
-                    bool b => new BoolLiteral(b), string s => new StringLiteral(s), char c => new CharLiteral(c.ToString()),
+                    bool b => new BoolLiteral(b), string s => new StringLiteral(s),
+                    char c when char.IsSurrogate(c) => Fail<Literal>("MCS4001", "An isolated UTF-16 surrogate has no Elm Char literal mapping.", syntax.GetLocation()),
+                    char c => new CharLiteral(c.ToString()),
                     decimal d => new DecimalLiteral(d.ToString(CultureInfo.InvariantCulture)),
-                    float f => new FloatLiteral(f), double d => new FloatLiteral(d),
-                    ulong n when n > long.MaxValue => new SourceNumberLiteral(literal.Token.Text),
+                    float or double => new FloatLiteral(double.Parse(literal.Token.Text.Replace("_", "", StringComparison.Ordinal).TrimEnd('f', 'F', 'd', 'D'), CultureInfo.InvariantCulture)),
+                    ulong n when n > long.MaxValue => new UnmappedNumberLiteral(literal.Token.Text),
                     _ => new IntLiteral(Convert.ToInt64(literal.Token.Value, CultureInfo.InvariantCulture))
                 };
                 return new LiteralValue<Unit, IrType<Unit>>(type, value);
@@ -155,9 +157,7 @@ internal sealed partial class SourceTranslation
         // Signatures belong to the resolved symbol. No method body is evaluated here.
         var result = Type(method.ReturnType, location: syntax.GetLocation());
         IrType<Unit> signature = result;
-        foreach (var parameter in method.Parameters.Reverse()) signature = Types.Function(parameter.Type.SpecialType == SpecialType.System_Object
-            ? new ReferenceType<Unit>(default, new(IrPath.From("Morphir.CSharp"), IrPath.From("System"), Name.From("Object")), [])
-            : Type(parameter.Type, DeclaredType(parameter), syntax.GetLocation()), signature);
+        foreach (var parameter in method.Parameters.Reverse()) signature = Types.Function(Type(parameter.Type, DeclaredType(parameter), syntax.GetLocation()), signature);
         var identity = external.TryGetValue(Id(method), out var contract) ? contract.Target : identities.GetValueOrDefault(Id(method));
         V target = identity is null ? Source(signature, "NamedReference", [], ("name", method.ToDisplayString(Display)), ("symbol", Id(method))) : new ReferenceValue<Unit, IrType<Unit>>(signature, identity);
         var converted = syntax is ExpressionSyntax expression ? Semantic(syntax).GetTypeInfo(expression).ConvertedType : null;
@@ -187,11 +187,12 @@ internal sealed partial class SourceTranslation
         string? name = syntax.Kind() switch
         {
             SyntaxKind.AddExpression => "add", SyntaxKind.SubtractExpression => "subtract", SyntaxKind.MultiplyExpression => "multiply",
-            SyntaxKind.DivideExpression => sourceType?.SpecialType is SpecialType.System_Single or SpecialType.System_Double ? "divide" : "integerDivide",
+            SyntaxKind.DivideExpression => sourceType?.SpecialType is SpecialType.System_Single or SpecialType.System_Double || sourceType?.ToDisplayString() == "System.Half" ? "divide" : "integerDivide",
             SyntaxKind.EqualsExpression => "equal", SyntaxKind.NotEqualsExpression => "notEqual", SyntaxKind.LessThanExpression => "lessThan",
             SyntaxKind.LessThanOrEqualExpression => "lessThanOrEqual", SyntaxKind.GreaterThanExpression => "greaterThan", SyntaxKind.GreaterThanOrEqualExpression => "greaterThanOrEqual", _ => null
         };
         bool primitive = sourceType?.SpecialType is SpecialType.System_Boolean or SpecialType.System_Char or SpecialType.System_SByte or SpecialType.System_Byte or SpecialType.System_Int16 or SpecialType.System_UInt16 or SpecialType.System_Int32 or SpecialType.System_UInt32 or SpecialType.System_Int64 or SpecialType.System_UInt64 or SpecialType.System_IntPtr or SpecialType.System_UIntPtr or SpecialType.System_Single or SpecialType.System_Double;
+        primitive |= sourceType?.ToDisplayString() == "System.Half";
         bool integer = sourceType?.ToDisplayString() is "System.Int128" or "System.UInt128" or "System.Numerics.BigInteger";
         var module = "Basics";
         if (sourceType?.SpecialType == SpecialType.System_Decimal && syntax.Kind() is SyntaxKind.AddExpression or SyntaxKind.SubtractExpression or SyntaxKind.MultiplyExpression)

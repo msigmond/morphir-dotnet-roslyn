@@ -31,7 +31,7 @@ internal static class Support
     }
     public static string Read(string file) => File.ReadAllText(System.IO.Path.Combine(Root, file));
     public static CSharpCompilation Compile(string code, bool check = false, Platform platform = Platform.X64) => SourceCompilation.Create([("Case.cs", code)], check, platform);
-    public static FrontendResult Convert(string code, string package = "Example", string[]? selectors = null, bool check = false, Platform platform = Platform.X64) => Morphir.Frontend.CSharp.Frontend.Convert(Compile(code, check, platform), new(package, selectors ?? ["Example.D1"], OutputFormat: FrontendOutputFormat.Source));
+    public static FrontendResult Convert(string code, string package = "Example", string[]? selectors = null, bool check = false, Platform platform = Platform.X64) => Morphir.Frontend.CSharp.Frontend.Convert(Compile(code, check, platform), new(package, selectors ?? ["Example.D1"]));
     public static Library<Unit, IrType<Unit>> Success(FrontendResult r)
     {
         Assert.True(r.Success, string.Join("\n", r.Diagnostics)); return r.Distribution!;

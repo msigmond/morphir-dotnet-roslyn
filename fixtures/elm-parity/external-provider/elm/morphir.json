@@ -1,0 +1,7 @@
+{
+  "name": "MathSpec",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "Rules"
+  ]
+}

@@ -12,15 +12,15 @@ public static class ClassicLoanCalculations
 
     public static int DailyFee(ClassicLoan loan)
     {
-        var marketValue = MarketValue(loan);
+        var marketVal = MarketValue(loan);
         var rate = loan.AnnualFeeRate;
-        return marketValue * rate / 100 / 360;
+        return marketVal * rate / 100 / 360;
     }
 
     public static ClassicLoanFee Calculate(ClassicLoan loan)
     {
-        var marketValue = MarketValue(loan);
-        var dailyFee = DailyFee(loan);
-        return new ClassicLoanFee(loan.SecurityId, marketValue, dailyFee);
+        var marketVal = MarketValue(loan);
+        var dailyF = DailyFee(loan);
+        return new ClassicLoanFee(loan.SecurityId, marketVal, dailyF);
     }
 }

@@ -1,5 +1,5 @@
 {
-  "outputScope": "Rows record historical source implementation/inventory. They do not establish feature acceptance. Every feature needs exact JSON parity with morphir-elm make under docs/elm-parity.md.",
+  "outputScope": "Support requires exact whole-JSON parity with morphir-elm make. parityCases names the automated paired tests. Unmapped forms remain pending/rejected; Source v1 is removed.",
   "referencePack": "Microsoft.NETCore.App.Ref/10.0.0",
   "catalogPolicy": "Fixed source type inventory. Type/member source mappings and later delivery gaps are explicit. No runtime-safety or purity contract.",
   "types": [
@@ -21,7 +21,12 @@
       ],
       "memberState": "pending",
       "memberOwner": "D18.4",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "literals",
+        "boolean-unary"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Char",
@@ -47,7 +52,12 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "literals",
+        "char-comparison"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.String",
@@ -72,7 +82,12 @@
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "nullable-types",
+        "literals"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Object",
@@ -135,7 +150,12 @@
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "decimal-operators",
+        "reported-products"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Byte",
@@ -161,7 +181,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-Byte"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.SByte",
@@ -187,7 +211,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-SByte"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Int16",
@@ -213,7 +241,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-Int16"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.UInt16",
@@ -239,7 +271,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-UInt16"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Int32",
@@ -265,7 +301,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-operators"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.UInt32",
@@ -291,7 +331,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-UInt32"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Int64",
@@ -317,7 +361,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-Int64"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.UInt64",
@@ -343,7 +391,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-UInt64"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.IntPtr",
@@ -369,7 +421,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-IntPtr"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.UIntPtr",
@@ -395,7 +451,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-UIntPtr"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Single",
@@ -421,7 +481,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "float-Single"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Double",
@@ -447,7 +511,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "float-operators"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Half",
@@ -473,7 +541,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "float-Half"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Int128",
@@ -499,7 +571,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-Int128"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.UInt128",
@@ -525,7 +601,11 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-UInt128"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Numerics.BigInteger",
@@ -551,13 +631,17 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "parityCases": [
+        "integer-BigInteger"
+      ],
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
     },
     {
       "type": "System.Numerics.Complex",
       "version": "10.0.0",
       "owner": "D5",
-      "state": "supported",
+      "state": "pending",
       "representation": "Named intrinsic source type; source constructors/operators/members.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [
@@ -577,7 +661,8 @@
         "boundary"
       ],
       "memberInventory": "numeric-members.json",
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner.",
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "type": "System.DateOnly",

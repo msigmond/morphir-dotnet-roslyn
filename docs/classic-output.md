@@ -1,67 +1,49 @@
 # Classic output
 
-Standard Morphir Classic v3 is the CLI and core API default, as requested on 2026-10-31.
+The CLI and core API return standard Morphir Classic v3 only.
+Source v1 and its public CLI/API/model/codec paths are removed.
 The [exact Elm parity contract](elm-parity.md) controls acceptance.
-The existing Source v1 mode was unrequested work. It is not an alternative delivery target.
-No command silently switches formats or mixes Source nodes into Classic JSON.
 
-The default file has only `formatVersion: 3` and `distribution`.
-It has no C# source tree, Source tags, source assembly IDs, or numeric compatibility modules.
+The JSON envelope contains only `formatVersion: 3` and `distribution`.
+There is no source envelope, syntax tree, custom Source tag, or CLR compatibility library.
+Internal C# staging nodes must be mapped or rejected before the frontend returns a library.
 
-## Current mappings
+## Tested mappings
 
-| C# structure | Classic structure |
+| C# input | Standard Morphir output |
 | --- | --- |
-| Block with initialized locals and a final value return | Nested LetDefinition and the return expression |
-| Ordinary arithmetic and field reads | Direct SDK applications and Field |
-| Source function call with complete positional arguments | Reference and ordered Apply nodes |
-| Positional record creation | Alias Constructor and ordered Apply nodes |
-| Parentheses, null-forgiving, checked/unchecked context | The enclosed expression; no CLR check or wrapper |
-| Int/Float negation or Boolean not | One SDK operation |
+| Supported record/class/struct data and stored fields/properties | Record aliases and Field reads |
+| Positional record construction | Alias Constructor and ordered Apply nodes |
+| Initialized locals and final returns | Nested LetDefinition and the return expression |
+| Complete positional source calls and approved dependency calls | Reference and ordered Apply nodes |
+| Integer/Float arithmetic, comparisons, Boolean operations, and negation | Direct SDK operations |
+| Decimal add/subtract/multiply and negation | Direct Decimal SDK operations |
+| Decimal literals | User-approved `Decimal.fromFloat` constructor calls |
+| Explicit nullable type annotations | Maybe types; plain reference types remain plain |
+| Value tuples and conditional expressions | Tuple and IfThenElse nodes |
+| Parentheses, null-forgiving, checked/unchecked expression context | The enclosed mapped expression |
 
-Keep source local names, declared types, visibility, package, and module owners.
-References to source methods remain fully qualified. A same-named local does not make a global call recursive.
-Primary record constructors are represented by alias constructors. Do not export separate `New...` functions or empty owner modules.
-Object creation has the constructed data type. A constructor symbol's `void` return type is not the expression type.
+C# floating literals use the written numeric value, without Single runtime quantization.
+The paired Elm Decimal inputs use explicit Float tokens, including `.0` for integral values.
+This avoids the Elm whole-number parser's precision loss before `fromFloat` type inference.
+No output JSON is rewritten to remove this difference.
 
-Classic mode has an explicit mapping subset. Assignment, statement branches, optional/named/expanded calls, general construction,
-nullable operations, implicit conversions between different IR types, instance initializers, recursive aliases,
-intrinsic C# types, and other unmapped forms report `MCS4001` at the source definition.
-No output is produced on failure; an existing output file remains unchanged.
-Legacy Source-mode support does not establish delivery acceptance. D10–D21 remain planned.
-These are representation gaps, not runtime safety restrictions. No presence, range, nonzero, purity, or ownership proof is required.
+The [case registry](../fixtures/elm-parity/cases.json) identifies the exact supported cases.
+Each case compares the complete JSON to independently generated `morphir-elm make` output.
+Integration tests run the pinned compiler again and compare its fresh output directly.
+Names, package boundaries, visibility, types, literals, definitions, and array order are all compared.
+Elm local annotations are written in the paired source input. Tests do not substitute type variables.
 
-## Existing supplemental comparison
+## Unmapped forms
 
-This normalized comparison predates the exact-parity rule. It does not pass that gate.
-New feature tests must compare complete compiler JSON without these normalizations.
+Unmapped forms fail with a source-located diagnostic and no partial output.
+An existing output file remains unchanged. There is no alternative output mode.
 
-The [business fixture](../fixtures/classic-business-logic/provenance.json) preserves the supplied C# files and corrected Elm project/output.
-Expected JSON came from the Elm compiler, not the C# frontend.
-The legacy test helper compares the complete distributions after three explicit equivalences:
+These forms retain explicit gaps: assignments/mutation, statement branches, object identity/cycles,
+non-record primary constructors, explicit constructors/accessors/operators, overloaded method naming,
+nullable value operations, general construction/initialization, enums, and later delivery forms.
+Named/omitted/expanded arguments, captures/delegates, and conversions between different IR types also need approved mappings.
+No runtime presence, range, ownership, effect, or termination proof is required for mapped operations.
 
-1. Place package and module segments at the requested package boundary.
-2. Rename local binding variables consistently by lexical binding position.
-3. Resolve retained Elm local inference variables from their typed initializer attributes.
-
-No module, type, function, input, output, field, access flag, operator, literal, or call is discarded by the comparison.
-Negative checks prove that changed operators and visibility still fail.
-The C# names `marketValue` and `dailyFee` remain in actual output.
-The Elm local names `marketVal` and `dailyF` remain in the frozen reference.
-
-The frozen fixture Elm configuration uses package `Sigmond`; its module is `Buslog.Model`.
-The original C# command selects package `Sigmond.Buslog`; its module is `Model`.
-Both display `Sigmond.Buslog.Model.Loan`, but their encoded package/module split differs.
-Use `--package Sigmond` for the same package split as that Elm file.
-The original `--package Sigmond.Buslog` command remains valid and retains that requested package.
-
-## Sample
-
-After build, from the repository root:
-
-```bash
-dotnet run --project src/Morphir.Frontend.CSharp.Cli --no-build -- --package Example --namespace Example.CurrentSupported --source samples/CurrentSupportedExample/ClassicLoan.cs --output artifacts/classic-loan.json
-```
-
-The full cumulative sample includes unmapped Classic forms and is not an accepted Classic delivery.
-See [validation evidence](deliveries/classic-output-state.md).
+D1–D9 have an exact-tested subset; their complete historical Source-mode scope is not accepted.
+D10–D21 remain planned. See [current evidence](deliveries/elm-parity-state.md).

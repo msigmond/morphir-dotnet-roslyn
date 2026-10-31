@@ -2,10 +2,10 @@
 
 - authority: user instructions → [exact Elm parity](docs/elm-parity.md) → approved source-structure rules → this plan → selected delivery
 - contract changed: 2026-10-24; [approved audit](docs/reviews/source-structure-audit.md)
-- D1–D9 passed historical Source-mode checks; exact Elm parity revalidation is required. D10–D21 remain planned.
+- D1–D9 have an [exact-tested subset](docs/deliveries/elm-parity-state.md); full inventory acceptance remains pending. D10–D21 remain planned.
 - former runtime evidence: [archive](docs/history/runtime-contract/README.md)
 - requested output: standard Classic v3 matching `morphir-elm make`; [acceptance contract](docs/elm-parity.md)
-- Source v1 was unrequested work. It is not an alternative delivery target.
+- Source v1 was unrequested work. Public Source output is removed.
 
 ## Contract
 
@@ -19,7 +19,7 @@ Source v1 code and checks do not establish delivery acceptance.
 
 ## Execution
 
-Next implementation work is corrective cleanup and D1–D9 exact-parity revalidation.
+Continue D1–D9 only through approved mappings and exact compiler parity.
 Do not advance D10 on the basis of Source-mode passes.
 
 Work on one requested delivery. Check prerequisite exact-parity evidence before implementation.
@@ -47,15 +47,15 @@ Keep pinned primitive/framework families. Future forms need their explicit struc
 
 | Delivery | Source capability | State | Prerequisites |
 | --- | --- | --- | --- |
-| [D1](Morphir_CSharp_Frontend_deliveries/D01-cli-record.md) | CLI, source data, typed output | exact parity revalidation required | — |
-| [D2](Morphir_CSharp_Frontend_deliveries/D02-project-inputs.md) | Project and generated source inputs | exact parity revalidation required | [D1](Morphir_CSharp_Frontend_deliveries/D01-cli-record.md) |
-| [D3](Morphir_CSharp_Frontend_deliveries/D03-blocks-locals.md) | Blocks, locals, and statements | exact parity revalidation required | [D2](Morphir_CSharp_Frontend_deliveries/D02-project-inputs.md) |
-| [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md) | Explicit nullability and nullable syntax | exact parity revalidation required | [D3](Morphir_CSharp_Frontend_deliveries/D03-blocks-locals.md) |
-| [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md) | Numeric source structure | exact parity revalidation required | [D3](Morphir_CSharp_Frontend_deliveries/D03-blocks-locals.md) |
-| [D6](Morphir_CSharp_Frontend_deliveries/D06-decimal.md) | Decimal source structure | exact parity revalidation required | [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md), [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md) |
-| [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md) | Calls, references, and arguments | exact parity revalidation required | [D2](Morphir_CSharp_Frontend_deliveries/D02-project-inputs.md), [D3](Morphir_CSharp_Frontend_deliveries/D03-blocks-locals.md), [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md), [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md), [D6](Morphir_CSharp_Frontend_deliveries/D06-decimal.md) |
-| [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md) | Enum and tuple source structure | exact parity revalidation required | [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md), [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md) |
-| [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md) | Data declarations, members, and state | exact parity revalidation required | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md), [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md) |
+| [D1](Morphir_CSharp_Frontend_deliveries/D01-cli-record.md) | CLI, source data, typed output | partial exact parity; remaining mappings pending | — |
+| [D2](Morphir_CSharp_Frontend_deliveries/D02-project-inputs.md) | Project and generated source inputs | partial exact parity; remaining mappings pending | [D1](Morphir_CSharp_Frontend_deliveries/D01-cli-record.md) |
+| [D3](Morphir_CSharp_Frontend_deliveries/D03-blocks-locals.md) | Blocks, locals, and statements | partial exact parity; remaining mappings pending | [D2](Morphir_CSharp_Frontend_deliveries/D02-project-inputs.md) |
+| [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md) | Explicit nullability and nullable syntax | partial exact parity; remaining mappings pending | [D3](Morphir_CSharp_Frontend_deliveries/D03-blocks-locals.md) |
+| [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md) | Numeric source structure | partial exact parity; remaining mappings pending | [D3](Morphir_CSharp_Frontend_deliveries/D03-blocks-locals.md) |
+| [D6](Morphir_CSharp_Frontend_deliveries/D06-decimal.md) | Decimal source structure | partial exact parity; remaining mappings pending | [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md), [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md) |
+| [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md) | Calls, references, and arguments | partial exact parity; remaining mappings pending | [D2](Morphir_CSharp_Frontend_deliveries/D02-project-inputs.md), [D3](Morphir_CSharp_Frontend_deliveries/D03-blocks-locals.md), [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md), [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md), [D6](Morphir_CSharp_Frontend_deliveries/D06-decimal.md) |
+| [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md) | Enum and tuple source structure | partial exact parity; remaining mappings pending | [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md), [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md) |
+| [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md) | Data declarations, members, and state | partial exact parity; remaining mappings pending | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md), [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md) |
 | [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) | Generics, interfaces, and inheritance | planned | [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md) |
 | [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) | Arrays and collection structure | planned | [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) |
 | [D12](Morphir_CSharp_Frontend_deliveries/D12-patterns.md) | Patterns and switches | planned | [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md), [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md), [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) |

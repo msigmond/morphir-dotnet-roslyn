@@ -8,7 +8,7 @@ using V = Morphir.IR.Classic.Value<Morphir.IR.Classic.Unit, Morphir.IR.Classic.I
 
 namespace Morphir.Frontend.CSharp.Tests;
 
-[Trait("Contract", "SourceStructure")]
+[Trait("Contract", "ExactElmParityScope")]
 [Trait("Delivery", "D9")]
 public class AuditMatrixTests
 {
@@ -79,38 +79,22 @@ public class AuditMatrixTests
         yield return Case("G4", "public static decimal F(decimal a,decimal b)=>a+b;", "AddExpression");
         yield return Case("G5", "public static int F(int? a){return (int)a;}", "CastExpression", "Cast");
     }
-    private static IEnumerable<SourceSyntax> Syntax(SourceSyntax source) => source.Children.SelectMany(Syntax).Prepend(source);
-    private static IEnumerable<V> Values(V value)
-    {
-        yield return value;
-        var children = value switch
-        {
-            SourceValue<Unit, IrType<Unit>> s => s.Children,
-            ApplyValue<Unit, IrType<Unit>> a => (IReadOnlyList<V>)[a.Function,a.Argument],
-            FieldValue<Unit, IrType<Unit>> f => [f.Subject],
-            IfValue<Unit, IrType<Unit>> i => [i.Condition,i.Then,i.Else],
-            TupleValue<Unit, IrType<Unit>> t => t.Elements,
-            _ => []
-        };
-        foreach (var child in children) foreach (var v in Values(child)) yield return v;
-    }
     [Theory]
     [MemberData(nameof(Cases))]
-    public void ApprovedCaseRetainsStructureWithoutRuntimeExpansion(string id, string code, string syntaxKind, string projection)
+    public void AuditCasesAreMappedToExactParityOrExplicitlyRejected(string id, string code, string syntaxKind, string projection)
     {
-        Assert.NotEmpty(id);
-        var compilation = Support.Compile(code);
-        var lib = Support.Success(Frontend.Convert(compilation, new("Example", ["Example.Audit"], OutputFormat: FrontendOutputFormat.Source)));
-        var syntax = lib.Source!.Declarations.SelectMany(Syntax).ToArray();
-        Assert.Contains(syntax, n => n.Kind == syntaxKind);
-        var roots = compilation.SyntaxTrees.Single().GetRoot().DescendantNodes().OfType<BaseTypeDeclarationSyntax>().Where(n => n.Parent is BaseNamespaceDeclarationSyntax).ToArray();
-        Assert.Equal(roots.Length, lib.Source.Declarations.Count);
-        for (int i = 0; i < roots.Length; i++) Assert.Equal(roots[i].DescendantTokens().Select(t => t.Text), Syntax(lib.Source.Declarations[i]).Where(n => n.Token is not null).Select(n => n.Token!));
-        var values = lib.Definition.Modules.SelectMany(m => m.Value.Value.Values).SelectMany(v => Values(v.Value.Value.Value.Body)).ToArray();
-        if (projection.Length != 0) Assert.Contains(values, v => v is SourceValue<Unit, IrType<Unit>> s && s.Kind == projection);
-        Assert.DoesNotContain(values, v => v is LetValue<Unit, IrType<Unit>> or MatchValue<Unit, IrType<Unit>> or UpdateRecordValue<Unit, IrType<Unit>> or LambdaValue<Unit, IrType<Unit>>);
-        Assert.DoesNotContain(lib.Definition.Modules, m => m.Key.Key.Contains("compat", StringComparison.Ordinal));
-        Assert.DoesNotContain("fromSmall", Codec.Encode(lib), StringComparison.Ordinal);
+        _ = syntaxKind; _ = projection;
+        var result = Frontend.Convert(Support.Compile(code), new("Example", ["Example.Audit"]));
+        if (result.Success)
+        {
+            Assert.Contains(id, ElmParity.AuditIds);
+        }
+        else
+        {
+            Assert.Null(result.Distribution);
+            Assert.NotEmpty(result.Diagnostics);
+            Assert.All(result.Diagnostics, d => Assert.True(d.Line > 0 && d.Column > 0));
+        }
     }
     [Fact]
     public void MatrixCoversEveryApprovedCaseExactlyOnce()

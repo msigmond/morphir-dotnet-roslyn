@@ -3,7 +3,7 @@
 - status: planned
 - contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D18.4](D18_4-feature-closure.md)
-- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
+- evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
 
 ## Work
 
@@ -12,7 +12,7 @@ No Source v1 tag or metadata envelope can satisfy this delivery.
 
 - Complete the pinned Classic algebra/codec inventory required by the frontend.
 - Emit only the requested standard Morphir IR contract.
-- Remove unrequested public Source v1 output; do not develop a second schema.
+- Keep the removed Source v1 output out of the release; do not develop a second schema.
 
 ## Acceptance
 

@@ -1,0 +1,1 @@
+namespace Example.Parity;public static class Rules{public static decimal Negative()=>-0.1m;public static decimal Negate(decimal a)=>-a;public static decimal Positive(decimal a)=>+a;public static decimal Fraction()=>0.1m;public static decimal Whole()=>2m;public static decimal Scaled()=>0.100m;public static decimal Maximum()=>79228162514264337593543950335m;}

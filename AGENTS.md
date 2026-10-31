@@ -1,22 +1,22 @@
 # Agent instructions
 
 - authority: user instructions → [exact Elm parity contract](docs/elm-parity.md) → approved source-structure rules → [master](Morphir_CSharp_Frontend_delivery_plan.md) → selected delivery
-- state: D1–D9 need exact Elm parity revalidation; earlier Source-mode passes and normalized Classic comparisons are historical/supplemental evidence, not current acceptance; D10–D21 planned
+- state: D1–D9 have an [exact-tested subset](docs/deliveries/elm-parity-state.md); unmapped forms are rejected pending approved mappings; complete inventory acceptance remains pending; D10–D21 planned
 - workflow: one requested delivery; prerequisite gates; paired C#/Elm inputs; complete JSON equality against pinned `morphir-elm make` output for every feature; ask when the Elm counterpart is unclear; no unrequested scope
 - baseline: SDK 10.0.100; C#14; reference pack 10.0.0; Roslyn 5.0.0; x64 CLI input; no silent scope/version change
-- contract: standard Morphir Classic v3 matching `morphir-elm make`; Source v1 was never requested and is not a delivery target; do not extend it or introduce another format; existing public Source mode remains corrective cleanup
+- contract: standard Morphir Classic v3 matching `morphir-elm make`; Source v1 was never requested and is not a delivery target; do not extend it or introduce another format; public Source v1 CLI/API/model/codec paths are removed; internal staging must be mapped or rejected
 - semantics: represent declarations and written operations through the agreed Elm mapping; explicit nullable types alone use Maybe; preserve declared types, names, source owners, and Public/Private projection
 - no runtime emulation: no presence/range/nonzero/finite/ownership/purity/termination proof; no numeric helper modules, hidden initialization, SSA state, inlined bodies, synthetic equality, or simulated heap
 - acceptance: compare full parsed JSON; ignore only whitespace/object-key order; no package/name/type normalization, sorting, filtering, or omitted fields; explained differences and raw syntax capture do not pass the feature gate
-- scope: [Classic implementation subset](docs/classic-output.md); D1–D9 exact parity is not complete; later language/framework forms retain explicit mapping gaps; no source-only completion claims
+- scope: [Classic implementation subset](docs/classic-output.md) and [exact case registry](fixtures/elm-parity/cases.json); later forms and unapproved mappings retain explicit failures; no unsupported completion claims
 - inputs: core accepts Compilation + settings; adapters own project/source/reference/generator acquisition and serialization; valid compiler binding, selectors, collisions, and source-located all-or-nothing failure remain required
 - layout: Morphir.CSharp.slnx; src Classic/Json/core/ProjectSystem/CLI projects; tests; fixtures; samples/CurrentSupportedExample; eng; docs
 - restore: `dotnet restore Morphir.CSharp.slnx --packages .packages --locked-mode`
 - build: `dotnet build Morphir.CSharp.slnx --no-restore -m:1`
 - tests: `dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1`; VSTest needs a local host socket; project loading needs local MSBuild
-- checks: `python3 eng/check-catalogs.py`; `python3 eng/check-repository.py`; 24 plans with exact Elm parity gates, historical paired code, Markdown links/fences, frozen hashes, license bytes, tracked/new/staged whitespace
+- checks: `python3 eng/check-catalogs.py`; `python3 eng/check-repository.py`; supported catalog entries require exact case IDs; 24 plans with exact Elm parity gates, historical paired code, Markdown links/fences, frozen hashes, license bytes, tracked/new/staged whitespace
 - fixtures: every feature needs equivalent paired C#/Elm inputs and expected complete JSON from pinned `morphir-elm make`; retain command/version/hashes; frozen references can support regression tests; no C#-generated or codec-only golden for frontend acceptance
-- reference generation: separate explicit reviewed operation; `npm ci --prefix eng --ignore-scripts --no-audit --no-fund`, then `node eng/generate-references.mjs --write`; never repair parity by adopting converter output
+- reference generation: separate explicit reviewed operation; `npm ci --prefix eng --ignore-scripts --no-audit --no-fund`, then `node eng/generate-exact-references.mjs --write` for current frontend references; legacy generation is separate; never repair parity by adopting converter output
 - maintenance: cumulative sample, language/framework/model catalogs, mapping, README, this file, schema, and delivery evidence every delivery
 - historical evidence: [runtime archive](docs/history/runtime-contract/README.md), Source-mode tests, and normalized comparisons do not establish exact Elm parity; preserve frozen bytes and provenance
 - CLAUDE.md: `@AGENTS.md` plus newline only

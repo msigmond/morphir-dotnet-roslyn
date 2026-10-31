@@ -122,14 +122,15 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
         if (diagnostics.Count != 0) return Failure();
         foreach (var type in types) Attempt(() => Emit(type));
         if (diagnostics.Count != 0) return Failure();
-        var syntax = new List<SourceSyntax>();
-        foreach (var tree in compilations.SelectMany(c => c.SyntaxTrees))
-            foreach (var node in tree.GetRoot().DescendantNodes().OfType<BaseTypeDeclarationSyntax>().Where(n => !n.Ancestors().OfType<BaseTypeDeclarationSyntax>().Any()))
-                if (Semantic(node).GetDeclaredSymbol(node) is INamedTypeSymbol type && Selected(type)) Attempt(() => syntax.Add(Syntax(node)));
+        foreach (var type in types)
+            foreach (var reference in type.DeclaringSyntaxReferences)
+                foreach (var node in reference.GetSyntax().DescendantNodesAndSelf())
+                    if (node is ExpressionSyntax or ConstructorInitializerSyntax && Semantic(node).GetSymbolInfo(node).Symbol is { } symbol)
+                        Attempt(() => RequireSelected(symbol, node.GetLocation()));
         if (diagnostics.Count != 0) return Failure();
         var definitions = modules.Values.OrderBy(m => m.Path, IdentityOrder.Paths).Select(m => new Entry<IrPath, AccessControlled<ModuleDefinition<Unit, IrType<Unit>>>>(m.Path, new(m.Access, new(m.Types.OrderBy(t => t.Key.Key, StringComparer.Ordinal).ToArray(), m.Values.OrderBy(v => v.Key.Key, StringComparer.Ordinal).ToArray())))).ToArray();
-        var library = new Library<Unit, IrType<Unit>>(package, (settings.Dependencies ?? []).Select(d => new Entry<IrPath, PackageSpecification<Unit>>(d.Package, d.Specification)).ToArray(), new(definitions)) { Source = new(syntax) };
-        if (settings.OutputFormat == FrontendOutputFormat.Classic) Attempt(() => library = ProjectClassic(library));
+        var library = new Library<Unit, IrType<Unit>>(package, (settings.Dependencies ?? []).Select(d => new Entry<IrPath, PackageSpecification<Unit>>(d.Package, d.Specification)).ToArray(), new(definitions));
+        Attempt(() => library = ProjectClassic(library));
         return diagnostics.Count != 0 ? Failure() : new(library, []);
     }
     private void Validate(INamedTypeSymbol type)
@@ -192,7 +193,7 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
         if (symbol is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T } nullableValue) return Types.Maybe(Type(nullableValue.TypeArguments[0], location: location));
         if (annotations && syntax is null && symbol.IsReferenceType && symbol.NullableAnnotation == NullableAnnotation.Annotated) return Types.Maybe(Type(symbol.WithNullableAnnotation(NullableAnnotation.NotAnnotated), location: location));
         if (symbol.IsRefLikeType || symbol is IPointerTypeSymbol or IFunctionPointerTypeSymbol) return Fail<IrType<Unit>>("MCS2003", "Ref-like and pointer types have no delivered source mapping.", location);
-        if (symbol is IArrayTypeSymbol array) return new ReferenceType<Unit>(default, new(IrPath.From("Morphir.CSharp"), IrPath.From("Types"), Name.From("Array")), [Type(array.ElementType, (syntax as ArrayTypeSyntax)?.ElementType, location, annotations)]);
+        if (symbol is IArrayTypeSymbol) return Fail<IrType<Unit>>("MCS4001", "Array and params types need an approved standard Elm mapping.", location);
         if (symbol is ITypeParameterSymbol parameter) return new VariableType<Unit>(default, Name.From(parameter.Name));
         if (symbol is INamedTypeSymbol { IsTupleType: true } tuple) return new TupleType<Unit>(default, tuple.TupleElements.Select((element, i) => Type(element.Type, (syntax as TupleTypeSyntax)?.Elements[i].Type, location, annotations)).ToArray());
         if (symbol.SpecialType == SpecialType.System_Void) return Types.Unit;
@@ -210,7 +211,7 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
         }
         bool delivered = named.ToDisplayString() == "System.Numerics.Complex" || named.ContainingNamespace.ToDisplayString() == "System" && named.Name is "Func" or "Tuple" or "ValueTuple";
         if (!delivered) return Fail<IrType<Unit>>("MCS2104", $"Type {symbol} retains its later delivery gate.", location);
-        return new ReferenceType<Unit>(default, new(IrPath.From("Morphir.CSharp"), IrPath.From(named.ContainingNamespace.ToDisplayString()), Name.From(named.MetadataName)), named.TypeArguments.Select((t, i) => Type(t, GenericArguments(syntax).ElementAtOrDefault(i), location, annotations)).ToArray());
+        return Fail<IrType<Unit>>("MCS4001", $"Type {symbol} needs an approved standard Elm mapping.", location);
     }
     private static IEnumerable<TypeSyntax> GenericArguments(TypeSyntax? syntax) => syntax switch
     {
@@ -221,22 +222,8 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
     };
     private void CheckArray(ITypeSymbol type, ISymbol symbol)
     {
-        if (ContainsArray(type) && !(symbol is IParameterSymbol { IsParams: true } && type is IArrayTypeSymbol array && !ContainsArray(array.ElementType))) Fail<object>("MCS3101", "General array declarations require D11; params inputs remain delivered.", Location(symbol));
+        if (ContainsArray(type) && !(symbol is IParameterSymbol { IsParams: true } && type is IArrayTypeSymbol array && !ContainsArray(array.ElementType))) Fail<object>("MCS3101", "General array declarations require D11; params inputs also need an approved standard Elm mapping.", Location(symbol));
     }
     private static bool ContainsArray(ITypeSymbol type) => type is IArrayTypeSymbol || type is INamedTypeSymbol named && named.TypeArguments.Any(ContainsArray);
-    private static V Source(IrType<Unit> type, string kind, IReadOnlyList<V> children, params (string Key, string Value)[] properties) => new SourceValue<Unit, IrType<Unit>>(type, kind, properties.Select(p => new Entry<string, string>(p.Key, p.Value)).ToArray(), children);
-    private SourceSyntax Syntax(SyntaxNode node)
-    {
-        var model = Semantic(node); ISymbol? symbol = null;
-        if (node is MemberDeclarationSyntax or VariableDeclaratorSyntax or ParameterSyntax or LocalFunctionStatementSyntax or SingleVariableDesignationSyntax or TypeParameterSyntax) symbol = model.GetDeclaredSymbol(node);
-        else if (node is ExpressionSyntax or ConstructorInitializerSyntax) symbol = model.GetSymbolInfo(node).Symbol;
-        if (symbol is not null) RequireSelected(symbol, node.GetLocation());
-        var type = node is ExpressionSyntax expression ? model.GetTypeInfo(expression).Type?.ToDisplayString(Display) : null;
-        SourceLocation Position(SyntaxNodeOrToken item)
-        {
-            var span = item.GetLocation()!.GetLineSpan();
-            return new(item.SyntaxTree!.FilePath, item.SpanStart, item.Span.Length, span.StartLinePosition.Line + 1, span.StartLinePosition.Character + 1);
-        }
-        return new(node.Kind().ToString(), null, symbol is null ? null : Id(symbol), type, Position(node), node.ChildNodesAndTokens().Select(child => child.IsNode ? Syntax(child.AsNode()!) : new SourceSyntax(child.Kind().ToString(), child.AsToken().Text, null, null, Position(child), [])).ToArray());
-    }
+    private static V Source(IrType<Unit> type, string kind, IReadOnlyList<V> children, params (string Key, string Value)[] properties) => new CSharpOperation<Unit, IrType<Unit>>(type, kind, properties.Select(p => new Entry<string, string>(p.Key, p.Value)).ToArray(), children);
 }

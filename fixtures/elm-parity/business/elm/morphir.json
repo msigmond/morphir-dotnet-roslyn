@@ -1,0 +1,8 @@
+{
+  "name": "Sigmond.Buslog",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "Model",
+    "Algo.LoanCalculations"
+  ]
+}

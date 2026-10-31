@@ -1,26 +1,26 @@
 {
-  "outputScope": "Rows record historical source implementation/inventory. They do not establish feature acceptance. Every feature needs exact JSON parity with morphir-elm make under docs/elm-parity.md.",
+  "outputScope": "Only listed, exactly tested metadata operators are supported. Other historical Source-mode member claims are pending. Complete frontend parity uses morphir-elm make.",
   "referencePack": "Microsoft.NETCore.App.Ref/10.0.0",
   "roslyn": "5.0.0",
   "policy": "Exact pinned declaration inventory retained. Supported entries use source operations. Pending entries retain signature/type/syntax closure work, not runtime proof work.",
   "members": [
     {
       "member": "decimal.Abs(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Add(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Ceiling(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Clamp(decimal, decimal, decimal)",
@@ -30,15 +30,15 @@
     },
     {
       "member": "decimal.Compare(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.CompareTo(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.CompareTo(object?)",
@@ -84,9 +84,9 @@
     },
     {
       "member": "decimal.Decimal()",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Decimal(System.ReadOnlySpan<int>)",
@@ -111,15 +111,15 @@
     },
     {
       "member": "decimal.Decimal(int)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Decimal(int, int, int, bool, byte)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Decimal(int[])",
@@ -129,39 +129,39 @@
     },
     {
       "member": "decimal.Decimal(long)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Decimal(uint)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Decimal(ulong)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Divide(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Equals(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Equals(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Equals(object?)",
@@ -171,9 +171,9 @@
     },
     {
       "member": "decimal.Floor(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.FromOACurrency(long)",
@@ -226,9 +226,9 @@
     },
     {
       "member": "decimal.IsNegative(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.IsOddInteger(decimal)",
@@ -244,9 +244,9 @@
     },
     {
       "member": "decimal.Max(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.MaxMagnitude(decimal, decimal)",
@@ -256,15 +256,15 @@
     },
     {
       "member": "decimal.MaxValue",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Min(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.MinMagnitude(decimal, decimal)",
@@ -274,33 +274,33 @@
     },
     {
       "member": "decimal.MinValue",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.MinusOne",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Multiply(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Negate(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.One",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Parse(System.ReadOnlySpan<byte>, System.Globalization.NumberStyles, System.IFormatProvider?)",
@@ -356,15 +356,15 @@
     },
     {
       "member": "decimal.Remainder(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Round(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Round(decimal, System.MidpointRounding)",
@@ -374,9 +374,9 @@
     },
     {
       "member": "decimal.Round(decimal, int)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Round(decimal, int, System.MidpointRounding)",
@@ -386,21 +386,21 @@
     },
     {
       "member": "decimal.Scale",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Sign(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.Subtract(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.ToByte(decimal)",
@@ -494,9 +494,9 @@
     },
     {
       "member": "decimal.Truncate(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.TryFormat(System.Span<byte>, out int, System.ReadOnlySpan<char>, System.IFormatProvider?)",
@@ -581,21 +581,21 @@
     },
     {
       "member": "decimal.Zero",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator byte(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator char(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator decimal(double)",
@@ -613,141 +613,150 @@
     },
     {
       "member": "decimal.explicit operator double(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator float(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator int(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator long(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator sbyte(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator short(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator uint(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator ulong(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.explicit operator ushort(decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.implicit operator decimal(byte)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.implicit operator decimal(char)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.implicit operator decimal(int)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.implicit operator decimal(long)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.implicit operator decimal(sbyte)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.implicit operator decimal(short)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.implicit operator decimal(uint)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.implicit operator decimal(ulong)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.implicit operator decimal(ushort)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.operator !=(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.operator %(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.operator *(decimal, decimal)",
       "state": "supported",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "Exact whole-JSON parity for this operator and its listed operand types.",
+      "parityCases": [
+        "decimal-operators"
+      ]
     },
     {
       "member": "decimal.operator +(decimal)",
       "state": "supported",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "Exact whole-JSON parity for the Decimal unary operation.",
+      "parityCases": [
+        "decimal-literals"
+      ]
     },
     {
       "member": "decimal.operator +(decimal, decimal)",
       "state": "supported",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "Exact whole-JSON parity for this operator and its listed operand types.",
+      "parityCases": [
+        "decimal-operators"
+      ]
     },
     {
       "member": "decimal.operator ++(decimal)",
@@ -759,13 +768,19 @@
       "member": "decimal.operator -(decimal)",
       "state": "supported",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "Exact whole-JSON parity for the Decimal unary operation.",
+      "parityCases": [
+        "decimal-literals"
+      ]
     },
     {
       "member": "decimal.operator -(decimal, decimal)",
       "state": "supported",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "Exact whole-JSON parity for this operator and its listed operand types.",
+      "parityCases": [
+        "decimal-operators"
+      ]
     },
     {
       "member": "decimal.operator --(decimal)",
@@ -775,39 +790,39 @@
     },
     {
       "member": "decimal.operator /(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.operator <(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.operator <=(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.operator ==(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.operator >(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     },
     {
       "member": "decimal.operator >=(decimal, decimal)",
-      "state": "supported",
+      "state": "pending",
       "owner": "D6",
-      "domain": "Keep the resolved source member/operator/constructor; require no runtime proof."
+      "domain": "No exact Elm make parity case for this member; historical Source-mode support is not acceptance."
     }
   ]
 }

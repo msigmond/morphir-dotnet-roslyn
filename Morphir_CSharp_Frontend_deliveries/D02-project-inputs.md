@@ -1,9 +1,9 @@
 # D2 — Project and generated source inputs
 
-- status: exact Elm parity revalidation required; historical Source-mode pass on 2026-10-24
+- status: partial exact parity; remaining mappings pending; historical Source-mode pass is not acceptance
 - contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D1](D01-cli-record.md)
-- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
+- evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
 
 ## Work
 

@@ -1,5 +1,5 @@
 {
-  "outputScope": "Rows record historical source implementation/inventory. They do not establish feature acceptance. Every feature needs exact JSON parity with morphir-elm make under docs/elm-parity.md.",
+  "outputScope": "Support requires exact whole-JSON parity with morphir-elm make. parityCases names the automated paired tests. Unmapped forms remain pending/rejected; Source v1 is removed.",
   "roslyn": "5.0.0",
   "language": "C#14",
   "inventory": "Exact Roslyn 5.0.0 names. Bound operations identify symbols; source syntax controls emitted structure.",
@@ -22,15 +22,21 @@
       "operation": "Block",
       "owner": "D3",
       "state": "supported",
-      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "locals"
+      ]
     },
     {
       "operation": "VariableDeclarationGroup",
       "owner": "D3",
       "state": "supported",
-      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "locals"
+      ]
     },
     {
       "operation": "Switch",
@@ -64,15 +70,21 @@
       "operation": "Empty",
       "owner": "D3",
       "state": "supported",
-      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "locals-empty"
+      ]
     },
     {
       "operation": "Return",
       "owner": "D3",
       "state": "supported",
-      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "locals"
+      ]
     },
     {
       "operation": "YieldBreak",
@@ -119,9 +131,9 @@
     {
       "operation": "LocalFunction",
       "owner": "D7",
-      "state": "supported",
+      "state": "pending",
       "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "Stop",
@@ -148,22 +160,30 @@
       "operation": "Literal",
       "owner": "D1",
       "state": "supported",
-      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "literals"
+      ]
     },
     {
       "operation": "Conversion",
       "owner": "D5",
-      "state": "supported",
+      "state": "pending",
       "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "Invocation",
       "owner": "D2",
       "state": "supported",
-      "domain": "Actual source/project/reference/generator acquisition and atomic source output.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "project-generated",
+        "calls",
+        "external-call"
+      ]
     },
     {
       "operation": "ArrayElementReference",
@@ -176,36 +196,54 @@
       "operation": "LocalReference",
       "owner": "D3",
       "state": "supported",
-      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "locals"
+      ]
     },
     {
       "operation": "ParameterReference",
       "owner": "D1",
       "state": "supported",
-      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "literals"
+      ]
     },
     {
       "operation": "FieldReference",
       "owner": "D9",
       "state": "supported",
-      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "data-forms",
+        "records"
+      ]
     },
     {
       "operation": "MethodReference",
       "owner": "D7",
       "state": "supported",
-      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "calls",
+        "instance-call"
+      ]
     },
     {
       "operation": "PropertyReference",
       "owner": "D1",
       "state": "supported",
-      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "records",
+        "data-forms"
+      ]
     },
     {
       "operation": "EventReference",
@@ -218,43 +256,66 @@
       "operation": "Unary",
       "owner": "D5",
       "state": "supported",
-      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "integer-operators",
+        "boolean-unary",
+        "decimal-operators"
+      ]
     },
     {
       "operation": "UnaryOperator",
       "owner": "D5",
       "state": "supported",
-      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "integer-operators",
+        "boolean-unary",
+        "decimal-operators"
+      ]
     },
     {
       "operation": "Binary",
       "owner": "D5",
       "state": "supported",
-      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "integer-operators",
+        "boolean-unary",
+        "decimal-operators"
+      ]
     },
     {
       "operation": "BinaryOperator",
       "owner": "D5",
       "state": "supported",
-      "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "integer-operators",
+        "boolean-unary",
+        "decimal-operators"
+      ]
     },
     {
       "operation": "Conditional",
       "owner": "D3",
       "state": "supported",
-      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "conditionals"
+      ]
     },
     {
       "operation": "Coalesce",
       "owner": "D4",
-      "state": "supported",
+      "state": "pending",
       "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "AnonymousFunction",
@@ -267,8 +328,12 @@
       "operation": "ObjectCreation",
       "owner": "D1",
       "state": "supported",
-      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "records",
+        "eligibility"
+      ]
     },
     {
       "operation": "TypeParameterObjectCreation",
@@ -288,8 +353,11 @@
       "operation": "InstanceReference",
       "owner": "D7",
       "state": "supported",
-      "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "instance-call"
+      ]
     },
     {
       "operation": "IsType",
@@ -323,8 +391,11 @@
       "operation": "Parenthesized",
       "owner": "D1",
       "state": "supported",
-      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "wrappers"
+      ]
     },
     {
       "operation": "EventAssignment",
@@ -336,16 +407,16 @@
     {
       "operation": "ConditionalAccess",
       "owner": "D4",
-      "state": "supported",
+      "state": "pending",
       "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "ConditionalAccessInstance",
       "owner": "D4",
-      "state": "supported",
+      "state": "pending",
       "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "InterpolatedString",
@@ -364,16 +435,16 @@
     {
       "operation": "ObjectOrCollectionInitializer",
       "owner": "D9",
-      "state": "supported",
+      "state": "pending",
       "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "MemberInitializer",
       "owner": "D9",
-      "state": "supported",
+      "state": "pending",
       "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "CollectionElementInitializer",
@@ -393,8 +464,11 @@
       "operation": "Tuple",
       "owner": "D8",
       "state": "supported",
-      "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "tuples"
+      ]
     },
     {
       "operation": "DynamicObjectCreation",
@@ -434,16 +508,16 @@
     {
       "operation": "DelegateCreation",
       "owner": "D7",
-      "state": "supported",
+      "state": "pending",
       "domain": "Resolved calls, written arguments, defaults in declarations, params syntax, references, scoped local definitions, and captures.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "DefaultValue",
       "owner": "D4",
-      "state": "supported",
+      "state": "pending",
       "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "TypeOf",
@@ -455,9 +529,9 @@
     {
       "operation": "SizeOf",
       "owner": "D5",
-      "state": "supported",
+      "state": "pending",
       "domain": "Simple numeric operations, source casts and constructors, named constants, and source-domain metadata.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "AddressOf",
@@ -497,16 +571,16 @@
     {
       "operation": "DeconstructionAssignment",
       "owner": "D8",
-      "state": "supported",
+      "state": "pending",
       "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "DeclarationExpression",
       "owner": "D8",
-      "state": "supported",
+      "state": "pending",
       "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "OmittedArgument",
@@ -519,22 +593,28 @@
       "operation": "FieldInitializer",
       "owner": "D9",
       "state": "supported",
-      "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "constants"
+      ]
     },
     {
       "operation": "VariableInitializer",
       "owner": "D3",
       "state": "supported",
-      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "locals"
+      ]
     },
     {
       "operation": "PropertyInitializer",
       "owner": "D9",
-      "state": "supported",
+      "state": "pending",
       "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "ParameterInitializer",
@@ -554,22 +634,32 @@
       "operation": "VariableDeclarator",
       "owner": "D3",
       "state": "supported",
-      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "locals"
+      ]
     },
     {
       "operation": "VariableDeclaration",
       "owner": "D3",
       "state": "supported",
-      "domain": "Blocks, local declarations, assignments, returns, empty statements, and explicit branches.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "locals"
+      ]
     },
     {
       "operation": "Argument",
       "owner": "D1",
       "state": "supported",
-      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "calls",
+        "records"
+      ]
     },
     {
       "operation": "CatchClause",
@@ -623,51 +713,57 @@
     {
       "operation": "TupleBinary",
       "owner": "D8",
-      "state": "supported",
+      "state": "pending",
       "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "TupleBinaryOperator",
       "owner": "D8",
-      "state": "supported",
+      "state": "pending",
       "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "MethodBody",
       "owner": "D1",
       "state": "supported",
-      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "literals"
+      ]
     },
     {
       "operation": "MethodBodyOperation",
       "owner": "D1",
       "state": "supported",
-      "domain": "CLI selection, source owners, source metadata, literal and simple arithmetic projection.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
+      "parityCases": [
+        "literals"
+      ]
     },
     {
       "operation": "ConstructorBody",
       "owner": "D9",
-      "state": "supported",
+      "state": "pending",
       "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "ConstructorBodyOperation",
       "owner": "D9",
-      "state": "supported",
+      "state": "pending",
       "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "Discard",
       "owner": "D8",
-      "state": "supported",
+      "state": "pending",
       "domain": "Enum initializer expressions and single operators; tuple families, labels, accesses, equality, and deconstruction.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "FlowCapture",
@@ -686,9 +782,9 @@
     {
       "operation": "IsNull",
       "owner": "D4",
-      "state": "supported",
+      "state": "pending",
       "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "CaughtException",
@@ -714,9 +810,9 @@
     {
       "operation": "CoalesceAssignment",
       "owner": "D4",
-      "state": "supported",
+      "state": "pending",
       "domain": "Explicit nullable types and written null, default, access, coalesce, and lifted syntax.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "Range",
@@ -812,9 +908,9 @@
     {
       "operation": "With",
       "owner": "D9",
-      "state": "supported",
+      "state": "pending",
       "domain": "Source data forms, constructors/accessors, explicit writes, aliases, with, cycles, identity, and equality.",
-      "evidence": "SourceStructureTests; AuditMatrixTests; StructureIntegrationTests"
+      "evidence": "No complete exact Elm parity mapping for this full catalog entry. Source-only acceptance is withdrawn."
     },
     {
       "operation": "InterpolatedStringHandlerCreation",

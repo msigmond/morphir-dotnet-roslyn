@@ -3,7 +3,7 @@
 - status: planned
 - contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D19](D19-classic-complete.md), [D2](D02-project-inputs.md)
-- evidence: [current acceptance gaps](../docs/elm-parity.md#existing-gaps); earlier migration evidence is historical
+- evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
 
 ## Work
 

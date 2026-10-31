@@ -36,11 +36,10 @@ Do not implement a requested feature as a custom Source node to avoid the parity
 
 ## Existing gaps
 
-D1–D9 passed earlier Source-mode checks. That result does not establish acceptance under this contract.
-Their feature coverage needs exact Elm parity revalidation before it can be called complete.
-The existing business comparison permits package, local-name, and local-type normalization.
-It is supplemental evidence and does not satisfy the exact-parity gate.
+D1–D9 have the [exact-tested subset](deliveries/elm-parity-state.md). Their complete inventory remains pending.
+Earlier Source-mode passes do not establish acceptance. The normalized comparison helper is removed.
+The current business fixture uses matched input names/package and explicit Elm local types; comparison changes no output.
 Historical codec and runtime references remain frozen; their existence alone does not establish frontend parity.
-The existing public Source v1 mode is unrequested code. Its removal remains corrective cleanup.
-Do not extend it or count it as delivered capability.
+Public Source v1 output is removed. It must not return as an alternative target.
+Mutation, identity/cycles, side-effecting construction, and other unmapped forms remain explicit rejections until a specific mapping is approved.
 D10–D21 remain planned and must use this gate for every feature.

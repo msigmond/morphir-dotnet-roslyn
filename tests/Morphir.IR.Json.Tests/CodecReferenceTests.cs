@@ -31,7 +31,7 @@ public class CodecReferenceTests
         var publicLib = Support.Success(Support.Convert(Support.Read("fixtures/D1/csharp/Eligibility.cs")));
         var publicSpec = Specifications.Public(publicLib.Definition);
         Assert.Single(publicSpec.Modules.SelectMany(m => m.Value.Types));
-        Assert.Equal(6, publicSpec.Modules.SelectMany(m => m.Value.Values).Count()); // Five written methods plus the explicit primary constructor.
+        Assert.Equal(5, publicSpec.Modules.SelectMany(m => m.Value.Values).Count()); // The record constructor belongs to the alias; only the five written methods are values.
     }
 }
 

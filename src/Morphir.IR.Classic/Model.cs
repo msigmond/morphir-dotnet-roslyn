@@ -43,8 +43,6 @@ public sealed record StringLiteral(string Value) : Literal;
 public sealed record CharLiteral(string Value) : Literal;
 public sealed record FloatLiteral(double Value) : Literal;
 public sealed record DecimalLiteral(string Value) : Literal;
-/// <summary>A source numeric token outside Classic's signed 64-bit literal range.</summary>
-public sealed record SourceNumberLiteral(string Text) : Literal;
 public abstract record Value<TA, VA>(VA Attributes);
 public sealed record TupleValue<TA, VA>(VA Attributes, IReadOnlyList<Value<TA, VA>> Elements) : Value<TA, VA>(Attributes);
 public sealed record UnitValue<TA, VA>(VA Attributes) : Value<TA, VA>(Attributes);
@@ -70,14 +68,6 @@ public sealed record MatchValue<TA, VA>(VA Attributes, Value<TA, VA> Subject, IR
 public sealed record EmptyListPattern<VA>(VA Attributes) : Pattern<VA>(Attributes);
 public sealed record HeadTailPattern<VA>(VA Attributes, Pattern<VA> Head, Pattern<VA> Tail) : Pattern<VA>(Attributes);
 public sealed record ListValue<TA, VA>(VA Attributes, IReadOnlyList<Value<TA, VA>> Elements) : Value<TA, VA>(Attributes);
-/// <summary>A source operation with ordered operands; it specifies structure, not evaluation.</summary>
-public sealed record SourceValue<TA, VA>(VA Attributes, string Kind, IReadOnlyList<Entry<string, string>> Properties,
-    IReadOnlyList<Value<TA, VA>> Children) : Value<TA, VA>(Attributes);
-public sealed record SourceLocation(string File, int Start, int Length, int Line, int Column);
-/// <summary>Roslyn-free concrete syntax. Tokens retain spelling; nodes retain order and binding identity.</summary>
-public sealed record SourceSyntax(string Kind, string? Token, string? Symbol, string? Type,
-    SourceLocation Location, IReadOnlyList<SourceSyntax> Children);
-public sealed record SourceDocument(IReadOnlyList<SourceSyntax> Declarations);
 public sealed record Input<TA, VA>(Name Name, VA Attributes, IrType<TA> Type);
 public sealed record ValueDefinition<TA, VA>(IReadOnlyList<Input<TA, VA>> Inputs, IrType<TA> Output, Value<TA, VA> Body);
 public sealed record ValueSpecification<TA>(IReadOnlyList<Entry<Name, IrType<TA>>> Inputs, IrType<TA> Output);
@@ -91,11 +81,7 @@ public sealed record ModuleSpecification<TA>(
     string? Doc = null);
 public sealed record PackageSpecification<TA>(IReadOnlyList<Entry<Path, ModuleSpecification<TA>>> Modules);
 public sealed record PackageDefinition<TA, VA>(IReadOnlyList<Entry<Path, AccessControlled<ModuleDefinition<TA, VA>>>> Modules);
-public sealed record Library<TA, VA>(Path Package, IReadOnlyList<Entry<Path, PackageSpecification<TA>>> Dependencies, PackageDefinition<TA, VA> Definition)
-{
-    /// <summary>Non-null selects the explicit Morphir.CSharp.Source v1 envelope, not the Classic v3 wire format.</summary>
-    public SourceDocument? Source { get; init; }
-}
+public sealed record Library<TA, VA>(Path Package, IReadOnlyList<Entry<Path, PackageSpecification<TA>>> Dependencies, PackageDefinition<TA, VA> Definition);
 
 public static class Types
 {

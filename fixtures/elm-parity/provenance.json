@@ -1,0 +1,1115 @@
+{
+  "origin": "Independent paired inputs; expected distributions produced only by the pinned morphir-elm make command.",
+  "comparison": "Complete JSON equality. Only whitespace and object-key order are immaterial.",
+  "toolchain": {
+    "morphirElmVersion": "2.100.0",
+    "sourceCommit": "71ca7ee385273b0af6f8db66582c26e9b410cbf2",
+    "sourceRepository": "https://github.com/finos/morphir-elm.git",
+    "elmCompilerVersion": "0.19.1",
+    "ordinaryCompilerMode": "default",
+    "codecMode": "Elm host using unmodified pinned source algebra and codecs"
+  },
+  "commands": [
+    {
+      "id": "literals",
+      "workingDirectory": "artifacts/exact-reference-generation/literals",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/literals/expected/elm.json"
+      ]
+    },
+    {
+      "id": "integer-operators",
+      "workingDirectory": "artifacts/exact-reference-generation/integer-operators",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/integer-operators/expected/elm.json"
+      ]
+    },
+    {
+      "id": "float-operators",
+      "workingDirectory": "artifacts/exact-reference-generation/float-operators",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/float-operators/expected/elm.json"
+      ]
+    },
+    {
+      "id": "boolean-unary",
+      "workingDirectory": "artifacts/exact-reference-generation/boolean-unary",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/boolean-unary/expected/elm.json"
+      ]
+    },
+    {
+      "id": "conditionals",
+      "workingDirectory": "artifacts/exact-reference-generation/conditionals",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/conditionals/expected/elm.json"
+      ]
+    },
+    {
+      "id": "locals",
+      "workingDirectory": "artifacts/exact-reference-generation/locals",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/locals/expected/elm.json"
+      ]
+    },
+    {
+      "id": "wrappers",
+      "workingDirectory": "artifacts/exact-reference-generation/wrappers",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/wrappers/expected/elm.json"
+      ]
+    },
+    {
+      "id": "calls",
+      "workingDirectory": "artifacts/exact-reference-generation/calls",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/calls/expected/elm.json"
+      ]
+    },
+    {
+      "id": "nullable-types",
+      "workingDirectory": "artifacts/exact-reference-generation/nullable-types",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/nullable-types/expected/elm.json"
+      ]
+    },
+    {
+      "id": "tuples",
+      "workingDirectory": "artifacts/exact-reference-generation/tuples",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/tuples/expected/elm.json"
+      ]
+    },
+    {
+      "id": "decimal-operators",
+      "workingDirectory": "artifacts/exact-reference-generation/decimal-operators",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/decimal-operators/expected/elm.json"
+      ]
+    },
+    {
+      "id": "records",
+      "workingDirectory": "artifacts/exact-reference-generation/records",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/records/expected/elm.json"
+      ]
+    },
+    {
+      "id": "data-forms",
+      "workingDirectory": "artifacts/exact-reference-generation/data-forms",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/data-forms/expected/elm.json"
+      ]
+    },
+    {
+      "id": "nullable-record",
+      "workingDirectory": "artifacts/exact-reference-generation/nullable-record",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/nullable-record/expected/elm.json"
+      ]
+    },
+    {
+      "id": "visibility",
+      "workingDirectory": "artifacts/exact-reference-generation/visibility",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/visibility/expected/elm.json"
+      ]
+    },
+    {
+      "id": "business",
+      "workingDirectory": "artifacts/exact-reference-generation/business",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/business/expected/elm.json"
+      ]
+    },
+    {
+      "id": "instance-call",
+      "workingDirectory": "artifacts/exact-reference-generation/instance-call",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/instance-call/expected/elm.json"
+      ]
+    },
+    {
+      "id": "constants",
+      "workingDirectory": "artifacts/exact-reference-generation/constants",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/constants/expected/elm.json"
+      ]
+    },
+    {
+      "id": "reported-products",
+      "workingDirectory": "artifacts/exact-reference-generation/reported-products",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/reported-products/expected/elm.json"
+      ]
+    },
+    {
+      "id": "project-generated",
+      "workingDirectory": "artifacts/exact-reference-generation/project-generated",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/project-generated/expected/elm.json"
+      ]
+    },
+    {
+      "id": "eligibility",
+      "workingDirectory": "artifacts/exact-reference-generation/eligibility",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/eligibility/expected/elm.json"
+      ]
+    },
+    {
+      "id": "width-promotion",
+      "workingDirectory": "artifacts/exact-reference-generation/width-promotion",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/width-promotion/expected/elm.json"
+      ]
+    },
+    {
+      "id": "char-comparison",
+      "workingDirectory": "artifacts/exact-reference-generation/char-comparison",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/char-comparison/expected/elm.json"
+      ]
+    },
+    {
+      "id": "external-provider",
+      "workingDirectory": "artifacts/exact-reference-generation/external-provider",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/external-provider/expected/elm.json"
+      ]
+    },
+    {
+      "id": "external-call",
+      "workingDirectory": "artifacts/exact-reference-generation/external-call",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/external-call/expected/elm.json"
+      ]
+    },
+    {
+      "id": "unused-private",
+      "workingDirectory": "artifacts/exact-reference-generation/unused-private",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/unused-private/expected/elm.json"
+      ]
+    },
+    {
+      "id": "decimal-literals",
+      "workingDirectory": "artifacts/exact-reference-generation/decimal-literals",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/decimal-literals/expected/elm.json"
+      ]
+    },
+    {
+      "id": "float-literal-spelling",
+      "workingDirectory": "artifacts/exact-reference-generation/float-literal-spelling",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/float-literal-spelling/expected/elm.json"
+      ]
+    },
+    {
+      "id": "current-sample",
+      "workingDirectory": "artifacts/exact-reference-generation/current-sample",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/current-sample/expected/elm.json"
+      ]
+    },
+    {
+      "id": "documentation",
+      "workingDirectory": "artifacts/exact-reference-generation/documentation",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/documentation/expected/elm.json"
+      ]
+    },
+    {
+      "id": "package-name",
+      "workingDirectory": "artifacts/exact-reference-generation/package-name",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/package-name/expected/elm.json"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "fixtures/elm-parity/boolean-bitwise/csharp/Input.cs",
+      "sha256": "671db15a7befa81fed7d22c486fb28d69df29312180dfa639f1ef4ff2d03001e"
+    },
+    {
+      "path": "fixtures/elm-parity/boolean-unary/csharp/Input.cs",
+      "sha256": "d62d0f1dd6d52057cc35c484fb4616ff83fc9625c39b9621d23dd91958433d4f"
+    },
+    {
+      "path": "fixtures/elm-parity/boolean-unary/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/boolean-unary/elm/src/Example/Parity/Rules.elm",
+      "sha256": "7d5f09fcc576b85e19ce167ef54f2705c3e08514f45bff018fc7756252b0edcf"
+    },
+    {
+      "path": "fixtures/elm-parity/boolean-unary/expected/elm.json",
+      "sha256": "f3a045249fbce306827863beeb0b32222e38b5b3d166cda7b9d431d65edd3a50"
+    },
+    {
+      "path": "fixtures/elm-parity/business/csharp/Loan.cs",
+      "sha256": "33590dd2791174059a0216a8cf9ee2164f986b4e9473ee0a281a6bb6391a0576"
+    },
+    {
+      "path": "fixtures/elm-parity/business/csharp/LoanCalculations.cs",
+      "sha256": "6a43aedc2dbb35d793f305dd85b9de1a9944b36ea5f01dc64619d7def56ad295"
+    },
+    {
+      "path": "fixtures/elm-parity/business/csharp/LoanFee.cs",
+      "sha256": "661e041cf2fd6ffa6358f864b0adc5d659c4c3238d4db0a44e0cf791bac76870"
+    },
+    {
+      "path": "fixtures/elm-parity/business/elm/morphir.json",
+      "sha256": "034983d81b5685e13b2d193ba1866f06d3ac1fe78091e38ae7e4f130770a38ea"
+    },
+    {
+      "path": "fixtures/elm-parity/business/elm/src/Sigmond/Buslog/Algo/LoanCalculations.elm",
+      "sha256": "f6abc6af19f660c1b25e7aa0c341a481ddb6cd14ec6cd33da14ed9093e45bf11"
+    },
+    {
+      "path": "fixtures/elm-parity/business/elm/src/Sigmond/Buslog/Model.elm",
+      "sha256": "2b3f42b989767b8093948471f1a2e40cc860fc639fec1b389013f310c53404e1"
+    },
+    {
+      "path": "fixtures/elm-parity/business/expected/elm.json",
+      "sha256": "33d7627f19418f891500334eee2536de4f5251a1c680d03790b2189ab5610c45"
+    },
+    {
+      "path": "fixtures/elm-parity/calls/csharp/Input.cs",
+      "sha256": "0ddf781ac123a3ac6a80fdbda9103d14180e571bbc11df2d3ea2766c96df2eee"
+    },
+    {
+      "path": "fixtures/elm-parity/calls/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/calls/elm/src/Example/Parity/Rules.elm",
+      "sha256": "891d7e89160336976fa88a464a2d329107b387fc8b64ded3a7044164eca62e54"
+    },
+    {
+      "path": "fixtures/elm-parity/calls/expected/elm.json",
+      "sha256": "7591b4b1b91a8e9e6ae5ce261468e637f9ba29a5e3e6f062cdb270a2b15a95d6"
+    },
+    {
+      "path": "fixtures/elm-parity/cases.json",
+      "sha256": "d70f9635b44b0126295fbf097c2022508ed55ce2bfe8a1195ad63399a3714d59"
+    },
+    {
+      "path": "fixtures/elm-parity/char-comparison/csharp/Input.cs",
+      "sha256": "3fa03377228e8854ebc382c6410d7c395f48cec98b9bf4cf6f1aed8c71e61283"
+    },
+    {
+      "path": "fixtures/elm-parity/char-comparison/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/char-comparison/elm/src/Example/Parity/Rules.elm",
+      "sha256": "c12ba283e13cf55fd7d47a985ce4dae223791ef5d4a217bb578b5f8bd1159513"
+    },
+    {
+      "path": "fixtures/elm-parity/char-comparison/expected/elm.json",
+      "sha256": "e0549e7c94950c535500d333e64ef1d9282b3180e91e2e987555fbbb3257df47"
+    },
+    {
+      "path": "fixtures/elm-parity/conditionals/csharp/Input.cs",
+      "sha256": "a4653425789dec0cd43d794867eb8c534228ab882b54e7b2bd9e9c491710696b"
+    },
+    {
+      "path": "fixtures/elm-parity/conditionals/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/conditionals/elm/src/Example/Parity/Rules.elm",
+      "sha256": "e84e83d219cfde8860bb57057105a12adbf7cf4cb103ff709f01546643dba02d"
+    },
+    {
+      "path": "fixtures/elm-parity/conditionals/expected/elm.json",
+      "sha256": "c073a36eec693b66f42c2306a1c49ef08078fd6817184f7ec6d781733cd86fc2"
+    },
+    {
+      "path": "fixtures/elm-parity/constants/csharp/Input.cs",
+      "sha256": "269405e1709b4067964b2560e79a8e9a38d2a428504bd746a957e20a8217219e"
+    },
+    {
+      "path": "fixtures/elm-parity/constants/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/constants/elm/src/Example/Parity/Rules.elm",
+      "sha256": "b7e2425ae9e58aeed1e13433f768337404548bf6ba968675153c423447c90432"
+    },
+    {
+      "path": "fixtures/elm-parity/constants/expected/elm.json",
+      "sha256": "db8f7cea6dd08301a536b3b935dac04c3d0b01d79eb30c51f72258ab3c19c498"
+    },
+    {
+      "path": "fixtures/elm-parity/current-sample/csharp/Rules.Generated.cs",
+      "sha256": "6e32a19a922f0228d36183b17c2c1aa6d748cfd27a20121f6319d226b7f0e2e5"
+    },
+    {
+      "path": "fixtures/elm-parity/current-sample/elm/morphir.json",
+      "sha256": "cfa307d6dbb0a5ca3df61eab348ab69ab0ba446160784c1abf702b134a4a2b19"
+    },
+    {
+      "path": "fixtures/elm-parity/current-sample/elm/src/Example/CurrentSupported/ClassicLoanCalculations.elm",
+      "sha256": "5ea1570fd4c1e37f68900cc67cbd839b250aded55e1afd2f415f4247a0cab157"
+    },
+    {
+      "path": "fixtures/elm-parity/current-sample/elm/src/Example/CurrentSupported/CurrentSupportedExample.elm",
+      "sha256": "3dea2753ec21c9c768572396979a43070691a82a5d6f4f1bf39ccc60157964df"
+    },
+    {
+      "path": "fixtures/elm-parity/current-sample/elm/src/Example/CurrentSupported.elm",
+      "sha256": "9f5e84a75a0402aeb9ca737e501b239fd68ea35c7248b1c7b400f3586c75b705"
+    },
+    {
+      "path": "fixtures/elm-parity/current-sample/expected/elm.json",
+      "sha256": "72d61df5d199ab7b115a6ee7772da925533d7c7eb0cb0bfbc21b99387f0e4dff"
+    },
+    {
+      "path": "fixtures/elm-parity/data-forms/csharp/Input.cs",
+      "sha256": "03cfa6a05344e19b45cd3ce8ed1eddd31e2535b06350e1efd43b12b5f18e2af3"
+    },
+    {
+      "path": "fixtures/elm-parity/data-forms/elm/morphir.json",
+      "sha256": "9f4c98ab0172cb4fe983f9d8dd7919226c5fe1cd0abac34f6cc9417ea7aaf85f"
+    },
+    {
+      "path": "fixtures/elm-parity/data-forms/elm/src/Example/Parity/Rules.elm",
+      "sha256": "1271ee05a1e1a77f0e7b466d115a76d7dcacc210528be72d68c6e199752c8978"
+    },
+    {
+      "path": "fixtures/elm-parity/data-forms/elm/src/Example/Parity.elm",
+      "sha256": "c7cd3fb29533c4f16bc7774ec9201a07c69da6dd5c7345b7d1ad942240079014"
+    },
+    {
+      "path": "fixtures/elm-parity/data-forms/expected/elm.json",
+      "sha256": "b1de13875c5b5d2c44e0790fed7391009720f6aaccdc2967e0ddc745461041e1"
+    },
+    {
+      "path": "fixtures/elm-parity/decimal-literals/csharp/Input.cs",
+      "sha256": "e19492e1c986f963384e2b1a970733b6a9ede061b9423e8b6ab331a96b4db8c5"
+    },
+    {
+      "path": "fixtures/elm-parity/decimal-literals/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/decimal-literals/elm/src/Example/Parity/Rules.elm",
+      "sha256": "533a891ed7de15c586bad05cd0681b114250e16b042bed28e5ea82cb6f533be6"
+    },
+    {
+      "path": "fixtures/elm-parity/decimal-literals/expected/elm.json",
+      "sha256": "4b279166e6c3fb01d416ba8007f6c7f7ad42ac15e588751293075bdf6dab10ef"
+    },
+    {
+      "path": "fixtures/elm-parity/decimal-operators/csharp/Input.cs",
+      "sha256": "0b25a9ff31c21bd4ee9810fccd02f5d4a2cc3dd74d1579bc8d70d9b5d2fe85eb"
+    },
+    {
+      "path": "fixtures/elm-parity/decimal-operators/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/decimal-operators/elm/src/Example/Parity/Rules.elm",
+      "sha256": "c9c76d3dd5a90b5014e70abace244e12f62432fd9be753ac53ccc94f0bc8a925"
+    },
+    {
+      "path": "fixtures/elm-parity/decimal-operators/expected/elm.json",
+      "sha256": "6da1bf479f0e2fd8531ffc5bf250531fc7beef77b9732887110ebd8546ecf4bd"
+    },
+    {
+      "path": "fixtures/elm-parity/documentation/csharp/Input.cs",
+      "sha256": "996b418f4dfd08af79caa67292664c8ba9c0dba16899a6cda08e1cf24e8e3d06"
+    },
+    {
+      "path": "fixtures/elm-parity/documentation/elm/morphir.json",
+      "sha256": "9f4c98ab0172cb4fe983f9d8dd7919226c5fe1cd0abac34f6cc9417ea7aaf85f"
+    },
+    {
+      "path": "fixtures/elm-parity/documentation/elm/src/Example/Parity/Rules.elm",
+      "sha256": "e6a8333ee9b2f4a62f21404cb1ede4ba8e108f3a189030f565cc3d25eab0ad1b"
+    },
+    {
+      "path": "fixtures/elm-parity/documentation/elm/src/Example/Parity.elm",
+      "sha256": "587bbc496e31a8e064fdf7dd836bf2bde7b2595d32f2f88f1f84f41c3513e442"
+    },
+    {
+      "path": "fixtures/elm-parity/documentation/expected/elm.json",
+      "sha256": "766994f574204ac6171a63f871fed6b1ba97c45407d9e0aae54ab2763262c86b"
+    },
+    {
+      "path": "fixtures/elm-parity/eligibility/csharp/Input.cs",
+      "sha256": "b914db9ceb2cb34a017d20bb572767072c45e4c4814b38be0be4cc604697a5e6"
+    },
+    {
+      "path": "fixtures/elm-parity/eligibility/elm/morphir.json",
+      "sha256": "101214aca8edcd06946070afe69e5c55f2e73f70e6873db9c0f3da0dcce0b7e6"
+    },
+    {
+      "path": "fixtures/elm-parity/eligibility/elm/src/Example/D1/Rules.elm",
+      "sha256": "bfe46e32164f789316c45308acbbe41eae1ae6bf743e38c940d6bef4a35c66a7"
+    },
+    {
+      "path": "fixtures/elm-parity/eligibility/elm/src/Example/D1.elm",
+      "sha256": "7fdf85fa1925d0728e89f493a4009ad4ff69ea32e49e88aed293e089051c6c9f"
+    },
+    {
+      "path": "fixtures/elm-parity/eligibility/expected/elm.json",
+      "sha256": "84fdebcc1951e8ed78b69ac3c0d853fe666e17042a8190cfe08e6c3baff03054"
+    },
+    {
+      "path": "fixtures/elm-parity/external-call/csharp/Input.cs",
+      "sha256": "4f0591dc56bcab4199601ea5eb841d7d39e3d0690404b3d1cb65b1aaaa0457a3"
+    },
+    {
+      "path": "fixtures/elm-parity/external-call/elm/morphir.json",
+      "sha256": "6f70781d43eda1dee1dd51d2762827a49b853d9893f52bd1c3f3a873afc8f237"
+    },
+    {
+      "path": "fixtures/elm-parity/external-call/elm/src/Example/Parity/Rules.elm",
+      "sha256": "eefd09c183d992472ffcd896cff5cbff326516be50d90f37fd58b509913fa9e7"
+    },
+    {
+      "path": "fixtures/elm-parity/external-call/expected/elm.json",
+      "sha256": "653aea16895792cab740e8a100e630779fd0fa971595d2a5e2de0c8ecfbe9337"
+    },
+    {
+      "path": "fixtures/elm-parity/external-provider/csharp/Input.cs",
+      "sha256": "4257ea66053cd46bb0fd794be79e1305895261f807b829321211cec8a8a42d4b"
+    },
+    {
+      "path": "fixtures/elm-parity/external-provider/elm/morphir.json",
+      "sha256": "687da7ab3fbbe623851ab46ea147f1560d29d733f9a7504d6aa77065d3c7f241"
+    },
+    {
+      "path": "fixtures/elm-parity/external-provider/elm/src/MathSpec/Rules.elm",
+      "sha256": "e7e28d4bf0140a99edd25d422affcb1f4f2228051367a5cf52147b367d44ecc1"
+    },
+    {
+      "path": "fixtures/elm-parity/external-provider/expected/elm.json",
+      "sha256": "13f97e27bbdc58320760ba0aeeb601dca6ae221b57a1479e70d102d575845dec"
+    },
+    {
+      "path": "fixtures/elm-parity/float-literal-spelling/csharp/Input.cs",
+      "sha256": "9b4bfe63ba282577da43021121852e3c85e9de39399475f06b6d3426c0c957f3"
+    },
+    {
+      "path": "fixtures/elm-parity/float-literal-spelling/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/float-literal-spelling/elm/src/Example/Parity/Rules.elm",
+      "sha256": "d9e2fad74a71601e5cd78b18f2b479951c39ce6774457a6518e85014b694879d"
+    },
+    {
+      "path": "fixtures/elm-parity/float-literal-spelling/expected/elm.json",
+      "sha256": "a4c676527f622258ae04cc23c80b369f9cc0096cd2f2a4a4e4bf20d4814cfd83"
+    },
+    {
+      "path": "fixtures/elm-parity/float-operators/csharp/Input.cs",
+      "sha256": "7a53d466a2dfda95c3f648d77b824214961e19c9206bc82004a85d55825d5f63"
+    },
+    {
+      "path": "fixtures/elm-parity/float-operators/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/float-operators/elm/src/Example/Parity/Rules.elm",
+      "sha256": "0614c2175bfa5bf30caf920f5ebf215b0502267f81c52ac03b948324b657842a"
+    },
+    {
+      "path": "fixtures/elm-parity/float-operators/expected/elm.json",
+      "sha256": "9a446e65c0e175cc78e0667e9ad981dcfe01459f1cfc19f39349888383386466"
+    },
+    {
+      "path": "fixtures/elm-parity/float-operators/variants/Half/Input.cs",
+      "sha256": "bb9b419f444b8412719ffb67914ac257bb9852fca32d95c4839c776a5f58b02b"
+    },
+    {
+      "path": "fixtures/elm-parity/float-operators/variants/Single/Input.cs",
+      "sha256": "0c1534a285d464d288e2720d9c1eb1ba70a3bb3095b0431a320be69806513986"
+    },
+    {
+      "path": "fixtures/elm-parity/instance-call/csharp/Input.cs",
+      "sha256": "74475af501ab84a1ac1e77675889a2013e2c5697897ba896e37d1c6b34f3a15a"
+    },
+    {
+      "path": "fixtures/elm-parity/instance-call/elm/morphir.json",
+      "sha256": "db3d054dc57ef54027b20162be76e6e18e890ef83d2ade80970615c439a6a0fe"
+    },
+    {
+      "path": "fixtures/elm-parity/instance-call/elm/src/Example/Parity/Cell.elm",
+      "sha256": "b4926b8bedc1f94837c51096e93730757b640b04a1226171ad956fefca1c40ae"
+    },
+    {
+      "path": "fixtures/elm-parity/instance-call/elm/src/Example/Parity/Rules.elm",
+      "sha256": "ccbca04e46aef28d0716b86ee6f09b7dbe494404a5dc6ad123c2392109fd8619"
+    },
+    {
+      "path": "fixtures/elm-parity/instance-call/elm/src/Example/Parity.elm",
+      "sha256": "d732741c5d3c625c7be6128b5fa2a0fbb8d4cb9cc2cc06167cbaaaabe55675e3"
+    },
+    {
+      "path": "fixtures/elm-parity/instance-call/expected/elm.json",
+      "sha256": "d838cec0d08048a882679d7f5359ba82b5fe71eea9a49eee8d46b2613be8d939"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/csharp/Input.cs",
+      "sha256": "3b0d31bc3a74c8cbed655c6e0add5508cef3cd8ec48d86772865e1946b52d78d"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/elm/src/Example/Parity/Rules.elm",
+      "sha256": "e03718736c546208f26821c3077286522867172ad1cf7023fa35ee808c63be54"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/expected/elm.json",
+      "sha256": "ab7b837e20e6656c19fdb1166d1b15a765e13caf670491a41a524580c3585d7b"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/BigInteger/Input.cs",
+      "sha256": "89a072834717a5afa8f4a70be544f251833792bd4ba439a1af4954c0cd03abfe"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/Byte/Input.cs",
+      "sha256": "ea1cc31c0a6bb301fdac62399f6163b789c67c92ccce6cac09ab84659643d009"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/Int128/Input.cs",
+      "sha256": "18393adf8b902ff0bf1818bec20b34c849b165df5a7d59f7f70018de85078d6a"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/Int16/Input.cs",
+      "sha256": "0116231ad672a777d510624f38dde07f0b57b7316e5073201f3d9166acadaa63"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/Int64/Input.cs",
+      "sha256": "efe3106a03d86d96ff8ff53466ff620b7c1c28995c9f73ad6433e7c1270f67e9"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/IntPtr/Input.cs",
+      "sha256": "c90a4e2783b2338311dfcab9c5de0df6e5c447544d979aa892f5fd52c7e6752c"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/SByte/Input.cs",
+      "sha256": "09330c6759c9a89a68c84781a716b80be86bb4c90a747f57670df94424fcb61b"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/UInt128/Input.cs",
+      "sha256": "ac98749e9c6c4491bbbed496fd3afa2892909081c4662a8da6c7f31eaced9919"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/UInt16/Input.cs",
+      "sha256": "571353d659294a8e341ef04cf644641ac3460b9fcea38aa97853c73c33de72bc"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/UInt32/Input.cs",
+      "sha256": "8f8fad055ed5eb84f14c1cc5dcc713a157554898aae5cb1dd7304f39d1e00421"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/UInt64/Input.cs",
+      "sha256": "6664d4b4d15e4f8c7c4a848a0444058cdd31810995b0da824abe93125098a697"
+    },
+    {
+      "path": "fixtures/elm-parity/integer-operators/variants/UIntPtr/Input.cs",
+      "sha256": "b4a4a66324e6005093fd13edbfd531f3730726053ccecd6adf04ba7a0490646d"
+    },
+    {
+      "path": "fixtures/elm-parity/literals/csharp/Input.cs",
+      "sha256": "f5e263542a56ff07372c4442b56749ea3742c27fc9cc3fb6a3337dd7acac7154"
+    },
+    {
+      "path": "fixtures/elm-parity/literals/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/literals/elm/src/Example/Parity/Rules.elm",
+      "sha256": "ac6c770aaa8ac3ede2c3155283f439be791a8465e72c287a0e1b5b65fc09f91e"
+    },
+    {
+      "path": "fixtures/elm-parity/literals/expected/elm.json",
+      "sha256": "f1fcb87bb5bf3c84d1f5774b7dfa0964094751aceda107775019f836bb3b0700"
+    },
+    {
+      "path": "fixtures/elm-parity/locals/csharp/Input.cs",
+      "sha256": "6626594b129add02eebb518442b597b1d2c26993080089981474ca6a1e0235db"
+    },
+    {
+      "path": "fixtures/elm-parity/locals/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/locals/elm/src/Example/Parity/Rules.elm",
+      "sha256": "0b989f5f65ba914752b2f820cf189f873b1a384a7f5331100bb7f6ee8b0b5028"
+    },
+    {
+      "path": "fixtures/elm-parity/locals/expected/elm.json",
+      "sha256": "beaa953ac1a00c36c559dc65744decdb78750a8e3edac87e77375f85c2f88338"
+    },
+    {
+      "path": "fixtures/elm-parity/locals-empty/csharp/Input.cs",
+      "sha256": "73174e649bfa4b9ccc334c2cfe3fb028a895a4dc8ff3bb2848ab42a3fcd36c10"
+    },
+    {
+      "path": "fixtures/elm-parity/namespace-selection/csharp/Input.cs",
+      "sha256": "8559609a9751e7d042011c427f231f2b940b8bd9d0f706190fdaa04209019944"
+    },
+    {
+      "path": "fixtures/elm-parity/nullable-disabled/csharp/Input.cs",
+      "sha256": "cf6383398242426385b850ad3f269ac9d755a3f26a807200334cc958d9a97abb"
+    },
+    {
+      "path": "fixtures/elm-parity/nullable-record/csharp/Input.cs",
+      "sha256": "2c749023e0eae7c6bbb699a25bfe59738849144f6018d561b9c72b516ba0798b"
+    },
+    {
+      "path": "fixtures/elm-parity/nullable-record/elm/morphir.json",
+      "sha256": "9f4c98ab0172cb4fe983f9d8dd7919226c5fe1cd0abac34f6cc9417ea7aaf85f"
+    },
+    {
+      "path": "fixtures/elm-parity/nullable-record/elm/src/Example/Parity/Rules.elm",
+      "sha256": "9597a505adca9e043a1d07e7355418f078b92d610458822c9d75377e8b54b80f"
+    },
+    {
+      "path": "fixtures/elm-parity/nullable-record/elm/src/Example/Parity.elm",
+      "sha256": "897202cde3fcc954009854051af95f505ad4e42a1d42f71b1cd60a0b11928880"
+    },
+    {
+      "path": "fixtures/elm-parity/nullable-record/expected/elm.json",
+      "sha256": "858c9fc5f561ce07e4e28c836dacc0adfe8df83594e04ca6f9574b5f5d624e41"
+    },
+    {
+      "path": "fixtures/elm-parity/nullable-types/csharp/Input.cs",
+      "sha256": "a6625618cd849f1930d3da0b0b55384f5243ff5b82c8d2a7a79e0c3d2373abb4"
+    },
+    {
+      "path": "fixtures/elm-parity/nullable-types/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/nullable-types/elm/src/Example/Parity/Rules.elm",
+      "sha256": "50d5ab18a3ebef18318908d71bffa9b536c84645e58bd9f5863d8c06f151290d"
+    },
+    {
+      "path": "fixtures/elm-parity/nullable-types/expected/elm.json",
+      "sha256": "93c4e1527ffa00e76e46f828ea7b99d0d79fa7878ce9d8921af72fe591ab663c"
+    },
+    {
+      "path": "fixtures/elm-parity/package-name/csharp/Input.cs",
+      "sha256": "b2b4ddce93b3b46dc3416a254fc8389897e91b5da63afcc15b885b60826df004"
+    },
+    {
+      "path": "fixtures/elm-parity/package-name/elm/morphir.json",
+      "sha256": "2402cc5e24a4d9f81e840add63091621ce1edb1775711c9ff761798d3793de91"
+    },
+    {
+      "path": "fixtures/elm-parity/package-name/elm/src/Morphir/CSharp/Business/Rules.elm",
+      "sha256": "fd31a6e75425447fb1e9bf5b13fb99241609fcc75f80842d1e867cb186a520df"
+    },
+    {
+      "path": "fixtures/elm-parity/package-name/elm/src/Morphir/CSharp/Business.elm",
+      "sha256": "db2164beb4c10a1c8f1c10dfda17091c751eaf9492b1c8d5705dafd469fc3e3d"
+    },
+    {
+      "path": "fixtures/elm-parity/package-name/expected/elm.json",
+      "sha256": "e34dcb8cd40e0b81d31266ef91257d778a5e841a6584dab2e1564ed1d3241641"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/Project.csproj",
+      "sha256": "86f679ecbaa47be8a6b41e4ea4091120231668fbc6b73cddf5d0bb988c5f98e2"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/Shared/Shared.csproj",
+      "sha256": "abb3d55bdbd8b66f6ff9d79a71f0e18106ee72ddcaaed4a3efe504d4f26d0f13"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/Shared/packages.lock.json",
+      "sha256": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/csharp/Input.cs",
+      "sha256": "02487be35629fccdffa0723e5f6692388e8c8d51e2db00dfd20d2def16756d7a"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/csharp/Rules.Generated.cs",
+      "sha256": "6e32a19a922f0228d36183b17c2c1aa6d748cfd27a20121f6319d226b7f0e2e5"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/csharp/Shared.cs",
+      "sha256": "1d0eef89ee29044e4deee063b3d662c6dc5672343eba2bf9d4356d61b91ca87c"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/elm/morphir.json",
+      "sha256": "3e9729bbd12d3dd2cff89781ff3d27daa88648025fd531493cde020e45925712"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/elm/src/Example/CurrentSupported/CurrentSupportedExample.elm",
+      "sha256": "6bf3a6f70960794947cc4a2e833796148939d8e3d6b6b93870731eefb79eb946"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/elm/src/Example/Parity/SharedRules.elm",
+      "sha256": "bce47118ebadc48589cf83046d52694f1737aacf8e2c33071fded90c4380d704"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/expected/elm.json",
+      "sha256": "fa64c0e222f00641fe65b3da854cafa8ce481a9e32dc342b5928095154587460"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/packages.lock.json",
+      "sha256": "f15f026361023c51893d1b1b88d52aff1e59e4e72645097dbeeff86fa03c2d4e"
+    },
+    {
+      "path": "fixtures/elm-parity/project-generated/threshold.txt",
+      "sha256": "7ee29791fc17e986b97128845622b077fb45e349fdb80523fac9dba879b4ad60"
+    },
+    {
+      "path": "fixtures/elm-parity/records/csharp/Input.cs",
+      "sha256": "8559609a9751e7d042011c427f231f2b940b8bd9d0f706190fdaa04209019944"
+    },
+    {
+      "path": "fixtures/elm-parity/records/elm/morphir.json",
+      "sha256": "9f4c98ab0172cb4fe983f9d8dd7919226c5fe1cd0abac34f6cc9417ea7aaf85f"
+    },
+    {
+      "path": "fixtures/elm-parity/records/elm/src/Example/Parity/Rules.elm",
+      "sha256": "d8ba94e72f35b0773625ad6b2d6e45bd592fe7daa4478c31a33ab86790342f95"
+    },
+    {
+      "path": "fixtures/elm-parity/records/elm/src/Example/Parity.elm",
+      "sha256": "42aee52f2bc734ba4c57019f051b54f486c2e11d201972b179ba888a209a2213"
+    },
+    {
+      "path": "fixtures/elm-parity/records/expected/elm.json",
+      "sha256": "83f381a68ae172b619427a19df784a23c7e833d32b5085ffe877bf80df5502a2"
+    },
+    {
+      "path": "fixtures/elm-parity/reported-products/csharp/Input.cs",
+      "sha256": "c9916dee423c435fa112095896fbdafdc0f5b5c692c6ca88a42fdd0e38ef129e"
+    },
+    {
+      "path": "fixtures/elm-parity/reported-products/elm/morphir.json",
+      "sha256": "9f4c98ab0172cb4fe983f9d8dd7919226c5fe1cd0abac34f6cc9417ea7aaf85f"
+    },
+    {
+      "path": "fixtures/elm-parity/reported-products/elm/src/Example/Parity/Rules.elm",
+      "sha256": "1f3f53e3d6028a3dcdcad2b102e9b577b9bd84925acef5e00074959b11e3d0f8"
+    },
+    {
+      "path": "fixtures/elm-parity/reported-products/elm/src/Example/Parity.elm",
+      "sha256": "71f16fecb8a838e766c9771056e6c45a85b9a968acf0c1b0c25682e47303a7ab"
+    },
+    {
+      "path": "fixtures/elm-parity/reported-products/expected/elm.json",
+      "sha256": "d4c623b79a70b261e98a3b939c7afd5fca6cefd3d9748bf790ff707697c3e636"
+    },
+    {
+      "path": "fixtures/elm-parity/tuples/csharp/Input.cs",
+      "sha256": "96f900909dc732c8fefacad8fa1019118b6ba6fce376ae9a2b2269becb245632"
+    },
+    {
+      "path": "fixtures/elm-parity/tuples/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/tuples/elm/src/Example/Parity/Rules.elm",
+      "sha256": "3c57c01bde056f175c9f4e1b0030454201da627668a43418ea803ca0a2ab52c7"
+    },
+    {
+      "path": "fixtures/elm-parity/tuples/expected/elm.json",
+      "sha256": "975db3ffd4a21c61258f4f5c381e3bb736283bd5729a3a22c169009ae074961d"
+    },
+    {
+      "path": "fixtures/elm-parity/unused-private/csharp/Input.cs",
+      "sha256": "c5481e9b60dae8be88b4ecbcf122abe1ec769cee579f797dfc554f67c0ebe935"
+    },
+    {
+      "path": "fixtures/elm-parity/unused-private/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/unused-private/elm/src/Example/Parity/Rules.elm",
+      "sha256": "7d417aaf29d4a5a0652797f48460f3469d1bb84afd9ac354ddb4b631fad77d1b"
+    },
+    {
+      "path": "fixtures/elm-parity/unused-private/expected/elm.json",
+      "sha256": "de730a886af50412169b97d777ba1bae790ad9554decd3c3351073c7ff1034fe"
+    },
+    {
+      "path": "fixtures/elm-parity/visibility/csharp/Input.cs",
+      "sha256": "3fdf2930d8e4b0fe5de5588ba0ab8f4dec1028c8a50f680bb8d90e84bf811454"
+    },
+    {
+      "path": "fixtures/elm-parity/visibility/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/visibility/elm/src/Example/Parity/Rules.elm",
+      "sha256": "b998a28c5e3f3259c5ffef2b79859c7103cd5a4e67dc81c535ad112dd2394978"
+    },
+    {
+      "path": "fixtures/elm-parity/visibility/expected/elm.json",
+      "sha256": "4c75b2737c590e82770b5748ad280743e3576639177ec98ef04113ad758ce833"
+    },
+    {
+      "path": "fixtures/elm-parity/width-promotion/csharp/Input.cs",
+      "sha256": "cba0134d2184f984ac44762a3f5f0e757370339364dd2a7a486a7e6cbf299476"
+    },
+    {
+      "path": "fixtures/elm-parity/width-promotion/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/width-promotion/elm/src/Example/Parity/Rules.elm",
+      "sha256": "d3a7d8662a8108ef1918d5dfcb4dba0f68c7badec76081efa93954b7ebe5d928"
+    },
+    {
+      "path": "fixtures/elm-parity/width-promotion/expected/elm.json",
+      "sha256": "228d6a0c753538b62225a954823676a986de70ef533e8b6c87ec9da92c835c11"
+    },
+    {
+      "path": "fixtures/elm-parity/wrappers/csharp/Input.cs",
+      "sha256": "5da3dfd57c18d2897e74d10358199b7b426acd934a49370c206c9addf67198ce"
+    },
+    {
+      "path": "fixtures/elm-parity/wrappers/elm/morphir.json",
+      "sha256": "c16dc18442b06e2742a3cd524468a50b90989c552d9ef1a7dad478532b3e4c79"
+    },
+    {
+      "path": "fixtures/elm-parity/wrappers/elm/src/Example/Parity/Rules.elm",
+      "sha256": "d40dc1590866a5c8894cc89545221aa2e318e36bdce4803743b80fa074d2dddf"
+    },
+    {
+      "path": "fixtures/elm-parity/wrappers/expected/elm.json",
+      "sha256": "ed570f70946904bbf7dbb006b372f106b4e5818a5fb350e0cfb32a059e35521e"
+    },
+    {
+      "path": "samples/CurrentSupportedExample/ClassicLoan.cs",
+      "sha256": "81d39346054d4211e2c7dbd74bd6c296e3b3f7e66ca4c6b4237ff45ccad11722"
+    },
+    {
+      "path": "samples/CurrentSupportedExample/CurrentSupportedExample.csproj",
+      "sha256": "b8a7e5d0c0d2161c49725ad4223f184920156f246c79bda4a338d0ee66cc9377"
+    },
+    {
+      "path": "samples/CurrentSupportedExample/packages.lock.json",
+      "sha256": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46"
+    },
+    {
+      "path": "samples/CurrentSupportedExample/reference.json",
+      "sha256": "5bdd8aa2217f55a3a74110a9fe947777dadcf58f8472ab44759975aa2d973fc2"
+    },
+    {
+      "path": "samples/CurrentSupportedExample/threshold.txt",
+      "sha256": "7ee29791fc17e986b97128845622b077fb45e349fdb80523fac9dba879b4ad60"
+    },
+    {
+      "path": "samples/CurrentSupportedGenerator/ThresholdGenerator.cs",
+      "sha256": "28b068219b334a3917fe21eb3d918114f55ea28ae7dcd1c95d099feaba0a1b76"
+    },
+    {
+      "path": "samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj",
+      "sha256": "ead565abed8ed5e97c87c0135e96d594259d227c272d04885024a5e946146411"
+    },
+    {
+      "path": "samples/CurrentSupportedGenerator/packages.lock.json",
+      "sha256": "a5ccf817663b562bb154a1fd467cdd6950785fee1645701da868d51f69605c85"
+    },
+    {
+      "path": "eng/reference-toolchain.json",
+      "sha256": "c43149d83d5f04ccaec04954975e1a1b54e6e928f8d41eaa86223f422b8e8771"
+    }
+  ]
+}

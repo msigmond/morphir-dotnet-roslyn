@@ -1,4 +1,4 @@
-> Source v1 was never requested. This document records legacy code, not the delivery contract. Use [exact Elm parity](elm-parity.md). Do not extend this format.
+> Removed implementation. Source v1 was never requested. This document is historical, not a usable output contract. Use [exact Elm parity](elm-parity.md) and [current evidence](deliveries/elm-parity-state.md).
 
 # Unrequested Source v1 implementation
 

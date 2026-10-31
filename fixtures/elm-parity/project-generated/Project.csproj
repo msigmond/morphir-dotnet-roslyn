@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><EnableDefaultCompileItems>false</EnableDefaultCompileItems><Threshold>18</Threshold></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="csharp/Input.cs" />
+    <ProjectReference Include="Shared/Shared.csproj" />
+    <ProjectReference Include="../../../samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <AdditionalFiles Include="threshold.txt" />
+    <CompilerVisibleProperty Include="Threshold" />
+  </ItemGroup>
+</Project>
