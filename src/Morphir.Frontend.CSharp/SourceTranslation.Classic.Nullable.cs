@@ -13,7 +13,10 @@ internal sealed partial class SourceTranslation
     {
         if(source is CSharpOperation<Unit,IrType<Unit>> {Kind:"Parenthesized" or "checked" or "unchecked" or "NullForgiving",Children.Count:1} context)return ClassicExpected(context.Children[0],expected);
         if (source is CSharpOperation<Unit, IrType<Unit>> { Kind: "Null" or "Default" } empty)
-            return empty.Kind == "Null" || MaybeElement(expected) is not null ? MaybeElement(expected) is not null ? Nothing(expected) : ClassicFailure("Null requires an explicit nullable type.") : ClassicDefault(expected);
+        {
+            if (MaybeElement(expected) is not null) return Nothing(expected);
+            return empty.Kind == "Null" ? ClassicFailure("Null requires an explicit nullable type.") : ClassicDefault(expected);
+        }
         if(source is TupleValue<Unit,IrType<Unit>> tuple && expected is TupleType<Unit> target && target.Elements.Count==tuple.Elements.Count)
             return new TupleValue<Unit,IrType<Unit>>(expected,tuple.Elements.Select((e,i)=>ClassicExpected(e,target.Elements[i])).ToArray());
         if(source is ListValue<Unit,IrType<Unit>> list && expected is ReferenceType<Unit> {Arguments.Count:1} listType && listType.Name.Module.Key==IrPath.From("List").Key && listType.Name.Package.Key==Types.Sdk.Key)

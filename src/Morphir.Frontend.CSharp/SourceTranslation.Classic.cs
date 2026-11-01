@@ -84,8 +84,7 @@ internal sealed partial class SourceTranslation
             ListValue<Unit, IrType<Unit>> l => l with { Elements = l.Elements.Select(ClassicValue).ToArray() },
             TupleValue<Unit, IrType<Unit>> t => t with { Elements = t.Elements.Select(ClassicValue).ToArray() },
             LiteralValue<Unit, IrType<Unit>> { Literal: UnmappedNumberLiteral } => ClassicFailure("This numeric literal exceeds the Classic literal domain."),
-            LiteralValue<Unit, IrType<Unit>> { Literal: DecimalLiteral literal } => new ApplyValue<Unit, IrType<Unit>>(Types.Decimal,
-                new ReferenceValue<Unit, IrType<Unit>>(Types.Function(Types.Float, Types.Decimal), new(Types.Sdk, IrPath.From("Decimal"), Name.From("fromFloat"))),
+            LiteralValue<Unit, IrType<Unit>> { Literal: DecimalLiteral literal } => Sdk("Decimal", "fromFloat", Types.Decimal,
                 new LiteralValue<Unit, IrType<Unit>>(Types.Float, new FloatLiteral(double.Parse(literal.Value, System.Globalization.CultureInfo.InvariantCulture)))),
             VariableValue<Unit, IrType<Unit>> variable => classicBindings.Contains(variable.Name.Key) ? variable with{Attributes=classicBindingTypes.GetValueOrDefault(variable.Name.Key,variable.Attributes)} : ClassicFailure("A source capture or local has no Classic binding: " + variable.Name.Key.Replace('\0', ' ') + "."),
             LiteralValue<Unit, IrType<Unit>> or ReferenceValue<Unit, IrType<Unit>> or ConstructorValue<Unit, IrType<Unit>> or UnitValue<Unit, IrType<Unit>> => value,
@@ -309,7 +308,7 @@ internal sealed partial class SourceTranslation
         if (op == "+" && (numeric || decimalOperand)) return operand;
         var name = op switch { "-" when numeric || decimalOperand => "negate", "!" when Shape(operand.Attributes) == Shape(Types.Bool) => "not", _ => null };
         if (name is null || Property(unary, "symbol") != "" && declared.ContainsKey(Property(unary, "symbol"))) return ClassicFailure("This unary operator needs a separate Classic mapping.");
-        return new ApplyValue<Unit, IrType<Unit>>(unary.Attributes, new ReferenceValue<Unit, IrType<Unit>>(Types.Function(operand.Attributes, unary.Attributes), new(Types.Sdk, IrPath.From(decimalOperand ? "Decimal" : "Basics"), Name.From(name))), operand);
+        return Sdk(decimalOperand ? "Decimal" : "Basics", name, unary.Attributes, operand);
     }
     private V ClassicBinary(CSharpOperation<Unit, IrType<Unit>> binary)
     {
@@ -327,7 +326,6 @@ internal sealed partial class SourceTranslation
             return Sdk("Basics", Property(binary, "operator") == "==" ? "equal" : "notEqual", Types.Bool, left, right);
         var name = Property(binary, "operator") switch { "&&" or "&" when Shape(left.Attributes) == Shape(Types.Bool) => "and", "||" or "|" when Shape(left.Attributes) == Shape(Types.Bool) => "or", "^" when Shape(left.Attributes) == Shape(Types.Bool) => "xor", _ => null };
         if (name is null || Property(binary, "symbol") != "" && declared.ContainsKey(Property(binary, "symbol"))) return ClassicFailure("This binary operator needs a separate Classic mapping.");
-        var partial = Types.Function(right.Attributes, binary.Attributes);
-        return new ApplyValue<Unit, IrType<Unit>>(binary.Attributes, new ApplyValue<Unit, IrType<Unit>>(partial, new ReferenceValue<Unit, IrType<Unit>>(Types.Function(left.Attributes, partial), new(Types.Sdk, IrPath.From("Basics"), Name.From(name))), left), right);
+        return Sdk("Basics", name, binary.Attributes, left, right);
     }
 }

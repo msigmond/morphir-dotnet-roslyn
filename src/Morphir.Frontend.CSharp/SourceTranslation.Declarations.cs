@@ -84,7 +84,11 @@ internal sealed partial class SourceTranslation
         currentOutput = output;
         inferredLocalTypes.Clear();
         currentReceiver = Receiver(method);
-        var inputs = method.Parameters.Select(p => new Input<Unit, IrType<Unit>>(Name.From(p.Name), Type(p.Type, DeclaredType(p), Location(p)), Type(p.Type, DeclaredType(p), Location(p)))).ToList();
+        var inputs = method.Parameters.Select(p =>
+        {
+            var type = Type(p.Type, DeclaredType(p), Location(p));
+            return new Input<Unit, IrType<Unit>>(Name.From(p.Name), type, type);
+        }).ToList();
         if (!method.IsStatic && method.MethodKind != MethodKind.Constructor)
         {
             var receiver = Type(method.ContainingType);

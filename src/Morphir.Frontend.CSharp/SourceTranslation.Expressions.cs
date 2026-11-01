@@ -274,9 +274,7 @@ internal sealed partial class SourceTranslation
         if (name is null || !(primitive || integer) || op is not null && SourceSymbol(op) || Shape(left.Attributes) != Shape(right.Attributes)
             || name is "add" or "sub" or "subtract" or "mul" or "multiply" or "divide" or "integerDivide" && Shape(left.Attributes) != Shape(type))
             return Source(type, "Binary", [left, right], ("operator", syntax.OperatorToken.Text), ("symbol", op is null ? "" : Id(op)));
-        var partial = Types.Function(right.Attributes, type);
-        return new ApplyValue<Unit, IrType<Unit>>(type, new ApplyValue<Unit, IrType<Unit>>(partial,
-            new ReferenceValue<Unit, IrType<Unit>>(Types.Function(left.Attributes, partial), new(Types.Sdk, IrPath.From(module), Name.From(name))), left), right);
+        return Sdk(module, name, type, left, right);
     }
     private V Pattern(PatternSyntax syntax) => syntax switch
     {
