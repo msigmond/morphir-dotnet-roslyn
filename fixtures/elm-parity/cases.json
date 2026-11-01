@@ -957,7 +957,8 @@
         "D2.sample-generator",
         "D3.sample-locals",
         "D7.sample-calls",
-        "D9.sample-data"
+        "D9.sample-data",
+        "D10.sample-generics"
       ]
     },
     {

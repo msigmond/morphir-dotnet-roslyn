@@ -17,7 +17,8 @@ Each rejected D1–D10 entry names executable source rejection tests.
 | D9 | Data aliases, pure constructor/member functions, record equality/updates |
 | D10 | Unconstrained generic aliases/methods/locals and instantiated calls; tested constraint/dispatch rejections |
 
-Unmapped forms retain explicit rejection. See [mappings and limits](../classic-output.md).
+Unmapped forms retain explicit rejection. See [mappings and limits](../classic-output.md)
+and [unsupported features with examples](../unsupported-language-features.md).
 The [registry](../../fixtures/elm-parity/cases.json) has 77 C# cases and 59 independent Elm projects.
 The member grids cover 320 admitted input forms. Separate nullable division tests cover both spellings.
 There are 336 executable member/form rejections.

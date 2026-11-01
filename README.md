@@ -20,7 +20,8 @@ Member grids cover 320 admitted forms; 336 source cases test required rejections
 
 Unmapped forms retain explicit rejection. This includes mutation, identity/cycles, incomplete construction,
 unlisted numeric APIs, nullable extraction without a fallback, and later delivery forms.
-See [approved mappings and limits](docs/classic-output.md).
+See [approved mappings and limits](docs/classic-output.md)
+and [unsupported language features with examples](docs/unsupported-language-features.md).
 D11–D21 remain planned. The historical Source-mode scope is not an acceptance claim.
 
 ## Build and test
@@ -47,6 +48,9 @@ node eng/generate-exact-references.mjs --write
 ```
 
 ## CLI
+
+Use [ClassicLoan.cs](samples/CurrentSupportedExample/ClassicLoan.cs) as the current supported example.
+The [sample guide](samples/CurrentSupportedExample/README.md) identifies the active files and the Elm reference.
 
 After build, from the repository root:
 

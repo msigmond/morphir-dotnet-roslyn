@@ -39,6 +39,7 @@ The [registry](../fixtures/elm-parity/cases.json) retains names, access flags, t
 Only whitespace and object-key order are ignored. Tests recompile the Elm projects with the pinned compiler.
 
 Unmapped forms fail at the source and leave existing output unchanged.
+See the [unsupported feature guide](unsupported-language-features.md) for C# examples of rejected forms.
 The [rejection inputs](../fixtures/elm-parity/form-rejections.json) cover mutation, identity/cycles,
 recursive aliases, incomplete/default construction, general initializers, Nullable.Value without a fallback,
 nullable flattening/fallbacks, unlisted numeric forms, and larger tuple projections.

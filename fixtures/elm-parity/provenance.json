@@ -845,7 +845,7 @@
     },
     {
       "path": "fixtures/elm-parity/cases.json",
-      "sha256": "c0a7ae603ba1971607e6d1e450a8e3ecb8a3dd9be99a6756afd321586d15aa2d"
+      "sha256": "f990b7352ad7f318f62da30be1da89d40c99a03b1fa19bedb9b5238dac71a8e8"
     },
     {
       "path": "fixtures/elm-parity/char-comparison/csharp/Input.cs",
@@ -2025,7 +2025,7 @@
     },
     {
       "path": "samples/CurrentSupportedExample/reference.json",
-      "sha256": "5bdd8aa2217f55a3a74110a9fe947777dadcf58f8472ab44759975aa2d973fc2"
+      "sha256": "8cf22742ddd3acd64140a5d1ed4f0acac44a408de79d2dd09ed9b4bd5afb1e48"
     },
     {
       "path": "samples/CurrentSupportedExample/threshold.txt",

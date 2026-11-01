@@ -1,8 +1,10 @@
 {
-  "delivery": "D1-D9 exact subset",
+  "delivery": "D1-D10 approved Elm profile",
   "contract": "Morphir.Classic/3",
   "expected": "fixtures/elm-parity/current-sample/expected/elm.json",
   "mode": "complete-json-equality-against-morphir-elm-make",
   "provenance": "fixtures/elm-parity/provenance.json",
-  "historicalClassicReference": "fixtures/D9/expected/sample.json"
+  "historicalClassicReference": "fixtures/D9/expected/sample.json",
+  "source": "samples/CurrentSupportedExample/ClassicLoan.cs",
+  "project": "samples/CurrentSupportedExample/CurrentSupportedExample.csproj"
 }
