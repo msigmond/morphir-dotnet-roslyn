@@ -57,46 +57,24 @@ internal sealed partial class SourceTranslation
                 var symbol = ClassicSymbol(id);
                 classicLocation = symbol is null ? null : Location(symbol);
                 var definition = entry.Value.Value.Value;
-                if (definition.Body is CSharpOperation<Unit, IrType<Unit>> { Kind: "PrimaryConstructor" })
-                {
-                    if (symbol is IMethodSymbol { ContainingType.IsRecord: true }) continue;
-                }
+                if (definition.Body is CSharpOperation<Unit, IrType<Unit>> { Kind: "PrimaryConstructor" }
+                    && symbol is IMethodSymbol { ContainingType.IsRecord: true }) continue;
                 // A written automatic accessor has no implementation body to export; its slot is in the record alias.
                 if (definition.Body is CSharpOperation<Unit, IrType<Unit>> { Kind: "Declaration" } && symbol is IMethodSymbol { AssociatedSymbol: IPropertySymbol property } && StoredProperty(property)) continue;
                 if (symbol is IMethodSymbol { MethodKind: MethodKind.PropertySet or MethodKind.StaticConstructor }) ClassicFailure("Setters and static initialization have no approved pure-data mapping.");
-                foreach (var argument in definition.Inputs) ClassicType(argument.Type);
-                ClassicType(definition.Output);
                 classicBindings = definition.Inputs.Select(i => i.Name.Key).ToHashSet(StringComparer.Ordinal);
                 classicBindingTypes.Clear();foreach(var argument in definition.Inputs)classicBindingTypes[argument.Name.Key]=argument.Attributes;
                 var body = symbol is IMethodSymbol {MethodKind:MethodKind.Constructor} constructor ? ClassicDataConstructor(constructor,definition) : definition.Body is CSharpOperation<Unit, IrType<Unit>> {Kind:"Block"} ? ClassicValue(definition.Body) : ClassicExpected(definition.Body,definition.Output);
                 if (Shape(body.Attributes) != Shape(definition.Output)) ClassicFailure("The declared result needs an explicit Classic conversion mapping.");
                 values.Add(new(entry.Key, new(entry.Value.Access, new(entry.Value.Value.Doc, definition with { Body = body, Inputs = definition.Inputs.Select(i=>i with{Attributes=classicBindingTypes.GetValueOrDefault(i.Name.Key,i.Attributes)}).ToArray() }))));
             }
-            foreach (var type in module.Value.Value.Types)
-            {
-                classicLocation = declared.Values.OfType<INamedTypeSymbol>().FirstOrDefault(t => identities[Id(t)].Module.Key == module.Key.Key && identities[Id(t)].Local.Key == type.Key.Key) is { } owner ? Location(owner) : null;
-                if (type.Value.Value.Value is AliasDefinition<Unit> alias) ClassicType(alias.Body);
-            }
             if (module.Value.Value.Types.Count != 0 || values.Count != 0)
                 result.Add(new(module.Key, new(module.Value.Access, module.Value.Value with { Values = values })));
         }
         return input with { Definition = new(result) };
     }
-    private void ClassicType(IrType<Unit> type)
-    {
-        switch (type)
-        {
-            case ReferenceType<Unit> r:
-                foreach (var argument in r.Arguments) ClassicType(argument);
-                break;
-            case RecordType<Unit> r: foreach (var field in r.Fields) ClassicType(field.Value); break;
-            case TupleType<Unit> t: foreach (var element in t.Elements) ClassicType(element); break;
-            case FunctionType<Unit> f: ClassicType(f.Argument); ClassicType(f.Result); break;
-        }
-    }
     private V ClassicValue(V value)
     {
-        ClassicType(value.Attributes);
         return value switch
         {
             CSharpOperation<Unit, IrType<Unit>> s => ClassicSource(s),
@@ -124,9 +102,7 @@ internal sealed partial class SourceTranslation
     private V ClassicField(FieldValue<Unit, IrType<Unit>> field)
     {
         var subject = ClassicValue(field.Subject);
-        var shape = subject.Attributes is ReferenceType<Unit> reference && reference.Name.Package.Key == package.Key
-            ? classicInput.Definition.Modules.FirstOrDefault(m => m.Key.Key == reference.Name.Module.Key)?.Value.Value.Types.FirstOrDefault(t => t.Key.Key == reference.Name.Local.Key)?.Value.Value.Value as AliasDefinition<Unit> : null;
-        var fields = subject.Attributes as RecordType<Unit> ?? shape?.Body as RecordType<Unit>;
+        var fields = RecordShape(subject.Attributes);
         var slot = fields?.Fields.FirstOrDefault(f => f.Key.Key == field.Field.Key);
         if (slot is null || Shape(slot.Value) != Shape(field.Attributes)) return ClassicFailure("This member read has no direct Classic record field mapping.");
         return field with { Subject = subject };

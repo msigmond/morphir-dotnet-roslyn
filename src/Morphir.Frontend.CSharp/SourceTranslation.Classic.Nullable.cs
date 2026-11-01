@@ -101,7 +101,7 @@ internal sealed partial class SourceTranslation
         if(other is not null&&inner is null&&Shape(other)==Shape(a.Attributes)){a=ClassicExpected(a,Types.Maybe(other));inner=other;}
         if(inner is null||other is null||Shape(inner)!=Shape(other)||MaybeElement(binary.Attributes) is not {} output)return ClassicFailure("This lifted operator needs another approved Maybe mapping.");
         var module=Shape(inner)==Shape(Types.Decimal)?"Decimal":"Basics";
-        var name=op switch {"+"=>module=="Decimal"?"add":"add","-"=>module=="Decimal"?"sub":"subtract","*"=>module=="Decimal"?"mul":"multiply","/" when module=="Basics"=>Shape(inner)==Shape(Types.Int)?"integerDivide":"divide",_=>null};
+        var name=op switch {"+"=>"add","-"=>module=="Decimal"?"sub":"subtract","*"=>module=="Decimal"?"mul":"multiply","/" when module=="Basics"=>Shape(inner)==Shape(Types.Int)?"integerDivide":"divide",_=>null};
         if(name is null)return ClassicFailure("This lifted operator has no approved SDK signature.");
         V function=new ReferenceValue<Unit, IrType<Unit>>(Types.Function(inner,Types.Function(other,output)),new(Types.Sdk,IrPath.From(module),Name.From(name)));
         return Sdk("Maybe","map2",binary.Attributes,function,a,b);

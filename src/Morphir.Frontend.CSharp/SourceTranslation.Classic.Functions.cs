@@ -68,16 +68,19 @@ internal sealed partial class SourceTranslation
         if(variable.Children.Count!=1){ClassicFailure("A local binding requires an explicit initializer.");}
         return new([],variable.Attributes,ClassicExpected(variable.Children.Single(),variable.Attributes));
     }
-    private static bool ReferencesBinding(V value,string name)=>value switch
+    private static bool ReferencesBinding(V value, string name) => ContainsValue(value,
+        node => node is VariableValue<Unit, IrType<Unit>> variable && variable.Name.Key == name);
+    private static bool ReferencesLocal(V value, string symbol) => ContainsValue(value,
+        node => node is CSharpOperation<Unit, IrType<Unit>> { Kind: "MethodReference" } source && Property(source, "symbol") == symbol);
+    private static bool ContainsValue(V value, Func<V, bool> matches) => matches(value) || value switch
     {
-        VariableValue<Unit,IrType<Unit>> v=>v.Name.Key==name,
-        CSharpOperation<Unit,IrType<Unit>> v=>v.Children.Any(c=>ReferencesBinding(c,name)),
-        ApplyValue<Unit,IrType<Unit>> v=>ReferencesBinding(v.Function,name)||ReferencesBinding(v.Argument,name),
-        IfValue<Unit,IrType<Unit>> v=>ReferencesBinding(v.Condition,name)||ReferencesBinding(v.Then,name)||ReferencesBinding(v.Else,name),
-        FieldValue<Unit,IrType<Unit>> v=>ReferencesBinding(v.Subject,name),
-        TupleValue<Unit,IrType<Unit>> v=>v.Elements.Any(c=>ReferencesBinding(c,name)),
-        ListValue<Unit,IrType<Unit>> v=>v.Elements.Any(c=>ReferencesBinding(c,name)),
-        _=>false
+        CSharpOperation<Unit, IrType<Unit>> source => source.Children.Any(child => ContainsValue(child, matches)),
+        ApplyValue<Unit, IrType<Unit>> apply => ContainsValue(apply.Function, matches) || ContainsValue(apply.Argument, matches),
+        IfValue<Unit, IrType<Unit>> branch => ContainsValue(branch.Condition, matches) || ContainsValue(branch.Then, matches) || ContainsValue(branch.Else, matches),
+        FieldValue<Unit, IrType<Unit>> field => ContainsValue(field.Subject, matches),
+        TupleValue<Unit, IrType<Unit>> tuple => tuple.Elements.Any(child => ContainsValue(child, matches)),
+        ListValue<Unit, IrType<Unit>> list => list.Elements.Any(child => ContainsValue(child, matches)),
+        _ => false
     };
     private static Input<Unit, IrType<Unit>>[] LocalFunctionInputs(CSharpOperation<Unit, IrType<Unit>> local) => local.Children.Take(local.Children.Count - 1)
         .Cast<CSharpOperation<Unit, IrType<Unit>>>().Select(p => new Input<Unit, IrType<Unit>>(Name.From(Property(p, "name")), p.Attributes, p.Attributes)).ToArray();
@@ -101,20 +104,6 @@ internal sealed partial class SourceTranslation
             return new([], LocalFunctionType(local), body);
         }
         finally { foreach (var input in inputs) classicBindings.Remove(input.Name.Key); }
-    }
-    private static bool ReferencesLocal(V value, string symbol)
-    {
-        if (value is CSharpOperation<Unit, IrType<Unit>> source)
-            return source.Kind == "MethodReference" && Property(source, "symbol") == symbol || source.Children.Any(v => ReferencesLocal(v, symbol));
-        return value switch
-        {
-            ApplyValue<Unit, IrType<Unit>> a => ReferencesLocal(a.Function, symbol) || ReferencesLocal(a.Argument, symbol),
-            FieldValue<Unit, IrType<Unit>> f => ReferencesLocal(f.Subject, symbol),
-            TupleValue<Unit, IrType<Unit>> t => t.Elements.Any(v => ReferencesLocal(v, symbol)),
-            ListValue<Unit, IrType<Unit>> t => t.Elements.Any(v => ReferencesLocal(v, symbol)),
-            IfValue<Unit, IrType<Unit>> i => ReferencesLocal(i.Condition, symbol) || ReferencesLocal(i.Then, symbol) || ReferencesLocal(i.Else, symbol),
-            _ => false
-        };
     }
     private V ClassicDelegateCall(CSharpOperation<Unit, IrType<Unit>> call)
     {
