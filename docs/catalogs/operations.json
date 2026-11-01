@@ -349,9 +349,12 @@
     {
       "operation": "TypeParameterObjectCreation",
       "owner": "D10",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "required-rejection",
+      "domain": "Type-parameter construction needs a constructor constraint; that constraint has no approved Elm mapping.",
+      "evidence": "docs/mappings/D10.md; executable bound source rejection",
+      "rejectionCases": [
+        "form:d10-constraint-new"
+      ]
     },
     {
       "operation": "ArrayCreation",

@@ -1,9 +1,9 @@
 # D10 — Generics, interfaces, and inheritance
 
-- status: planned
+- status: passed under the approved generic profile
 - contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D9](D09-user-data.md)
-- evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
+- evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [D10 validation](../docs/deliveries/D10-elm-parity.md)
 
 ## Prerequisite profile
 
@@ -12,16 +12,17 @@ Each new mapping needs independent Elm input and complete JSON equality. Histori
 
 ## Work
 
-Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
-No Source v1 tag or metadata envelope can satisfy this delivery.
+The user approved the [D10 profile](../docs/mappings/D10.md) on 2026-11-01.
 
-- Represent type parameters, arguments, constraints, variance, base lists, and interface members.
-- Keep abstract, virtual, override, base access, casts, and type tests.
-- Keep the resolved declared call. Do not enumerate runtime alternatives or generate dispatch bodies.
+- Map unconstrained generic aliases, methods, and local functions to Elm type variables.
+- Use resolved type arguments at calls, references, field reads, and data/member construction.
+- Keep declaration owners, names, parameter order, and access.
+- Reject constraints, variance, interfaces, abstract/virtual/override members, inheritance, base access, and runtime type tests.
+- Reject normalized type/parameter collisions. Do not create dispatch bodies or per-instantiation copies.
 
 ## Acceptance
 
-- Open interfaces and generic declarations preserve structure without runtime closure proof.
+- Generic declarations match Elm. Unapproved interface and inheritance forms have executable rejection tests.
 - Names, owners, access, types, and operations match the paired Elm output.
 - Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
 - Ignore only whitespace/object-key order. No package, name, type, or operation normalization.
@@ -30,7 +31,8 @@ No Source v1 tag or metadata envelope can satisfy this delivery.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context. New acceptance references must come from `morphir-elm make`.
+They are historical context. The closed-union interface dispatch below is not an approved mapping.
+New acceptance references must come from `morphir-elm make`.
 
 ## Historical examples
 

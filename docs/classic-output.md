@@ -7,6 +7,7 @@ The [exact Elm contract](elm-parity.md) controls acceptance.
 
 | C# form | Approved Elm/Morphir form |
 | --- | --- |
+| Unconstrained generic data/methods | Type variables, alias parameters, instantiated reference types |
 | Data fields and stored properties | Record aliases and Field reads |
 | Positional record construction | Alias Constructor and Apply |
 | Primary parameters; explicit all-field constructors | Same-named fields; record-building functions |
@@ -44,7 +45,9 @@ nullable flattening/fallbacks, unlisted numeric forms, and larger tuple projecti
 The [member cases](../fixtures/elm-parity/member-rejections.json) retain all unapproved D5/D6 signatures.
 Two native unsigned operator forms fail C#14 binding. The frontend retains those compiler errors.
 Elm name shadowing and normalized identity collisions remain errors.
-Later generic, collection, pattern, anonymous-function, loop/ref, exception, and framework forms keep their delivery gates.
+Unapproved constraints, variance, interfaces, inheritance, dispatch, and runtime type tests are rejected.
+Later collection, pattern, anonymous-function, loop/ref, exception, and framework forms keep their delivery gates.
 
 D1–D9 implement the [approved profile](reviews/d1-d9-elm-mapping-decisions.md).
-D10–D21 remain planned. See [validation](deliveries/elm-parity-state.md).
+D10 adds the [generic profile](mappings/D10.md).
+D11–D21 remain planned. See [validation](deliveries/D10-elm-parity.md).

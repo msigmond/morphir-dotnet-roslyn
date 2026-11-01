@@ -34,6 +34,15 @@ public class StructureIntegrationTests
         }
     }
     [Fact]
+    public async Task PinnedElmRejectsConflictingLocalGenericBodyTypes()
+    {
+        var folder = System.IO.Path.Combine(Support.Root, "artifacts", "d10-local-conflict-" + Guid.NewGuid().ToString("N"));
+        CopyTree(System.IO.Path.Combine(Support.Root, "fixtures/elm-parity/d10-local-conflict/elm"), folder);
+        var run = await Run("node", [System.IO.Path.Combine(Support.Root, "eng/node_modules/morphir-elm/cli/morphir-elm.js"), "make", "-p", folder, "-o", System.IO.Path.Combine(folder, "ir.json")], folder);
+        Assert.NotEqual(0, run.Exit);
+        Assert.Contains("TypeCheckError", run.Text);
+    }
+    [Fact]
     public async Task CliEmitsExactBusinessJsonAndPreservesOutputOnEveryFailure()
     {
         var folder=System.IO.Path.Combine(Support.Root,"artifacts","exact-cli-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(folder);
@@ -43,7 +52,7 @@ public class StructureIntegrationTests
         var result=await Cli(args.ToArray());Assert.True(result.Exit==0,result.Text);
         Assert.Null(StructuralComparison.Compare(ElmParity.Expected("business"),File.ReadAllText(output)));
         var previous=File.ReadAllBytes(output);var bad=System.IO.Path.Combine(folder,"Input.cs");
-        foreach(var code in new[]{"invalid C#","namespace Sigmond.Buslog.Algo;public class Generic<T>{}","namespace Sigmond.Buslog.Algo;public static class Rules{public static int F(int a){a=2;return a;}}"})
+        foreach(var code in new[]{"invalid C#","namespace Sigmond.Buslog.Algo;public class Generic<T> where T:class{}","namespace Sigmond.Buslog.Algo;public static class Rules{public static int F(int a){a=2;return a;}}"})
         {
             File.WriteAllText(bad,code);
             var failure=await Cli(["--package","Sigmond.Buslog","--namespace","Sigmond.Buslog.Algo","--source",bad,"--output",output]);

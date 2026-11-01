@@ -1,7 +1,7 @@
 module Example.CurrentSupported.ClassicLoanCalculations exposing (..)
 
 import Morphir.SDK.Decimal as Decimal exposing (Decimal)
-import Example.CurrentSupported exposing (ClassicLoan, ClassicLoanFee, ClassicState, ClassicValue)
+import Example.CurrentSupported exposing (ClassicBox, ClassicLoan, ClassicLoanFee, ClassicState, ClassicValue)
 import Example.CurrentSupported.ClassicState as State
 import Example.CurrentSupported.ClassicValue as Value
 
@@ -84,3 +84,12 @@ state : ClassicState
 state = State.active
 createValue : Int -> ClassicValue
 createValue value = Value.new0NoneInt value
+
+identity : t -> t
+identity value = value
+wrap : t -> ClassicBox t
+wrap value = ClassicBox value
+unwrap : ClassicBox t -> t
+unwrap box = box.value
+readWrapped : Int -> Int
+readWrapped value = unwrap (wrap value)

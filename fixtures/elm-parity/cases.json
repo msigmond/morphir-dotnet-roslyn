@@ -225,6 +225,22 @@
       "dependencyPackages": [
         "d7-clock-provider"
       ]
+    },
+    "d10-generics": {
+      "project": "fixtures/elm-parity/d10-generics/elm",
+      "expected": "fixtures/elm-parity/d10-generics/expected/elm.json"
+    },
+    "d10-members": {
+      "project": "fixtures/elm-parity/d10-members/elm",
+      "expected": "fixtures/elm-parity/d10-members/expected/elm.json"
+    },
+    "d10-locals": {
+      "project": "fixtures/elm-parity/d10-locals/elm",
+      "expected": "fixtures/elm-parity/d10-locals/expected/elm.json"
+    },
+    "d10-owners": {
+      "project": "fixtures/elm-parity/d10-owners/elm",
+      "expected": "fixtures/elm-parity/d10-owners/expected/elm.json"
     }
   },
   "cases": [
@@ -1699,6 +1715,75 @@
       "dependencyType": "System.Environment",
       "dependencyMember": "get_TickCount",
       "dependencyValue": "TickCount"
+    },
+    {
+      "id": "d10-generics",
+      "reference": "d10-generics",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d10-generics/csharp/Input.cs"
+      ],
+      "features": [
+        "generic-aliases",
+        "generic-methods",
+        "explicit-inferred-type-arguments",
+        "generic-fields",
+        "generic-delegates",
+        "generic-maybe"
+      ]
+    },
+    {
+      "id": "d10-members",
+      "reference": "d10-members",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d10-members/csharp/Input.cs"
+      ],
+      "features": [
+        "generic-primary-constructors",
+        "generic-explicit-constructors",
+        "generic-getters",
+        "generic-instance-calls",
+        "generic-record-updates"
+      ]
+    },
+    {
+      "id": "d10-locals",
+      "reference": "d10-locals",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d10-locals/csharp/Input.cs"
+      ],
+      "features": [
+        "generic-local-functions",
+        "generic-forwarding"
+      ]
+    },
+    {
+      "id": "d10-owners",
+      "reference": "d10-owners",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d10-owners/csharp/Input.cs"
+      ],
+      "features": [
+        "generic-static-owners",
+        "nested-generic-aliases",
+        "generic-overloads",
+        "generic-visibility"
+      ]
     }
   ],
   "auditIds": [

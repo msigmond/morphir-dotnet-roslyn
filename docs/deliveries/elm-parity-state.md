@@ -1,5 +1,8 @@
 # D1–D9 exact Elm acceptance
 
+D10 adds the [approved generic profile and current evidence](D10-elm-parity.md).
+Counts and results below describe the D1–D9 baseline.
+
 - Date: 2026-10-31.
 - Status: passed under the approved Elm profile.
 - Contract: [exact Elm parity](../elm-parity.md).
@@ -69,4 +72,4 @@ Logs: `/tmp/d1d9-closed-restore.log`, `/tmp/d1d9-final-release-build.log`,
 Approved mappings and required rejections complete this profile; they do not claim all C# forms.
 Mutation, identity/cycles, recursive aliases, incomplete construction, unapproved numeric APIs,
 nullable extraction/flattening, and later forms remain rejected. See [limits](../classic-output.md).
-D10–D21 remain planned. Passed deliveries follow the authorized commit/push workflow.
+At this baseline, D10–D21 were planned. See the [D10 increment](D10-elm-parity.md) for current status.

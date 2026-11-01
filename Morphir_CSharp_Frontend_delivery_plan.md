@@ -2,7 +2,7 @@
 
 - authority: user instructions → [exact Elm parity](docs/elm-parity.md) → approved source-structure rules → this plan → selected delivery
 - contract changed: 2026-10-24; [approved audit](docs/reviews/source-structure-audit.md)
-- D1–D9 have implemented [approved Elm mappings and tested rejections](docs/deliveries/elm-parity-state.md); all gates passed. D10–D21 remain planned.
+- D1–D10 have implemented [approved Elm mappings and tested rejections](docs/deliveries/D10-elm-parity.md); all gates passed. D11–D21 remain planned.
 - former runtime evidence: [archive](docs/history/runtime-contract/README.md)
 - requested output: standard Classic v3 matching `morphir-elm make`; [acceptance contract](docs/elm-parity.md)
 - Source v1 was unrequested work. Public Source output is removed.
@@ -19,9 +19,10 @@ Source v1 code and checks do not establish delivery acceptance.
 
 ## Execution
 
-Continue D1–D9 only through approved mappings and exact compiler parity.
+Continue only through approved mappings and exact compiler parity.
+D10 uses the [approved generic profile](docs/mappings/D10.md).
 All [six mapping decisions](docs/reviews/d1-d9-elm-mapping-decisions.md) are approved.
-Do not advance D10 on the basis of Source-mode passes.
+Source-mode passes do not establish a delivery gate.
 
 Work on one requested delivery. Check prerequisite exact-parity evidence before implementation.
 Every feature must pass the [exact Elm parity gate](docs/elm-parity.md).
@@ -57,7 +58,7 @@ Keep pinned primitive/framework families. Future forms need their explicit struc
 | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md) | Calls, references, and arguments | passed under the approved Elm profile | [D2](Morphir_CSharp_Frontend_deliveries/D02-project-inputs.md), [D3](Morphir_CSharp_Frontend_deliveries/D03-blocks-locals.md), [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md), [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md), [D6](Morphir_CSharp_Frontend_deliveries/D06-decimal.md) |
 | [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md) | Enum and tuple source structure | passed under the approved Elm profile | [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md), [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md) |
 | [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md) | Data declarations, members, and state | passed under the approved Elm profile | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md), [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md) |
-| [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) | Generics, interfaces, and inheritance | planned | [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md) |
+| [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) | Generic Elm profile and explicit dispatch rejections | passed: approved profile | [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md) |
 | [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) | Arrays and collection structure | planned | [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) |
 | [D12](Morphir_CSharp_Frontend_deliveries/D12-patterns.md) | Patterns and switches | planned | [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md), [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md), [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) |
 | [D13](Morphir_CSharp_Frontend_deliveries/D13-closures.md) | Anonymous functions and delegates | planned | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) |

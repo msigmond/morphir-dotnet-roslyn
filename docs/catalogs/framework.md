@@ -10,9 +10,11 @@ Decimal division requires a nullable Decimal result and uses Decimal.div.
 Configured metadata calls/getters need an exact target and signature; pure/total flags do not gate them.
 
 The [numeric](numeric-members.json) and [Decimal](decimal-members.json) inventories retain their pinned declarations.
-The D1–D9 gate has no pending type/member entries: each is mapped and exact-tested, or explicitly rejected.
+The D1–D10 gate has no pending type/member entries: each is mapped and exact-tested, or explicitly rejected.
 Unlisted precision/scale signatures, Complex, unsupported constants/constructors/conversions,
 and methods with no approved SDK counterpart remain rejected.
+D10 admits generic source declarations; it adds no framework mappings.
+Generic metadata calls without an approved target remain rejected.
 Later owner entries and full framework closure remain planned.
 
 Input maintenance is separate from validation:

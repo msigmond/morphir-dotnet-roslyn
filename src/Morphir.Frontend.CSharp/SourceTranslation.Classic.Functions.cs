@@ -98,9 +98,14 @@ internal sealed partial class SourceTranslation
         foreach (var input in inputs) classicBindings.Add(input.Name.Key);
         try
         {
-            var body = ClassicStatementValue(local.Children[^1] is CSharpOperation<Unit, IrType<Unit>> { Kind: "Block" } block ? block : Source(local.Attributes, "Return", [local.Children[^1]]));
+            var substitutions = LocalBodyTypeArguments(local);
+            var implementation = SubstituteSourceTypes(local.Children[^1], substitutions);
+            var body = ClassicStatementValue(implementation is CSharpOperation<Unit, IrType<Unit>> { Kind: "Block" } block ? block : Source(Substitute(local.Attributes, substitutions), "Return", [implementation]));
             foreach (var input in inputs.Reverse())
-                body = new LambdaValue<Unit, IrType<Unit>>(Types.Function(input.Type, body.Attributes), new AsPattern<IrType<Unit>>(input.Type, new WildcardPattern<IrType<Unit>>(input.Type), input.Name), body);
+            {
+                var type = Substitute(input.Type, substitutions);
+                body = new LambdaValue<Unit, IrType<Unit>>(Types.Function(type, body.Attributes), new AsPattern<IrType<Unit>>(type, new WildcardPattern<IrType<Unit>>(type), input.Name), body);
+            }
             return new([], LocalFunctionType(local), body);
         }
         finally { foreach (var input in inputs) classicBindings.Remove(input.Name.Key); }

@@ -7,7 +7,7 @@
 
 ## Prerequisite profile
 
-Use the [D1–D9 Elm profile](../docs/deliveries/elm-parity-state.md) and all earlier exact-parity gates.
+Use the [D1–D10 Elm profile](../docs/deliveries/D10-elm-parity.md) and all earlier exact-parity gates.
 Each new mapping needs independent Elm input and complete JSON equality. Historical Source-mode passes do not count.
 
 ## Work

@@ -187,15 +187,36 @@ internal sealed partial class SourceTranslation
     {
         RequireSelected(method, syntax.GetLocation());
         // Signatures belong to the resolved symbol. No method body is evaluated here.
-        var result = Type(method.ReturnType, location: syntax.GetLocation());
+        var result = Type(method.ReturnType, GenericMember(method) ? DeclaredType(method) : null, syntax.GetLocation());
         IrType<Unit> signature = result;
         foreach (var parameter in method.Parameters.Reverse()) signature = Types.Function(Type(parameter.Type, DeclaredType(parameter), syntax.GetLocation()), signature);
         var identity = external.TryGetValue(Id(method), out var contract) ? contract.Target : identities.GetValueOrDefault(Id(method)) ?? SdkMethod(method);
-        if (identity?.Package.Key == Types.Sdk.Key && !method.IsStatic) signature = Types.Function(Type(method.ContainingType), signature);
+        if (!method.IsStatic && (identity?.Package.Key == Types.Sdk.Key || SourceSymbol(method) && method.MethodKind != MethodKind.LocalFunction && GenericMember(method))) signature = Types.Function(Type(method.ContainingType), signature);
         V target = identity is null ? Source(signature, "NamedReference", [], ("name", method.ToDisplayString(Display)), ("symbol", Id(method))) : new ReferenceValue<Unit, IrType<Unit>>(signature, identity);
+        if (method.MethodKind == MethodKind.LocalFunction)
+        {
+            var caller = syntax.Ancestors().OfType<LocalFunctionStatementSyntax>().FirstOrDefault();
+            var owner = caller is null ? "" : Id((IMethodSymbol)Semantic(caller).GetDeclaredSymbol(caller)!);
+            var key = Id(method);
+            if (!localCallOwners.TryGetValue(key, out var owners)) localCallOwners[key] = owners = [];
+            owners.Add(owner);
+        }
+        if (method.MethodKind == MethodKind.LocalFunction && method.Arity != 0)
+        {
+            var key = Id(method);
+            var declaration = method.DeclaringSyntaxReferences.Single().GetSyntax();
+            var definition = (IMethodSymbol)Semantic(declaration).GetDeclaredSymbol(declaration)!;
+            genericLocalDefinitions[key] = definition;
+            for (var i = 0; i < method.TypeArguments.Length; i++)
+            {
+                var parameter = TypeParameterKey(definition.TypeParameters[i]);
+                if (!genericLocalArguments.TryGetValue(parameter, out var arguments)) genericLocalArguments[parameter] = arguments = [];
+                arguments.Add(method.TypeArguments[i]);
+            }
+        }
         var converted = syntax is ExpressionSyntax expression ? Semantic(syntax).GetTypeInfo(expression).ConvertedType : null;
         var referenceType = converted is { TypeKind: TypeKind.Delegate } ? Type(converted) : signature;
-        return Source(referenceType, "MethodReference", receiver is null ? [target] : [receiver, target], ("symbol", Id(method)));
+        return Source(referenceType, "MethodReference", receiver is null ? [target] : [receiver, target], ("symbol", Id(method)), ("generic", GenericMember(method) ? "true" : ""));
     }
     private V Invocation(InvocationExpressionSyntax syntax, IrType<Unit> type, IMethodSymbol? method)
     {
@@ -203,7 +224,7 @@ internal sealed partial class SourceTranslation
         RequireSelected(method, syntax.GetLocation());
         if (method.MethodKind == MethodKind.DelegateInvoke)
             return Source(type, "DelegateInvocation", new[] { syntax.Expression is MemberBindingExpressionSyntax ? Source(Type(method.ContainingType),"ConditionalReceiver",[]) : Expression(syntax.Expression) }.Concat(CallArguments(syntax, method)).ToArray());
-        if (method.TypeArguments.Length != 0 && !(method.ContainingType.ContainingNamespace.ToDisplayString() == "System" && method.ContainingType.Name is "Tuple" or "ValueTuple")) return Fail<V>("MCS3100", "Generic calls require D10.", syntax.GetLocation());
+        if (method.TypeArguments.Length != 0 && !SourceSymbol(method) && !(method.ContainingType.ContainingNamespace.ToDisplayString() == "System" && method.ContainingType.Name is "Tuple" or "ValueTuple")) return Fail<V>("MCS3100", "Generic metadata calls need an approved Elm mapping.", syntax.GetLocation());
         V? receiver = syntax.Expression is MemberAccessExpressionSyntax member && !method.IsStatic ? Expression(member.Expression) : syntax.Expression is MemberBindingExpressionSyntax && !method.IsStatic ? Source(Type(method.ContainingType),"ConditionalReceiver",[]) : null;
         if (receiver is null && !method.IsStatic && method.MethodKind!=MethodKind.LocalFunction && syntax.Expression is IdentifierNameSyntax) receiver = new VariableValue<Unit, IrType<Unit>>(Type(currentType!), currentReceiver);
         var arguments = CallArguments(syntax, method);

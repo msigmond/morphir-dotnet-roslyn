@@ -49,7 +49,7 @@ internal sealed partial class SourceTranslation
         if (MaybeElement(subject.Attributes) is not null && name == "HasValue") return Sdk("Basics","notEqual",Types.Bool,subject,Nothing(subject.Attributes));
         if (Shape(subject.Attributes)==Shape(Types.String) && name=="Length")return Sdk("String","length",Types.Int,subject);
         if(declared.Values.OfType<IMethodSymbol>().FirstOrDefault(m=>m.MethodKind==MethodKind.PropertyGet && m.AssociatedSymbol is {} property && Id(property)==symbol) is {} getter)
-            return ClassicFunction(identities[Id(getter)],subject);
+            return ClassicFunction(identities[Id(getter)],result,subject);
         if(RecordShape(subject.Attributes) is not null)return ClassicField(new(result,subject,Name.From(name)));
         return ClassicFailure("This member needs an approved Elm function mapping.");
     }

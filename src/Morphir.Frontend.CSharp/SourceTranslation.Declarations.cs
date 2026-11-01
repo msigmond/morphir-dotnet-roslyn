@@ -14,7 +14,7 @@ internal sealed partial class SourceTranslation
         currentType = type;
         var identity = identities[Id(type)];
         var owner = GetModule(identity.Module, type.ContainingType is null ? Access.Public : Visibility(type.ContainingType));
-        var members = GetModule(Owner(type.ToDisplayString()), Visibility(type));
+        var members = GetModule(Owner(SourceOwner(type)), Visibility(type));
         if (!type.IsStatic)
         {
             IrType<Unit> representation;
@@ -40,7 +40,7 @@ internal sealed partial class SourceTranslation
                     }
                 representation = new RecordType<Unit>(default, fields);
             }
-            owner.Types.Add(new(identity.Local, new(Visibility(type), new(Documentation(type), new AliasDefinition<Unit>([], representation)))));
+            owner.Types.Add(new(identity.Local, new(Visibility(type), new(Documentation(type), new AliasDefinition<Unit>(TypeParameters(type).Select(p => Name.From(p.Name)).ToArray(), representation)))));
         }
         foreach (var symbol in type.GetMembers())
         {
@@ -142,6 +142,7 @@ internal sealed partial class SourceTranslation
     private V LocalFunction(LocalFunctionStatementSyntax syntax)
     {
         var method = (IMethodSymbol)Semantic(syntax).GetDeclaredSymbol(syntax)!;
+        if (method.Arity != 0) genericLocalDefinitions[Id(method)] = method;
         var saved = currentOutput; currentOutput = Type(method.ReturnType, syntax.ReturnType);
         try
         {

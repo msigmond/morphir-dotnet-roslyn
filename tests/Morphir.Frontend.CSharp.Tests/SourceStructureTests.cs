@@ -7,11 +7,11 @@ public class SourceStructureTests
 {
     private const string Header = "using System;namespace Example.Structure;";
     [Theory]
-    [InlineData("public class Box<T>{}", "MCS3100")]
+    [InlineData("public class Box<T> where T:class{}", "MCS3100")]
     [InlineData("public static class Rules{public static int F(int[] a)=>a[0];}", "MCS3101")]
     [InlineData("public static class Rules{public static int F(){int[] a=null;return 1;}}", "MCS3101")]
     [InlineData("public class Cell:System.IDisposable{public void Dispose(){}}", "MCS3100")]
-    [InlineData("public static class Rules{public static int F(){T L<T>(T value)=>value;return 1;}}", "MCS3100")]
+    [InlineData("public static class Rules{public static int F(){T L<T>(T value) where T:class=>value;return 1;}}", "MCS3100")]
     [InlineData("public static class Rules{public static int F(int a){while(a>0)a--;return a;}}", "MCS3105")]
     [InlineData("public static class Rules{public static Func<int,int> F()=>x=>x;}", "MCS3103")]
     [InlineData("public static class Rules{public static int F(){try{return 1;}catch{return 2;}}}", "MCS3181")]

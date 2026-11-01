@@ -3,8 +3,15 @@ namespace Example.CurrentSupported;
 public readonly record struct ClassicLoan(string SecurityId, int Quantity, int Price, int AnnualFeeRate);
 public readonly record struct ClassicLoanFee(string SecurityId, int MarketValue, int DailyFee);
 
+public record ClassicBox<T>(T Value);
+
 public static class ClassicLoanCalculations
 {
+    public static T Identity<T>(T value) => value;
+    public static ClassicBox<T> Wrap<T>(T value) => new(value);
+    public static T Unwrap<T>(ClassicBox<T> box) => box.Value;
+    public static int ReadWrapped(int value) => Unwrap(Wrap(value));
+
     public static int MarketValue(ClassicLoan loan)
     {
         return loan.Quantity * loan.Price;

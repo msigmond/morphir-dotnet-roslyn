@@ -33,7 +33,9 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
     private Name currentReceiver = Name.From("this");
     private readonly Dictionary<ISymbol,IrType<Unit>> inferredLocalTypes=new(SymbolEqualityComparer.Default);
     private static readonly SymbolDisplayFormat Display = SymbolDisplayFormat.FullyQualifiedFormat.WithMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier | SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers);
-    private static string Id(ISymbol symbol) => symbol.ContainingAssembly?.Identity + "::" + (symbol.OriginalDefinition.GetDocumentationCommentId() ?? symbol.ToDisplayString(Display) + "@" + symbol.Locations.FirstOrDefault()?.SourceSpan.Start);
+    private static string Id(ISymbol symbol) => symbol is IMethodSymbol { MethodKind: MethodKind.LocalFunction } local
+        ? Id(local.ContainingSymbol) + "::local:" + local.Name + "@" + local.DeclaringSyntaxReferences.FirstOrDefault()?.Span.Start
+        : symbol.ContainingAssembly?.Identity + "::" + (symbol.OriginalDefinition.GetDocumentationCommentId() ?? symbol.ToDisplayString(Display) + "@" + symbol.Locations.FirstOrDefault()?.SourceSpan.Start);
     private SemanticModel Semantic(SyntaxNode node) => compilations.Single(c => c.SyntaxTrees.Contains(node.SyntaxTree)).GetSemanticModel(node.SyntaxTree);
     private static Location? Location(ISymbol symbol) => symbol.Locations.FirstOrDefault(l => l.IsInSource);
     private static IEnumerable<INamedTypeSymbol> AllTypes(INamespaceOrTypeSymbol owner)
@@ -105,17 +107,17 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
         if (diagnostics.Count != 0) return Failure();
         var types = compilations.SelectMany(c => AllTypes(c.Assembly.GlobalNamespace)).Where(Selected).Where(t => t.DeclaringSyntaxReferences.Length != 0).ToArray();
         if (types.Length == 0) Error("MCS1006", "No source declarations match the selected namespaces.");
-        foreach (var type in types) Register(type, type.ContainingType?.ToDisplayString() ?? type.ContainingNamespace.ToDisplayString(), type.Name);
+        foreach (var type in types) Register(type, type.ContainingType is {} parent ? SourceOwner(parent) : type.ContainingNamespace.ToDisplayString(), type.Name);
         foreach (var type in types)
         {
             foreach (var method in type.GetMembers().OfType<IMethodSymbol>().Where(m => !m.IsImplicitlyDeclared && m.MethodKind is MethodKind.Ordinary or MethodKind.Constructor or MethodKind.StaticConstructor or MethodKind.UserDefinedOperator or MethodKind.Conversion or MethodKind.PropertyGet or MethodKind.PropertySet))
             {
                 string name = method.MethodKind switch { MethodKind.Constructor => "New", MethodKind.StaticConstructor => "StaticConstructor", MethodKind.PropertyGet => "Get" + method.AssociatedSymbol!.MetadataName, MethodKind.PropertySet => "Set" + method.AssociatedSymbol!.MetadataName, _ => method.Name };
                 if (method.MethodKind != MethodKind.Ordinary || type.GetMembers(method.Name).OfType<IMethodSymbol>().Count(m => !m.IsImplicitlyDeclared && m.MethodKind == MethodKind.Ordinary) > 1) name += Suffix(method);
-                Register(method, type.ToDisplayString(), name);
+                Register(method, SourceOwner(type), name);
                 foreach (var parameter in method.Parameters.Where(p => p.IsParams && p.Type is IArrayTypeSymbol)) paramsArrays.Add(parameter.Type);
             }
-            foreach (var field in type.GetMembers().OfType<IFieldSymbol>().Where(f => !f.IsImplicitlyDeclared && (f.IsStatic || type.TypeKind == TypeKind.Enum))) Register(field, type.ToDisplayString(), field.Name);
+            foreach (var field in type.GetMembers().OfType<IFieldSymbol>().Where(f => !f.IsImplicitlyDeclared && (f.IsStatic || type.TypeKind == TypeKind.Enum))) Register(field, SourceOwner(type), field.Name);
         }
         if (diagnostics.Count != 0) return Failure();
         Attempt(ConfigureDependencies);
@@ -136,10 +138,12 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
     }
     private void Validate(INamedTypeSymbol type)
     {
-        if (type.Arity != 0 || type.TypeKind is TypeKind.Interface or TypeKind.Delegate || type.BaseType is { SpecialType: not SpecialType.System_Object and not SpecialType.System_ValueType and not SpecialType.System_Enum }) Fail<object>("MCS3100", "Generic declarations, interfaces, and inheritance require D10.", Location(type));
+        if (type.TypeKind is TypeKind.Interface or TypeKind.Delegate || type.BaseType is { SpecialType: not SpecialType.System_Object and not SpecialType.System_ValueType and not SpecialType.System_Enum }) Fail<object>("MCS3100", "Interfaces and inheritance have no approved Elm mapping.", Location(type));
+        if (type.IsAbstract && !type.IsStatic || type.GetMembers().OfType<IMethodSymbol>().Any(m => !m.IsImplicitlyDeclared && (m.IsAbstract || m.IsVirtual || m.IsOverride)))
+            Fail<object>("MCS3100", "Abstract, virtual, and override members have no approved Elm mapping.", Location(type));
         foreach (var syntax in type.DeclaringSyntaxReferences.Select(r => r.GetSyntax())) foreach (var node in syntax.DescendantNodesAndSelf())
         {
-            if (node is TypeDeclarationSyntax { BaseList: not null }) Fail<object>("MCS3100", "Declared interfaces and base lists require D10.", node.GetLocation());
+            if (node is TypeDeclarationSyntax { BaseList: not null }) Fail<object>("MCS3100", "Declared interfaces and base lists have no approved Elm mapping.", node.GetLocation());
             if (node is PointerTypeSyntax or FunctionPointerTypeSyntax or StackAllocArrayCreationExpressionSyntax or ImplicitStackAllocArrayCreationExpressionSyntax || node is TypeDeclarationSyntax td && td.Modifiers.Any(SyntaxKind.RefKeyword)) Fail<object>("MCS2003", "Pointer, stack allocation, and ref-like forms have no source mapping.", node.GetLocation());
             if (node is AwaitExpressionSyntax || node is MethodDeclarationSyntax md && md.Modifiers.Any(SyntaxKind.AsyncKeyword)) Fail<object>("MCS2002", "Async structure has no delivered mapping.", node.GetLocation());
             if (node is AnonymousFunctionExpressionSyntax) Fail<object>("MCS3103", "Anonymous functions require D13.", node.GetLocation());
@@ -148,8 +152,26 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
             if (node is TryStatementSyntax or ThrowStatementSyntax or ThrowExpressionSyntax) Fail<object>("MCS3181", "Exception structure requires D18.1.", node.GetLocation());
             if (node is YieldStatementSyntax) Fail<object>("MCS3182", "Iterator structure requires D18.2.", node.GetLocation());
             if (node is QueryExpressionSyntax or UnsafeStatementSyntax or FixedStatementSyntax or LockStatementSyntax or UsingStatementSyntax or EventDeclarationSyntax or EventFieldDeclarationSyntax or DestructorDeclarationSyntax) Fail<object>("MCS2107", $"Source form {node.Kind()} has no delivered mapping.", node.GetLocation());
-            if (node is MethodDeclarationSyntax { TypeParameterList: not null }) Fail<object>("MCS3100", "Generic method declarations require D10.", node.GetLocation());
-            if (node is LocalFunctionStatementSyntax { TypeParameterList: not null }) Fail<object>("MCS3100", "Generic local declarations require D10.", node.GetLocation());
+            if (node is TypeParameterConstraintClauseSyntax || node is TypeParameterSyntax parameterType && !parameterType.VarianceKeyword.IsKind(SyntaxKind.None))
+                Fail<object>("MCS3100", "Constraints and variance have no approved Elm mapping.", node.GetLocation());
+            if (node is BaseExpressionSyntax || node is BinaryExpressionSyntax binary && binary.Kind() is SyntaxKind.IsExpression or SyntaxKind.AsExpression)
+                Fail<object>("MCS3100", "Base access and runtime type tests have no approved Elm mapping.", node.GetLocation());
+            if (node is TypeParameterListSyntax parameters)
+            {
+                if (Semantic(node).GetDeclaredSymbol(node.Parent!) is IMethodSymbol method && method.TypeParameters.Any(p =>
+                    !UsesTypeParameter(method.ReturnType, p) && !method.Parameters.Any(input => UsesTypeParameter(input.Type, p))))
+                    Fail<object>("MCS3100", "An unused method type parameter has no Elm signature variable.", node.GetLocation());
+                var enclosing = node.Ancestors().Select(n => n switch
+                {
+                    TypeDeclarationSyntax declaration => declaration.TypeParameterList,
+                    MethodDeclarationSyntax declaration => declaration.TypeParameterList,
+                    LocalFunctionStatementSyntax declaration => declaration.TypeParameterList,
+                    _ => null
+                }).Where(p => p is not null && p != node).SelectMany(p => p!.Parameters);
+                var names = parameters.Parameters.Concat(enclosing).Select(p => Name.From(p.Identifier.ValueText).Key).ToArray();
+                if (names.Distinct().Count() != names.Length || names.Any(n => n is "number" or "comparable" or "appendable" or "compappend"))
+                    Fail<object>("MCS1004", "Type parameter names collide or imply an Elm constraint.", node.GetLocation());
+            }
             if (node is ParameterSyntax parameter && parameter.Modifiers.Any(m => m.IsKind(SyntaxKind.RefKeyword) || m.IsKind(SyntaxKind.OutKeyword) || m.IsKind(SyntaxKind.InKeyword))) Fail<object>("MCS3105", "By-reference parameters require D15.", node.GetLocation());
         }
     }
@@ -192,7 +214,7 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
         if (syntax?.IsVar == true) annotations = false;
         if (syntax is NullableTypeSyntax nullable) return Types.Maybe(Type(symbol is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T } n ? n.TypeArguments[0] : symbol.WithNullableAnnotation(NullableAnnotation.NotAnnotated), nullable.ElementType, location));
         if (symbol is INamedTypeSymbol { OriginalDefinition.SpecialType: SpecialType.System_Nullable_T } nullableValue) return Types.Maybe(Type(nullableValue.TypeArguments[0], location: location));
-        if (annotations && syntax is null && symbol.IsReferenceType && symbol.NullableAnnotation == NullableAnnotation.Annotated) return Types.Maybe(Type(symbol.WithNullableAnnotation(NullableAnnotation.NotAnnotated), location: location));
+        if (annotations && syntax is null && (symbol.IsReferenceType || symbol is ITypeParameterSymbol) && symbol.NullableAnnotation == NullableAnnotation.Annotated) return Types.Maybe(Type(symbol.WithNullableAnnotation(NullableAnnotation.NotAnnotated), location: location));
         if (symbol.IsRefLikeType || symbol is IPointerTypeSymbol or IFunctionPointerTypeSymbol) return Fail<IrType<Unit>>("MCS2003", "Ref-like and pointer types have no delivered source mapping.", location);
         if (symbol is IArrayTypeSymbol array) return paramsArrays.Contains(array) ? Types.List(Type(array.ElementType, location: location)) : Fail<IrType<Unit>>("MCS3101", "General array types require D11.", location);
         if (symbol is ITypeParameterSymbol parameter) return new VariableType<Unit>(default, Name.From(parameter.Name));
@@ -221,7 +243,7 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
         if (SourceSymbol(named!))
         {
             if (!identities.TryGetValue(Id(named.OriginalDefinition), out var identity)) return Fail<IrType<Unit>>("MCS2201", $"Required source type {symbol} in namespace {symbol.ContainingNamespace} is not selected.", location);
-            return new ReferenceType<Unit>(default, identity, named.TypeArguments.Select((t, i) => Type(t, GenericArguments(syntax).ElementAtOrDefault(i), location, annotations)).ToArray());
+            return new ReferenceType<Unit>(default, identity, SourceTypeArguments(named, syntax).Select(t => Type(t.Symbol, t.Syntax, location, annotations)).ToArray());
         }
         bool delivered = named.ToDisplayString() == "System.Numerics.Complex" || named.ContainingNamespace.ToDisplayString() == "System" && named.Name is "Func" or "Tuple" or "ValueTuple";
         if (!delivered) return Fail<IrType<Unit>>("MCS2104", $"Type {symbol} retains its later delivery gate.", location);

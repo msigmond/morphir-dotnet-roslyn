@@ -452,21 +452,33 @@
     },
     {
       "member": "byte.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:byte.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "byte.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:byte.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "byte.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:byte.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "byte.DivRem(byte, byte)",
@@ -772,21 +784,33 @@
     },
     {
       "member": "sbyte.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:sbyte.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "sbyte.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:sbyte.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "sbyte.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:sbyte.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "sbyte.DivRem(sbyte, sbyte)",
@@ -1126,21 +1150,33 @@
     },
     {
       "member": "short.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:short.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "short.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:short.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "short.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:short.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "short.DivRem(short, short)",
@@ -1468,21 +1504,33 @@
     },
     {
       "member": "ushort.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:ushort.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "ushort.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:ushort.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "ushort.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:ushort.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "ushort.DivRem(ushort, ushort)",
@@ -1804,21 +1852,33 @@
     },
     {
       "member": "int.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:int.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "int.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:int.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "int.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:int.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "int.DivRem(int, int)",
@@ -2160,21 +2220,33 @@
     },
     {
       "member": "uint.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:uint.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "uint.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:uint.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "uint.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:uint.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "uint.DivRem(uint, uint)",
@@ -2500,21 +2572,33 @@
     },
     {
       "member": "long.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:long.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "long.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:long.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "long.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:long.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "long.DivRem(long, long)",
@@ -2848,21 +2932,33 @@
     },
     {
       "member": "ulong.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:ulong.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "ulong.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:ulong.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "ulong.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:ulong.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "ulong.DivRem(ulong, ulong)",
@@ -3190,21 +3286,33 @@
     },
     {
       "member": "nint.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:nint.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "nint.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:nint.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "nint.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:nint.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "nint.DivRem(nint, nint)",
@@ -3695,21 +3803,33 @@
     },
     {
       "member": "nuint.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:nuint.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "nuint.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:nuint.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "nuint.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:nuint.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "nuint.DivRem(nuint, nuint)",
@@ -4270,15 +4390,23 @@
     },
     {
       "member": "float.ConvertToInteger<TInteger>(float)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:float.ConvertToInteger<TInteger>(float)"
+      ]
     },
     {
       "member": "float.ConvertToIntegerNative<TInteger>(float)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:float.ConvertToIntegerNative<TInteger>(float)"
+      ]
     },
     {
       "member": "float.CopySign(float, float)",
@@ -4306,21 +4434,33 @@
     },
     {
       "member": "float.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:float.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "float.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:float.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "float.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:float.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "float.DegreesToRadians(float)",
@@ -5196,15 +5336,23 @@
     },
     {
       "member": "double.ConvertToInteger<TInteger>(double)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:double.ConvertToInteger<TInteger>(double)"
+      ]
     },
     {
       "member": "double.ConvertToIntegerNative<TInteger>(double)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:double.ConvertToIntegerNative<TInteger>(double)"
+      ]
     },
     {
       "member": "double.CopySign(double, double)",
@@ -5232,21 +5380,33 @@
     },
     {
       "member": "double.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:double.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "double.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:double.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "double.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:double.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "double.DegreesToRadians(double)",
@@ -6130,15 +6290,23 @@
     },
     {
       "member": "System.Half.ConvertToInteger<TInteger>(System.Half)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Half.ConvertToInteger<TInteger>(System.Half)"
+      ]
     },
     {
       "member": "System.Half.ConvertToIntegerNative<TInteger>(System.Half)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Half.ConvertToIntegerNative<TInteger>(System.Half)"
+      ]
     },
     {
       "member": "System.Half.CopySign(System.Half, System.Half)",
@@ -6166,21 +6334,33 @@
     },
     {
       "member": "System.Half.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Half.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Half.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Half.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Half.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Half.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Half.DegreesToRadians(System.Half)",
@@ -7518,21 +7698,33 @@
     },
     {
       "member": "System.Int128.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Int128.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Int128.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Int128.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Int128.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Int128.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Int128.DivRem(System.Int128, System.Int128)",
@@ -8622,21 +8814,33 @@
     },
     {
       "member": "System.UInt128.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.UInt128.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.UInt128.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.UInt128.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.UInt128.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.UInt128.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.UInt128.DivRem(System.UInt128, System.UInt128)",
@@ -9865,21 +10069,33 @@
     },
     {
       "member": "System.Numerics.BigInteger.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Numerics.BigInteger.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Numerics.BigInteger.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Numerics.BigInteger.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Numerics.BigInteger.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Numerics.BigInteger.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Numerics.BigInteger.DivRem(System.Numerics.BigInteger, System.Numerics.BigInteger)",
@@ -11178,21 +11394,33 @@
     },
     {
       "member": "System.Numerics.Complex.CreateChecked<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Numerics.Complex.CreateChecked<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Numerics.Complex.CreateSaturating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Numerics.Complex.CreateSaturating<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Numerics.Complex.CreateTruncating<TOther>(TOther)",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D10",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Generic metadata conversion has no approved Elm mapping. Retain explicit source rejection.",
+      "evidence": "docs/mappings/D10.md; bound source rejection for this exact signature",
+      "rejectionCases": [
+        "member:numeric-members:System.Numerics.Complex.CreateTruncating<TOther>(TOther)"
+      ]
     },
     {
       "member": "System.Numerics.Complex.Divide(System.Numerics.Complex, System.Numerics.Complex)",

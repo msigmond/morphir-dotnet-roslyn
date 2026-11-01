@@ -1278,6 +1278,378 @@
       "member": "decimal.operator /(decimal, decimal)",
       "source": "namespace Example.Inventory;public static class Rules{public static decimal F(decimal p0,decimal p1)=>p0 / p1;}",
       "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:byte.CreateChecked<TOther>(TOther)",
+      "member": "byte.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static byte F(int value)=>byte.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:byte.CreateSaturating<TOther>(TOther)",
+      "member": "byte.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static byte F(int value)=>byte.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:byte.CreateTruncating<TOther>(TOther)",
+      "member": "byte.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static byte F(int value)=>byte.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:sbyte.CreateChecked<TOther>(TOther)",
+      "member": "sbyte.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static sbyte F(int value)=>sbyte.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:sbyte.CreateSaturating<TOther>(TOther)",
+      "member": "sbyte.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static sbyte F(int value)=>sbyte.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:sbyte.CreateTruncating<TOther>(TOther)",
+      "member": "sbyte.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static sbyte F(int value)=>sbyte.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:short.CreateChecked<TOther>(TOther)",
+      "member": "short.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static short F(int value)=>short.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:short.CreateSaturating<TOther>(TOther)",
+      "member": "short.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static short F(int value)=>short.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:short.CreateTruncating<TOther>(TOther)",
+      "member": "short.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static short F(int value)=>short.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ushort.CreateChecked<TOther>(TOther)",
+      "member": "ushort.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static ushort F(int value)=>ushort.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ushort.CreateSaturating<TOther>(TOther)",
+      "member": "ushort.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static ushort F(int value)=>ushort.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ushort.CreateTruncating<TOther>(TOther)",
+      "member": "ushort.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static ushort F(int value)=>ushort.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:int.CreateChecked<TOther>(TOther)",
+      "member": "int.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(int value)=>int.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:int.CreateSaturating<TOther>(TOther)",
+      "member": "int.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(int value)=>int.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:int.CreateTruncating<TOther>(TOther)",
+      "member": "int.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(int value)=>int.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:uint.CreateChecked<TOther>(TOther)",
+      "member": "uint.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static uint F(int value)=>uint.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:uint.CreateSaturating<TOther>(TOther)",
+      "member": "uint.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static uint F(int value)=>uint.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:uint.CreateTruncating<TOther>(TOther)",
+      "member": "uint.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static uint F(int value)=>uint.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:long.CreateChecked<TOther>(TOther)",
+      "member": "long.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static long F(int value)=>long.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:long.CreateSaturating<TOther>(TOther)",
+      "member": "long.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static long F(int value)=>long.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:long.CreateTruncating<TOther>(TOther)",
+      "member": "long.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static long F(int value)=>long.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ulong.CreateChecked<TOther>(TOther)",
+      "member": "ulong.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static ulong F(int value)=>ulong.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ulong.CreateSaturating<TOther>(TOther)",
+      "member": "ulong.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static ulong F(int value)=>ulong.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:ulong.CreateTruncating<TOther>(TOther)",
+      "member": "ulong.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static ulong F(int value)=>ulong.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nint.CreateChecked<TOther>(TOther)",
+      "member": "nint.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static nint F(int value)=>nint.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nint.CreateSaturating<TOther>(TOther)",
+      "member": "nint.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static nint F(int value)=>nint.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nint.CreateTruncating<TOther>(TOther)",
+      "member": "nint.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static nint F(int value)=>nint.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nuint.CreateChecked<TOther>(TOther)",
+      "member": "nuint.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static nuint F(int value)=>nuint.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nuint.CreateSaturating<TOther>(TOther)",
+      "member": "nuint.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static nuint F(int value)=>nuint.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:nuint.CreateTruncating<TOther>(TOther)",
+      "member": "nuint.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static nuint F(int value)=>nuint.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.ConvertToInteger<TInteger>(float)",
+      "member": "float.ConvertToInteger<TInteger>(float)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(float value)=>float.ConvertToInteger<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.ConvertToIntegerNative<TInteger>(float)",
+      "member": "float.ConvertToIntegerNative<TInteger>(float)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(float value)=>float.ConvertToIntegerNative<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.CreateChecked<TOther>(TOther)",
+      "member": "float.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static float F(int value)=>float.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.CreateSaturating<TOther>(TOther)",
+      "member": "float.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static float F(int value)=>float.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:float.CreateTruncating<TOther>(TOther)",
+      "member": "float.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static float F(int value)=>float.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.ConvertToInteger<TInteger>(double)",
+      "member": "double.ConvertToInteger<TInteger>(double)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(double value)=>double.ConvertToInteger<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.ConvertToIntegerNative<TInteger>(double)",
+      "member": "double.ConvertToIntegerNative<TInteger>(double)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(double value)=>double.ConvertToIntegerNative<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.CreateChecked<TOther>(TOther)",
+      "member": "double.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static double F(int value)=>double.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.CreateSaturating<TOther>(TOther)",
+      "member": "double.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static double F(int value)=>double.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:double.CreateTruncating<TOther>(TOther)",
+      "member": "double.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static double F(int value)=>double.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.ConvertToInteger<TInteger>(System.Half)",
+      "member": "System.Half.ConvertToInteger<TInteger>(System.Half)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(System.Half value)=>System.Half.ConvertToInteger<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.ConvertToIntegerNative<TInteger>(System.Half)",
+      "member": "System.Half.ConvertToIntegerNative<TInteger>(System.Half)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(System.Half value)=>System.Half.ConvertToIntegerNative<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.CreateChecked<TOther>(TOther)",
+      "member": "System.Half.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Half F(int value)=>System.Half.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.CreateSaturating<TOther>(TOther)",
+      "member": "System.Half.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Half F(int value)=>System.Half.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Half.CreateTruncating<TOther>(TOther)",
+      "member": "System.Half.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Half F(int value)=>System.Half.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.CreateChecked<TOther>(TOther)",
+      "member": "System.Int128.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Int128 F(int value)=>System.Int128.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.CreateSaturating<TOther>(TOther)",
+      "member": "System.Int128.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Int128 F(int value)=>System.Int128.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Int128.CreateTruncating<TOther>(TOther)",
+      "member": "System.Int128.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Int128 F(int value)=>System.Int128.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.CreateChecked<TOther>(TOther)",
+      "member": "System.UInt128.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.UInt128 F(int value)=>System.UInt128.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.CreateSaturating<TOther>(TOther)",
+      "member": "System.UInt128.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.UInt128 F(int value)=>System.UInt128.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.UInt128.CreateTruncating<TOther>(TOther)",
+      "member": "System.UInt128.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.UInt128 F(int value)=>System.UInt128.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.CreateChecked<TOther>(TOther)",
+      "member": "System.Numerics.BigInteger.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Numerics.BigInteger F(int value)=>System.Numerics.BigInteger.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.CreateSaturating<TOther>(TOther)",
+      "member": "System.Numerics.BigInteger.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Numerics.BigInteger F(int value)=>System.Numerics.BigInteger.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.CreateTruncating<TOther>(TOther)",
+      "member": "System.Numerics.BigInteger.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Numerics.BigInteger F(int value)=>System.Numerics.BigInteger.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.CreateChecked<TOther>(TOther)",
+      "member": "System.Numerics.Complex.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Numerics.Complex F(int value)=>System.Numerics.Complex.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.CreateSaturating<TOther>(TOther)",
+      "member": "System.Numerics.Complex.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Numerics.Complex F(int value)=>System.Numerics.Complex.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.Complex.CreateTruncating<TOther>(TOther)",
+      "member": "System.Numerics.Complex.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static System.Numerics.Complex F(int value)=>System.Numerics.Complex.CreateTruncating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.ConvertToInteger<TInteger>(decimal)",
+      "member": "decimal.ConvertToInteger<TInteger>(decimal)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(decimal value)=>decimal.ConvertToInteger<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.ConvertToIntegerNative<TInteger>(decimal)",
+      "member": "decimal.ConvertToIntegerNative<TInteger>(decimal)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static int F(decimal value)=>decimal.ConvertToIntegerNative<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.CreateChecked<TOther>(TOther)",
+      "member": "decimal.CreateChecked<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static decimal F(int value)=>decimal.CreateChecked<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.CreateSaturating<TOther>(TOther)",
+      "member": "decimal.CreateSaturating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static decimal F(int value)=>decimal.CreateSaturating<int>(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.CreateTruncating<TOther>(TOther)",
+      "member": "decimal.CreateTruncating<TOther>(TOther)",
+      "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static decimal F(int value)=>decimal.CreateTruncating<int>(value);}",
+      "compilerBinding": false
     }
   ]
 }

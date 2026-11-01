@@ -10,4 +10,7 @@ Frontend acceptance uses complete JSON equality against `morphir-elm make`, incl
 Independent historical model/codec references remain frozen and active as supplemental codec tests.
 They do not replace frontend compiler parity.
 D19 retains the remaining standard model/codec inventory. No second output schema is planned.
-See [current evidence](../deliveries/elm-parity-state.md).
+See [current evidence](../deliveries/D10-elm-parity.md).
+
+D10 exercises existing alias parameters, Variable types, and instantiated references through frontend parity.
+The Classic v3 schema and codec need no extension.

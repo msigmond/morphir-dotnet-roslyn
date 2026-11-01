@@ -204,12 +204,12 @@ internal sealed partial class SourceTranslation
     }
     private V ClassicMethodReference(CSharpOperation<Unit, IrType<Unit>> reference)
     {
-        if (classicLocalFunctions.TryGetValue(Property(reference, "symbol"), out var local)) return new VariableValue<Unit, IrType<Unit>>(local.Type, local.Name);
+        if (classicLocalFunctions.TryGetValue(Property(reference, "symbol"), out var local)) return new VariableValue<Unit, IrType<Unit>>(Property(reference, "generic") == "true" ? reference.Attributes : local.Type, local.Name);
         if (reference.Children.LastOrDefault() is ReferenceValue<Unit, IrType<Unit>> target)
         {
             var definition = Lookup.Value(classicInput, target.Name);
-            IrType<Unit> type = definition?.Output ?? target.Attributes;
-            if (definition is not null) foreach (var input in definition.Inputs.Reverse()) type = Types.Function(input.Type, type);
+            IrType<Unit> type = Property(reference, "generic") == "true" ? target.Attributes : definition?.Output ?? target.Attributes;
+            if (definition is not null && Property(reference, "generic") != "true") foreach (var input in definition.Inputs.Reverse()) type = Types.Function(input.Type, type);
             V result = target with { Attributes = type };
             if (reference.Children.Count == 2)
             {
@@ -237,8 +237,11 @@ internal sealed partial class SourceTranslation
         if (definition is not null)
         {
             if (definition.Inputs.Count != arguments.Count) return ClassicFailure("Omitted or expanded call arguments require a separate Classic mapping.");
-            signature = definition.Output;
-            foreach (var input in definition.Inputs.Reverse()) signature = Types.Function(input.Type, signature);
+            if (Property(reference, "generic") != "true")
+            {
+                signature = definition.Output;
+                foreach (var input in definition.Inputs.Reverse()) signature = Types.Function(input.Type, signature);
+            }
         }
         V result = target;
         foreach (var sourceArgument in arguments)
@@ -269,12 +272,12 @@ internal sealed partial class SourceTranslation
         if(declared.GetValueOrDefault(Property(creation,"symbol")) is IMethodSymbol {MethodKind:MethodKind.Constructor} explicitConstructor && !explicitConstructor.DeclaringSyntaxReferences.Any(r=>r.GetSyntax() is RecordDeclarationSyntax))
         {
             if(creation.Children.Any(c=>c is not CSharpOperation<Unit,IrType<Unit>> {Kind:"Argument",Children.Count:1}))return ClassicFailure("Object initialization needs a separate approved Elm mapping.");
-            return ClassicFunction(identities[Id(explicitConstructor)],creation.Children.Select(c=>((CSharpOperation<Unit,IrType<Unit>>)c).Children.Single()).ToArray());
+            return ClassicFunction(identities[Id(explicitConstructor)],creation.Attributes,creation.Children.Select(c=>((CSharpOperation<Unit,IrType<Unit>>)c).Children.Single()).ToArray());
         }
         if (creation.Attributes is not ReferenceType<Unit> recordType || !declared.TryGetValue(Property(creation, "symbol"), out var symbol) || symbol is not IMethodSymbol { ContainingType.IsRecord: true } constructor
             || !constructor.DeclaringSyntaxReferences.Any(r => r.GetSyntax() is RecordDeclarationSyntax)) return ClassicFailure("Only positional record construction has a direct Classic alias constructor in this delivery.");
-        var record = classicInput.Definition.Modules.Single(m => m.Key.Key == recordType.Name.Module.Key).Value.Value.Types.Single(t => t.Key.Key == recordType.Name.Local.Key).Value.Value.Value as AliasDefinition<Unit>;
-        if (record?.Body is not RecordType<Unit> fields || fields.Fields.Count != creation.Children.Count || constructor.Parameters.Length != creation.Children.Count) return ClassicFailure("Record construction does not match its Classic alias fields.");
+        var fields = RecordShape(creation.Attributes);
+        if (fields is null || fields.Fields.Count != creation.Children.Count || constructor.Parameters.Length != creation.Children.Count) return ClassicFailure("Record construction does not match its Classic alias fields.");
         IrType<Unit> signature = creation.Attributes;
         foreach (var field in fields.Fields.Reverse()) signature = Types.Function(field.Value, signature);
         V result = new ConstructorValue<Unit, IrType<Unit>>(signature, recordType.Name);
@@ -291,7 +294,7 @@ internal sealed partial class SourceTranslation
     }
     private V ClassicUnary(CSharpOperation<Unit, IrType<Unit>> unary)
     {
-        if(declared.GetValueOrDefault(Property(unary,"symbol")) is IMethodSymbol && identities.TryGetValue(Property(unary,"symbol"),out var operatorName))return ClassicFunction(operatorName,unary.Children.ToArray());
+        if(declared.GetValueOrDefault(Property(unary,"symbol")) is IMethodSymbol && identities.TryGetValue(Property(unary,"symbol"),out var operatorName))return ClassicFunction(operatorName,unary.Attributes,unary.Children.ToArray());
         var operand = ClassicValue(unary.Children.Single());
         var op = Property(unary, "operator");
         if(MaybeElement(operand.Attributes) is {} element && Shape(unary.Attributes)==Shape(operand.Attributes))
@@ -312,7 +315,7 @@ internal sealed partial class SourceTranslation
     }
     private V ClassicBinary(CSharpOperation<Unit, IrType<Unit>> binary)
     {
-        if(declared.GetValueOrDefault(Property(binary,"symbol")) is IMethodSymbol && identities.TryGetValue(Property(binary,"symbol"),out var operatorName))return ClassicFunction(operatorName,binary.Children.ToArray());
+        if(declared.GetValueOrDefault(Property(binary,"symbol")) is IMethodSymbol && identities.TryGetValue(Property(binary,"symbol"),out var operatorName))return ClassicFunction(operatorName,binary.Attributes,binary.Children.ToArray());
         if (Property(binary,"operator") == "??" || binary.Children.Any(c => MaybeElement(c.Attributes) is not null || c is CSharpOperation<Unit, IrType<Unit>> {Kind:"Null"})) return ClassicNullableBinary(binary);
         var left = ClassicValue(binary.Children[0]); var right = ClassicValue(binary.Children[1]);
         if (Property(binary, "operator") == "%" && Shape(left.Attributes) == Shape(Types.Int) && Shape(right.Attributes) == Shape(Types.Int))

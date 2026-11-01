@@ -556,30 +556,79 @@
     {
       "form": "generic-types-functions-constraints",
       "owner": "D10",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Unconstrained declarations and calls use Elm type variables. Constraints and generic defaults are rejected.",
+      "evidence": "Approved D10 profile; docs/mappings/D10.md; docs/deliveries/D10-elm-parity.md",
+      "rejectionCases": [
+        "form:d10-constraint-class",
+        "form:d10-constraint-struct",
+        "form:d10-constraint-unmanaged",
+        "form:d10-constraint-notnull",
+        "form:d10-constraint-new",
+        "form:d10-constraint-type",
+        "form:d10-constraint-local",
+        "form:d10-generic-default",
+        "form:d10-unused-method-parameter",
+        "form:d10-local-conflict",
+        "form:d10-unused-local",
+        "form:d10-unrooted-local"
+      ],
+      "parityCases": [
+        "d10-generics",
+        "d10-members",
+        "d10-locals"
+      ]
     },
     {
       "form": "interfaces-inheritance",
       "owner": "D10",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "required-rejection",
+      "domain": "No approved standard Elm mapping. Explicit source rejection; no dispatch generation.",
+      "evidence": "Approved D10 profile; docs/mappings/D10.md; docs/deliveries/D10-elm-parity.md",
+      "rejectionCases": [
+        "form:d10-interface",
+        "form:d10-variance-out",
+        "form:d10-variance-in",
+        "form:d10-inheritance",
+        "form:d10-abstract",
+        "form:d10-virtual",
+        "form:d10-override",
+        "form:d10-base-access",
+        "form:d10-is-test",
+        "form:d10-as-cast"
+      ]
     },
     {
       "form": "declared-virtual-interface-calls",
       "owner": "D10",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "required-rejection",
+      "domain": "No approved standard Elm mapping. Keep explicit rejection.",
+      "evidence": "Approved D10 profile; docs/mappings/D10.md; docs/deliveries/D10-elm-parity.md",
+      "rejectionCases": [
+        "form:d10-interface-call",
+        "form:d10-virtual",
+        "form:d10-override"
+      ]
     },
     {
       "form": "generic-owner-and-arity-identity",
       "owner": "D10",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Declaration owners omit type arguments. Overloads keep signature suffixes. Collisions and omitted source owners are rejected.",
+      "evidence": "Approved D10 profile; docs/mappings/D10.md; docs/deliveries/D10-elm-parity.md",
+      "rejectionCases": [
+        "form:d10-arity-collision",
+        "form:d10-parameter-collision",
+        "form:d10-parameter-shadow",
+        "form:d10-parameter-number",
+        "form:d10-generic-selection",
+        "form:d10-parameter-comparable",
+        "form:d10-parameter-appendable",
+        "form:d10-parameter-compappend"
+      ],
+      "parityCases": [
+        "d10-owners"
+      ]
     },
     {
       "form": "array-declarations-initializers-and-indexing",

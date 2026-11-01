@@ -1,0 +1,11 @@
+{
+  "name": "Example",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "Parity",
+    "Parity.Box",
+    "Parity.Cell",
+    "Parity.Crate",
+    "Parity.Rules"
+  ]
+}

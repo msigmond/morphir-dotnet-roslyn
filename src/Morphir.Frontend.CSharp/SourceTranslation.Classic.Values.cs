@@ -21,7 +21,7 @@ internal sealed partial class SourceTranslation
     }
     private V ClassicCast(CSharpOperation<Unit, IrType<Unit>> cast)
     {
-        if(declared.GetValueOrDefault(Property(cast,"symbol")) is IMethodSymbol && identities.TryGetValue(Property(cast,"symbol"),out var operatorName))return ClassicFunction(operatorName,cast.Children.ToArray());
+        if(declared.GetValueOrDefault(Property(cast,"symbol")) is IMethodSymbol && identities.TryGetValue(Property(cast,"symbol"),out var operatorName))return ClassicFunction(operatorName,cast.Attributes,cast.Children.ToArray());
         if(MaybeElement(cast.Attributes) is not null)return ClassicExpected(cast.Children.Single(),cast.Attributes);
         var value = ClassicValue(cast.Children.Single());
         if(Shape(ScalarShape(value.Attributes))==Shape(ScalarShape(cast.Attributes)) && (EnumValueType(value.Attributes)||EnumValueType(cast.Attributes)))return ClassicScalarCast(value,cast.Attributes);
@@ -39,8 +39,16 @@ internal sealed partial class SourceTranslation
     private bool RecordValueType(IrType<Unit> type) => type is ReferenceType<Unit> r &&
         declared.Values.OfType<INamedTypeSymbol>().Any(t => t.IsRecord && identities[Id(t)] is { } name &&
             name.Package.Key == r.Name.Package.Key && name.Module.Key == r.Name.Module.Key && name.Local.Key == r.Name.Local.Key);
-    private RecordType<Unit>? RecordShape(IrType<Unit> type) => type as RecordType<Unit> ?? (type is ReferenceType<Unit> r && r.Name.Package.Key == package.Key
-        ? classicInput.Definition.Modules.FirstOrDefault(m => m.Key.Key == r.Name.Module.Key)?.Value.Value.Types.FirstOrDefault(t => t.Key.Key == r.Name.Local.Key)?.Value.Value.Value as AliasDefinition<Unit> : null)?.Body as RecordType<Unit>;
+    private RecordType<Unit>? RecordShape(IrType<Unit> type)
+    {
+        if (type is RecordType<Unit> record) return record;
+        if (type is not ReferenceType<Unit> reference || reference.Name.Package.Key != package.Key) return null;
+        var alias = classicInput.Definition.Modules.FirstOrDefault(m => m.Key.Key == reference.Name.Module.Key)?.Value.Value.Types
+            .FirstOrDefault(t => t.Key.Key == reference.Name.Local.Key)?.Value.Value.Value as AliasDefinition<Unit>;
+        if (alias is null || alias.Parameters.Count != reference.Arguments.Count) return null;
+        var arguments = alias.Parameters.Select((name, i) => (name.Key, Type: reference.Arguments[i])).ToDictionary(p => p.Key, p => p.Type);
+        return Substitute(alias.Body, arguments) as RecordType<Unit>;
+    }
     private V ClassicUpdate(CSharpOperation<Unit, IrType<Unit>> update)
     {
         var subject = ClassicValue(update.Children[0]); var shape = RecordShape(subject.Attributes);

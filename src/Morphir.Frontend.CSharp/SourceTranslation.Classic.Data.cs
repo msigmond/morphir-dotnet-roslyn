@@ -7,12 +7,20 @@ namespace Morphir.Frontend.CSharp;
 
 internal sealed partial class SourceTranslation
 {
-    private V ClassicFunction(FQName name, params V[] arguments)
+    private V ClassicFunction(FQName name, IrType<Unit> output, params V[] arguments)
     {
         var definition=Lookup.Value(classicInput,name);
         if(definition is null)return ClassicFailure("The source function definition is missing.");
         IrType<Unit> signature=definition.Output;
         foreach(var input in definition.Inputs.Reverse())signature=Types.Function(input.Type,signature);
+        if (ClassicSymbol(name) is IMethodSymbol method && GenericMember(method))
+        {
+            var substitutions = new Dictionary<string, IrType<Unit>>();
+            BindTypeArguments(definition.Output, output, substitutions);
+            for (var i = 0; i < Math.Min(arguments.Length, definition.Inputs.Count); i++)
+                BindTypeArguments(definition.Inputs[i].Type, arguments[i].Attributes, substitutions);
+            signature = Substitute(signature, substitutions);
+        }
         V result=new ReferenceValue<Unit,IrType<Unit>>(signature,name);
         if(arguments.Length!=definition.Inputs.Count)return ClassicFailure("Source member call arity differs from its definition.");
         foreach(var argument in arguments)

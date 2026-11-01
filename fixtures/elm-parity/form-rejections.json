@@ -150,6 +150,161 @@
       "id": "decimal-precision-mode",
       "source": "using System;namespace Example.Rejections;public static class Rules{public static decimal F(decimal value)=>decimal.Round(value,2,MidpointRounding.ToEven);}",
       "compilerBinding": false
+    },
+    {
+      "id": "d10-constraint-class",
+      "source": "namespace Example.Rejections;public class Box<T> where T:class {}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-constraint-struct",
+      "source": "namespace Example.Rejections;public class Box<T> where T:struct {}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-constraint-unmanaged",
+      "source": "namespace Example.Rejections;public class Box<T> where T:unmanaged {}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-constraint-notnull",
+      "source": "namespace Example.Rejections;public class Box<T> where T:notnull {}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-constraint-new",
+      "source": "namespace Example.Rejections;public static class Rules{public static T Create<T>() where T:new()=>new T();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-constraint-type",
+      "source": "namespace Example.Rejections;public class Box<T,U> where T:U {}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-constraint-local",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(){T Echo<T>(T item) where T:class=>item;return 1;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-interface",
+      "source": "namespace Example.Rejections;public interface IRule{int Read();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-variance-out",
+      "source": "namespace Example.Rejections;public interface IRule<out T>{T Read();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-variance-in",
+      "source": "namespace Example.Rejections;public interface IRule<in T>{void Set(T item);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-interface-call",
+      "source": "namespace Example.Rejections;public interface IRule{int Read();}public static class Rules{public static int Read(IRule rule)=>rule.Read();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-inheritance",
+      "source": "namespace Example.Rejections;public class Base{}public class Derived:Base{}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-abstract",
+      "source": "namespace Example.Rejections;public abstract class Base{public abstract int Read();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-virtual",
+      "source": "namespace Example.Rejections;public class Base{public virtual int Read()=>1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-override",
+      "source": "namespace Example.Rejections;public class Box{public override string ToString()=>\"x\";}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-base-access",
+      "source": "namespace Example.Rejections;public class Box{public string Read()=>base.ToString();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-is-test",
+      "source": "namespace Example.Rejections;public class Box{}public static class Rules{public static bool Is(Box item)=>item is object;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-as-cast",
+      "source": "namespace Example.Rejections;public class Box{}public static class Rules{public static object As(Box item)=>item as object;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-generic-default",
+      "source": "namespace Example.Rejections;public static class Rules{public static T Empty<T>()=>default;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-parameter-collision",
+      "source": "namespace Example.Rejections;public record Pair<T,t>(T First,t Second);",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-parameter-shadow",
+      "source": "namespace Example.Rejections;public class Box<T>{public U Read<U>(){T Echo<T>(T item)=>item;return default;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-parameter-number",
+      "source": "namespace Example.Rejections;public static class Rules{public static number Identity<number>(number item)=>item;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-arity-collision",
+      "source": "namespace Example.Rejections;public record Box(int Value);public record Box<T>(T Value);",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-generic-selection",
+      "source": "namespace Other{public record Box<T>(T Value);}namespace Example.Rejections{public static class Rules{public static Other.Box<int> Read(Other.Box<int> value)=>value;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-parameter-comparable",
+      "source": "namespace Example.Rejections;public static class Rules{public static comparable Identity<comparable>(comparable value)=>value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-parameter-appendable",
+      "source": "namespace Example.Rejections;public static class Rules{public static appendable Identity<appendable>(appendable value)=>value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-parameter-compappend",
+      "source": "namespace Example.Rejections;public static class Rules{public static compappend Identity<compappend>(compappend value)=>value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-unused-method-parameter",
+      "source": "namespace Example.Rejections;public static class Rules{public static int One<T>()=>1;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-local-conflict",
+      "source": "namespace Example.Rejections;public static class Rules{public static (int,string) Many(int value,string text){T Echo<T>(T item)=>item;return (Echo(value),Echo(text));}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-unused-local",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value){U Echo<U>(U item)=>item;return value;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d10-unrooted-local",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value){U Echo<U>(U item)=>item;int Ignore(int input)=>Echo(input);return value;}}",
+      "compilerBinding": false
     }
   ]
 }
