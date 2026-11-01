@@ -305,6 +305,371 @@
       "id": "d10-unrooted-local",
       "source": "namespace Example.Rejections;public static class Rules{public static int F(int value){U Echo<U>(U item)=>item;int Ignore(int input)=>Echo(input);return value;}}",
       "compilerBinding": false
+    },
+    {
+      "id": "d11-rank",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int[,] F(int[,] items)=>items;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-implicit-defaults",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int[] F(int count)=>new int[count];}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-capacity",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static List<int> F()=>new List<int>(0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-comparer",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static Dictionary<string,int> F()=>new Dictionary<string,int>(StringComparer.Ordinal);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-plain-index",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(int[] items)=>items[0];}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-nullable-element-index",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int? F(int?[] items)=>items[0];}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-conditional-index",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int? F(int[]? items)=>items?[0];}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-range",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int[] F(int[] items)=>items[1..];}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-from-end",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int? F(int[] items)=>items[^1];}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-write-index",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int[] F(int[] items){items[0]=1;return items;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-mixed-constructor-initializer",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static List<int> F(List<int> items)=>new List<int>(items){1};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-nullable-spread",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static List<string?> F(List<string> items)=>[..items];}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-key-view",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static Dictionary<int,string>.KeyCollection F(Dictionary<int,string> items)=>items.Keys;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-factory-comparer",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static ImmutableHashSet<string> F()=>ImmutableHashSet.Create(StringComparer.Ordinal,\"x\");}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-list-update",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static ImmutableList<int> F(ImmutableList<int> items)=>items.Add(1);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-implicit-set-sequence",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static IEnumerable<int> F(HashSet<int> items)=>items;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-dict-plain-index",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static string F(Dictionary<int,string> items)=>items[0];}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-List",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static void F(System.Collections.Generic.List<int> items)=>items.Clear();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-Dictionary",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Generic.Dictionary<int,string> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-HashSet",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static void F(System.Collections.Generic.HashSet<int> items)=>items.Clear();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-type-Queue",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static System.Collections.Generic.Queue<int> F(System.Collections.Generic.Queue<int> items)=>items;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-type-Stack",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static System.Collections.Generic.Stack<int> F(System.Collections.Generic.Stack<int> items)=>items;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-IEnumerable",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Generic.IEnumerable<int> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-ICollection",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static void F(System.Collections.Generic.ICollection<int> items)=>items.Clear();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-IList",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static void F(System.Collections.Generic.IList<int> items)=>items.Clear();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-IDictionary",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Generic.IDictionary<int,string> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-ISet",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static void F(System.Collections.Generic.ISet<int> items)=>items.Clear();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-IReadOnlyCollection",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Generic.IReadOnlyCollection<int> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-IReadOnlyList",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Generic.IReadOnlyList<int> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-IReadOnlyDictionary",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Generic.IReadOnlyDictionary<int,string> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-IReadOnlySet",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Generic.IReadOnlySet<int> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-ReadOnlyCollection",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.ObjectModel.ReadOnlyCollection<int> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-ReadOnlyDictionary",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.ObjectModel.ReadOnlyDictionary<int,string> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-ImmutableArray",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Immutable.ImmutableArray<int> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-ImmutableList",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Immutable.ImmutableList<int> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-ImmutableDictionary",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Immutable.ImmutableDictionary<int,string> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-member-ImmutableHashSet",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static int F(System.Collections.Immutable.ImmutableHashSet<int> items)=>items.GetHashCode();}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-type-ImmutableQueue",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static System.Collections.Immutable.ImmutableQueue<int> F(System.Collections.Immutable.ImmutableQueue<int> items)=>items;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-type-ImmutableStack",
+      "source": "using System;using System.Collections.Generic;using System.Collections.Immutable;namespace Example.Rejections;public static class Rules{public static System.Collections.Immutable.ImmutableStack<int> F(System.Collections.Immutable.ImmutableStack<int> items)=>items;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-guard",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value)=>value switch{var item when item>0=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-relational",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value)=>value switch{>0=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-and",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value)=>value switch{>0 and <10=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-or",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value)=>value switch{0 or 1=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-not",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value)=>value switch{not 0=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-property",
+      "source": "namespace Example.Rejections;public record Cell(int Value);public static class Rules{public static int F(Cell value)=>value switch{{Value:0}=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-positional-record",
+      "source": "namespace Example.Rejections;public record Cell(int Value);public static class Rules{public static int F(Cell value)=>value switch{Cell(0)=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-declaration",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value)=>value switch{int item=>item};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-runtime-type",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value)=>value switch{int=>1};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-is-type",
+      "source": "namespace Example.Rejections;public static class Rules{public static bool F<T>(T value)=>value is int;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-is-constant",
+      "source": "namespace Example.Rejections;public static class Rules{public static bool F(int value)=>value is 0;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-is-list",
+      "source": "namespace Example.Rejections;public static class Rules{public static bool F(int[] value)=>value is [0,..];}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-suffix-slice",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int[] value)=>value switch{[..,0]=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-middle-slice",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int[] value)=>value switch{[var first,..var middle,var last]=>first+last,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-grouped-labels",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value){switch(value){case 0:case 1:return 1;default:return 0;}}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-break",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value){switch(value){case 0:break;default:return 1;}return 0;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-goto-case",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value){switch(value){case 0:goto case 1;case 1:return 1;default:return 0;}}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-post-switch",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value){switch(value){case 0:return 1;default:return 2;}return 3;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-plain-null",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(string value)=>value switch{null=>0,_=>1};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-decimal-literal",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(decimal value)=>value switch{0m=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-negative-literal",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value)=>value switch{-1=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-named-constant",
+      "source": "namespace Example.Rejections;public static class Rules{public const int One=1;public static int F(int value)=>value switch{One=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-computed-constant",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value)=>value switch{1+2=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-default-constant",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int value)=>value switch{default(int)=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-generic-constant",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F<T>(T value)=>value switch{1=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-void-switch",
+      "source": "namespace Example.Rejections;public static class Rules{public static void F(int value){switch(value){case 0:return;default:return;}}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-binding-collision",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F((int,int) value)=>value switch{(var foo_bar,var fooBar)=>foo_bar+fooBar};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-nullable-extraction",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int? value)=>value switch{null=>0,var other=>other.Value};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-implicit-pattern-carrier",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(double value)=>value switch{1=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-inexact-pattern",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(long value)=>value switch{9007199254740993L=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-inexact-value",
+      "source": "namespace Example.Rejections;public static class Rules{public static long F()=>9007199254740993L;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-negative-enum-pattern",
+      "source": "namespace Example.Rejections;public enum State{Negative=-1}public static class Rules{public static int F(State value)=>value switch{State.Negative=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-not-null-switch",
+      "source": "namespace Example.Rejections;public static class Rules{public static int F(int? value)=>value switch{not null=>1,_=>0};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d12-computed-array-dimension",
+      "source": "namespace Example.Rejections;public static class Rules{public static int[] F()=>new int[1+1]{1,2};}",
+      "compilerBinding": false
     }
   ]
 }

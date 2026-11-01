@@ -26,10 +26,14 @@
       "form": "int-bool-literals",
       "owner": "D1",
       "state": "supported",
-      "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
+      "domain": "Written whole-number literals must survive the pinned compiler JSON number representation exactly. Runtime Int values have no added check.",
       "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
       "parityCases": [
-        "literals"
+        "literals",
+        "d12-literals"
+      ],
+      "rejectionCases": [
+        "form:d12-inexact-value"
       ]
     },
     {
@@ -633,72 +637,175 @@
     {
       "form": "array-declarations-initializers-and-indexing",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved List/Dict/Set profile. Nullable-result indexing only; unapproved types, updates, and overloads remain rejected.",
+      "evidence": "docs/mappings/D11.md",
+      "parityCases": [
+        "d11-lists"
+      ],
+      "rejectionCases": [
+        "form:d11-rank",
+        "form:d11-implicit-defaults",
+        "form:d11-plain-index",
+        "form:d11-nullable-element-index",
+        "form:d11-conditional-index",
+        "form:d12-computed-array-dimension"
+      ]
     },
     {
       "form": "generic-collections-and-interfaces",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved List/Dict/Set profile. Nullable-result indexing only; unapproved types, updates, and overloads remain rejected.",
+      "evidence": "docs/mappings/D11.md",
+      "parityCases": [
+        "d11-types",
+        "d11-dict-set"
+      ],
+      "rejectionCases": [
+        "form:d11-type-Queue",
+        "form:d11-type-Stack"
+      ]
     },
     {
       "form": "read-only-wrappers-and-interfaces",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved List/Dict/Set profile. Nullable-result indexing only; unapproved types, updates, and overloads remain rejected.",
+      "evidence": "docs/mappings/D11.md",
+      "parityCases": [
+        "d11-types",
+        "d11-lists",
+        "d11-dict-set"
+      ],
+      "rejectionCases": [
+        "form:d11-key-view"
+      ]
     },
     {
       "form": "immutable-collections",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved List/Dict/Set profile. Nullable-result indexing only; unapproved types, updates, and overloads remain rejected.",
+      "evidence": "docs/mappings/D11.md",
+      "parityCases": [
+        "d11-types",
+        "d11-lists",
+        "d11-dict-set"
+      ],
+      "rejectionCases": [
+        "form:d11-type-ImmutableQueue",
+        "form:d11-type-ImmutableStack",
+        "form:d11-factory-comparer",
+        "form:d11-list-update"
+      ]
     },
     {
       "form": "collection-construction-and-member-source",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved List/Dict/Set profile. Nullable-result indexing only; unapproved types, updates, and overloads remain rejected.",
+      "evidence": "docs/mappings/D11.md",
+      "parityCases": [
+        "d11-lists",
+        "d11-dict-set"
+      ],
+      "rejectionCases": [
+        "form:d11-capacity",
+        "form:d11-comparer",
+        "form:d11-mixed-constructor-initializer",
+        "form:d11-write-index"
+      ]
     },
     {
       "form": "collection-backing-type-source",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved List/Dict/Set profile. Nullable-result indexing only; unapproved types, updates, and overloads remain rejected.",
+      "evidence": "docs/mappings/D11.md",
+      "parityCases": [
+        "d11-types",
+        "d11-lists"
+      ],
+      "rejectionCases": [
+        "form:d11-key-view",
+        "form:d11-implicit-set-sequence",
+        "form:d11-nullable-spread"
+      ]
     },
     {
       "form": "constant-type-declaration-patterns",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved direct Elm case profile. No guards, decision trees, runtime type checks, or pattern expansion.",
+      "evidence": "docs/mappings/D12.md",
+      "parityCases": [
+        "d12-literals",
+        "d12-patterns"
+      ],
+      "rejectionCases": [
+        "form:d12-declaration",
+        "form:d12-runtime-type",
+        "form:d12-generic-constant",
+        "form:d12-negative-literal",
+        "form:d12-inexact-pattern",
+        "form:d12-negative-enum-pattern"
+      ]
     },
     {
       "form": "recursive-property-positional-patterns",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved direct Elm case profile. No guards, decision trees, runtime type checks, or pattern expansion.",
+      "evidence": "docs/mappings/D12.md",
+      "parityCases": [
+        "d12-patterns",
+        "d12-nested"
+      ],
+      "rejectionCases": [
+        "form:d12-property",
+        "form:d12-positional-record"
+      ]
     },
     {
       "form": "relational-logical-list-slice-patterns",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved direct Elm case profile. No guards, decision trees, runtime type checks, or pattern expansion.",
+      "evidence": "docs/mappings/D12.md",
+      "parityCases": [
+        "d12-patterns",
+        "d12-nested"
+      ],
+      "rejectionCases": [
+        "form:d12-relational",
+        "form:d12-and",
+        "form:d12-or",
+        "form:d12-not",
+        "form:d12-not-null-switch",
+        "form:d12-suffix-slice",
+        "form:d12-middle-slice"
+      ]
     },
     {
       "form": "switch-statements-expressions-and-arms",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved direct Elm case profile. No guards, decision trees, runtime type checks, or pattern expansion.",
+      "evidence": "docs/mappings/D12.md",
+      "parityCases": [
+        "d12-statements",
+        "d12-literals",
+        "d12-nested"
+      ],
+      "rejectionCases": [
+        "form:d12-guard",
+        "form:d12-grouped-labels",
+        "form:d12-break",
+        "form:d12-goto-case",
+        "form:d12-post-switch",
+        "form:d12-void-switch"
+      ]
     },
     {
       "form": "anonymous-functions-and-extended-local-syntax",

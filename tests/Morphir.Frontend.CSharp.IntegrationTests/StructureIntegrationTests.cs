@@ -43,6 +43,24 @@ public class StructureIntegrationTests
         Assert.Contains("TypeCheckError", run.Text);
     }
     [Fact]
+    public async Task PinnedElmRejectsTheNativeArrayModule()
+    {
+        var folder = System.IO.Path.Combine(Support.Root, "artifacts", "d11-native-array-" + Guid.NewGuid().ToString("N"));
+        CopyTree(System.IO.Path.Combine(Support.Root, "fixtures/elm-parity/d11-native-array/elm"), folder);
+        var run = await Run("node", [System.IO.Path.Combine(Support.Root, "eng/node_modules/morphir-elm/cli/morphir-elm.js"), "make", "-p", folder, "-o", System.IO.Path.Combine(folder, "ir.json")], folder);
+        Assert.NotEqual(0, run.Exit);
+        Assert.Contains("NoMorphirPackageFoundForElmModule", run.Text);
+    }
+    [Fact]
+    public async Task PinnedElmRejectsNegativeLiteralPatterns()
+    {
+        var folder = System.IO.Path.Combine(Support.Root, "artifacts", "d12-negative-pattern-" + Guid.NewGuid().ToString("N"));
+        CopyTree(System.IO.Path.Combine(Support.Root, "fixtures/elm-parity/d12-negative-pattern/elm"), folder);
+        var run = await Run("node", [System.IO.Path.Combine(Support.Root, "eng/node_modules/morphir-elm/cli/morphir-elm.js"), "make", "-p", folder, "-o", System.IO.Path.Combine(folder, "ir.json")], folder);
+        Assert.NotEqual(0, run.Exit);
+        Assert.Contains("ParserError", run.Text);
+    }
+    [Fact]
     public async Task CliEmitsExactBusinessJsonAndPreservesOutputOnEveryFailure()
     {
         var folder=System.IO.Path.Combine(Support.Root,"artifacts","exact-cli-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(folder);

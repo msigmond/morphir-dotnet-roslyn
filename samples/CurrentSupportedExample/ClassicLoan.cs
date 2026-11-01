@@ -7,6 +7,21 @@ public record ClassicBox<T>(T Value);
 
 public static class ClassicLoanCalculations
 {
+    public static int ClassifyQuantity(int quantity) => quantity switch { 0 => 0, _ => 1 };
+    public static int FirstOrZero(int[] items) => items switch { [] => 0, [var first, ..] => first };
+    public static int LoanPresence(ClassicLoan? loan) => loan switch { null => 0, _ => 1 };
+    public static int ClassifyState(ClassicState state)
+    {
+        switch (state) { case ClassicState.None: return 0; default: return 1; }
+    }
+
+    public static int[] CreateItems(int value) => [value, 2];
+    public static int? ReadItem(System.Collections.Generic.IReadOnlyList<int> items, int index) => items[index];
+    public static int ItemCount(int[] items) => items.Length;
+    public static System.Collections.Generic.Dictionary<int, string> CreateLookup(int key, string value) => new() { [key] = value };
+    public static string? ReadLookup(System.Collections.Generic.IReadOnlyDictionary<int, string> items, int key) => items[key];
+    public static System.Collections.Generic.HashSet<int> CreateSet(int value) => [value, 2];
+
     public static T Identity<T>(T value) => value;
     public static ClassicBox<T> Wrap<T>(T value) => new(value);
     public static T Unwrap<T>(ClassicBox<T> box) => box.Value;

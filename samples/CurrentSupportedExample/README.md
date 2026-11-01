@@ -1,12 +1,14 @@
 # Current supported example
 
-Use [ClassicLoan.cs](ClassicLoan.cs). It contains the current D1–D10 example.
+Use [ClassicLoan.cs](ClassicLoan.cs). It contains the current D1–D12 example.
 Use [CurrentSupportedExample.csproj](CurrentSupportedExample.csproj) to load it.
 The project also runs the [source generator](../CurrentSupportedGenerator/ThresholdGenerator.cs).
 The other C# files in this folder are historical inputs. The project excludes them.
 
 The example includes generic data and calls, nullable operations, Decimal division, local functions,
-overloads, default arguments, params lists, enums, tuples, constructors, and record updates.
+overloads, default arguments, params lists, enums, tuples, constructors, record updates,
+List/Dict/Set construction and nullable-result indexing,
+and returned switches with literal, enum, nullable, and list patterns.
 It shows selected supported forms. See the [unsupported feature guide](../../docs/unsupported-language-features.md) for limits.
 
 Run this command from the repository root after build:
@@ -19,4 +21,4 @@ The [Elm source](../../fixtures/elm-parity/current-sample/elm/src/Example/Curren
 and its [functions](../../fixtures/elm-parity/current-sample/elm/src/Example/CurrentSupported/ClassicLoanCalculations.elm)
 form the independent reference.
 Tests compare the complete JSON and run the pinned Elm compiler again.
-See the [reference record](reference.json) and [D10 evidence](../../docs/deliveries/D10-elm-parity.md).
+See the [reference record](reference.json) and [D12 evidence](../../docs/deliveries/D12-elm-parity.md).

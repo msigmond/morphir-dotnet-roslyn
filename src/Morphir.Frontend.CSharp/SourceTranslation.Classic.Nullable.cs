@@ -21,6 +21,8 @@ internal sealed partial class SourceTranslation
             return new TupleValue<Unit,IrType<Unit>>(expected,tuple.Elements.Select((e,i)=>ClassicExpected(e,target.Elements[i])).ToArray());
         if(source is ListValue<Unit,IrType<Unit>> list && expected is ReferenceType<Unit> {Arguments.Count:1} listType && listType.Name.Module.Key==IrPath.From("List").Key && listType.Name.Package.Key==Types.Sdk.Key)
             return new ListValue<Unit,IrType<Unit>>(expected,list.Elements.Select(e=>ClassicExpected(e,listType.Arguments[0])).ToArray());
+        if (source is CSharpOperation<Unit, IrType<Unit>> { Kind: "Index" } index && MaybeElement(expected) is not null) return ClassicCollectionIndex(index, expected);
+        if (source is CSharpOperation<Unit, IrType<Unit>> { Kind: "Switch" } match) return ClassicSwitch(match, expected);
         if (source is IfValue<Unit, IrType<Unit>> branch)
             return new IfValue<Unit, IrType<Unit>>(expected, ClassicValue(branch.Condition), ClassicExpected(branch.Then, expected), ClassicExpected(branch.Else, expected));
         if(MaybeElement(expected) is {} decimalResult && Shape(decimalResult)==Shape(Types.Decimal) && source is CSharpOperation<Unit,IrType<Unit>> {Kind:"Invocation",Children.Count:3} call && Property(call,"decimalDivision")=="true")
@@ -47,6 +49,7 @@ internal sealed partial class SourceTranslation
     private V ClassicBoundMember(V subject,string name,IrType<Unit> result,string symbol)
     {
         if (MaybeElement(subject.Attributes) is not null && name == "HasValue") return Sdk("Basics","notEqual",Types.Bool,subject,Nothing(subject.Attributes));
+        if (CollectionMember(subject, name, result) is {} collection) return collection;
         if (Shape(subject.Attributes)==Shape(Types.String) && name=="Length")return Sdk("String","length",Types.Int,subject);
         if(declared.Values.OfType<IMethodSymbol>().FirstOrDefault(m=>m.MethodKind==MethodKind.PropertyGet && m.AssociatedSymbol is {} property && Id(property)==symbol) is {} getter)
             return ClassicFunction(identities[Id(getter)],result,subject);

@@ -1650,6 +1650,18 @@
       "member": "decimal.CreateTruncating<TOther>(TOther)",
       "source": "using System;using System.Numerics;namespace Example.Inventory;public static class Rules{public static decimal F(int value)=>decimal.CreateTruncating<int>(value);}",
       "compilerBinding": false
+    },
+    {
+      "id": "numeric-members:System.Numerics.BigInteger.BigInteger(byte[])",
+      "member": "System.Numerics.BigInteger.BigInteger(byte[])",
+      "source": "namespace Example.Inventory;public static class Rules{public static System.Numerics.BigInteger F(byte[] values)=>new System.Numerics.BigInteger(values);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "decimal-members:decimal.Decimal(int[])",
+      "member": "decimal.Decimal(int[])",
+      "source": "namespace Example.Inventory;public static class Rules{public static decimal F(int[] values)=>new decimal(values);}",
+      "compilerBinding": false
     }
   ]
 }

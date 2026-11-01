@@ -52,7 +52,7 @@ internal sealed partial class SourceTranslation
         }
         var declaredType = symbol is IFieldSymbol or IPropertySymbol or IParameterSymbol or ILocalSymbol or IMethodSymbol ? DeclaredType(symbol) : syntax is CastExpressionSyntax cast ? cast.Type : null;
         return type is null ? syntax.IsKind(SyntaxKind.NullLiteralExpression) || syntax.IsKind(SyntaxKind.DefaultLiteralExpression) ? currentOutput : Types.Unit
-            : Type(type, declaredType, syntax.GetLocation(), annotations: symbol is IFieldSymbol or IPropertySymbol or IParameterSymbol or ILocalSymbol or IMethodSymbol);
+            : Type(type, declaredType, syntax.GetLocation(), annotations: symbol is IFieldSymbol or IPropertySymbol or IParameterSymbol or ILocalSymbol or IMethodSymbol || syntax is CollectionExpressionSyntax or ArrayCreationExpressionSyntax or ImplicitArrayCreationExpressionSyntax or InitializerExpressionSyntax);
     }
     private V Expression(ExpressionSyntax syntax)
     {
@@ -100,8 +100,12 @@ internal sealed partial class SourceTranslation
             case InvocationExpressionSyntax invocation:
                 return Invocation(invocation, type, symbol as IMethodSymbol);
             case ObjectCreationExpressionSyntax creation:
+                if (symbol is IMethodSymbol collectionConstructor && CollectionModule(collectionConstructor.ContainingType) is not null)
+                    return CollectionCreation(creation, collectionConstructor, type, creation.Initializer);
                 return Source(type, "New", (symbol is IMethodSymbol ctor ? CallArguments(creation, ctor) : creation.ArgumentList?.Arguments.Select(Argument) ?? []).Concat(creation.Initializer is null ? [] : new[] { Expression(creation.Initializer) }).ToArray(), ("type", creation.Type.ToString()), ("symbol", symbol is null ? "" : Id(symbol)));
             case ImplicitObjectCreationExpressionSyntax creation:
+                if (symbol is IMethodSymbol implicitCollectionConstructor && CollectionModule(implicitCollectionConstructor.ContainingType) is not null)
+                    return CollectionCreation(creation, implicitCollectionConstructor, type, creation.Initializer);
                 return Source(type, "New", (symbol is IMethodSymbol implicitCtor ? CallArguments(creation, implicitCtor) : creation.ArgumentList.Arguments.Select(Argument)).Concat(creation.Initializer is null ? [] : new[] { Expression(creation.Initializer) }).ToArray(), ("type", "inferred"), ("symbol", symbol is null ? "" : Id(symbol)));
             case InitializerExpressionSyntax initializer:
                 return Source(type, "Initializer", initializer.Expressions.Select(Expression).ToArray(), ("kind", initializer.Kind().ToString()));
@@ -125,15 +129,20 @@ internal sealed partial class SourceTranslation
                 return Source(type, "SizeOf", [], ("type", size.Type.ToString()));
             case CheckedExpressionSyntax check:
                 return Source(type, check.Keyword.Text, [Expression(check.Expression)]);
+            case SwitchExpressionSyntax match:
+                return SwitchExpression(match, type);
             case IsPatternExpressionSyntax pattern:
                 return Source(type, "IsPattern", [Expression(pattern.Expression), Pattern(pattern.Pattern)]);
             case WithExpressionSyntax update:
                 return Source(type, "With", [Expression(update.Expression), Expression(update.Initializer)]);
+            case CollectionExpressionSyntax collection:
+                return CollectionExpression(collection, type);
             case ArrayCreationExpressionSyntax array:
-                if (!ParamsArray(array)) return Fail<V>("MCS3101", "General array construction requires D11.", syntax.GetLocation());
+                if (array.Type.RankSpecifiers.SelectMany(r => r.Sizes).Any(size => size is not OmittedArraySizeExpressionSyntax and not LiteralExpressionSyntax))
+                    return Fail<V>("MCS3101", "A computed array dimension cannot be retained by the approved List mapping.", syntax.GetLocation());
+                if (array.Initializer is null) return Fail<V>("MCS3101", "Implicit array element defaults have no approved Elm mapping.", syntax.GetLocation());
                 return Source(type, "ArrayCreation", array.Initializer is null ? [] : [Expression(array.Initializer)], ("type", array.Type.ToString()));
             case ImplicitArrayCreationExpressionSyntax array:
-                if (!ParamsArray(array)) return Fail<V>("MCS3101", "General array construction requires D11.", syntax.GetLocation());
                 return Source(type, "ArrayCreation", [Expression(array.Initializer)], ("type", "inferred"));
             default:
                 if (syntax.IsKind(SyntaxKind.FieldExpression)) return Source(type, "FieldKeyword", []);
@@ -158,7 +167,6 @@ internal sealed partial class SourceTranslation
             return MethodReference(method, method.IsStatic ? null : Expression(syntax.Expression), syntax);
         if (symbol is { IsStatic: true }) return NamedReference(symbol, type);
         var subject = Expression(syntax.Expression);
-        if (symbol is IPropertySymbol { Name: "Length" } && ExpressionSymbolType(syntax.Expression) is IArrayTypeSymbol array && paramsArrays.Contains(array)) return Sdk("List", "length", Types.Int, subject);
         if (symbol is IPropertySymbol && subject.Attributes is TupleType<Unit> && symbol.ContainingType?.Name == "Tuple" && symbol.Name.StartsWith("Item", StringComparison.Ordinal))
             return Source(type, "TupleField", [subject], ("index", (int.Parse(symbol.Name[4..], CultureInfo.InvariantCulture)-1).ToString(CultureInfo.InvariantCulture)));
         if (symbol is IPropertySymbol { Name: "Length", ContainingType.SpecialType: SpecialType.System_String } && Shape(subject.Attributes) == Shape(Types.String)) return Sdk("String", "length", Types.Int, subject);
@@ -177,6 +185,7 @@ internal sealed partial class SourceTranslation
     }
     private V NamedReference(ISymbol symbol, IrType<Unit> type)
     {
+        if (symbol.IsStatic && symbol.Name == "Empty" && CollectionModule(type) is not null && CollectionModule(symbol.ContainingType) is not null) return EmptyCollection(type);
         if (identities.TryGetValue(Id(symbol), out var identity)) return new ReferenceValue<Unit, IrType<Unit>>(type, identity);
         if(symbol is IPropertySymbol {GetMethod:{} getter} && external.TryGetValue(Id(getter),out var contract))return new ReferenceValue<Unit,IrType<Unit>>(type,contract.Target);
         var constant = SdkConstant(symbol);
@@ -224,6 +233,8 @@ internal sealed partial class SourceTranslation
         RequireSelected(method, syntax.GetLocation());
         if (method.MethodKind == MethodKind.DelegateInvoke)
             return Source(type, "DelegateInvocation", new[] { syntax.Expression is MemberBindingExpressionSyntax ? Source(Type(method.ContainingType),"ConditionalReceiver",[]) : Expression(syntax.Expression) }.Concat(CallArguments(syntax, method)).ToArray());
+        if (CollectionFactory(syntax, method, type) is {} factory) return factory;
+        if (CollectionInvocation(syntax, method, type) is {} collectionCall) return collectionCall;
         if (method.TypeArguments.Length != 0 && !SourceSymbol(method) && !(method.ContainingType.ContainingNamespace.ToDisplayString() == "System" && method.ContainingType.Name is "Tuple" or "ValueTuple")) return Fail<V>("MCS3100", "Generic metadata calls need an approved Elm mapping.", syntax.GetLocation());
         V? receiver = syntax.Expression is MemberAccessExpressionSyntax member && !method.IsStatic ? Expression(member.Expression) : syntax.Expression is MemberBindingExpressionSyntax && !method.IsStatic ? Source(Type(method.ContainingType),"ConditionalReceiver",[]) : null;
         if (receiver is null && !method.IsStatic && method.MethodKind!=MethodKind.LocalFunction && syntax.Expression is IdentifierNameSyntax) receiver = new VariableValue<Unit, IrType<Unit>>(Type(currentType!), currentReceiver);
@@ -297,12 +308,6 @@ internal sealed partial class SourceTranslation
             return Source(type, "Binary", [left, right], ("operator", syntax.OperatorToken.Text), ("symbol", op is null ? "" : Id(op)));
         return Sdk(module, name, type, left, right);
     }
-    private V Pattern(PatternSyntax syntax) => syntax switch
-    {
-        ConstantPatternSyntax constant => Source(Types.Bool, "ConstantPattern", [Expression(constant.Expression)]),
-        UnaryPatternSyntax unary => Source(Types.Bool, "NotPattern", [Pattern(unary.Pattern)]),
-        _ => Fail<V>("MCS3102", "This pattern requires D12.", syntax.GetLocation())
-    };
     private static V Designation(VariableDesignationSyntax syntax) => syntax switch
     {
         SingleVariableDesignationSyntax single => Source(Types.Unit, "Designation", [], ("name", single.Identifier.Text)),
@@ -310,10 +315,4 @@ internal sealed partial class SourceTranslation
         ParenthesizedVariableDesignationSyntax tuple => Source(Types.Unit, "DesignationTuple", tuple.Variables.Select(Designation).ToArray()),
         _ => throw new InvalidOperationException("Unknown compiler designation.")
     };
-    private bool ParamsArray(ExpressionSyntax syntax)
-    {
-        if (syntax.Parent is not ArgumentSyntax argument || argument.Parent?.Parent is not { } call || Semantic(call).GetSymbolInfo(call).Symbol is not IMethodSymbol method) return false;
-        var index = ((ArgumentListSyntax)argument.Parent).Arguments.IndexOf(argument);
-        return method.Parameters.Any(p => p.IsParams && (argument.NameColon is { } named ? p.Name == named.Name.Identifier.ValueText : index >= p.Ordinal));
-    }
 }

@@ -1,23 +1,23 @@
 # D12 — Patterns and switches
 
-- status: planned
+- status: passed under the approved direct case profile
 - contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D8](D08-enums-tuples.md), [D9](D09-user-data.md), [D10](D10-generics-dispatch.md), [D11](D11-collections.md)
 - evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
 
 ## Prerequisite profile
 
-Use the [D1–D10 Elm profile](../docs/deliveries/D10-elm-parity.md) and all earlier exact-parity gates.
+Use the [D1–D11 Elm profile](../docs/deliveries/D11-elm-parity.md) and all earlier exact-parity gates.
 Each new mapping needs independent Elm input and complete JSON equality. Historical Source-mode passes do not count.
 
 ## Work
 
-Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
-No Source v1 tag or metadata envelope can satisfy this delivery.
+The user approved the [direct case profile](../docs/mappings/D12.md) on 2026-11-01.
 
-- Keep switch statements/expressions, arms, guards, patterns, and source order.
-- Keep binding variables and explicit exhaustiveness/default syntax.
-- Do not expand patterns into runtime field tests or generated decision trees.
+- Map returned switches to standard PatternMatch in source order.
+- Map approved literals, enum values, var/discard, tuples, and list prefix/tail patterns directly.
+- Keep guards, relational/logical/property/type patterns, grouped labels, and fall-through forms rejected.
+- Add no pattern expansion, decision tree, fallback, or runtime match proof.
 
 ## Acceptance
 
@@ -30,7 +30,8 @@ No Source v1 tag or metadata envelope can satisfy this delivery.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
-They are historical context. New acceptance references must come from `morphir-elm make`.
+They are historical context. The relational-pattern expansion below is not an approved mapping.
+New acceptance references must come from `morphir-elm make`.
 
 ## Historical examples
 

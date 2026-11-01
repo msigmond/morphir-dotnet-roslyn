@@ -2,7 +2,7 @@
 
 - authority: user instructions → [exact Elm parity](docs/elm-parity.md) → approved source-structure rules → this plan → selected delivery
 - contract changed: 2026-10-24; [approved audit](docs/reviews/source-structure-audit.md)
-- D1–D10 have implemented [approved Elm mappings and tested rejections](docs/deliveries/D10-elm-parity.md); all gates passed. D11–D21 remain planned.
+- D1–D12 have implemented [approved Elm mappings and tested rejections](docs/deliveries/D12-elm-parity.md); all gates passed. D13–D21 remain planned.
 - former runtime evidence: [archive](docs/history/runtime-contract/README.md)
 - requested output: standard Classic v3 matching `morphir-elm make`; [acceptance contract](docs/elm-parity.md)
 - Source v1 was unrequested work. Public Source output is removed.
@@ -59,8 +59,8 @@ Keep pinned primitive/framework families. Future forms need their explicit struc
 | [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md) | Enum and tuple source structure | passed under the approved Elm profile | [D5](Morphir_CSharp_Frontend_deliveries/D05-numerics.md), [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md) |
 | [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md) | Data declarations, members, and state | passed under the approved Elm profile | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md), [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md) |
 | [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) | Generic Elm profile and explicit dispatch rejections | passed: approved profile | [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md) |
-| [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) | Arrays and collection structure | planned | [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) |
-| [D12](Morphir_CSharp_Frontend_deliveries/D12-patterns.md) | Patterns and switches | planned | [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md), [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md), [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) |
+| [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) | Approved collection profile | passed: approved profile | [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) |
+| [D12](Morphir_CSharp_Frontend_deliveries/D12-patterns.md) | Direct case profile and explicit pattern rejections | passed: approved profile | [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md), [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md), [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) |
 | [D13](Morphir_CSharp_Frontend_deliveries/D13-closures.md) | Anonymous functions and delegates | planned | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) |
 | [D14](Morphir_CSharp_Frontend_deliveries/D14-recursion.md) | Recursive binding coverage | planned | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md), [D13](Morphir_CSharp_Frontend_deliveries/D13-closures.md) |
 | [D15](Morphir_CSharp_Frontend_deliveries/D15-loops-local-state.md) | Loops, compound updates, and references | planned | [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md), [D14](Morphir_CSharp_Frontend_deliveries/D14-recursion.md) |

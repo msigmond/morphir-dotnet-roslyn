@@ -41,9 +41,12 @@
     {
       "operation": "Switch",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-statements"
+      ]
     },
     {
       "operation": "Loop",
@@ -167,7 +170,11 @@
       "domain": "Standard Classic mappings demonstrated by the listed complete Elm parity cases. No custom source nodes or runtime proof.",
       "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs",
       "parityCases": [
-        "literals"
+        "literals",
+        "d12-literals"
+      ],
+      "rejectionCases": [
+        "form:d12-inexact-value"
       ]
     },
     {
@@ -196,9 +203,13 @@
     {
       "operation": "ArrayElementReference",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Approved standard collection literal/fromList/concat/read mapping.",
+      "evidence": "docs/mappings/D11.md; exact paired compiler cases and source rejections",
+      "parityCases": [
+        "d11-lists",
+        "d11-dict-set"
+      ]
     },
     {
       "operation": "LocalReference",
@@ -359,9 +370,13 @@
     {
       "operation": "ArrayCreation",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Approved standard collection literal/fromList/concat/read mapping.",
+      "evidence": "docs/mappings/D11.md; exact paired compiler cases and source rejections",
+      "parityCases": [
+        "d11-lists",
+        "d11-dict-set"
+      ]
     },
     {
       "operation": "InstanceReference",
@@ -376,9 +391,12 @@
     {
       "operation": "IsType",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "required-rejection",
+      "domain": "No approved direct Elm pattern mapping.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "rejectionCases": [
+        "form:d12-is-type"
+      ]
     },
     {
       "operation": "Await",
@@ -475,9 +493,13 @@
     {
       "operation": "CollectionElementInitializer",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Approved standard collection literal/fromList/concat/read mapping.",
+      "evidence": "docs/mappings/D11.md; exact paired compiler cases and source rejections",
+      "parityCases": [
+        "d11-lists",
+        "d11-dict-set"
+      ]
     },
     {
       "operation": "NameOf",
@@ -580,9 +602,16 @@
     {
       "operation": "IsPattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-literals"
+      ],
+      "rejectionCases": [
+        "form:d12-is-constant",
+        "form:d12-is-list"
+      ]
     },
     {
       "operation": "Increment",
@@ -678,9 +707,13 @@
     {
       "operation": "ArrayInitializer",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Approved standard collection literal/fromList/concat/read mapping.",
+      "evidence": "docs/mappings/D11.md; exact paired compiler cases and source rejections",
+      "parityCases": [
+        "d11-lists",
+        "d11-dict-set"
+      ]
     },
     {
       "operation": "VariableDeclarator",
@@ -723,16 +756,22 @@
     {
       "operation": "SwitchCase",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-statements"
+      ]
     },
     {
       "operation": "CaseClause",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-statements"
+      ]
     },
     {
       "operation": "InterpolatedStringText",
@@ -751,16 +790,25 @@
     {
       "operation": "ConstantPattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-literals"
+      ]
     },
     {
       "operation": "DeclarationPattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-patterns"
+      ],
+      "rejectionCases": [
+        "form:d12-declaration"
+      ]
     },
     {
       "operation": "TupleBinary",
@@ -890,9 +938,12 @@
     {
       "operation": "Range",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "required-rejection",
+      "domain": "Range and from-end indexing have no approved mapping.",
+      "evidence": "docs/mappings/D11.md; exact paired compiler cases and source rejections",
+      "rejectionCases": [
+        "form:d11-range"
+      ]
     },
     {
       "operation": "ReDim",
@@ -911,37 +962,60 @@
     {
       "operation": "RecursivePattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-patterns",
+        "d12-nested"
+      ],
+      "rejectionCases": [
+        "form:d12-property",
+        "form:d12-positional-record"
+      ]
     },
     {
       "operation": "DiscardPattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-literals",
+        "d12-patterns"
+      ]
     },
     {
       "operation": "SwitchExpression",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-literals",
+        "d12-patterns"
+      ]
     },
     {
       "operation": "SwitchExpressionArm",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-literals",
+        "d12-patterns"
+      ]
     },
     {
       "operation": "PropertySubpattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "required-rejection",
+      "domain": "No approved direct Elm pattern mapping.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "rejectionCases": [
+        "form:d12-property"
+      ]
     },
     {
       "operation": "UsingDeclaration",
@@ -953,30 +1027,47 @@
     {
       "operation": "NegatedPattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-literals"
+      ],
+      "rejectionCases": [
+        "form:d12-not",
+        "form:d12-not-null-switch"
+      ]
     },
     {
       "operation": "BinaryPattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "required-rejection",
+      "domain": "No approved direct Elm pattern mapping.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "rejectionCases": [
+        "form:d12-and",
+        "form:d12-or"
+      ]
     },
     {
       "operation": "TypePattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "required-rejection",
+      "domain": "No approved direct Elm pattern mapping.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "rejectionCases": [
+        "form:d12-runtime-type"
+      ]
     },
     {
       "operation": "RelationalPattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "required-rejection",
+      "domain": "No approved direct Elm pattern mapping.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "rejectionCases": [
+        "form:d12-relational"
+      ]
     },
     {
       "operation": "With",
@@ -1040,23 +1131,37 @@
     {
       "operation": "ListPattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-patterns",
+        "d12-nested"
+      ]
     },
     {
       "operation": "SlicePattern",
       "owner": "D12",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Direct case patterns; IsPattern/NegatedPattern retain only the approved null-test form.",
+      "evidence": "docs/mappings/D12.md; paired complete compiler JSON and bound source rejection cases",
+      "parityCases": [
+        "d12-patterns"
+      ],
+      "rejectionCases": [
+        "form:d12-suffix-slice",
+        "form:d12-middle-slice"
+      ]
     },
     {
       "operation": "ImplicitIndexerReference",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "required-rejection",
+      "domain": "Range and from-end indexing have no approved mapping.",
+      "evidence": "docs/mappings/D11.md; exact paired compiler cases and source rejections",
+      "rejectionCases": [
+        "form:d11-from-end"
+      ]
     },
     {
       "operation": "Utf8String",
@@ -1082,16 +1187,24 @@
     {
       "operation": "CollectionExpression",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Approved standard collection literal/fromList/concat/read mapping.",
+      "evidence": "docs/mappings/D11.md; exact paired compiler cases and source rejections",
+      "parityCases": [
+        "d11-lists",
+        "d11-dict-set"
+      ]
     },
     {
       "operation": "Spread",
       "owner": "D11",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Approved standard collection literal/fromList/concat/read mapping.",
+      "evidence": "docs/mappings/D11.md; exact paired compiler cases and source rejections",
+      "parityCases": [
+        "d11-lists",
+        "d11-dict-set"
+      ]
     }
   ]
 }

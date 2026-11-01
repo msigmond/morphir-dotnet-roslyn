@@ -8,6 +8,9 @@ The [exact Elm contract](elm-parity.md) controls acceptance.
 | C# form | Approved Elm/Morphir form |
 | --- | --- |
 | Unconstrained generic data/methods | Type variables, alias parameters, instantiated reference types |
+| Collection declarations, explicit elements, spreads, mapped reads | List/Dict/Set and standard SDK calls |
+| Nullable-result collection indexing | List.head/drop or Dict.get |
+| Returned switches and direct patterns | PatternMatch, LiteralPattern, TuplePattern, List/Maybe patterns, AsPattern |
 | Data fields and stored properties | Record aliases and Field reads |
 | Positional record construction | Alias Constructor and Apply |
 | Primary parameters; explicit all-field constructors | Same-named fields; record-building functions |
@@ -47,8 +50,10 @@ The [member cases](../fixtures/elm-parity/member-rejections.json) retain all una
 Two native unsigned operator forms fail C#14 binding. The frontend retains those compiler errors.
 Elm name shadowing and normalized identity collisions remain errors.
 Unapproved constraints, variance, interfaces, inheritance, dispatch, and runtime type tests are rejected.
-Later collection, pattern, anonymous-function, loop/ref, exception, and framework forms keep their delivery gates.
+Unmapped collection overloads remain rejected. Unmapped guards, runtime type tests, and property/relational patterns remain rejected. Later anonymous-function, loop/ref, exception, and framework forms keep their delivery gates.
 
 D1–D9 implement the [approved profile](reviews/d1-d9-elm-mapping-decisions.md).
 D10 adds the [generic profile](mappings/D10.md).
-D11–D21 remain planned. See [validation](deliveries/D10-elm-parity.md).
+D11 adds the [collection profile](mappings/D11.md).
+D12 adds the [direct case profile](mappings/D12.md).
+D13–D21 remain planned. See [validation](deliveries/D12-elm-parity.md).

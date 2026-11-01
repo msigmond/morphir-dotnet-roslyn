@@ -1,7 +1,7 @@
 # Agent instructions
 
 - authority: user instructions → [exact Elm parity contract](docs/elm-parity.md) → approved source-structure rules → [master](Morphir_CSharp_Frontend_delivery_plan.md) → selected delivery
-- state: D1–D10 mappings and explicit rejections are passed under the approved Elm profile; [evidence](docs/deliveries/D10-elm-parity.md); D11–D21 planned
+- state: D1–D12 mappings and explicit rejections are passed under the approved Elm profile; [evidence](docs/deliveries/D12-elm-parity.md); D13–D21 planned
 - workflow: one requested delivery; prerequisite gates; paired C#/Elm inputs; complete JSON equality against pinned `morphir-elm make` output for every feature; ask when the Elm counterpart is unclear; no unrequested scope
 - baseline: SDK 10.0.100; C#14; reference pack 10.0.0; Roslyn 5.0.0; x64 CLI input; no silent scope/version change
 - contract: standard Morphir Classic v3 matching `morphir-elm make`; Source v1 was never requested and is not a delivery target; do not extend it or introduce another format; public Source v1 CLI/API/model/codec paths are removed; internal staging must be mapped or rejected

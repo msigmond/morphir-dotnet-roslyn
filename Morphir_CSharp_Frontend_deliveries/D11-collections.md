@@ -1,6 +1,6 @@
 # D11 — Arrays and collection structure
 
-- status: planned
+- status: passed under the approved collection profile
 - contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D4](D04-maybe.md), [D10](D10-generics-dispatch.md)
 - evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
@@ -12,12 +12,12 @@ Each new mapping needs independent Elm input and complete JSON equality. Histori
 
 ## Work
 
-Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
-No Source v1 tag or metadata envelope can satisfy this delivery.
+The user approved the [collection profile](../docs/mappings/D11.md) on 2026-11-01.
 
-- Keep collection types, element types, rank, initializers, indexing, and named members.
-- Keep explicit collection updates and collection expressions.
-- Do not build persistent-state algorithms, null defaults, bounds guards, enumeration machinery, or backing storage.
+- Map approved carriers to List, Dict, and Set.
+- Map explicit elements, spreads, constructors/factories, and named reads to standard Elm forms.
+- Permit indexing only with a declared nullable result. Add no fallback or bounds guard.
+- Keep all excluded carriers, mutations, and unlisted overloads rejected.
 
 ## Acceptance
 

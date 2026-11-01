@@ -1,5 +1,7 @@
 module Example.CurrentSupported.ClassicLoanCalculations exposing (..)
 
+import Dict exposing (Dict)
+import Set exposing (Set)
 import Morphir.SDK.Decimal as Decimal exposing (Decimal)
 import Example.CurrentSupported exposing (ClassicBox, ClassicLoan, ClassicLoanFee, ClassicState, ClassicValue)
 import Example.CurrentSupported.ClassicState as State
@@ -93,3 +95,33 @@ unwrap : ClassicBox t -> t
 unwrap box = box.value
 readWrapped : Int -> Int
 readWrapped value = unwrap (wrap value)
+
+createItems : Int -> List Int
+createItems value = [value,2]
+readItem : List Int -> Int -> Maybe Int
+readItem items index = List.head (List.drop index items)
+itemCount : List Int -> Int
+itemCount items = List.length items
+createLookup : Int -> String -> Dict Int String
+createLookup key value = Dict.fromList [(key,value)]
+readLookup : Dict Int String -> Int -> Maybe String
+readLookup items key = Dict.get key items
+createSet : Int -> Set Int
+createSet value = Set.fromList [value,2]
+
+classifyQuantity : Int -> Int
+classifyQuantity quantity = case quantity of
+    0 -> 0
+    _ -> 1
+firstOrZero : List Int -> Int
+firstOrZero items = case items of
+    [] -> 0
+    first :: _ -> first
+loanPresence : Maybe ClassicLoan -> Int
+loanPresence loan = case loan of
+    Nothing -> 0
+    _ -> 1
+classifyState : ClassicState -> Int
+classifyState state = case state of
+    0 -> 0
+    _ -> 1

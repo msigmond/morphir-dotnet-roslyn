@@ -1,0 +1,8 @@
+{
+  "name": "Example",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "Parity.Rules",
+    "System.Collections.Immutable.UserFactory"
+  ]
+}

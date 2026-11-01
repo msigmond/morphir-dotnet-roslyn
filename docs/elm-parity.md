@@ -38,10 +38,12 @@ Do not implement a requested feature as a custom Source node to avoid the parity
 
 D1–D9 implement the [approved mappings](reviews/d1-d9-elm-mapping-decisions.md) with exact tests and explicit rejections.
 D10 adds the user-approved [generic profile](mappings/D10.md).
-See [D10 validation](deliveries/D10-elm-parity.md), [earlier validation](deliveries/elm-parity-state.md), and [limits](classic-output.md).
+D11 adds the user-approved [collection profile](mappings/D11.md).
+D12 adds the user-approved [direct case profile](mappings/D12.md).
+See [current validation](deliveries/D12-elm-parity.md), [earlier validation](deliveries/elm-parity-state.md), and [limits](classic-output.md).
 Source v1 is removed. It cannot return as an alternative output.
 Mutation, identity/cycles, side-effecting construction, and other unapproved forms remain rejected.
-D11–D21 remain planned and must use the same feature gate.
+D13–D21 remain planned and must use the same feature gate.
 
 ## Existing gaps
 

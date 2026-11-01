@@ -1,6 +1,6 @@
 # Unsupported language features
 
-This guide applies to the D1–D10 profile on 2026-11-01.
+This guide applies to the D1–D12 profile on 2026-11-01.
 Each C# block below is a separate rejected input.
 Add `namespace Example.Unsupported;` before each block.
 Select that namespace when you run the transpiler.
@@ -140,19 +140,23 @@ public static class Rules
 }
 ```
 
-Integer literals above the signed 64-bit maximum are rejected.
+Whole-number literals must remain exact in the pinned compiler JSON number representation.
+The model also requires signed 64-bit literal storage.
 An isolated UTF-16 surrogate cannot form an Elm Char.
 
 ```csharp
 public static class Rules
 {
-    public static ulong Large() => 18446744073709551615UL;
+    public static long Large() => 9007199254740993L;
 }
 ```
 
 ## Arrays and collections
 
-General arrays, collection types, collection expressions, and indexing are not supported.
+One-dimensional arrays and the approved List/Dict/Set carriers have supported forms.
+Multidimensional arrays, Queue/Stack, capacity/comparer constructors, and mutations remain rejected.
+Computed array dimensions also remain rejected. A List literal cannot retain that written operation.
+An index read needs a declared nullable result. Already-nullable elements need another flattening mapping.
 Expanded `params` arguments can form an Elm List. A params length read is supported; indexing is not.
 
 ```csharp
@@ -165,7 +169,7 @@ public static class Rules
 ```csharp
 public static class Rules
 {
-    public static System.Collections.Generic.List<int> Create() => [1, 2];
+    public static System.Collections.Generic.Queue<int> Create() => new();
 }
 ```
 
@@ -197,12 +201,15 @@ public static class Rules
 
 ## Patterns and switches
 
-Switch statements, switch expressions, and patterns other than supported null tests are rejected.
+Returned switches support literal, enum, nullable, var, tuple, and list head/tail patterns.
+Guards, relational/logical patterns, property patterns, runtime type tests, and grouped labels remain rejected.
+Negative, Decimal, computed, and default-value patterns have no direct pinned compiler mapping.
+Only a final list slice is supported. Plain-result indexing and nullable extraction keep their earlier limits.
 
 ```csharp
 public static class Rules
 {
-    public static int Choose(int value) => value switch { 0 => 1, _ => 2 };
+    public static int Choose(int value) => value switch { > 0 => 1, _ => 2 };
 }
 ```
 
@@ -436,6 +443,7 @@ Decimal precision, scale, rounding-mode APIs, and generic numeric conversion API
 Date/time types, `Guid`, `Complex`, and unlisted framework types also lack a mapping.
 See the [framework guide](catalogs/framework.md), [numeric members](catalogs/numeric-members.json),
 and [Decimal members](catalogs/decimal-members.json) for each signature.
+Array-taking BigInteger and Decimal constructors also remain rejected.
 
 ```csharp
 public static class Rules
@@ -455,7 +463,7 @@ public static class Rules
 
 The [form cases](../fixtures/elm-parity/form-rejections.json)
 and [member cases](../fixtures/elm-parity/member-rejections.json) contain executable rejection inputs.
-The [D10 report](deliveries/D10-elm-parity.md) records the current acceptance checks.
-The [delivery plan](../Morphir_CSharp_Frontend_delivery_plan.md) assigns later work to D11–D21.
+The [D12 report](deliveries/D12-elm-parity.md) records the current acceptance checks.
+The [delivery plan](../Morphir_CSharp_Frontend_delivery_plan.md) assigns later work to D13–D21.
 A planned feature is not a supported feature. A new mapping needs paired C#/Elm tests with complete JSON equality.
 All 45 C# blocks passed C#14 compiler binding and failed conversion when this guide was checked.

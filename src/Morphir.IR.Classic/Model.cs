@@ -60,6 +60,7 @@ public sealed record LetRecursionValue<TA, VA>(VA Attributes, IReadOnlyList<Entr
 public sealed record DestructureValue<TA, VA>(VA Attributes, Pattern<VA> Pattern, Value<TA, VA> Subject, Value<TA, VA> Body) : Value<TA, VA>(Attributes);
 public sealed record ConstructorValue<TA, VA>(VA Attributes, FQName Name) : Value<TA, VA>(Attributes);
 public abstract record Pattern<VA>(VA Attributes);
+public sealed record LiteralPattern<VA>(VA Attributes, Literal Literal) : Pattern<VA>(Attributes);
 public sealed record TuplePattern<VA>(VA Attributes, IReadOnlyList<Pattern<VA>> Elements) : Pattern<VA>(Attributes);
 public sealed record UnitPattern<VA>(VA Attributes) : Pattern<VA>(Attributes);
 public sealed record WildcardPattern<VA>(VA Attributes) : Pattern<VA>(Attributes);

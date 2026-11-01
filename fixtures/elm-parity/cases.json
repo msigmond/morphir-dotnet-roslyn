@@ -241,6 +241,34 @@
     "d10-owners": {
       "project": "fixtures/elm-parity/d10-owners/elm",
       "expected": "fixtures/elm-parity/d10-owners/expected/elm.json"
+    },
+    "d11-lists": {
+      "project": "fixtures/elm-parity/d11-lists/elm",
+      "expected": "fixtures/elm-parity/d11-lists/expected/elm.json"
+    },
+    "d11-dict-set": {
+      "project": "fixtures/elm-parity/d11-dict-set/elm",
+      "expected": "fixtures/elm-parity/d11-dict-set/expected/elm.json"
+    },
+    "d11-types": {
+      "project": "fixtures/elm-parity/d11-types/elm",
+      "expected": "fixtures/elm-parity/d11-types/expected/elm.json"
+    },
+    "d12-literals": {
+      "project": "fixtures/elm-parity/d12-literals/elm",
+      "expected": "fixtures/elm-parity/d12-literals/expected/elm.json"
+    },
+    "d12-patterns": {
+      "project": "fixtures/elm-parity/d12-patterns/elm",
+      "expected": "fixtures/elm-parity/d12-patterns/expected/elm.json"
+    },
+    "d12-statements": {
+      "project": "fixtures/elm-parity/d12-statements/elm",
+      "expected": "fixtures/elm-parity/d12-statements/expected/elm.json"
+    },
+    "d12-nested": {
+      "project": "fixtures/elm-parity/d12-nested/elm",
+      "expected": "fixtures/elm-parity/d12-nested/expected/elm.json"
     }
   },
   "cases": [
@@ -958,7 +986,9 @@
         "D3.sample-locals",
         "D7.sample-calls",
         "D9.sample-data",
-        "D10.sample-generics"
+        "D10.sample-generics",
+        "D11.sample-collections",
+        "D12.sample-patterns"
       ]
     },
     {
@@ -1784,6 +1814,128 @@
         "nested-generic-aliases",
         "generic-overloads",
         "generic-visibility"
+      ]
+    },
+    {
+      "id": "d11-lists",
+      "reference": "d11-lists",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity",
+        "System.Collections.Immutable"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d11-lists/csharp/Input.cs",
+        "fixtures/elm-parity/d11-lists/csharp/UserFactory.cs"
+      ],
+      "features": [
+        "arrays",
+        "list-construction",
+        "collection-expressions",
+        "spreads",
+        "list-reads",
+        "nullable-indexing",
+        "read-only-wrappers",
+        "immutable-list-construction",
+        "collection-source-owner"
+      ]
+    },
+    {
+      "id": "d11-dict-set",
+      "reference": "d11-dict-set",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d11-dict-set/csharp/Input.cs"
+      ],
+      "features": [
+        "dict-set-construction",
+        "dict-set-reads",
+        "nullable-dict-indexing",
+        "immutable-factories",
+        "sequence-views"
+      ]
+    },
+    {
+      "id": "d11-types",
+      "reference": "d11-types",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "features": [
+        "collection-type-grid",
+        "nullable-collection-boundaries"
+      ]
+    },
+    {
+      "id": "d12-literals",
+      "reference": "d12-literals",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d12-literals/csharp/Input.cs"
+      ],
+      "features": [
+        "literal-patterns",
+        "enum-patterns",
+        "nullable-patterns"
+      ]
+    },
+    {
+      "id": "d12-patterns",
+      "reference": "d12-patterns",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d12-patterns/csharp/Input.cs"
+      ],
+      "features": [
+        "var-discard-patterns",
+        "tuple-patterns",
+        "list-tail-patterns"
+      ]
+    },
+    {
+      "id": "d12-statements",
+      "reference": "d12-statements",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d12-statements/csharp/Input.cs"
+      ],
+      "features": [
+        "returned-switch-statements",
+        "source-case-order",
+        "case-local-bindings"
+      ]
+    },
+    {
+      "id": "d12-nested",
+      "reference": "d12-nested",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d12-nested/csharp/Input.cs"
+      ],
+      "features": [
+        "nested-patterns",
+        "nested-switches",
+        "nullable-list-patterns",
+        "nullable-arm-values"
       ]
     }
   ],

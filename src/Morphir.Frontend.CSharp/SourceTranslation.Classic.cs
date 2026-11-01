@@ -83,6 +83,7 @@ internal sealed partial class SourceTranslation
             IfValue<Unit, IrType<Unit>> i => ClassicConditional(i),
             ListValue<Unit, IrType<Unit>> l => l with { Elements = l.Elements.Select(ClassicValue).ToArray() },
             TupleValue<Unit, IrType<Unit>> t => t with { Elements = t.Elements.Select(ClassicValue).ToArray() },
+            LiteralValue<Unit, IrType<Unit>> { Literal: IntLiteral number } when !ExactElmIntegerLiteral(number.Value) => ClassicFailure("This whole-number literal has no exact pinned Elm JSON representation."),
             LiteralValue<Unit, IrType<Unit>> { Literal: UnmappedNumberLiteral } => ClassicFailure("This numeric literal exceeds the Classic literal domain."),
             LiteralValue<Unit, IrType<Unit>> { Literal: DecimalLiteral literal } => Sdk("Decimal", "fromFloat", Types.Decimal,
                 new LiteralValue<Unit, IrType<Unit>>(Types.Float, new FloatLiteral(double.Parse(literal.Value, System.Globalization.CultureInfo.InvariantCulture)))),
@@ -108,6 +109,11 @@ internal sealed partial class SourceTranslation
     }
     private V ClassicSource(CSharpOperation<Unit, IrType<Unit>> source) => source.Kind switch
     {
+        "CollectionLiteral" => ClassicCollectionLiteral(source),
+        "CollectionCopy" => ClassicCollectionCopy(source),
+        "CollectionRead" => ClassicCollectionRead(source),
+        "Initializer" when CollectionModule(source.Attributes) == "List" => ClassicCollectionLiteral(new(source.Attributes, "CollectionLiteral", [], source.Children.Select(c => Source(source.Attributes, "CollectionElement", [c])).ToArray())),
+        "Switch" => ClassicSwitch(source, source.Attributes),
         "Block" => ClassicBlock(source),
         "Return" when source.Children.Count == 0 && source.Attributes is UnitType<Unit> => new UnitValue<Unit, IrType<Unit>>(Types.Unit),
         "Return" when source.Children.Count == 1 => ClassicExpected(source.Children[0],source.Attributes),
@@ -199,6 +205,7 @@ internal sealed partial class SourceTranslation
             }
             return Bind(0);
         }
+        if (statement.Kind == "Switch" && index == statements.Count - 1) return ClassicValue(statement);
         if (statement.Kind == "Block" && index == statements.Count - 1) return ClassicStatements(statement.Children, 0);
         return ClassicFailure("Statement '" + statement.Kind + "' has no Classic mapping in this delivery.");
     }

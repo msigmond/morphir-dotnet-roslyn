@@ -8,8 +8,8 @@ public class SourceStructureTests
     private const string Header = "using System;namespace Example.Structure;";
     [Theory]
     [InlineData("public class Box<T> where T:class{}", "MCS3100")]
-    [InlineData("public static class Rules{public static int F(int[] a)=>a[0];}", "MCS3101")]
-    [InlineData("public static class Rules{public static int F(){int[] a=null;return 1;}}", "MCS3101")]
+    [InlineData("public static class Rules{public static int F(int[] a)=>a[0];}", "MCS4001")]
+    [InlineData("public static class Rules{public static int F(){int[] a=null;return 1;}}", "MCS4001")]
     [InlineData("public class Cell:System.IDisposable{public void Dispose(){}}", "MCS3100")]
     [InlineData("public static class Rules{public static int F(){T L<T>(T value) where T:class=>value;return 1;}}", "MCS3100")]
     [InlineData("public static class Rules{public static int F(int a){while(a>0)a--;return a;}}", "MCS3105")]

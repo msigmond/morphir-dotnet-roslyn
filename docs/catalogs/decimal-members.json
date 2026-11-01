@@ -181,9 +181,13 @@
     },
     {
       "member": "decimal.Decimal(int[])",
-      "state": "pending",
+      "state": "required-rejection",
       "owner": "D11",
-      "domain": "Pending signature or dependent source-form closure in the owning delivery. Do not implement CLR simulation."
+      "domain": "Array conversion constructor has no approved SDK mapping.",
+      "evidence": "docs/mappings/D11.md; bound exact-signature source rejection",
+      "rejectionCases": [
+        "member:decimal-members:decimal.Decimal(int[])"
+      ]
     },
     {
       "member": "decimal.Decimal(long)",

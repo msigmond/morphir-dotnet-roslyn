@@ -51,6 +51,7 @@ public static class Codec
     };
     private static object Pattern<VA>(Pattern<VA> pattern, Func<VA, object> attr) => pattern switch
     {
+        LiteralPattern<VA> p => Arr("LiteralPattern", attr(p.Attributes), Literal(p.Literal)),
         TuplePattern<VA> tuple => Arr("TuplePattern", attr(tuple.Attributes), tuple.Elements.Select(element => Pattern(element, attr)).ToArray()),
         UnitPattern<VA> p => Arr("UnitPattern", attr(p.Attributes)),
         EmptyListPattern<VA> p => Arr("EmptyListPattern", attr(p.Attributes)),

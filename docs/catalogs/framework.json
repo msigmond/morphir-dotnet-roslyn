@@ -787,419 +787,685 @@
       "type": "System.Collections.Generic.List`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK List.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-List"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.Dictionary`2",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK Dict.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-Dictionary"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.HashSet`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK Set.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-HashSet"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.Queue`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "required-rejection",
+      "representation": "No approved Queue/Stack mapping. Explicit source rejection.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "required-rejection",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Type and members remain rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-type-Queue"
+      ]
     },
     {
       "type": "System.Collections.Generic.Stack`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "required-rejection",
+      "representation": "No approved Queue/Stack mapping. Explicit source rejection.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "required-rejection",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Type and members remain rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-type-Stack"
+      ]
     },
     {
       "type": "System.Collections.Generic.IEnumerable`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK List.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-IEnumerable"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.ICollection`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK List.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-ICollection"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.IList`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK List.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-IList"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.IDictionary`2",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK Dict.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-IDictionary"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.ISet`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK Set.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-ISet"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.IReadOnlyCollection`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK List.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-IReadOnlyCollection"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.IReadOnlyList`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK List.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-IReadOnlyList"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.IReadOnlyDictionary`2",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK Dict.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-IReadOnlyDictionary"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Generic.IReadOnlySet`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK Set.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-IReadOnlySet"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.ObjectModel.ReadOnlyCollection`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK List.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-ReadOnlyCollection"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.ObjectModel.ReadOnlyDictionary`2",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK Dict.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-ReadOnlyDictionary"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Immutable.ImmutableArray`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK List.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-ImmutableArray"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Immutable.ImmutableList`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK List.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-ImmutableList"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Immutable.ImmutableDictionary`2",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK Dict.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-ImmutableDictionary"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Immutable.ImmutableHashSet`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "supported",
+      "representation": "SDK Set.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
-      "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "positiveFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "supported",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Only the approved construction and read signatures in docs/mappings/D11.md are admitted; all other members are rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-member-ImmutableHashSet"
+      ],
+      "parityCases": [
+        "d11-types"
+      ]
     },
     {
       "type": "System.Collections.Immutable.ImmutableQueue`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "required-rejection",
+      "representation": "No approved Queue/Stack mapping. Explicit source rejection.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "required-rejection",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Type and members remain rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-type-ImmutableQueue"
+      ]
     },
     {
       "type": "System.Collections.Immutable.ImmutableStack`1",
       "version": "10.0.0",
       "owner": "D11",
-      "state": "pending",
-      "representation": "Pending named source type mapping; see owning delivery.",
+      "state": "required-rejection",
+      "representation": "No approved Queue/Stack mapping. Explicit source rejection.",
       "boundaries": "Source syntax and declared types. No null, range, ownership, effect, or termination proof. Pending type forms retain their delivery gate.",
       "positiveFixtures": [],
-      "negativeFixtures": [],
-      "boundaryFixtures": [],
-      "memberState": "pending",
+      "negativeFixtures": [
+        "fixtures/elm-parity/form-rejections.json"
+      ],
+      "boundaryFixtures": [
+        "fixtures/elm-parity/d11-types/csharp/Input.cs"
+      ],
+      "memberState": "required-rejection",
       "memberOwner": "D11",
       "requiredFixtures": [
         "positive",
         "negative",
         "boundary"
       ],
-      "sourceMembers": "Resolved member calls with delivered signatures. Full overload/dependent-type closure remains assigned to the member owner."
+      "sourceMembers": "Type and members remain rejected.",
+      "evidence": "docs/mappings/D11.md; docs/deliveries/D11-elm-parity.md",
+      "rejectionCases": [
+        "form:d11-type-ImmutableStack"
+      ]
     }
   ]
 }
