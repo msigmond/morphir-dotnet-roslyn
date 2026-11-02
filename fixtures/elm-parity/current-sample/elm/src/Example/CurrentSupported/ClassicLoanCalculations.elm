@@ -7,6 +7,18 @@ import Example.CurrentSupported exposing (ClassicBox, ClassicLoan, ClassicLoanFe
 import Example.CurrentSupported.ClassicState as State
 import Example.CurrentSupported.ClassicValue as Value
 
+atLeast : Int -> Int -> Bool
+atLeast minimum value = value >= minimum
+
+positiveQuantities : List Int -> List Int
+positiveQuantities values = List.filter (\value -> value > 0) values
+
+doubleQuantities : List Int -> List Int
+doubleQuantities values = List.map (\value -> value * 2) values
+
+totalQuantities : List Int -> Int
+totalQuantities values = List.foldl (\item state -> (\total value -> total + value) state item) 0 values
+
 marketValue : ClassicLoan -> Int
 marketValue loan =
     loan.quantity * loan.price

@@ -269,6 +269,22 @@
     "d12-nested": {
       "project": "fixtures/elm-parity/d12-nested/elm",
       "expected": "fixtures/elm-parity/d12-nested/expected/elm.json"
+    },
+    "d13-functions": {
+      "project": "fixtures/elm-parity/d13-functions/elm",
+      "expected": "fixtures/elm-parity/d13-functions/expected/elm.json"
+    },
+    "d13-captures": {
+      "project": "fixtures/elm-parity/d13-captures/elm",
+      "expected": "fixtures/elm-parity/d13-captures/expected/elm.json"
+    },
+    "d11-combinators": {
+      "project": "fixtures/elm-parity/d11-combinators/elm",
+      "expected": "fixtures/elm-parity/d11-combinators/expected/elm.json"
+    },
+    "d11-fold": {
+      "project": "fixtures/elm-parity/d11-fold/elm",
+      "expected": "fixtures/elm-parity/d11-fold/expected/elm.json"
     }
   },
   "cases": [
@@ -1936,6 +1952,74 @@
         "nested-switches",
         "nullable-list-patterns",
         "nullable-arm-values"
+      ]
+    },
+    {
+      "id": "d13-functions",
+      "reference": "d13-functions",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d13-functions/csharp/Input.cs"
+      ],
+      "features": [
+        "d13-functions",
+        "anonymous-methods",
+        "lexical-captures",
+        "curried-functions"
+      ]
+    },
+    {
+      "id": "d13-captures",
+      "reference": "d13-captures",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d13-captures/csharp/Input.cs"
+      ],
+      "features": [
+        "d13-captures",
+        "anonymous-methods",
+        "lexical-captures",
+        "curried-functions"
+      ]
+    },
+    {
+      "id": "d11-combinators",
+      "reference": "d11-combinators",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d11-combinators/csharp/Input.cs"
+      ],
+      "features": [
+        "d11-combinators",
+        "collection-callbacks",
+        "generic-result-types",
+        "chained-calls"
+      ]
+    },
+    {
+      "id": "d11-fold",
+      "reference": "d11-fold",
+      "package": "Example",
+      "namespaces": [
+        "Example.Parity"
+      ],
+      "sources": [
+        "fixtures/elm-parity/d11-fold/csharp/Input.cs"
+      ],
+      "features": [
+        "d11-fold",
+        "collection-callbacks",
+        "generic-result-types",
+        "chained-calls"
       ]
     }
   ],

@@ -810,30 +810,49 @@
     {
       "form": "anonymous-functions-and-extended-local-syntax",
       "owner": "D13",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved curried function profile; mutation, multicast, async/ref callbacks, expression trees, and custom delegate declarations remain rejected.",
+      "evidence": "docs/mappings/D13.md; exact paired compiler cases and executable source rejections",
+      "parityCases": [
+        "d13-functions",
+        "d13-captures",
+        "current-sample"
+      ]
     },
     {
       "form": "delegate-combination-and-extended-lambda-conversions",
       "owner": "D13",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "required-rejection",
+      "domain": "Approved curried function profile; mutation, multicast, async/ref callbacks, expression trees, and custom delegate declarations remain rejected.",
+      "evidence": "docs/mappings/D13.md; exact paired compiler cases and executable source rejections",
+      "rejectionCases": [
+        "form:d13-multicast-add",
+        "form:d13-multicast-remove"
+      ]
     },
     {
       "form": "anonymous-function-capture-references",
       "owner": "D13",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved curried function profile; mutation, multicast, async/ref callbacks, expression trees, and custom delegate declarations remain rejected.",
+      "evidence": "docs/mappings/D13.md; exact paired compiler cases and executable source rejections",
+      "parityCases": [
+        "d13-functions",
+        "d13-captures",
+        "current-sample"
+      ]
     },
     {
       "form": "anonymous-function-capture-scopes",
       "owner": "D13",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery. No runtime proof is an acceptance requirement.",
-      "evidence": "Owning source-structure delivery remains planned."
+      "state": "supported",
+      "domain": "Approved curried function profile; mutation, multicast, async/ref callbacks, expression trees, and custom delegate declarations remain rejected.",
+      "evidence": "docs/mappings/D13.md; exact paired compiler cases and executable source rejections",
+      "parityCases": [
+        "d13-functions",
+        "d13-captures",
+        "current-sample"
+      ]
     },
     {
       "form": "generic-and-closure-self-recursion-coverage",
@@ -1281,6 +1300,24 @@
         "d7-local-scope"
       ],
       "evidence": "tests/Morphir.Frontend.CSharp.Tests/ClassicFrontendTests.cs; tests/Morphir.Frontend.CSharp.IntegrationTests/StructureIntegrationTests.cs"
+    },
+    {
+      "form": "collection-filter-map-fold",
+      "owner": "D11",
+      "state": "supported",
+      "domain": "Approved single-argument filter/map, seeded fold adapter, and ToList/ToArray on List carriers; unlisted overloads rejected.",
+      "evidence": "docs/mappings/D11.md",
+      "parityCases": [
+        "d11-combinators",
+        "d11-fold",
+        "current-sample"
+      ],
+      "rejectionCases": [
+        "form:d11-indexed-where",
+        "form:d11-indexed-select",
+        "form:d11-unseeded-aggregate",
+        "form:d11-result-selector"
+      ]
     }
   ],
   "contract": "Morphir.CSharp.Source/1; syntax and declared types, without runtime proofs."

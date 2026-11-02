@@ -670,6 +670,106 @@
       "id": "d12-computed-array-dimension",
       "source": "namespace Example.Rejections;public static class Rules{public static int[] F()=>new int[1+1]{1,2};}",
       "compilerBinding": false
+    },
+    {
+      "id": "d13-multicast-add",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static Func<int,int> F(Func<int,int> left,Func<int,int> right)=>left+right;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-multicast-remove",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static Func<int,int> F(Func<int,int> left,Func<int,int> right)=>left-right;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-mutable-capture",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static Func<int> F(){int value=1;Func<int> read=()=>value;value=2;return read;}}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-callback-assignment",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static Func<int,int> F()=>value=>{value=2;return value;};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-async",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static Func<System.Threading.Tasks.Task<int>> F()=>async ()=>{await System.Threading.Tasks.Task.Yield();return 1;};}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-ref-callback",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static D F()=>(ref int value)=>value;public delegate int D(ref int value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-custom-delegate",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public delegate int Read(int value);public static Read F()=>value=>value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-expression-tree",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static System.Linq.Expressions.Expression<Func<int,int>> F()=>value=>value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-optional-parameter",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static Func<int,int> F()=> (int value=1)=>value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-shadow",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static Func<int,int> F(int foo_bar)=>fooBar=>fooBar;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-null-delegate",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static Func<int,int> F()=>null!;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d13-side-effect",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static Action<int> F()=>value=>System.Console.WriteLine(value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-indexed-where",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static IEnumerable<int> F(int[] values)=>values.Where((value,index)=>index>0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-indexed-select",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static IEnumerable<int> F(int[] values)=>values.Select((value,index)=>value+index);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-unseeded-aggregate",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static int F(int[] values)=>values.Aggregate((total,value)=>total+value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-result-selector",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static string F(int[] values)=>values.Aggregate(0,(total,value)=>total+value,total=>\"x\");}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-orderby",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static IEnumerable<int> F(int[] values)=>values.OrderBy(value=>value);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-query",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static IEnumerable<int> F(int[] values)=>from value in values where value>0 select value;}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-set-filter",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static IEnumerable<int> F(HashSet<int> values)=>values.Where(value=>value>0);}",
+      "compilerBinding": false
+    },
+    {
+      "id": "d11-comparer-distinct",
+      "source": "using System;using System.Linq;using System.Collections.Generic;namespace Example.Rejections;public static class Rules{public static IEnumerable<int> F(int[] values)=>values.Distinct();}",
+      "compilerBinding": false
     }
   ]
 }

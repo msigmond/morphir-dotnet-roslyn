@@ -40,10 +40,11 @@ D1–D9 implement the [approved mappings](reviews/d1-d9-elm-mapping-decisions.md
 D10 adds the user-approved [generic profile](mappings/D10.md).
 D11 adds the user-approved [collection profile](mappings/D11.md).
 D12 adds the user-approved [direct case profile](mappings/D12.md).
-See [current validation](deliveries/D12-elm-parity.md), [earlier validation](deliveries/elm-parity-state.md), and [limits](classic-output.md).
+D13 adds the [anonymous-function profile](mappings/D13.md). The D11 follow-up adds approved filter, map, and fold calls.
+See [current validation](deliveries/D11-follow-up-elm-parity.md), [earlier validation](deliveries/elm-parity-state.md), and [limits](classic-output.md).
 Source v1 is removed. It cannot return as an alternative output.
 Mutation, identity/cycles, side-effecting construction, and other unapproved forms remain rejected.
-D13–D21 remain planned and must use the same feature gate.
+D14–D21 remain planned and must use the same feature gate.
 
 ## Existing gaps
 

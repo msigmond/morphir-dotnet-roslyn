@@ -66,7 +66,14 @@ internal sealed partial class SourceTranslation
                 classicBindingTypes.Clear();foreach(var argument in definition.Inputs)classicBindingTypes[argument.Name.Key]=argument.Attributes;
                 var body = symbol is IMethodSymbol {MethodKind:MethodKind.Constructor} constructor ? ClassicDataConstructor(constructor,definition) : definition.Body is CSharpOperation<Unit, IrType<Unit>> {Kind:"Block"} ? ClassicValue(definition.Body) : ClassicExpected(definition.Body,definition.Output);
                 if (Shape(body.Attributes) != Shape(definition.Output)) ClassicFailure("The declared result needs an explicit Classic conversion mapping.");
-                values.Add(new(entry.Key, new(entry.Value.Access, new(entry.Value.Value.Doc, definition with { Body = body, Inputs = definition.Inputs.Select(i=>i with{Attributes=classicBindingTypes.GetValueOrDefault(i.Name.Key,i.Attributes)}).ToArray() }))));
+                var inputs = definition.Inputs.Select(i=>i with{Attributes=classicBindingTypes.GetValueOrDefault(i.Name.Key,i.Attributes)}).ToList();
+                // The Elm frontend moves leading lambdas into definition inputs.
+                while (body is LambdaValue<Unit, IrType<Unit>> { Argument: AsPattern<IrType<Unit>> parameter } lambda)
+                {
+                    inputs.Add(new(parameter.Name, parameter.Attributes, parameter.Attributes));
+                    body = lambda.Body;
+                }
+                values.Add(new(entry.Key, new(entry.Value.Access, new(entry.Value.Value.Doc, definition with { Body = body, Output = body.Attributes, Inputs = inputs }))));
             }
             if (module.Value.Value.Types.Count != 0 || values.Count != 0)
                 result.Add(new(module.Key, new(module.Value.Access, module.Value.Value with { Values = values })));
@@ -112,6 +119,7 @@ internal sealed partial class SourceTranslation
         "CollectionLiteral" => ClassicCollectionLiteral(source),
         "CollectionCopy" => ClassicCollectionCopy(source),
         "CollectionRead" => ClassicCollectionRead(source),
+        "CollectionCombinator" => ClassicCollectionCombinator(source),
         "Initializer" when CollectionModule(source.Attributes) == "List" => ClassicCollectionLiteral(new(source.Attributes, "CollectionLiteral", [], source.Children.Select(c => Source(source.Attributes, "CollectionElement", [c])).ToArray())),
         "Switch" => ClassicSwitch(source, source.Attributes),
         "Block" => ClassicBlock(source),
@@ -128,6 +136,8 @@ internal sealed partial class SourceTranslation
         "Invocation" => ClassicCall(source),
         "MethodReference" => ClassicMethodReference(source),
         "DelegateInvocation" => ClassicDelegateCall(source),
+        "DelegateConstruction" => ClassicExpected(source.Children.Single(), source.Attributes),
+        "AnonymousFunction" => ClassicAnonymousFunction(source),
         "New" => ClassicConstruction(source),
         "Unary" => ClassicUnary(source),
         "Binary" => ClassicBinary(source),
@@ -270,11 +280,6 @@ internal sealed partial class SourceTranslation
             var value = ClassicValue(numericArgument.Children[0]);
             if (Shape(value.Attributes) == Shape(Types.Int)) return Sdk("Decimal", "fromInt", Types.Decimal, value);
             if (Shape(value.Attributes) == Shape(Types.Float)) return Sdk("Decimal", "fromFloat", Types.Decimal, value);
-        }
-        if (creation.Children.Count == 1 && declared.GetValueOrDefault(Property(creation, "symbol")) is null && creation.Children[0] is CSharpOperation<Unit, IrType<Unit>> { Kind: "Argument", Children.Count: 1 } delegateArgument && delegateArgument.Children[0] is CSharpOperation<Unit, IrType<Unit>> { Kind: "MethodReference" })
-        {
-            var function = ClassicValue(delegateArgument.Children[0]);
-            if (Shape(function.Attributes) == Shape(creation.Attributes)) return function;
         }
         if(declared.GetValueOrDefault(Property(creation,"symbol")) is IMethodSymbol {MethodKind:MethodKind.Constructor} explicitConstructor && !explicitConstructor.DeclaringSyntaxReferences.Any(r=>r.GetSyntax() is RecordDeclarationSyntax))
         {

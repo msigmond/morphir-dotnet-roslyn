@@ -1,5 +1,5 @@
 {
-  "delivery": "D1-D12 approved Elm profile",
+  "delivery": "D1-D13 and D11 follow-up approved Elm profile",
   "contract": "Morphir.Classic/3",
   "expected": "fixtures/elm-parity/current-sample/expected/elm.json",
   "mode": "complete-json-equality-against-morphir-elm-make",

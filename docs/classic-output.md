@@ -17,6 +17,8 @@ The [exact Elm contract](elm-parity.md) controls acceptance.
 | Getter/operator bodies | Named functions and calls |
 | Locals, returned branches, and conditionals | LetDefinition and IfThenElse |
 | Local functions and immutable captures | Parameter lambdas; LetDefinition or LetRecursion |
+| Lambdas, anonymous methods, immutable captures | Curried functions; lexical references |
+| Collection filter, map, seeded Aggregate | List.filter/map/foldl; approved fold adapter |
 | Method references, bound receivers, Func/Action | Function types, direct references, partial application, Apply |
 | Named/optional/params calls | Parameter order, declared defaults, List packs |
 | Explicit nullable declarations | Maybe; plain references stay plain |
@@ -50,10 +52,11 @@ The [member cases](../fixtures/elm-parity/member-rejections.json) retain all una
 Two native unsigned operator forms fail C#14 binding. The frontend retains those compiler errors.
 Elm name shadowing and normalized identity collisions remain errors.
 Unapproved constraints, variance, interfaces, inheritance, dispatch, and runtime type tests are rejected.
-Unmapped collection overloads remain rejected. Unmapped guards, runtime type tests, and property/relational patterns remain rejected. Later anonymous-function, loop/ref, exception, and framework forms keep their delivery gates.
+Unmapped collection overloads remain rejected. Unmapped guards, runtime type tests, and property/relational patterns remain rejected. Later loop/ref, exception, and framework forms keep their delivery gates.
 
 D1–D9 implement the [approved profile](reviews/d1-d9-elm-mapping-decisions.md).
 D10 adds the [generic profile](mappings/D10.md).
 D11 adds the [collection profile](mappings/D11.md).
 D12 adds the [direct case profile](mappings/D12.md).
-D13–D21 remain planned. See [validation](deliveries/D12-elm-parity.md).
+D13 adds [anonymous functions](mappings/D13.md); the D11 follow-up adds [collection calls](mappings/D11.md#collection-operation-follow-up).
+D14–D21 remain planned. See [validation](deliveries/D11-follow-up-elm-parity.md).

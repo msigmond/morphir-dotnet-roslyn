@@ -2,7 +2,7 @@
 
 - authority: user instructions → [exact Elm parity](docs/elm-parity.md) → approved source-structure rules → this plan → selected delivery
 - contract changed: 2026-10-24; [approved audit](docs/reviews/source-structure-audit.md)
-- D1–D12 have implemented [approved Elm mappings and tested rejections](docs/deliveries/D12-elm-parity.md); all gates passed. D13–D21 remain planned.
+- D1–D13 and the [D11 follow-up](Morphir_CSharp_Frontend_deliveries/D11-collections.md#collection-operation-follow-up) have implemented [approved Elm mappings and tested rejections](docs/deliveries/D11-follow-up-elm-parity.md); all gates passed. D14–D21 remain planned.
 - former runtime evidence: [archive](docs/history/runtime-contract/README.md)
 - requested output: standard Classic v3 matching `morphir-elm make`; [acceptance contract](docs/elm-parity.md)
 - Source v1 was unrequested work. Public Source output is removed.
@@ -12,6 +12,7 @@
 Represent C# declarations and operations as written. Do not simulate CLR execution.
 Keep declared types. Explicit nullable declarations use Maybe; approved Maybe operations use typed constructors/calls. Infer local types from written expressions, without flow proofs.
 Keep written operations through the approved Elm mapping. Named arguments use parameter order; omitted defaults and params lists follow the approved call mapping. Unmapped assignments remain rejected.
+Seeded Aggregate uses the [approved two-parameter adapter](docs/mappings/D11.md#collection-operation-follow-up) for Elm callback order.
 Do not add safety proofs, hidden initialization, numeric emulation, ownership state, or synthesized bodies.
 Use the agreed Elm mapping and standard Classic nodes.
 Do not introduce a source envelope or custom tags when a form has no confirmed mapping.
@@ -61,7 +62,8 @@ Keep pinned primitive/framework families. Future forms need their explicit struc
 | [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) | Generic Elm profile and explicit dispatch rejections | passed: approved profile | [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md) |
 | [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) | Approved collection profile | passed: approved profile | [D4](Morphir_CSharp_Frontend_deliveries/D04-maybe.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) |
 | [D12](Morphir_CSharp_Frontend_deliveries/D12-patterns.md) | Direct case profile and explicit pattern rejections | passed: approved profile | [D8](Morphir_CSharp_Frontend_deliveries/D08-enums-tuples.md), [D9](Morphir_CSharp_Frontend_deliveries/D09-user-data.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md), [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) |
-| [D13](Morphir_CSharp_Frontend_deliveries/D13-closures.md) | Anonymous functions and delegates | planned | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) |
+| [D13](Morphir_CSharp_Frontend_deliveries/D13-closures.md) | Anonymous functions and delegates | passed: approved profile | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md), [D10](Morphir_CSharp_Frontend_deliveries/D10-generics-dispatch.md) |
+| [D11 follow-up](Morphir_CSharp_Frontend_deliveries/D11-collections.md#collection-operation-follow-up) | Collection filter, map, and fold operations | passed: approved profile | [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md), [D13](Morphir_CSharp_Frontend_deliveries/D13-closures.md) |
 | [D14](Morphir_CSharp_Frontend_deliveries/D14-recursion.md) | Recursive binding coverage | planned | [D7](Morphir_CSharp_Frontend_deliveries/D07-calls.md), [D13](Morphir_CSharp_Frontend_deliveries/D13-closures.md) |
 | [D15](Morphir_CSharp_Frontend_deliveries/D15-loops-local-state.md) | Loops, compound updates, and references | planned | [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md), [D14](Morphir_CSharp_Frontend_deliveries/D14-recursion.md) |
 | [D16](Morphir_CSharp_Frontend_deliveries/D16-framework-data.md) | Framework data structure | planned | [D6](Morphir_CSharp_Frontend_deliveries/D06-decimal.md), [D11](Morphir_CSharp_Frontend_deliveries/D11-collections.md) |

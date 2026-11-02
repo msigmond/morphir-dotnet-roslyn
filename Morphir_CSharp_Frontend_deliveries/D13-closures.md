@@ -1,9 +1,9 @@
 # D13 — Anonymous functions and delegates
 
-- status: planned
+- status: passed under the approved anonymous-function profile
 - contract: [exact Elm parity](../docs/elm-parity.md)
 - prerequisites: [D7](D07-calls.md), [D10](D10-generics-dispatch.md)
-- evidence: [exact-parity profile](../docs/deliveries/elm-parity-state.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
+- evidence: [D13 validation](../docs/deliveries/D13-elm-parity.md); [remaining scope](../docs/elm-parity.md#existing-gaps)
 
 ## Prerequisite profile
 
@@ -12,16 +12,19 @@ Each new mapping needs independent Elm input and complete JSON equality. Histori
 
 ## Work
 
-Scope below is a feature inventory. Confirm its standard Elm mapping before implementation.
-No Source v1 tag or metadata envelope can satisfy this delivery.
+The user approved the [anonymous-function profile](../docs/mappings/D13.md) on 2026-11-01.
 
 - Keep lambda and anonymous-method parameters, bodies, captures, and lexical scopes.
-- Keep delegate construction, combination, invocation, and explicit assignments where admitted.
+- Map explicit Func/Action construction to function values and invocation to application.
+- Match the Elm compiler's leading-lambda definition inputs.
+- Keep mutation, multicast delegates, async/ref callbacks, and custom delegate declarations rejected.
 - Do not create capture classes, receiver snapshots, or hidden lifetime state.
+
+D13 is a prerequisite for the [D11 collection-operation follow-up](D11-collections.md#collection-operation-follow-up). Filter, map, and fold calls belong to that follow-up.
 
 ## Acceptance
 
-- Mutable captures remain source references.
+- Immutable captures use lexical references. Mutation remains rejected.
 - No purity, effect, lifetime, or capture-ownership proof is required.
 - Every feature needs paired C#/Elm inputs and full JSON equality against `morphir-elm make`.
 - Ignore only whitespace/object-key order. No package, name, type, or operation normalization.

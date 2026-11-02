@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Example.CurrentSupported;
 
 public readonly record struct ClassicLoan(string SecurityId, int Quantity, int Price, int AnnualFeeRate);
@@ -7,6 +9,11 @@ public record ClassicBox<T>(T Value);
 
 public static class ClassicLoanCalculations
 {
+    public static System.Func<int, bool> AtLeast(int minimum) => value => value >= minimum;
+    public static int[] PositiveQuantities(int[] values) => values.Where(value => value > 0).ToArray();
+    public static int[] DoubleQuantities(int[] values) => values.Select(value => value * 2).ToArray();
+    public static int TotalQuantities(int[] values) => values.Aggregate(0, (total, value) => total + value);
+
     public static int ClassifyQuantity(int quantity) => quantity switch { 0 => 0, _ => 1 };
     public static int FirstOrZero(int[] items) => items switch { [] => 0, [var first, ..] => first };
     public static int LoanPresence(ClassicLoan? loan) => loan switch { null => 0, _ => 1 };

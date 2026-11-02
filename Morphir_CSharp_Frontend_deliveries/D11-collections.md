@@ -29,6 +29,21 @@ The user approved the [collection profile](../docs/mappings/D11.md) on 2026-11-0
 - Run affected delivery tests, catalog checks, and repository checks.
 - Keep toolchain pins, selected-source errors, source locations, and atomic output.
 
+## Collection-operation follow-up
+
+- status: passed under the approved collection-operation profile
+- prerequisites: passed [D11](../docs/deliveries/D11-elm-parity.md) and [D13](D13-closures.md) exact-parity gates
+- scope: collection filter, map, and fold calls, including LINQ `Where`, `Select`, and `Aggregate`, plus `List.FindAll` and `List.ConvertAll`
+
+The user approved this assignment and the [call mappings](../docs/mappings/D11.md#collection-operation-follow-up) on 2026-11-01.
+D13 supplies anonymous functions and delegates. This follow-up supplies the collection operations.
+
+Map single-parameter filter/map callbacks, seeded Aggregate with the approved argument-order adapter, and ToList/ToArray.
+Keep indexed callbacks, unseeded Aggregate, result selectors, query syntax, and unlisted operations rejected.
+Each admitted operation and overload needs equivalent C#/Elm inputs and complete JSON equality against pinned `morphir-elm make` output.
+Test callback parameters, captured values, result types, and chained calls for each admitted form. Keep unapproved forms explicitly rejected.
+The sample, catalogs, mapping, and [delivery evidence](../docs/deliveries/D11-follow-up-elm-parity.md) are updated.
+
 The C# examples below are feature inputs. The Elm examples show the former runtime mapping.
 They are historical context. New acceptance references must come from `morphir-elm make`.
 

@@ -2,7 +2,7 @@
 
 The [exact Elm contract](../elm-parity.md) controls acceptance.
 Each supported catalog entry names complete paired compiler tests.
-Each rejected D1–D12 entry names executable source rejection tests.
+Each rejected D1–D13 entry names executable source rejection tests.
 
 | Delivery | Approved profile |
 | --- | --- |
@@ -18,10 +18,12 @@ Each rejected D1–D12 entry names executable source rejection tests.
 | D10 | Unconstrained generic aliases/methods/locals and instantiated calls; tested constraint/dispatch rejections |
 | D11 | List/Dict/Set carriers, construction, spreads, mapped reads, and nullable-result indexing |
 | D12 | Returned switches, direct literal/enum/nullable/tuple/list patterns, and case bindings |
+| D13 | Lambdas, anonymous methods, lexical captures, curried functions, construction, and invocation |
+| D11 follow-up | Filter, map, seeded fold adapter, List copies, callbacks, and chained calls |
 
 Unmapped forms retain explicit rejection. See [mappings and limits](../classic-output.md)
 and [unsupported features with examples](../unsupported-language-features.md).
-The [registry](../../fixtures/elm-parity/cases.json) has 84 C# cases and 66 independent Elm projects.
+The [registry](../../fixtures/elm-parity/cases.json) has 88 C# cases and 70 independent Elm projects.
 The member grids cover 320 admitted input forms. Separate nullable division tests cover both spellings.
-There are 411 executable member/form rejections.
-D13–D21 remain planned. Source v1 and normalized comparisons do not establish acceptance.
+There are 431 executable member/form rejections.
+D14–D21 remain planned. Source v1 and normalized comparisons do not establish acceptance.

@@ -1,6 +1,6 @@
 # Unsupported language features
 
-This guide applies to the D1–D12 profile on 2026-11-01.
+This guide applies to the D1–D13 and D11 follow-up profile on 2026-11-01.
 Each C# block below is a separate rejected input.
 Add `namespace Example.Unsupported;` before each block.
 Select that namespace when you run the transpiler.
@@ -158,6 +158,16 @@ Multidimensional arrays, Queue/Stack, capacity/comparer constructors, and mutati
 Computed array dimensions also remain rejected. A List literal cannot retain that written operation.
 An index read needs a declared nullable result. Already-nullable elements need another flattening mapping.
 Expanded `params` arguments can form an Elm List. A params length read is supported; indexing is not.
+Single-parameter filter/map callbacks, seeded Aggregate, and ToList/ToArray are supported on List carriers.
+Indexed callbacks, unseeded Aggregate, result selectors, query syntax, and Set/Dict enumeration remain rejected.
+
+```csharp
+public static class Rules
+{
+    public static System.Collections.Generic.IEnumerable<int> Read(int[] values) =>
+        System.Linq.Enumerable.Select(values, (value, index) => value + index);
+}
+```
 
 ```csharp
 public static class Rules
@@ -223,13 +233,14 @@ public static class Rules
 
 ## Anonymous functions and delegate declarations
 
-Lambdas, anonymous methods, custom delegate declarations, and delegate combination are rejected.
-Named local functions, method references, `Func`, and `Action` have supported forms.
+Custom delegate declarations, multicast delegates, async/ref callbacks, expression trees,
+and mutation remain rejected. Lambdas, anonymous methods, lexical captures, `Func`, `Action`,
+and the approved collection callbacks have supported forms.
 
 ```csharp
 public static class Rules
 {
-    public static System.Func<int, int> Create() => value => value + 1;
+    public static System.Func<int, int> Create(System.Func<int, int> first, System.Func<int, int> second) => first + second;
 }
 ```
 
@@ -464,6 +475,6 @@ public static class Rules
 The [form cases](../fixtures/elm-parity/form-rejections.json)
 and [member cases](../fixtures/elm-parity/member-rejections.json) contain executable rejection inputs.
 The [D12 report](deliveries/D12-elm-parity.md) records the current acceptance checks.
-The [delivery plan](../Morphir_CSharp_Frontend_delivery_plan.md) assigns later work to D13–D21.
+The [delivery plan](../Morphir_CSharp_Frontend_delivery_plan.md) assigns later work to D14–D21.
 A planned feature is not a supported feature. A new mapping needs paired C#/Elm tests with complete JSON equality.
 All 45 C# blocks passed C#14 compiler binding and failed conversion when this guide was checked.

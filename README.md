@@ -3,27 +3,28 @@
 Generate standard Morphir Classic v3 from equivalent C# inputs.
 Every supported feature has a complete JSON equality test against `morphir-elm make`.
 Only whitespace and JSON object-key order are ignored. No semantic normalization is permitted.
-See the [acceptance contract](docs/elm-parity.md) and [current validation](docs/deliveries/D12-elm-parity.md).
+See the [acceptance contract](docs/elm-parity.md) and [current validation](docs/deliveries/D11-follow-up-elm-parity.md).
 
 Source v1 was never requested. Its public CLI/API/model/codec paths are removed.
 The frontend represents written operations without CLR simulation or runtime safety proofs.
 Unmapped forms fail with source locations and leave existing output unchanged.
 
-## D1–D12 profile
+## D1–D13 profile
 
 Approved mappings cover source/project inputs, data aliases and pure member functions,
 scalar arithmetic and casts, nullable operations, branches/locals, normalized calls/defaults/params,
 method references/delegates, lexical functions/recursion, enums, tuples, record updates/equality,
-the [generic profile](docs/mappings/D10.md), and the [collection profile](docs/mappings/D11.md),
-and [direct case patterns](docs/mappings/D12.md).
-The [case registry](fixtures/elm-parity/cases.json) has 84 C# cases and 66 independent Elm projects.
-Member grids cover 320 admitted forms; 411 source cases test required rejections.
+the [generic profile](docs/mappings/D10.md), the [collection profile](docs/mappings/D11.md),
+[direct case patterns](docs/mappings/D12.md), [anonymous functions](docs/mappings/D13.md),
+and collection filter, map, and seeded fold calls.
+The [case registry](fixtures/elm-parity/cases.json) has 88 C# cases and 70 independent Elm projects.
+Member grids cover 320 admitted forms; 431 source cases test required rejections.
 
 Unmapped forms retain explicit rejection. This includes mutation, identity/cycles, incomplete construction,
 unlisted numeric APIs, nullable extraction without a fallback, and later delivery forms.
 See [approved mappings and limits](docs/classic-output.md)
 and [unsupported language features with examples](docs/unsupported-language-features.md).
-D13–D21 remain planned. The historical Source-mode scope is not an acceptance claim.
+D14–D21 remain planned. The historical Source-mode scope is not an acceptance claim.
 
 ## Build and test
 
@@ -36,7 +37,7 @@ dotnet restore Morphir.CSharp.slnx --packages .packages --locked-mode
 dotnet build Morphir.CSharp.slnx --no-restore -m:1
 dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1
 python3 eng/check-catalogs.py
-python3 eng/check-catalogs.py --deliveries D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11 D12
+python3 eng/check-catalogs.py --deliveries D1 D2 D3 D4 D5 D6 D7 D8 D9 D10 D11 D12 D13
 python3 eng/check-repository.py
 ```
 

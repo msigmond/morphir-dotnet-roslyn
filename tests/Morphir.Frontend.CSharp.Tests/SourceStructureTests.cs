@@ -13,7 +13,7 @@ public class SourceStructureTests
     [InlineData("public class Cell:System.IDisposable{public void Dispose(){}}", "MCS3100")]
     [InlineData("public static class Rules{public static int F(){T L<T>(T value) where T:class=>value;return 1;}}", "MCS3100")]
     [InlineData("public static class Rules{public static int F(int a){while(a>0)a--;return a;}}", "MCS3105")]
-    [InlineData("public static class Rules{public static Func<int,int> F()=>x=>x;}", "MCS3103")]
+    [InlineData("public static class Rules{public static Func<int,int> F()=> (int x=1)=>x;}", "MCS3103")]
     [InlineData("public static class Rules{public static int F(){try{return 1;}catch{return 2;}}}", "MCS3181")]
     public void PendingSyntaxStillFailsWithNoPartialOutput(string code, string diagnostic)
     {

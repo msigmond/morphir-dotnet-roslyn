@@ -342,9 +342,14 @@
     {
       "operation": "AnonymousFunction",
       "owner": "D13",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Approved curried function profile; mutation, multicast, async/ref callbacks, expression trees, and custom delegate declarations remain rejected.",
+      "evidence": "docs/mappings/D13.md; exact paired compiler cases and executable source rejections",
+      "parityCases": [
+        "d13-functions",
+        "d13-captures",
+        "current-sample"
+      ]
     },
     {
       "operation": "ObjectCreation",
@@ -921,9 +926,13 @@
     {
       "operation": "FlowAnonymousFunction",
       "owner": "D13",
-      "state": "pending",
-      "domain": "Pending source mapping in the owning delivery; runtime emulation is not required.",
-      "evidence": "Source delivery gate remains explicit."
+      "state": "supported",
+      "domain": "Anonymous source functions map directly. No CFG or generated closure class is exported.",
+      "evidence": "docs/mappings/D13.md; exact paired compiler cases and executable source rejections",
+      "parityCases": [
+        "d13-functions",
+        "d13-captures"
+      ]
     },
     {
       "operation": "CoalesceAssignment",

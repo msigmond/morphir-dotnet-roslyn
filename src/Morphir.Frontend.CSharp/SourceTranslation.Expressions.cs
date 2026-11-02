@@ -15,6 +15,7 @@ internal sealed partial class SourceTranslation
     private ITypeSymbol? ExpressionSymbolType(ExpressionSyntax syntax)
     {
         var model = Semantic(syntax); var symbol = model.GetSymbolInfo(syntax).Symbol;
+        if (syntax is AnonymousFunctionExpressionSyntax) return model.GetTypeInfo(syntax).ConvertedType ?? model.GetTypeInfo(syntax).Type;
         return symbol switch { IFieldSymbol field => field.Type, IPropertySymbol property => property.Type, IParameterSymbol parameter => parameter.Type, ILocalSymbol local => local.Type,
             IMethodSymbol { MethodKind: MethodKind.Constructor } constructor => constructor.ContainingType,
             IMethodSymbol method => syntax is InvocationExpressionSyntax ? method.ReturnType : model.GetTypeInfo(syntax).Type ?? method.ReturnType, _ => model.GetTypeInfo(syntax).Type ?? model.GetTypeInfo(syntax).ConvertedType };
@@ -56,10 +57,13 @@ internal sealed partial class SourceTranslation
     }
     private V Expression(ExpressionSyntax syntax)
     {
+        if (syntax is AnonymousFunctionExpressionSyntax anonymous) return AnonymousFunction(anonymous);
         var model = Semantic(syntax); var symbol = model.GetSymbolInfo(syntax).Symbol;
         if (symbol is not null) RequireSelected(symbol, syntax.GetLocation());
         if (syntax is IdentifierNameSyntax or GenericNameSyntax && symbol is IMethodSymbol method) return MethodReference(method, null, syntax);
         var type = ExpressionType(syntax);
+        if (syntax is BaseObjectCreationExpressionSyntax { ArgumentList.Arguments.Count: 1 } delegateCreation && model.GetOperation(syntax) is IDelegateCreationOperation)
+            return Source(type, "DelegateConstruction", [Expression(delegateCreation.ArgumentList.Arguments[0].Expression)]);
         switch (syntax)
         {
             case LiteralExpressionSyntax literal:
@@ -232,8 +236,9 @@ internal sealed partial class SourceTranslation
         if (method is null) return Fail<V>("MCS2202", "The call has no resolved method symbol.", syntax.GetLocation());
         RequireSelected(method, syntax.GetLocation());
         if (method.MethodKind == MethodKind.DelegateInvoke)
-            return Source(type, "DelegateInvocation", new[] { syntax.Expression is MemberBindingExpressionSyntax ? Source(Type(method.ContainingType),"ConditionalReceiver",[]) : Expression(syntax.Expression) }.Concat(CallArguments(syntax, method)).ToArray());
+            return Source(type, "DelegateInvocation", new[] { syntax.Expression is MemberBindingExpressionSyntax ? Source(Type(method.ContainingType),"ConditionalReceiver",[]) : Expression(syntax.Expression is MemberAccessExpressionSyntax { Name.Identifier.ValueText: "Invoke" } invoke ? invoke.Expression : syntax.Expression) }.Concat(CallArguments(syntax, method)).ToArray());
         if (CollectionFactory(syntax, method, type) is {} factory) return factory;
+        if (CollectionCombinator(syntax, method, type) is {} combinator) return combinator;
         if (CollectionInvocation(syntax, method, type) is {} collectionCall) return collectionCall;
         if (method.TypeArguments.Length != 0 && !SourceSymbol(method) && !(method.ContainingType.ContainingNamespace.ToDisplayString() == "System" && method.ContainingType.Name is "Tuple" or "ValueTuple")) return Fail<V>("MCS3100", "Generic metadata calls need an approved Elm mapping.", syntax.GetLocation());
         V? receiver = syntax.Expression is MemberAccessExpressionSyntax member && !method.IsStatic ? Expression(member.Expression) : syntax.Expression is MemberBindingExpressionSyntax && !method.IsStatic ? Source(Type(method.ContainingType),"ConditionalReceiver",[]) : null;

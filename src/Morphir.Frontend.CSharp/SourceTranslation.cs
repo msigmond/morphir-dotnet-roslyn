@@ -144,7 +144,7 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
             if (node is TypeDeclarationSyntax { BaseList: not null }) Fail<object>("MCS3100", "Declared interfaces and base lists have no approved Elm mapping.", node.GetLocation());
             if (node is PointerTypeSyntax or FunctionPointerTypeSyntax or StackAllocArrayCreationExpressionSyntax or ImplicitStackAllocArrayCreationExpressionSyntax || node is TypeDeclarationSyntax td && td.Modifiers.Any(SyntaxKind.RefKeyword)) Fail<object>("MCS2003", "Pointer, stack allocation, and ref-like forms have no source mapping.", node.GetLocation());
             if (node is AwaitExpressionSyntax || node is MethodDeclarationSyntax md && md.Modifiers.Any(SyntaxKind.AsyncKeyword)) Fail<object>("MCS2002", "Async structure has no delivered mapping.", node.GetLocation());
-            if (node is AnonymousFunctionExpressionSyntax) Fail<object>("MCS3103", "Anonymous functions require D13.", node.GetLocation());
+            if (node is AnonymousFunctionExpressionSyntax anonymous && anonymous.AsyncKeyword.IsKind(SyntaxKind.AsyncKeyword)) Fail<object>("MCS2002", "Async callbacks have no approved Elm mapping.", node.GetLocation());
             if (node is ForStatementSyntax or ForEachStatementSyntax or ForEachVariableStatementSyntax or WhileStatementSyntax or DoStatementSyntax or GotoStatementSyntax or LabeledStatementSyntax or RefExpressionSyntax or RefTypeSyntax) Fail<object>("MCS3105", "Loops, labels, and ref forms require D15.", node.GetLocation());
             if (node is WhenClauseSyntax || node is PatternSyntax and not (ConstantPatternSyntax or UnaryPatternSyntax or DiscardPatternSyntax or VarPatternSyntax or RecursivePatternSyntax or ListPatternSyntax or SlicePatternSyntax or ParenthesizedPatternSyntax))
                 Fail<object>("MCS3102", "This pattern or guard has no approved Elm mapping.", node.GetLocation());
@@ -234,11 +234,11 @@ internal sealed partial class SourceTranslation(CSharpCompilation compilation, F
             if(named.TypeArguments.Length<2)return Fail<IrType<Unit>>("MCS4001","Empty and one-element CLR tuples need an approved Elm representation.",location);
             return new TupleType<Unit>(default, named.TypeArguments.Select((t, i) => Type(t, GenericArguments(syntax).ElementAtOrDefault(i), location, annotations)).ToArray());
         }
-        if (!SourceSymbol(named) && named.TypeKind == TypeKind.Delegate && named.ContainingNamespace.ToDisplayString() == "System" && named.Name is "Func" or "Action")
+        if (!SourceSymbol(named) && named.TypeKind == TypeKind.Delegate && named.ContainingNamespace.ToDisplayString() == "System" && named.Name is "Func" or "Action" or "Predicate" or "Converter")
         {
             var arguments = named.TypeArguments.Select((t, i) => Type(t, GenericArguments(syntax).ElementAtOrDefault(i), location, annotations)).ToArray();
-            IrType<Unit> function = named.Name == "Func" ? arguments[^1] : Types.Unit;
-            foreach (var argument in arguments.Take(named.Name == "Func" ? arguments.Length - 1 : arguments.Length).Reverse()) function = Types.Function(argument, function);
+            IrType<Unit> function = named.Name is "Func" or "Converter" ? arguments[^1] : named.Name == "Predicate" ? Types.Bool : Types.Unit;
+            foreach (var argument in arguments.Take(named.Name is "Func" or "Converter" ? arguments.Length - 1 : arguments.Length).Reverse()) function = Types.Function(argument, function);
             return function;
         }
         if (SourceSymbol(named!))

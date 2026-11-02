@@ -58,7 +58,7 @@ for file, collection, identity in [('forms.json','forms','form'),('operations.js
             raise SystemExit(f'Supported feature lacks exact Elm parity cases: {file}: {key}')
         relevant = not selected or row['owner'] in selected
         member_relevant = not selected or row.get('memberOwner', row['owner']) in selected
-        if row['state'] == 'required-rejection' and relevant and (args.require_complete or selected or row['owner'] in {f'D{i}' for i in range(1,13)}) and (not row.get('rejectionCases') or any(case not in rejection_ids for case in row['rejectionCases'])):
+        if row['state'] == 'required-rejection' and relevant and (args.require_complete or selected or row['owner'] in {f'D{i}' for i in range(1,14)}) and (not row.get('rejectionCases') or any(case not in rejection_ids for case in row['rejectionCases'])):
             raise SystemExit(f'Required rejection lacks executable source cases: {file}: {key}')
         if any(case not in rejection_ids for case in row.get('rejectionCases', [])):
             raise SystemExit(f'Invalid rejection case ID: {file}: {key}')
