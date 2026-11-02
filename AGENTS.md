@@ -10,7 +10,7 @@
 - acceptance: compare full parsed JSON; ignore only whitespace/object-key order; no package/name/type normalization, sorting, filtering, or omitted fields; explained differences and raw syntax capture do not pass the feature gate
 - scope: [Classic implementation subset](docs/classic-output.md) and [exact case registry](fixtures/elm-parity/cases.json); later forms and unapproved mappings retain explicit failures; no unsupported completion claims
 - inputs: core accepts Compilation + settings; adapters own project/source/reference/generator acquisition and serialization; valid compiler binding, selectors, collisions, and source-located all-or-nothing failure remain required
-- layout: Morphir.CSharp.slnx; src Classic/Json/core/ProjectSystem/CLI projects; tests; fixtures; samples/CurrentSupportedExample; eng; docs
+- layout: Morphir.CSharp.slnx; src Classic/Json/core/ProjectSystem/CLI projects; tests; fixtures; samples/FestivalRobotRental/BusinessLogic.cs (single business demo); fixtures own retained regression and project-generator inputs; no other samples; eng; docs
 - restore: `dotnet restore Morphir.CSharp.slnx --packages .packages --locked-mode`
 - build: `dotnet build Morphir.CSharp.slnx --no-restore -m:1`
 - tests: `dotnet test Morphir.CSharp.slnx --no-build --no-restore -m:1`; VSTest needs a local host socket; project loading needs local MSBuild

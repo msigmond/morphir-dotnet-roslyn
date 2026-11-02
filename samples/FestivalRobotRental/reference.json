@@ -1,0 +1,9 @@
+{
+  "delivery": "D1-D13 and D11 follow-up approved business feature families",
+  "contract": "Morphir.Classic/3",
+  "expected": "fixtures/elm-parity/festival-robot-rental/expected/elm.json",
+  "mode": "complete-json-equality-against-morphir-elm-make",
+  "provenance": "fixtures/elm-parity/provenance.json",
+  "source": "samples/FestivalRobotRental/BusinessLogic.cs",
+  "project": "samples/FestivalRobotRental/FestivalRobotRental.csproj"
+}

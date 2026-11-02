@@ -25,7 +25,7 @@ internal static class Support
     {
         get
         {
-            using var document = System.Text.Json.JsonDocument.Parse(Read("samples/CurrentSupportedExample/reference.json"));
+            using var document = System.Text.Json.JsonDocument.Parse(Read("samples/FestivalRobotRental/reference.json"));
             return document.RootElement.GetProperty("expected").GetString()!;
         }
     }

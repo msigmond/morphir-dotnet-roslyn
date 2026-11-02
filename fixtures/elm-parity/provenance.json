@@ -919,6 +919,19 @@
         "-o",
         "../../../fixtures/elm-parity/d11-fold/expected/elm.json"
       ]
+    },
+    {
+      "id": "festival-robot-rental",
+      "workingDirectory": "artifacts/exact-reference-generation/festival-robot-rental",
+      "command": [
+        "node",
+        "../../../eng/node_modules/morphir-elm/cli/morphir-elm.js",
+        "make",
+        "-p",
+        ".",
+        "-o",
+        "../../../fixtures/elm-parity/festival-robot-rental/expected/elm.json"
+      ]
     }
   ],
   "files": [
@@ -988,7 +1001,7 @@
     },
     {
       "path": "fixtures/elm-parity/cases.json",
-      "sha256": "d65f2d1997c9d3149e8beb22b0b85f5aedc059c6b2f7e6cde0ff3bfb1adf9a20"
+      "sha256": "9cc7a884c10b408ff6d53dda99cc4450b3daeb7bc9e3013853a941bdec46d4d3"
     },
     {
       "path": "fixtures/elm-parity/char-comparison/csharp/Input.cs",
@@ -1037,6 +1050,10 @@
     {
       "path": "fixtures/elm-parity/constants/expected/elm.json",
       "sha256": "db8f7cea6dd08301a536b3b935dac04c3d0b01d79eb30c51f72258ab3c19c498"
+    },
+    {
+      "path": "fixtures/elm-parity/current-sample/csharp/Input.cs",
+      "sha256": "4754c0a546d5d45e4ed6c766c6531ba8ff6475be289920c865eeee22390bccd3"
     },
     {
       "path": "fixtures/elm-parity/current-sample/csharp/Rules.Generated.cs",
@@ -1424,7 +1441,7 @@
     },
     {
       "path": "fixtures/elm-parity/d2-project-options/D2Options.csproj",
-      "sha256": "d68295a8d1444701c1c1b332219a90873b4356beac9604c67983356027649ff6"
+      "sha256": "e5762383dd591de6c95a1c1e652ae23b1247bc0f7dd51e5c8e0f7ec1dcf7ddd2"
     },
     {
       "path": "fixtures/elm-parity/d2-project-options/Shared/D2OptionsShared.csproj",
@@ -1959,6 +1976,42 @@
       "sha256": "13f97e27bbdc58320760ba0aeeb601dca6ae221b57a1479e70d102d575845dec"
     },
     {
+      "path": "fixtures/elm-parity/festival-robot-rental/elm/morphir.json",
+      "sha256": "eca876774424f5315e35797bf45c67bf38dde45fe5333f4c89072e0d562e9517"
+    },
+    {
+      "path": "fixtures/elm-parity/festival-robot-rental/elm/src/Example/FestivalRobotRental/ChargeTotal.elm",
+      "sha256": "3cbbc7041d93639ec3088856995afced7af0e6fdab1dfe9a20068a816fa40481"
+    },
+    {
+      "path": "fixtures/elm-parity/festival-robot-rental/elm/src/Example/FestivalRobotRental/DeliveryRule.elm",
+      "sha256": "31fab5301a3bccdb1b22387838bac4084c83192fa21b5c83484fa8fe3c77d787"
+    },
+    {
+      "path": "fixtures/elm-parity/festival-robot-rental/elm/src/Example/FestivalRobotRental/RentalBusiness.elm",
+      "sha256": "465fb542d983f159d06a89056a4338f202c43235dc908eb40af9cc85e0dc9916"
+    },
+    {
+      "path": "fixtures/elm-parity/festival-robot-rental/elm/src/Example/FestivalRobotRental/RentalPolicy.elm",
+      "sha256": "20bd7bf88e99124d2330e3a0c061b67fe4ad8d7afd9fd051cf638daa83c1ea62"
+    },
+    {
+      "path": "fixtures/elm-parity/festival-robot-rental/elm/src/Example/FestivalRobotRental/RentalQuote.elm",
+      "sha256": "8d4b9d41b830c40d9fdee88762ba6c865f5f8a280bcac863083714a0fa1f015a"
+    },
+    {
+      "path": "fixtures/elm-parity/festival-robot-rental/elm/src/Example/FestivalRobotRental/RentalState.elm",
+      "sha256": "a89ad21edde03562583be69f482b34060b1e495d45c05ffd48f9707e964feb24"
+    },
+    {
+      "path": "fixtures/elm-parity/festival-robot-rental/elm/src/Example/FestivalRobotRental.elm",
+      "sha256": "162163b36962a28586872a44bd7139436a8354758bd1497d0ffa28c8d4781604"
+    },
+    {
+      "path": "fixtures/elm-parity/festival-robot-rental/expected/elm.json",
+      "sha256": "caab47b836d77841799835fb3567d4f632fcb14182099d87a8c278e54b4650d2"
+    },
+    {
       "path": "fixtures/elm-parity/float-literal-spelling/csharp/Input.cs",
       "sha256": "9b4bfe63ba282577da43021121852e3c85e9de39399475f06b6d3426c0c957f3"
     },
@@ -2196,7 +2249,7 @@
     },
     {
       "path": "fixtures/elm-parity/project-generated/Project.csproj",
-      "sha256": "86f679ecbaa47be8a6b41e4ea4091120231668fbc6b73cddf5d0bb988c5f98e2"
+      "sha256": "cfdbadf998789cf398ff4521ee8275426678866971e218596f3ce47c13f8fb33"
     },
     {
       "path": "fixtures/elm-parity/project-generated/Shared/Shared.csproj",
@@ -2363,40 +2416,32 @@
       "sha256": "ed570f70946904bbf7dbb006b372f106b4e5818a5fb350e0cfb32a059e35521e"
     },
     {
-      "path": "samples/CurrentSupportedExample/ClassicLoan.cs",
-      "sha256": "4754c0a546d5d45e4ed6c766c6531ba8ff6475be289920c865eeee22390bccd3"
-    },
-    {
-      "path": "samples/CurrentSupportedExample/CurrentSupportedExample.csproj",
-      "sha256": "b8a7e5d0c0d2161c49725ad4223f184920156f246c79bda4a338d0ee66cc9377"
-    },
-    {
-      "path": "samples/CurrentSupportedExample/packages.lock.json",
-      "sha256": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46"
-    },
-    {
-      "path": "samples/CurrentSupportedExample/reference.json",
-      "sha256": "404be8764a42e9283755cfba97edaabbacef547bfef0a2b748f73202aa08b6d0"
-    },
-    {
-      "path": "samples/CurrentSupportedExample/threshold.txt",
-      "sha256": "7ee29791fc17e986b97128845622b077fb45e349fdb80523fac9dba879b4ad60"
-    },
-    {
-      "path": "samples/CurrentSupportedGenerator/ThresholdGenerator.cs",
+      "path": "fixtures/project-system/ThresholdGenerator/ThresholdGenerator.cs",
       "sha256": "28b068219b334a3917fe21eb3d918114f55ea28ae7dcd1c95d099feaba0a1b76"
     },
     {
-      "path": "samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj",
+      "path": "fixtures/project-system/ThresholdGenerator/ThresholdGenerator.csproj",
       "sha256": "ead565abed8ed5e97c87c0135e96d594259d227c272d04885024a5e946146411"
     },
     {
-      "path": "samples/CurrentSupportedGenerator/packages.lock.json",
+      "path": "fixtures/project-system/ThresholdGenerator/packages.lock.json",
       "sha256": "a5ccf817663b562bb154a1fd467cdd6950785fee1645701da868d51f69605c85"
     },
     {
       "path": "eng/reference-toolchain.json",
       "sha256": "c43149d83d5f04ccaec04954975e1a1b54e6e928f8d41eaa86223f422b8e8771"
+    },
+    {
+      "path": "samples/FestivalRobotRental/FestivalRobotRental.csproj",
+      "sha256": "eb81bd152d4f8cc5c3fb1edbb6398d2b552e225cfa7a4c318ff35df16e5beea1"
+    },
+    {
+      "path": "samples/FestivalRobotRental/packages.lock.json",
+      "sha256": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46"
+    },
+    {
+      "path": "samples/FestivalRobotRental/reference.json",
+      "sha256": "298f6c1c4345b9f034ddda5dd24a828f10bdbe036a7b85c6826b75bec8fff701"
     }
   ]
 }

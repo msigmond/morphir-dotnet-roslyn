@@ -17,7 +17,7 @@ method references/delegates, lexical functions/recursion, enums, tuples, record 
 the [generic profile](docs/mappings/D10.md), the [collection profile](docs/mappings/D11.md),
 [direct case patterns](docs/mappings/D12.md), [anonymous functions](docs/mappings/D13.md),
 and collection filter, map, and seeded fold calls.
-The [case registry](fixtures/elm-parity/cases.json) has 88 C# cases and 70 independent Elm projects.
+The [case registry](fixtures/elm-parity/cases.json) has 89 C# cases and 71 independent Elm projects.
 Member grids cover 320 admitted forms; 431 source cases test required rejections.
 
 Unmapped forms retain explicit rejection. This includes mutation, identity/cycles, incomplete construction,
@@ -51,13 +51,13 @@ node eng/generate-exact-references.mjs --write
 
 ## CLI
 
-Use [ClassicLoan.cs](samples/CurrentSupportedExample/ClassicLoan.cs) as the current supported example.
-The [sample guide](samples/CurrentSupportedExample/README.md) identifies the active files and the Elm reference.
+Use [BusinessLogic.cs](samples/FestivalRobotRental/BusinessLogic.cs) as the single supported business demo.
+It plans a fictional festival robot-rental batch. The [guide](samples/FestivalRobotRental/README.md) lists the flow, feature coverage, and expected result.
 
 After build, from the repository root:
 
 ```bash
-dotnet run --project src/Morphir.Frontend.CSharp.Cli --no-build -- --package Example --namespace Example.CurrentSupported --project samples/CurrentSupportedExample/CurrentSupportedExample.csproj --framework net10.0 --output artifacts/current-sample.json
+dotnet run --project src/Morphir.Frontend.CSharp.Cli --no-build -- --package Example --namespace Example.FestivalRobotRental --project samples/FestivalRobotRental/FestivalRobotRental.csproj --framework net10.0 --output artifacts/current-sample.json
 ```
 
 Use one or more `--source File.cs` options instead of project/framework options for explicit files.
@@ -65,9 +65,8 @@ Repeat `--namespace` for selectors. Selectors include descendants, private code,
 Required outside source must be selected explicitly. `--configuration` applies to project mode.
 The core accepts Compilation plus settings; adapters acquire inputs and serialize output.
 
-The sample includes generic wrapping/reading, the Loan example, nullable operations/division, defaults/params/overloads,
-enums, reference tuples, primary data, record updates, deconstruction, local captures, and generated source.
-Earlier source files remain historical inputs and are excluded from that project.
+The single file covers the approved business feature families, including data, pricing, optional values, collections, patterns, and functions.
+This is the only sample. Required regression inputs and project generators are in `fixtures`.
 Historical Elm/codec references remain frozen and do not replace current frontend parity.
 See [Classic mappings](docs/classic-output.md), [language](docs/catalogs/language.md),
 [framework](docs/catalogs/framework.md), [model/codec](docs/catalogs/model-codec.md), and the [delivery plan](Morphir_CSharp_Frontend_delivery_plan.md).

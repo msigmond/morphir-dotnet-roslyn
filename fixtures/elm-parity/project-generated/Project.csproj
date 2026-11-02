@@ -3,7 +3,7 @@
   <ItemGroup>
     <Compile Include="csharp/Input.cs" />
     <ProjectReference Include="Shared/Shared.csproj" />
-    <ProjectReference Include="../../../samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../../project-system/ThresholdGenerator/ThresholdGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <AdditionalFiles Include="threshold.txt" />
     <CompilerVisibleProperty Include="Threshold" />
   </ItemGroup>

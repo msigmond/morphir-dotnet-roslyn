@@ -84,13 +84,32 @@ public class ClassicFrontendTests
         Assert.DoesNotContain(lib.Definition.Modules,m=>m.Key.Key.EndsWith("item",StringComparison.Ordinal));
     }
     [Fact]
-    public void CumulativeClassicSampleCompilesToStandardNodes()
+    public void D13SampleRegressionCompilesToStandardNodes()
     {
-        var compilation=SourceCompilation.Create([("ClassicLoan.cs",Support.Read("samples/CurrentSupportedExample/ClassicLoan.cs"))]);
+        var compilation=SourceCompilation.Create([("ClassicLoan.cs",Support.Read("fixtures/elm-parity/current-sample/csharp/Input.cs"))]);
         var lib=Support.Success(Frontend.Convert(compilation,new("Example",["Example.CurrentSupported"])));
         Assert.Equal(4,lib.Definition.Modules.Count);
         Assert.IsType<LetValue<Unit,IrType<Unit>>>(Body(lib,"Calculate"));
         Assert.IsType<ApplyValue<Unit,IrType<Unit>>>(Body(lib,"MarketValue"));
+    }
+    [Fact]
+    public void SingleFileBusinessDemoBuildsTheExpectedRentalPlan()
+    {
+        var source = Support.Read("samples/FestivalRobotRental/BusinessLogic.cs");
+        var assembly = Support.Emit(source);
+        var business = assembly.GetType("Example.FestivalRobotRental.RentalBusiness")!;
+        var plan = business.GetMethod("Demo")!.Invoke(null, null)!;
+        object? Field(object value, string name) => value.GetType().GetProperty(name)!.GetValue(value);
+        var quotes = (Array)Field(plan, "Quotes")!;
+        var reviews = ((Array)Field(plan, "Reviews")!).Cast<object>().ToArray();
+        Assert.Equal(new[] { true, true, false, false, false }, reviews.Select(review => (bool)Field(review, "Accepted")!));
+        Assert.Equal(2, quotes.Length);
+        Assert.Equal(3, Field(plan, "RobotCount"));
+        Assert.Equal(2, Field(plan, "CartonCount"));
+        Assert.Equal("ORD-001", Field(plan, "FirstOrder"));
+        Assert.Equal(460m, Field(Field(plan, "Total")!, "Amount"));
+        Assert.Equal(0.75, Field(plan, "CapacityUse"));
+        Assert.Equal(6.05m, Field(plan, "RewardCredit"));
     }
     [Fact]
     public void ReferenceFixtureBytesRemainIndependentAndFrozen()

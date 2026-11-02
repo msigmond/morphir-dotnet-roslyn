@@ -19,6 +19,10 @@ The adapter uses a numeric suffix where required. It does not alter the written 
 
 ## Project-mode sample
 
+The command below records the original delivery check. That sample project is now removed.
+Use the [single-file business demo](../../samples/FestivalRobotRental/README.md) for current commands.
+The original C# input remains an [exact-parity regression fixture](../../fixtures/elm-parity/current-sample/csharp/Input.cs).
+
 ```bash
 dotnet run --project src/Morphir.Frontend.CSharp.Cli --no-build -- --package Example --namespace Example.CurrentSupported --project samples/CurrentSupportedExample/CurrentSupportedExample.csproj --framework net10.0 --output artifacts/d13-current-sample.json
 ```

@@ -1,0 +1,13 @@
+{
+  "name": "Example",
+  "sourceDirectory": "src",
+  "exposedModules": [
+    "FestivalRobotRental",
+    "FestivalRobotRental.RentalState",
+    "FestivalRobotRental.RentalPolicy",
+    "FestivalRobotRental.DeliveryRule",
+    "FestivalRobotRental.RentalQuote",
+    "FestivalRobotRental.ChargeTotal",
+    "FestivalRobotRental.RentalBusiness"
+  ]
+}

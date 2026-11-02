@@ -23,7 +23,9 @@ Each rejected D1–D13 entry names executable source rejection tests.
 
 Unmapped forms retain explicit rejection. See [mappings and limits](../classic-output.md)
 and [unsupported features with examples](../unsupported-language-features.md).
-The [registry](../../fixtures/elm-parity/cases.json) has 88 C# cases and 70 independent Elm projects.
+The [registry](../../fixtures/elm-parity/cases.json) has 89 C# cases and 71 independent Elm projects.
 The member grids cover 320 admitted input forms. Separate nullable division tests cover both spellings.
 There are 431 executable member/form rejections.
 D14–D21 remain planned. Source v1 and normalized comparisons do not establish acceptance.
+
+The [single-file robot-rental demo](../../samples/FestivalRobotRental/README.md) covers the approved business feature families. Earlier sample cases remain regression inputs.

@@ -816,7 +816,8 @@
       "parityCases": [
         "d13-functions",
         "d13-captures",
-        "current-sample"
+        "current-sample",
+        "festival-robot-rental"
       ]
     },
     {
@@ -839,7 +840,8 @@
       "parityCases": [
         "d13-functions",
         "d13-captures",
-        "current-sample"
+        "current-sample",
+        "festival-robot-rental"
       ]
     },
     {
@@ -851,7 +853,8 @@
       "parityCases": [
         "d13-functions",
         "d13-captures",
-        "current-sample"
+        "current-sample",
+        "festival-robot-rental"
       ]
     },
     {
@@ -1310,7 +1313,8 @@
       "parityCases": [
         "d11-combinators",
         "d11-fold",
-        "current-sample"
+        "current-sample",
+        "festival-robot-rental"
       ],
       "rejectionCases": [
         "form:d11-indexed-where",

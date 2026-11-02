@@ -116,7 +116,7 @@ public class StructureIntegrationTests
         var folder=System.IO.Path.Combine(Support.Root,"artifacts","d2-failures-"+Guid.NewGuid().ToString("N"));
         CopyTree(source,folder);
         var project=System.IO.Path.Combine(folder,"D2Options.csproj");
-        var xml=File.ReadAllText(project).Replace("../../../samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj",System.IO.Path.Combine(Support.Root,"samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj"),StringComparison.Ordinal);
+        var xml=File.ReadAllText(project).Replace("../../project-system/ThresholdGenerator/ThresholdGenerator.csproj",System.IO.Path.Combine(Support.Root,"fixtures/project-system/ThresholdGenerator/ThresholdGenerator.csproj"),StringComparison.Ordinal);
         File.WriteAllText(project,xml);
         var restore=await Run("dotnet",["restore",project,"--locked-mode","--packages",System.IO.Path.Combine(Support.Root,".packages"),"-m:1","-nr:false"]);
         Assert.True(restore.Exit==0,restore.Text);
@@ -134,16 +134,33 @@ public class StructureIntegrationTests
         Assert.False((await ProjectLoader.LoadAsync(project,new("net9.0"))).Success);
     }
     [Fact]
+    public async Task SingleFileRobotRentalDemoHasExactSourceAndProjectParity()
+    {
+        var project = System.IO.Path.Combine(Support.Root, "samples/FestivalRobotRental/FestivalRobotRental.csproj");
+        var source = System.IO.Path.Combine(Support.Root, "samples/FestivalRobotRental/BusinessLogic.cs");
+        var loaded = await ProjectLoader.LoadAsync(project, new("net10.0"));
+        Assert.True(loaded.Success, string.Join("\n", loaded.Diagnostics));
+        var result = Frontend.Convert(loaded.Compilation!, new("Example", ["Example.FestivalRobotRental"]), loaded.SourceProjects);
+        Assert.Null(StructuralComparison.Compare(Support.Read(Support.CurrentSampleReference), Codec.Encode(Support.Success(result))));
+        foreach (var input in new[] { new[] { "--source", source }, new[] { "--project", project, "--framework", "net10.0" } })
+        {
+            var output = System.IO.Path.Combine(Support.Root, "artifacts", Guid.NewGuid() + ".json");
+            var run = await Cli(input.Concat(["--package", "Example", "--namespace", "Example.FestivalRobotRental", "--output", output]).ToArray());
+            Assert.True(run.Exit == 0, run.Text);
+            Assert.Null(StructuralComparison.Compare(Support.Read(Support.CurrentSampleReference), File.ReadAllText(output)));
+        }
+    }
+    [Fact]
     public async Task ProjectLoaderStillAcquiresGeneratorsAndCompilerInputs()
     {
-        var project=System.IO.Path.Combine(Support.Root,"samples/CurrentSupportedExample/CurrentSupportedExample.csproj");
+        var project=System.IO.Path.Combine(Support.Root,"fixtures/elm-parity/project-generated/Project.csproj");
         var loaded=await ProjectLoader.LoadAsync(project,new("net10.0"));
         Assert.True(loaded.Success,string.Join("\n",loaded.Diagnostics));
         Assert.Contains(loaded.Inputs.SelectMany(i=>i.Sources),s=>s.Generated&&s.Path.EndsWith("Rules.Generated.cs",StringComparison.Ordinal));
         Assert.Contains(loaded.Inputs.SelectMany(i=>i.AdditionalFiles),s=>s.Path.EndsWith("threshold.txt",StringComparison.Ordinal));
         Assert.NotEmpty(loaded.Inputs.SelectMany(i=>i.AnalyzerConfigs));
-        var result=Frontend.Convert(loaded.Compilation!,new("Example",["Example.CurrentSupported"]),loaded.SourceProjects);
-        Assert.Null(StructuralComparison.Compare(ElmParity.Expected("current-sample"),Codec.Encode(Support.Success(result))));
+        var result=Frontend.Convert(loaded.Compilation!,new("Example",["Example.CurrentSupported","Example.Parity"]),loaded.SourceProjects);
+        Assert.Null(StructuralComparison.Compare(ElmParity.Expected("project-generated"),Codec.Encode(Support.Success(result))));
     }
     private static void CopyTree(string source,string target)
     {

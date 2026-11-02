@@ -285,6 +285,10 @@
     "d11-fold": {
       "project": "fixtures/elm-parity/d11-fold/elm",
       "expected": "fixtures/elm-parity/d11-fold/expected/elm.json"
+    },
+    "festival-robot-rental": {
+      "project": "fixtures/elm-parity/festival-robot-rental/elm",
+      "expected": "fixtures/elm-parity/festival-robot-rental/expected/elm.json"
     }
   },
   "cases": [
@@ -993,7 +997,7 @@
         "Example.CurrentSupported"
       ],
       "sources": [
-        "samples/CurrentSupportedExample/ClassicLoan.cs",
+        "fixtures/elm-parity/current-sample/csharp/Input.cs",
         "fixtures/elm-parity/current-sample/csharp/Rules.Generated.cs"
       ],
       "features": [
@@ -2021,6 +2025,32 @@
         "generic-result-types",
         "chained-calls"
       ]
+    },
+    {
+      "id": "festival-robot-rental",
+      "reference": "festival-robot-rental",
+      "package": "Example",
+      "namespaces": [
+        "Example.FestivalRobotRental"
+      ],
+      "sources": [
+        "samples/FestivalRobotRental/BusinessLogic.cs"
+      ],
+      "features": [
+        "D1.business-demo",
+        "D3.business-blocks",
+        "D4.business-nullability",
+        "D5.business-numerics",
+        "D6.business-decimal",
+        "D7.business-calls",
+        "D8.business-enums-tuples",
+        "D9.business-data",
+        "D10.business-generics",
+        "D11.business-collections",
+        "D12.business-patterns",
+        "D13.business-functions",
+        "D11.business-filter-map-fold"
+      ]
     }
   ],
   "auditIds": [
@@ -2064,15 +2094,13 @@
     "T6"
   ],
   "provenanceInputs": [
-    "samples/CurrentSupportedExample/ClassicLoan.cs",
-    "samples/CurrentSupportedExample/CurrentSupportedExample.csproj",
-    "samples/CurrentSupportedExample/packages.lock.json",
-    "samples/CurrentSupportedExample/reference.json",
-    "samples/CurrentSupportedExample/threshold.txt",
-    "samples/CurrentSupportedGenerator/ThresholdGenerator.cs",
-    "samples/CurrentSupportedGenerator/CurrentSupportedGenerator.csproj",
-    "samples/CurrentSupportedGenerator/packages.lock.json",
-    "eng/reference-toolchain.json"
+    "fixtures/project-system/ThresholdGenerator/ThresholdGenerator.cs",
+    "fixtures/project-system/ThresholdGenerator/ThresholdGenerator.csproj",
+    "fixtures/project-system/ThresholdGenerator/packages.lock.json",
+    "eng/reference-toolchain.json",
+    "samples/FestivalRobotRental/FestivalRobotRental.csproj",
+    "samples/FestivalRobotRental/packages.lock.json",
+    "samples/FestivalRobotRental/reference.json"
   ],
   "rejectedAuditIds": [
     "A2",

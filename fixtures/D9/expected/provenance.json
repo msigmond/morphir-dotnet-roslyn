@@ -75,7 +75,7 @@
       "sha256": "ce6e821c804070fc217680b1b1895eab5f8ccc66ef88c38d745f0a76c760189c"
     },
     {
-      "path": "samples/CurrentSupportedExample/Data.cs",
+      "path": "fixtures/D9/csharp/LegacyData.cs",
       "sha256": "3250fab339dde8bb28d5525a5f61d37de68c84cc0875878a947da994dac1d80f"
     },
     {

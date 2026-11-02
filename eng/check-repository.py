@@ -12,6 +12,13 @@ def check(condition, message):
     if not condition:
         errors.append(message)
 
+check({p.name for p in (root/'samples').iterdir() if p.is_dir()} == {'FestivalRobotRental'},
+      'FestivalRobotRental must be the only sample directory')
+sample_sources = sorted(p.relative_to(root).as_posix() for p in (root/'samples').rglob('*.cs')
+                        if not {'bin', 'obj'}.intersection(p.relative_to(root/'samples').parts))
+check(sample_sources == ['samples/FestivalRobotRental/BusinessLogic.cs'],
+      'BusinessLogic.cs must be the only sample business source')
+
 plans = root / 'Morphir_CSharp_Frontend_deliveries'
 check(len(list(plans.glob('*.md'))) == 24, 'Expected all 24 child plans')
 for file in plans.glob('*.md'):

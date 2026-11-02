@@ -43,7 +43,7 @@ function inventory(dir) {
         else if (/\.(elm|json|cs)$/.test(name) && name !== 'morphir-hashes.json') sources.push({path:p,sha256:hash(p)});
     }
 }
-inventory(host); sources.push({path:'samples/CurrentSupportedExample/Data.cs',sha256:hash('samples/CurrentSupportedExample/Data.cs')},{path:'fixtures/D8/expected/sample.json',sha256:hash('fixtures/D8/expected/sample.json')});
+inventory(host); sources.push({path:'fixtures/D9/csharp/LegacyData.cs',sha256:hash('fixtures/D9/csharp/LegacyData.cs')},{path:'fixtures/D8/expected/sample.json',sha256:hash('fixtures/D8/expected/sample.json')});
 const previous=JSON.parse(fs.readFileSync('fixtures/D9/expected/provenance.json'));
 for(const source of previous.sources) if(hash(source.path)!==source.sha256) throw new Error('Frozen reference source changed: '+source.path);
 records.unshift(...previous.fixtures.filter(fixture=>!records.some(record=>record.output===fixture.output)));

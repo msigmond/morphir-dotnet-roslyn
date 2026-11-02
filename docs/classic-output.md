@@ -60,3 +60,5 @@ D11 adds the [collection profile](mappings/D11.md).
 D12 adds the [direct case profile](mappings/D12.md).
 D13 adds [anonymous functions](mappings/D13.md); the D11 follow-up adds [collection calls](mappings/D11.md#collection-operation-follow-up).
 D14–D21 remain planned. See [validation](deliveries/D11-follow-up-elm-parity.md).
+
+The [single-file business demo](../samples/FestivalRobotRental/BusinessLogic.cs) and its [coverage guide](../samples/FestivalRobotRental/README.md) show the approved business feature families.

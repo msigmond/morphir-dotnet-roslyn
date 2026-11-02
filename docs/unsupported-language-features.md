@@ -15,7 +15,7 @@ Valid C# can still fail conversion. The diagnostic gives a source location.
 The transpiler returns no IR for a rejected input. The CLI keeps the previous output file.
 There are no runtime safety checks that can enable these forms.
 
-Use the [current supported example](../samples/CurrentSupportedExample/README.md) for accepted code.
+Use the [current supported example](../samples/FestivalRobotRental/README.md) for accepted code.
 The [language catalog](catalogs/forms.json) records the full feature inventory and delivery owners.
 
 ## Changes to stored values

@@ -2,7 +2,7 @@
   "contract": "Morphir.CSharp.Source/1",
   "mode": "independent-structural-assertions",
   "provenance": "Authored from the approved source audit. No converter output was adopted.",
-  "source": "samples/CurrentSupportedExample/SourceStructure.cs",
+  "source": "fixtures/source-structure/Input.cs",
   "requiredValues": ["MarketValue", "SimpleProduct", "UnguardedDivision", "FloatingDecimal", "DirectNullableRead", "ExplicitStatements"],
   "products": [
     {"name": "MarketValue", "module": "Decimal", "operation": "mul", "fields": ["Quantity", "Price"]},
